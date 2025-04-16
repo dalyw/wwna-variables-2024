@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "ca-sewersheds"
+version = "0.1.0"
+description = "Sewershed plotting and analysis for WWNA"
+authors = ["Daly Wettermark <139182397+dalyw@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+marimo = "^0.8.20"
+pandas = "^2.2.3"
+matplotlib = "^3.9.2"
+numpy = "^2.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

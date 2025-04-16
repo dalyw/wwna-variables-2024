@@ -1,0 +1,258 @@
+PARAMETER_CODE,PARAMETER_DESC,POLLUTANT_CODE,ESMR_PARAMETER_DESC_MANUAL
+10,"Temperature, water deg. centigrade",6128,Temperature
+1009,"Barium, total recoverable",572,
+1032,"Chromium, hexavalent [as Cr]",10214,Chromium (IV)
+1033,"Chromium, trivalent [as Cr]",10215,Chromium (III)
+1062,"Molybdenum, total [as Mo]",6658,"Molybdenum, Total"
+11,"Temperature, water deg. fahrenheit",12389,Temperature
+11123,"Manganese, total recoverable",2423,
+1129,"Molybdenum, total recoverable",6658,
+11503,"Radium 226 + radium 228, total",12175,Radium-226 + Radium-228
+13501,"Strontium 90, total",12285,Strontium-90
+154,Sulfate [as S],6101,"Sulfate, Total (as S)"
+175,"Nitrogen, ammonia, percent removal",375,No Match (confirmed)
+18,Temp. diff. between samp. & upstrm deg. F,12373,Temperature Difference Between Sample and Upstream
+183,"Chlorine, total residual, duration of violation",11094,"Chlorine, Total Residual"
+28012,"Uranium, total [in pci/L]",6439,Uranium
+300,"Oxygen, dissolved [DO]",3051,Dissolved Oxygen
+30500,"Coliform, fecal - % samples exceeding limit",10287,Fecal Coliform
+310,"BOD, 5-day, 20 deg. C",10178,Biochemical Oxygen Demand (BOD) (5-day @ 20 Deg. C)
+34230,Benzo[b]fluoranthene,10110,
+34242,Benzo[k]fluoranthene,10176,
+34306,Chlorodibromomethane,11664,No Match (confirmed)
+34320,Chrysene,1055,
+34361,.alpha.-Endosulfan,10759,No Match (confirmed)
+34438,N-Nitrosodimethylamine [NDMA],10335,N-Nitrosodimethylamine
+34475,Tetrachloroethylene,10284,Tetrachloroethene
+34526,Benzo[a]anthracene,10109,
+34556,"Dibenz[a,h]anthracene",10238,"Dibenzo(a,h)anthracene"
+34675,"2,3,7,8-Tetrachlorodibenzo-p-dioxin",10239,"2,3,7,8-TCDD (Dioxin)"
+3530,"Radiation,Gross Beta Particle Activity",99999,"Radiation, Gross Beta"
+3615,"2-Methyl-4,6-dinitrophenol",10384,"4,6-Dinitro-2-methylphenol"
+3824,Tributyltin,12269,Tributyltin (TBT)
+38260,Surfactants [MBAS],10475,Methylene Blue Active Substances (MBAS)
+39100,Di[2-ethylhexyl] phthalate [DEHP],10005,No Match (confirmed)
+39120,Benzidine,10508,
+39175,Vinyl chloride,10282,
+39180,Trichloroethylene,10285,Trichloroethene
+39330,Aldrin,10024,
+39336,.alpha.-BHC,11126,
+39350,Chlordane [tech mix. and metabolites],11080,Chlordane
+39388,"Endosulfan, total",10757,"Endosulfans, Sum"
+39390,Endrin,10040,
+39420,Heptachlor epoxide,10716,
+39516,Polychlorinated biphenyls [PCBs],10001,"Polychlorinated Biphenyls (PCBs), Sum"
+39700,Hexachlorobenzene,10159,
+50050,"Flow, in conduit or thru treatment plant",11315,Flow
+51061,Flow [dry weather],11313,Flow
+51197,Total Organic Carbon % Removal,11907,"Total Organic Carbon (TOC), Percent Removal"
+51535,Haloacetic acids [HAA5],200000181,No Match (confirmed)
+51543,Temperature Increase Deg. F,12389,No Match (confirmed)
+51600,"pH Range Excursion, Maximum Duration",99999,No Match (confirmed)
+51866,"Polychlorinated biphenyls [PCBs], sum of congeners",10001,Sum of 41 Congeners
+51867,"Polychlorinated biphenyls [PCBs], sum of Aroclors",10001,Total Arochlors
+51874,Beta/photon emitters,320002261,No Match (confirmed)
+51933,Diazinon + Chlorpyrifos,320002721,No Match (confirmed)
+530,"Solids, total suspended",10486,Total Suspended Solids (TSS)
+545,"Solids, settleable",12208,Settleable Solids
+610,"Nitrogen, ammonia total [as N]",375,"Ammonia, Total (as N)"
+612,"Nitrogen, ammonia, tot unionized [as N]",375,"Ammonia, Unionized (as N)"
+61209,Perchlorate [ClO4],3215,Perchlorate
+615,"Nitrogen, nitrite total [as N]",2806,"Nitrite, Total (as NO2)"
+61736,"Turbidity, time above limit",12454,Turbidity
+619,"Ammonia, unionized",375,"Ammonia, Unionized (as N)"
+620,"Nitrogen, nitrate total [as N]",5713,"Nitrate, Total (as N)"
+630,Nitrite + Nitrate total [as N],10354,Nitrite Plus Nitrate (as N)
+640,"Nitrogen, inorganic total",2817,"Nitrate, Total (as N)"
+680,"Carbon, tot organic [TOC]",6656,Total Organic Carbon (TOC)
+7000,"Tritium, total",12446,Tritium
+70295,"Solids, total dissolved",4151,Total Dissolved Solids (TDS)
+718,"Cyanide, weak acid, dissociable",5123,No Match (confirmed)
+74055,"Coliform, fecal general",10287,Fecal Coliform
+74056,"Coliform, total general",4146,Total Coliform
+77163,"1,3-Dichloropropene",10031,"1,3-Dichloropropylenes, Sum"
+77835,"Hexachlorocyclohexane, total",11128,"Hexachlorocyclohexanes, Sum"
+78218,"Phenolic compounds, unchlorinated",10397,"Phenols, Non-chlorinated"
+78247,"Chromium, hexavalent tot recoverable",10214,Chromium (VI) Total Recoverable
+78248,"Cyanide, total recoverable",5123,No Match (confirmed)
+78456,Halomethanes,11379,"Halomethanes, Sum"
+78480,Effluent dilution ratio,11232,Dilution Rate
+80,Color [PT-CO units],11105,"Color, Pt-Co (unfiltered)"
+80045,"Alpha, gross particle activity",10804,"Radiation, Gross Alpha"
+80082,"BOD, carbonaceous [5 day, 20 C]",10107,Carbonaceous Biochemical Oxygen Demand (CBOD) (5-day @ 20 Deg. C)
+80091,"BOD, carb-5 day, 20 deg C, percent removal",10852,"Carbonaceous Biochemical Oxygen Demand (CBOD) (5-day @ 20 Deg. C), Percent Removal"
+81010,"BOD, 5-day, percent removal",10846,"BOD5 @ 20 Deg. C, Percent Removal"
+81011,"Solids, suspended percent removal",12240,"Total Suspended Solids (TSS), Percent Removal"
+81383,"Carbonaceous oxygen demand, % removal",10853,No Match (confirmed)
+81524,Dichlorobenzene,10152,"Dichlorobenzenes, Sum"
+82080,"Trihalomethane, tot.",10489,Total Trihalomethanes (TTHM)
+82126,"Tritium, total",12446,Tritium
+82581,"pH range excursions, > 60 minutes",12526,No Match (confirmed)
+82582,"pH range excursions, monthly total accum",12532,No Match (confirmed)
+932,"Sodium, %",6802,
+940,Chloride [as Cl],5033,Chloride
+951,"Fluoride, total [as F]",1822,"Fluoride, Total"
+998,"Beryllium, total recoverable [as Be]",4915,"Beryllium, Total Recoverable"
+TCC1E,%Effect Static 4 Day Chronic Raphidocelis subcapitata,4677,No Match (confirmed)
+TCK1D,%Effect Static 48Hr Chronic Macrocystis pyrifera,4677,No Match (confirmed)
+TCK3R,%Effect Static 48Hr Chronic Haliotis rufescens,4677,No Match (confirmed)
+TCP3B,%Effect Static Renewal 7 Day Chronic Ceriodaphnia dubia,4677,Chronic Toxicity-C.dubia-Survival
+TCP6C,%Effect Statre 7Day Chronic Pimephales,4677,No Match (confirmed)
+TCP6L,%Effect Static Renewal 7 Day Chronic Atherinops affinis,4677,No Match (confirmed)
+TGB3B,Pass/Fail Static 96Hr Acute Ceriodaphnia Dubia,4677,Acute Toxicity-C.dubia-survival
+TGB6C,Pass/Fail Static 96 Hr Acute Pimephales Promelas,4677,No Match (confirmed)
+TGC1E,Pass/Fail Static 4 Day Chronic Raphidocelis subcapitata,4677,No Match (confirmed)
+TGK1D,Pass/Fail Static 48Hr Chronic Macrocystis pyrifera,4677,No Match (confirmed)
+TGK3R,Pass/Fail Static 48Hr Chronic Haliotis rufescens,4677,No Match (confirmed)
+TGN3Z,Pass/Fail Static Renewal 96Hr Acute Americamysis bahia,4677,"Acute Toxicity-Mysid, H. costata or M. bahia-survival"
+TGN6L,Pass/Fail Static Renewal 96Hr Acute Atherinops affinis,4677,No Match (confirmed)
+TGP3B,Pass/Fail Static Renewal 7 Day Chronic Ceriodaphnia,4677,No Match (confirmed)
+TGP6C,Pass/Fail Statre 7Day Chronic Pimephales Promelas,4677,No Match (confirmed)
+TGP6L,Pass/Fail Static Renewal 7 Day Chronic Atherinops affinis,4677,No Match (confirmed)
+TGS3L,Pass/Fail Static 20 Minute Fertilization Chronic Strongylocentrotus purpuratus,4677,No Match (confirmed)
+TRA6C,% Survival Static 48Hr Acute Pimephales promelas,4677,No Match (confirmed)
+TRB3B,%Surv Static 96Hr Acute Ceriodaphnia Dubia,4677,Acute Toxicity-C.dubia-survival
+TRB6C,%Surv Static 96Hr Acute Pimphales Promelas,4677,No Match (confirmed)
+TRB6I,%Surv Static 96Hr Acute Oncorhynchus Mykiss,4677,No Match (confirmed)
+TRM3B,%Srv Statre 48Hr Acute Ceriodaphnia Dubia,4677,Acute Toxicity-C.dubia-survival
+TRM6C,% Surv Statre 48Hr Acute Pimepha Promelas,4677,No Match (confirmed)
+TRN3B,96Hr Acute Ceriodaphn. Dubia % Srv,4677,Acute Toxicity-C.dubia-survival
+TRN6C,% Survival Static Renewal 96Hr Acute Pimephales promelas,4677,No Match (confirmed)
+TRN6I,%Surv Statre 96Hr Oncorhynchus Mykiss,4677,No Match (confirmed)
+TRX6C,% Survival Flow Through 96Hr Acute Pimephales promelas,4677,No Match (confirmed)
+TRX6I,% Survival Flow Through 96Hr Acute Oncorhynchus mykiss,4677,No Match (confirmed)
+TSB6C,Static 96Hr Acute Pimphales promelas,4677,No Match (confirmed)
+TSB6J,Static 96Hr Acute Medinia beryllina,4677,No Match (confirmed)
+TSN3E,Static Renewal 96Hr Acute Mysidopsis Bahia,4677,"Acute Toxicity-Mysid, H. costata or M. bahia-survival"
+TSN3Q,Static Renewal 96HR Acute Holmesimysis costata,4677,"Acute Toxicity-Mysid, H. costata or M. bahia-survival"
+TSN6A,96Hr Acute Cyprinodon Variegatu,4677,No Match (confirmed)
+TSN6C,Static Renewal 96Hr Acute Pimphales Promelas,4677,No Match (confirmed)
+TSN6J,Static Renewal 96Hr Acute Menidia Beryllina,4677,No Match (confirmed)
+TSX6J,Flow Thru 96 Hr Acute Menidia Beryllina,4677,No Match (confirmed)
+TTC1A,Static 4Day Chronic Selen. Capricornutum,4677,No Match (confirmed)
+TTC1E,Static 4 Day Chronic Raphidocelis subcapitata,4677,No Match (confirmed)
+TTD3B,Static 7Day Chronic Ceriodaphnia Dubia,4677,Chronic Toxicity-C.dubia-Survival
+TTD6C,Static 7Day Chronic Pimephales Promelas,4677,No Match (confirmed)
+TTJ3L,Static 72Hr Chronic Strongyl. Purpuratus,4677,No Match (confirmed)
+TTK1D,Static 48Hr Chronic Macrocystis Pyrifera,4677,No Match (confirmed)
+TTK3R,Static 48Hr Chronic Haliotis Rufescens,4677,No Match (confirmed)
+TTK3S,Static 48Hr Chronic Mytilis Species,4677,No Match (confirmed)
+TTM6A,Static Renewal Chronic Cyprinodeon variegas,4677,No Match (confirmed)
+TTP3B,Static Renewal 7-Day Chronic Ceriodaphnia dubia,4677,Chronic Toxicity-C.dubia-Survival
+TTP3Z,Static Renewal 7-Day Chronic Americamysis bahia,4677,"Chronic Toxicity-Atlantic Mysid, A.bahia-Survival"
+TTP6C,Static Renewal 7-Day Chronic Pimphales promelas,4677,No Match (confirmed)
+TTP6J,Static Renewal 7-Day Chronic Menidia beryllina,4677,No Match (confirmed)
+TTP6L,Static Renewal 7-Day Chronic Atherinops affinis,4677,No Match (confirmed)
+TTR1F,Static 96Hr Chronic Thalassiosira Pseudonana Mar.Diat,4677,No Match (confirmed)
+TTS3L,Static 20Min Chronic Strongyl. Purpuratus,4677,No Match (confirmed)
+TTS3N,Static 20Min Chronic Dendraster Excentri,4677,No Match (confirmed)
+WC13B,"Chronic Mthd Sublethal Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, StatR8dmax C dubia",4677,Chronic Toxicity-C.dubia-Survival
+WCP6C,"Chronic Mthd Sublethal Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, StatR7d P promelas",4677,No Match (confirmed)
+WDN3E,"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr A bahia",4677,"Acute Toxicity-Mysid, H. costata or M. bahia-survival"
+WDN6J,"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr M beryllina",4677,No Match (confirmed)
+WDN6L,"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr A affinis",4677,No Match (confirmed)
+WEP3E,"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d A bahia",4677,"Chronic Toxicity-Atlantic Mysid, A.bahia-Growth"
+WEP6C,"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d P promelas",4677,No Match (confirmed)
+WEP6J,"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d M beryllina",4677,No Match (confirmed)
+WEP6L,"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d A affinis",4677,No Match (confirmed)
+WF13B,"Chronic Mthd, Survival Endpt %Effect, Reprod Endpt Median TSTcHo R/nR Pass/Fail, StatR8dmax C dubia",4677,Chronic Toxicity-C.dubia-Reproduction
+WGR1E,"Chronic Mthd Growth Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static96hr R subcapitata",4677,No Match (confirmed)
+WH23L,,,No Match (confirmed)
+WH23N,,,No Match (confirmed)
+WHK3R,"Chronic Mthd Larval Development Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr H rufescens",4677,No Match (confirmed)
+WI33L,"Chronic Mthd Fertilization Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static40min S purpuratus",4677,No Match (confirmed)
+WI33N,"Chronic Mthd Fertilization Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static40min D excentricus",4677,No Match (confirmed)
+WJK1D,"Chronic Mthd Germination Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr M pyrifera",4677,No Match (confirmed)
+WKK1D,"Chronic Mthd Germ Tube Length Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr M pyrifera",4677,No Match (confirmed)
+7000,"Tritium, total",12446,Tritium
+11503,"Radium 226 + radium 228, total",12175,Radium-226 + Radium-228
+13501,"Strontium 90, total",12285,Strontium-90
+22417,Methyl tert-butyl ether [MTBE],10418,
+22456,Polynuclear Aromatic Hydrocarbons [PAHs],10100,
+28012,"Uranium, total [in pci/L]",6439,Uranium
+51197,Total Organic Carbon % Removal,11907,"Total Organic Carbon (TOC), Percent Removal"
+51173,"Cyanide, free available",5123,
+30500,"Coliform, fecal - % samples exceeding limit",10287,Fecal Coliform
+32101,Dichlorobromomethane,11660,
+32102,Carbon tetrachloride,10344,
+32103,"1,2-Dichloroethane",10262,
+32104,Bromoform,11673,
+32105,Dibromochloromethane,11664,
+32106,Chloroform,10345,
+34010,Toluene,10161,
+34030,Benzene,603,
+3520,"Radiation, gross beta",10969,
+3582,Oil and grease,10364,
+39570,Diazinon,10408,
+46225,Chloride,5033,
+39110,Di-n-butyl phthalate,10007,
+39117,Phthalate esters,10630,
+39300,"4,4'-DDT",10125,
+39310,"4,4'-DDD",10126,
+39320,"4,4'-DDE",10127,
+39379,"DDT/DDD/DDE, sum of p,p' & o,p' isomers",11135,
+39380,Dieldrin,10039,
+39400,Toxaphene,4234,
+39410,Heptachlor,10748,
+34408,Isophorone,10042,
+34423,Methylene chloride,10340,
+34428,N-Nitrosodi-N-propylamine,10689,
+34433,N-Nitrosodiphenylamine,10121,
+51040,E. coli,10251,
+34210,Acrolein,10054,
+34215,Acrylonitrile,10057,
+34247,Benzo[a]pyrene,10174,
+34273,Bis[2-chloroethyl] ether,10254,
+34278,Bis[2-chloroethoxy]methane,11248,
+34283,Bis[2-chloroisopropyl] ether,12149,
+34301,Chlorobenzene,10151,
+34336,Diethyl phthalate,10008,
+34341,Dimethyl phthalate,10631,
+34346,"1,2-Diphenylhydrazine",11399,
+34371,Ethylbenzene,10157,
+34376,Fluoranthene,7822,
+34386,Hexachlorocyclopentadiene,10662,
+34391,Hexachlorobutadiene,10017,
+34396,Hexachloroethane,10266,
+34403,"Indeno[1,2,3-cd]pyrene",10313,
+50060,"Chlorine, total residual",928,
+50064,"Chlorine, free available",928,
+34447,Nitrobenzene,10164,
+34501,"1,1-Dichloroethylene",10278,
+34506,"1,1,1-Trichloroethane",10256,
+34511,"1,1,2-Trichloroethane",10258,
+34516,"1,1,2,2-Tetrachloroethane",10257,
+34571,"1,4-Dichlorobenzene",10140,
+34611,"2,4-Dinitrotoluene",10144,
+34616,"2,4-Dinitrophenol",12011,
+34621,"2,4,6-Trichlorophenol",12007,
+34631,"3,3'-Dichlorobenzidine",12519,
+61211,Enterococci,11237,
+82077,"Radiation, gross alpha",10804,
+81403,Chlorpyrifos,12079,
+74015,"Phenols, chlorinated",10390,
+95,Specific conductance,12263,
+400,pH,10510,
+945,"Sulfate, total [as SO4]",6101,
+82698,TCDD equivalents,10711,
+71901,"Mercury, total recoverable",2448,
+982,"Thallium, total recoverable",4068,
+923,"Sodium, total recoverable",6802,
+999,"Boron, total recoverable",10987,
+665,"Phosphorus, total [as P]",5889,
+1074,"Nickel, total recoverable",2741,
+1079,Silver total recoverable,3714,Silver
+1094,"Zinc, total recoverable",6352,
+1104,"Aluminum, total recoverable",360,
+1113,"Cadmium, total recoverable",776,
+1114,"Lead, total recoverable",6562,
+1118,"Chromium, total recoverable",1012,
+1119,"Copper, total recoverable",1165,
+1268,"Antimony, total recoverable",4871,
+51409,Specific Conductance,99999,
+70,Turbidity,6638,
+978,"Arsenic, total recoverable",467,
+980,"Iron, total recoverable",2215,
+556,Oil & Grease,10364,
+600,"Nitrogen, total [as N]",2817,
+720,"Cyanide, total [as CN]",5123,

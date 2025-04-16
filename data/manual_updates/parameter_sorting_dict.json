@@ -1,0 +1,261 @@
+{
+    "Nutrients": {
+        "Nitrogen": {
+            "values": ["Nitrogen", "nitrite", "nitrate", "ammoni", "urea", "urine"],
+            "case": false
+        },
+        "Phosphorus": {
+            "values": ["Phosphorus", "phosphate"],
+            "case": false
+        },
+        "Potassium": {
+            "values": ["Potassium"],
+            "case": false
+        },
+        "Algae and other Nutrient-related": {
+            "values": ["eutrophic", "chlorophyll", "algae", "nutrient"],
+            "case": false
+        },
+        "Dissolved Oxygen": {
+            "values": ["DO", "Dissolved Oxygen"],
+            "case": false
+        }
+    },
+    "pH": {
+        "pH": {
+            "values": ["pH", "acidity", "acid", "anion", "cation"],
+            "case": true
+        },
+        "alkalinity": {
+            "values": ["alkalinity", "CaCO3", "HCO3", "carbonate"],
+            "case": true
+        }
+    },
+    "Flow": {
+        "values": ["flow", "dilution"],
+        "case": false
+    },
+    "Aquatic Toxicity": {
+        "values": ["48Hr", "96Hr", "Acute", "Chronic", "toxicity"],
+        "case": false
+    },
+    "Organics": {
+        "COD": {
+            "values": ["BOD","COD", "chemical oxygen", "carbon"],
+            "case": false
+        },
+        "Other Organics": {
+            "values": ["grease", "oil", "Thiourea", "volatile organic", "caffeine", "organics", "total organic"],
+            "case": false
+        }
+    },
+    "Color and Turbidity": {
+        "Color": {
+            "values": ["color"],
+            "case": false
+        },
+        "Turbidity": {
+            "values": ["turbidity"],
+            "case": false
+        }
+    },
+    "Solids": {
+        "Suspended Solids": {
+            "values": ["solids", "sand", "silica", "tss", "total suspendable", "sediment"],
+            "case": false
+        },
+        "Dissolved Solids": {
+            "values": ["dissolved solids", "tds", "sulfate", "sulfide", "chloride", "sodium", "SOPP", "conduct", "salinity", "fluoride"],
+            "case": false
+        }
+    },
+    "Temperature": {
+        "values": ["temperature", "thermal", "temp."],
+        "case": false
+    },
+    "Pathogens": {
+        "values": ["pathogen", "coli", "organism", "bacteria", "virus", "fungus", "mold", "cocc"],
+        "case": false
+    },
+    "Toxic Organics": {
+        "values": [
+            "1,4-Dioxane", "Acrolein", "Aldrin", "Anatoxin-A", "Benzene", "Bensulide", "BHC", "Bifenthrin", "Bromaform",
+            "Carbaryl", "Carbofuran", "ChemA", "Chlordane", "Chloroform", "Chlorpyrifos", "Chrysene",
+            "Chrysene (C1-C4)", "Clothianidin", "Cyfluthrin", "Cyhalothrin", "Cypermethrin", "Dacthal", "DDD",
+            "DDE", "DDT", "Deltamethrin", "Diazinon", "Dichlorvos", "Dieldrin", "Dimethoate", "Disulfoton",
+            "Diuron", "Endosulfan", "Endrin", "Ethylbenzene", "Fenpropathrin", "Fenpyroximate", "Fenvalerate",
+            "Fipronil", "Fluorene", "Furan", "Imidacloprid", "Isophorone", "Linuron", "Malathion", "Metolachlor",
+            "Methomyl", "Naphthalene", "Oxyfluorfen", "PAHs", "Paraquat", "PCB", "PCP", "Perchlorate",
+            "Permethrin", "Phenanthrene", "Profenofos", "Prometryn", "Pyrene", "Pyrethroid", "Simazine",
+            "Styrene", "TCDD", "Tetrachloroethylene/PCE", "Thiamethoxam", "Toluene", "Toxaphene",
+            "Trichloroethylene/TCE", "Trifluralin", "Vinyl", "Xylene",
+            "hexa", "hept", "octa", "nona", "deca",
+            "1-", "2-", "2,4", "3-", "4-", "N-", "acet", "acil", "acryl", "alcohol", "aldehyde", "anthracene", "atics",
+            "azone", "benz", "butan", "busan", "butyl", "cresol", "dipro", "dioxin", "ene", "ethe", "ethyl",
+            "foaming", "form", "furfural", "meth", "molinate", "nalco", "nide", "niline", "o-", "oluene",
+            "penox", "pesticides", "petroleum", "phenol", "phthalate", "poxide", "propanol", "propylene",
+            "propy", "ridine", "styrene", "surfactant", "sutan", "tetrach", "thylene", "triclo", "xylen",
+            "zine", "zole"
+        ],
+        "case": false
+    },
+    "Inorganics": {
+        "Toxic Inorganics": {
+            "values": ["arsenic", "hydrogen sulfide", "boron", "cyanide"],
+            "case": false
+        },
+        "Disinfectants": {
+            "values": ["disinfectant", "chlorine", "chlorine dioxide", "chloramine", "chlorinate"],
+            "case": false
+        }
+    },
+    "Metals": {
+        "Aluminum": {
+            "values": ["Aluminum"],
+            "case": false
+        },
+        "Antimony": {
+            "values": ["Antimony"],
+            "case": false
+        },
+        "Arsenic": {
+            "values": ["Arsenic"],
+            "case": false
+        },
+        "Barium": {
+            "values": ["Barium"],
+            "case": false
+        },
+        "Beryllium": {
+            "values": ["Beryllium"],
+            "case": false
+        },
+        "Cadmium": {
+            "values": ["Cadmium"],
+            "case": false
+        },
+        "Calcium": {
+            "values": ["Calcium"],
+            "case": false
+        },
+        "Chromium": {
+            "values": ["Chromium"],
+            "case": false
+        },
+        "Cobalt": {
+            "values": ["Cobalt"],
+            "case": false
+        },
+        "Copper": {
+            "values": ["Copper"],
+            "case": false
+        },
+        "Iron": {
+            "values": ["Iron"],
+            "case": false
+        },
+        "Lead": {
+            "values": ["Lead"],
+            "case": false
+        },
+        "Magnesium": {
+            "values": ["Magnesium"],
+            "case": false
+        },
+        "Manganese": {
+            "values": ["Manganese"],
+            "case": false
+        },
+        "Mercury": {
+            "values": ["Mercury"],
+            "case": false
+        },
+        "Molybdenum": {
+            "values": ["Molybdenum", "Molybdate"],
+            "case": false
+        },
+        "Nickel": {
+            "values": ["Nickel"],
+            "case": false
+        },
+        "Selenium": {
+            "values": ["Selenium"],
+            "case": false
+        },
+        "Silver": {
+            "values": ["Silver"],
+            "case": false
+        },
+        "Strontium": {
+            "values": ["Strontium"],
+            "case": false
+        },
+        "Thallium": {
+            "values": ["Thallium"],
+            "case": false
+        },
+        "Thorium": {
+            "values": ["Thorium"],
+            "case": false
+        },
+        "Tin": {
+            "values": ["Tin"],
+            "case": false
+        },
+        "Titanium": {
+            "values": ["Titanium"],
+            "case": false
+        },
+        "Tungsten": {
+            "values": ["Tungsten"],
+            "case": false
+        },
+        "Uranium": {
+            "values": ["Uranium"],
+            "case": false
+        },
+        "Vanadium": {
+            "values": ["Vanadium"],
+            "case": false
+        },
+        "Xenon": {
+            "values": ["Xenon"],
+            "case": false
+        },
+        "Yttrium": {
+            "values": ["Yttrium"],
+            "case": false
+        },
+        "Zinc": {
+            "values": ["Zinc"],
+            "case": false
+        },
+        "Zirconium": {
+            "values": ["Zirconium"],
+            "case": false
+        },
+        "Other Metals": {
+            "values": ["metals", "Thiosulfate"],
+            "case": false
+        }
+    },
+    "Other": {
+        "Radiation": {
+            "values": ["radiation", "alpha", "beta", "gamma", "particle activity", "Strontium-90", "Strontium 90", 
+            "radionuc", "radioactiv","radium", "tritium", "radon"],
+            "case": false
+        },
+        "Fuel": {
+            "values": ["fuel", "diesel", "gasoline", "gas", "oil", "petroleum", "kerosene", "bunker", "lubricant", "lubricant oil", "lubricating oil", "lubricating oil"],
+            "case": false
+        },
+        "Other": {
+            "values": ["additives", "alpha", "asbestos", "began", "benthic", "beta", "coal", "conditions", "connections",
+            "downtime", "drilling", "elevation", "equipment", "facility", "fish", "foam", "habitat",
+            "invasive species", "level", "odor", "overflow", "plants",
+            "rainfall", "seafood", "swimm", "tidal", "tissue", "trace elements", "trash", "vegetation", "diesel", "fuel"
+        ],
+            "case": false
+        }
+    }
+}
