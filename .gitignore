@@ -19,7 +19,7 @@ processed_data/step3/figures_R
 processed_data/step4/csv
 processed_data/step4/figures_py
 processed_data/step4/figures_R
-processde/data/facilities_list_updated.csv
+processed_data/facilities_list_updated.csv
 
 # Python
 __pycache__/

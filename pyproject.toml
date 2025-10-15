@@ -1,18 +1,29 @@
-[tool.poetry]
-name = "ca-sewersheds"
+[project]
+name = "wwna-variables-2024"
 version = "0.1.0"
-description = "Sewershed plotting and analysis for WWNA"
-authors = ["Daly Wettermark <139182397+dalyw@users.noreply.github.com>"]
+description = "Wastewater needs assessment variables analysis for California"
+authors = [{name = "Daly Wettermark", email = "139182397+dalyw@users.noreply.github.com"}]
 readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "marimo>=0.8.20",
+    "pandas>=2.2.3",
+    "matplotlib>=3.9.2",
+    "numpy>=2.1.1",
+    "geopandas>=0.14.0",
+    "scipy>=1.11.0",
+    "us-sewersheds @ git+https://github.com/dalyw/us-sewersheds.git",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-marimo = "^0.8.20"
-pandas = "^2.2.3"
-matplotlib = "^3.9.2"
-numpy = "^2.1.1"
-
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",
+    "flake8>=7.0.0",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["wwna_variables_2024"]
