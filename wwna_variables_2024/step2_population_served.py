@@ -17,7 +17,9 @@ def load_and_process_cwns_data():
     cwns_data = load_cwns_data(data_dir="data/cwns/CA_2022CWNS_APR2024/")
 
     # Filter for California facilities
-    facilities = cwns_data["facilities"][cwns_data["facilities"]["STATE_CODE"] == "CA"]
+    facilities = cwns_data["facilities"][
+        cwns_data["facilities"]["STATE_CODE"] == "CA"
+    ]
 
     # Merge with other CWNS datasets
     merge_columns = {
@@ -44,7 +46,9 @@ def load_and_process_cwns_data():
 def load_covid_monitoring_data():
     """Load COVID monitoring dataset with population information"""
     logger.info("Loading COVID monitoring data...")
-    return pd.read_csv("data/ww_surveillance/wastewatersurveillancecalifornia.csv")
+    return pd.read_csv(
+        "data/ww_surveillance/wastewatersurveillancecalifornia.csv"
+    )
 
 
 def load_sso_data():
@@ -78,7 +82,9 @@ def merge_population_data(facilities_df, covid_data, sso_data):
     if "population_served" in covid_data.columns:
         # Check if epaid column contains lists instead of strings
         if covid_data["epaid"].apply(lambda x: isinstance(x, list)).any():
-            logger.info("Found list values in epaid column, exploding to separate rows")
+            logger.info(
+                "Found list values in epaid column, exploding to separate rows"
+            )
             # Explode the epaid column if it contains lists
             covid_data = covid_data.explode("epaid")
 
@@ -125,7 +131,9 @@ def merge_population_data(facilities_df, covid_data, sso_data):
     )
 
     # Save merged population data
-    merged_pop.to_csv("processed_data/step2/merged_population_data.csv", index=False)
+    merged_pop.to_csv(
+        "processed_data/step2/merged_population_data.csv", index=False
+    )
 
     return merged_pop
 

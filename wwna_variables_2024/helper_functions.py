@@ -103,7 +103,9 @@ def read_dmr(year, drop_no_limit=False):
     data = data[
         data["NODI_CODE"].isna()
     ]  # drop rows where No Data Indicator is present
-    data = data[data["MONITORING_LOCATION_CODE"].isin(["1", "2", "EG", "Y", "K"])]
+    data = data[
+        data["MONITORING_LOCATION_CODE"].isin(["1", "2", "EG", "Y", "K"])
+    ]
     data = data[data["EXTERNAL_PERMIT_NMBR"].isin(npdes_from_facilities_list)]
     # if data['PARAMETER_CODE'] has leading 0s, remove them
     data["PARAMETER_CODE"] = data["PARAMETER_CODE"].str.lstrip("0")
@@ -167,7 +169,8 @@ def read_limits(year):
     Reads the CA DMR data for the given year
     """
     data = pd.read_csv(
-        f"data/dmrs/CA_FY{year}_NPDES_DMRS_LIMITS/" f"CA_FY{year}_NPDES_LIMITS.csv",
+        f"data/dmrs/CA_FY{year}_NPDES_DMRS_LIMITS/"
+        f"CA_FY{year}_NPDES_LIMITS.csv",
         low_memory=False,
     )
     len_orig = len(data)
@@ -201,7 +204,9 @@ def read_esmr(save=False):
     ]
 
     # Read specific ESMR file
-    file_path = "data/esmr/esmr-analytical-export_years-2006-2024_2024-09-03.csv"
+    file_path = (
+        "data/esmr/esmr-analytical-export_years-2006-2024_2024-09-03.csv"
+    )
 
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"ESMR data file not found: {file_path}")
@@ -215,7 +220,7 @@ def read_esmr(save=False):
     return data
 
 
-### CATEGORIZE PARAMETERS
+# CATEGORIZE PARAMETERS
 with open("data/manual_updates/parameter_sorting_dict.json", "r") as f:
     parameter_sorting_dict = json.load(f)
 

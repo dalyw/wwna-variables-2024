@@ -3,9 +3,16 @@ import numpy as np
 import logging
 import os
 from scipy import stats
-from helper_functions import *
+from helper_functions import (
+    analysis_range,
+    columns_to_keep_dmr,
+    npdes_from_facilities_list,
+)
 import pickle
-from wwna_variables_2024.plotting_functions import *
+from wwna_variables_2024.plotting_functions import (
+    plot_facilities_map,
+    plot_facilities_summary,
+)
 
 from multiprocessing import Pool, cpu_count
 
@@ -29,7 +36,9 @@ def get_slope_near_exceedance_facilities(
             for (
                 STANDARD_UNIT_DESC,
                 MONITORING_LOCATION_CODE,
-            ), limit_data in facility_param_dict[NPDES_code][parameter_code].items():
+            ), limit_data in facility_param_dict[NPDES_code][
+                parameter_code
+            ].items():
                 slope = limit_data["slope"]
                 latest_limit = limit_data["latest_limit"]
                 qualifiers = limit_data["qualifiers"]
@@ -80,7 +89,9 @@ def get_slope_near_exceedance_facilities(
     )
 
     if print_counts:
-        print(f"{len(facilities_with_slope)} w/ slope>{slope_threshold * 100}%")
+        print(
+            f"{len(facilities_with_slope)} w/ slope>{slope_threshold * 100}%"
+        )
         print(
             f"{len(facilities_with_near_exceedance)} pairs with Q1/Q3 > "
             f"{limit_threshold * 100}% of limit"
@@ -184,7 +195,9 @@ def process_facility_group(args):
     ), group = args
 
     # Convert data types and handle missing values
-    dates = pd.to_numeric(group["MONITORING_PERIOD_END_DATE_NUMERIC"], errors="coerce")
+    dates = pd.to_numeric(
+        group["MONITORING_PERIOD_END_DATE_NUMERIC"], errors="coerce"
+    )
     values = pd.to_numeric(group["DMR_VALUE_STANDARD_UNITS"], errors="coerce")
 
     # Remove NaN values and ensure unique x values
@@ -230,7 +243,9 @@ def process_facility_group(args):
     )
 
     # Get the most recent limit value safely
-    limits = pd.to_numeric(group["LIMIT_VALUE_STANDARD_UNITS"], errors="coerce")
+    limits = pd.to_numeric(
+        group["LIMIT_VALUE_STANDARD_UNITS"], errors="coerce"
+    )
     latest_limit = limits.iloc[-1] if not limits.empty else np.nan
 
     # Create result dictionary
@@ -242,7 +257,9 @@ def process_facility_group(args):
         "qualifiers": group["LIMIT_VALUE_QUALIFIER_CODE"].values,
         "dates": dates,
         "values": values,
-        "datetimes": pd.to_datetime(group["MONITORING_PERIOD_END_DATE"]).values,
+        "datetimes": pd.to_datetime(
+            group["MONITORING_PERIOD_END_DATE"]
+        ).values,
         "frequency_code": group["LIMIT_FREQ_OF_ANALYSIS_CODE"].values,
         "outlier_mask": outlier_mask,
         "value_mask": value_mask,
@@ -299,12 +316,18 @@ def read_all_dmrs(save=False, drop_toxicity=False):
 
             # Filter data
             data = data[
-                data["MONITORING_LOCATION_CODE"].isin(["1", "2", "EG", "Y", "K"])
+                data["MONITORING_LOCATION_CODE"].isin(
+                    ["1", "2", "EG", "Y", "K"]
+                )
             ]
-            data = data[data["EXTERNAL_PERMIT_NMBR"].isin(npdes_from_facilities_list)]
+            data = data[
+                data["EXTERNAL_PERMIT_NMBR"].isin(npdes_from_facilities_list)
+            ]
 
             if drop_toxicity:
-                data = data[~data["PARAMETER_DESC"].str.contains("Toxicity", na=False)]
+                data = data[
+                    ~data["PARAMETER_DESC"].str.contains("Toxicity", na=False)
+                ]
 
             data_dict[year] = data
             logger.info(
@@ -319,7 +342,9 @@ def read_all_dmrs(save=False, drop_toxicity=False):
         # Load from pickle
         with open("processed_data/step3/data_dict.pkl", "rb") as f:
             data_dict = pickle.load(f)
-        logger.info(f"Loaded data for {min(data_dict.keys())}-{max(data_dict.keys())}")
+        logger.info(
+            f"Loaded data for {min(data_dict.keys())}-{max(data_dict.keys())}"
+        )
 
     return data_dict
 
@@ -332,9 +357,9 @@ def main(generate_plots=True):
 
     # Load unique parameter codes from step1 output
     logger.info("Loading unique parameter codes...")
-    unique_parameter_codes = pd.read_csv("processed_data/step1/dmr_esmr_mapping.csv")[
-        "PARAMETER_CODE"
-    ].unique()
+    unique_parameter_codes = pd.read_csv(
+        "processed_data/step1/dmr_esmr_mapping.csv"
+    )["PARAMETER_CODE"].unique()
 
     # Load data - first time with save=True
     logger.info("Loading and processing DMR data...")
@@ -357,7 +382,9 @@ def main(generate_plots=True):
         filtered_data = pd.concat(
             [
                 data_dict[year][
-                    data_dict[year]["PARAMETER_CODE"].isin(unique_parameter_codes)
+                    data_dict[year]["PARAMETER_CODE"].isin(
+                        unique_parameter_codes
+                    )
                 ]
                 for year in analysis_range
             ]
@@ -386,7 +413,9 @@ def main(generate_plots=True):
                     facility_param_dict[NPDES_code] = {}
                 if parameter_code not in facility_param_dict[NPDES_code]:
                     facility_param_dict[NPDES_code][parameter_code] = {}
-                facility_param_dict[NPDES_code][parameter_code][key] = result_dict
+                facility_param_dict[NPDES_code][parameter_code][
+                    key
+                ] = result_dict
 
         # Save facility_param_dict
         with open("processed_data/step3/facility_param_dict.pkl", "wb") as f:
@@ -427,7 +456,9 @@ def main(generate_plots=True):
         parameter_code,
         *_,
     ) in facilities_slope_near_exceedence:
-        num_parameters_per_facility.setdefault(facility, set()).add(parameter_code)
+        num_parameters_per_facility.setdefault(facility, set()).add(
+            parameter_code
+        )
     num_parameters_per_facility = {
         f: len(p) for f, p in num_parameters_per_facility.items()
     }

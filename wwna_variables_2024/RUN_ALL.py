@@ -44,7 +44,9 @@ def generate_final_facilities_list():
 
     proc_data = "processed_data"
     # Load results from previous steps
-    population_data = pd.read_csv(proc_data + "/step2/merged_population_data.csv")
+    population_data = pd.read_csv(
+        proc_data + "/step2/merged_population_data.csv"
+    )
     exceedance_data = pd.read_csv(
         proc_data + "/step3/facilities_with_slope_and_near_exceedance.csv"
     )
@@ -71,7 +73,9 @@ def generate_final_facilities_list():
     exceedance_counts = (
         exceedance_data.groupby("NPDES_CODE")
         .size()
-        .reset_index(name="Number of Parameters with Slope and Near Exceedance")
+        .reset_index(
+            name="Number of Parameters with Slope and Near Exceedance"
+        )
     )
     facilities_list = facilities_list.merge(
         exceedance_counts,
@@ -99,17 +103,26 @@ def generate_final_facilities_list():
         "Discharges to Impaired Water Bodies and Not Limited": "",
     }
     facilities_list = facilities_list.fillna(fill_na).drop(
-        columns=[c for c in ["NPDES_CODE", "CWNS_ID"] if c in facilities_list.columns]
+        columns=[
+            c
+            for c in ["NPDES_CODE", "CWNS_ID"]
+            if c in facilities_list.columns
+        ]
     )
 
     # Save final output
-    facilities_list.to_csv("processed_data/facilities_list_updated.csv", index=False)
+    facilities_list.to_csv(
+        "processed_data/facilities_list_updated.csv", index=False
+    )
     logger.info("Final facilities list generated successfully")
 
 
 def main(skip_steps=None):
     # Create processed_data directory and subdirectories if they don't exist
-    [os.makedirs(f"processed_data/step{i}", exist_ok=True) for i in range(1, 5)]
+    [
+        os.makedirs(f"processed_data/step{i}", exist_ok=True)
+        for i in range(1, 5)
+    ]
 
     # List of scripts to run in order
     scripts = [

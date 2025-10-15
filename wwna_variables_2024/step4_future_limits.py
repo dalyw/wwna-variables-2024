@@ -1,11 +1,14 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from helper_functions import *
+from helper_functions import read_limits, ref_parameter
 import json
 from collections import defaultdict
 import numpy as np
 import os
-from wwna_variables_2024.plotting_functions import *
+from wwna_variables_2024.plotting_functions import (
+    generate_facility_plots,
+    plot_facilities_map,
+)
 
 # Create output directory if it doesn't exist
 os.makedirs("processed_data/step4", exist_ok=True)
@@ -51,7 +54,9 @@ def load_and_process_data():
     limits_2023["PARENT_CATEGORY"] = limits_2023["PARAMETER_DESC_CLEAN"].map(
         desc_to_parent
     )
-    limits_2023["SUB_CATEGORY"] = limits_2023["PARAMETER_DESC_CLEAN"].map(desc_to_sub)
+    limits_2023["SUB_CATEGORY"] = limits_2023["PARAMETER_DESC_CLEAN"].map(
+        desc_to_sub
+    )
 
     # Log unmapped parameters
     unmapped_params = limits_2023[limits_2023["PARENT_CATEGORY"].isna()][
@@ -62,13 +67,19 @@ def load_and_process_data():
 
     # Get unique categories, removing any None values
     parent_categories = [
-        cat for cat in ir_parameter_df["PARENT_CATEGORY"].unique() if pd.notna(cat)
+        cat
+        for cat in ir_parameter_df["PARENT_CATEGORY"].unique()
+        if pd.notna(cat)
     ]
     sub_categories = [
-        cat for cat in ir_parameter_df["SUB_CATEGORY"].unique() if pd.notna(cat)
+        cat
+        for cat in ir_parameter_df["SUB_CATEGORY"].unique()
+        if pd.notna(cat)
     ]
 
-    print(f"{len(parent_categories)} parent, {len(sub_categories)} subcategories")
+    print(
+        f"{len(parent_categories)} parent, {len(sub_categories)} subcategories"
+    )
 
     # Load 303d lists
     columns_to_keep = [
@@ -87,12 +98,12 @@ def load_and_process_data():
         impaired_303d[year] = pd.read_csv(
             f"data/ir/{year}-303d.csv", skiprows=rows_to_skip
         )[columns_to_keep].dropna(subset=["Water Body CALWNUMS"])
-        impaired_303d[year]["PARENT_CATEGORY"] = impaired_303d[year]["Pollutant"].map(
-            desc_to_parent
-        )
-        impaired_303d[year]["SUB_CATEGORY"] = impaired_303d[year]["Pollutant"].map(
-            desc_to_sub
-        )
+        impaired_303d[year]["PARENT_CATEGORY"] = impaired_303d[year][
+            "Pollutant"
+        ].map(desc_to_parent)
+        impaired_303d[year]["SUB_CATEGORY"] = impaired_303d[year][
+            "Pollutant"
+        ].map(desc_to_sub)
         unmapped_pollutants = set(impaired_303d[year]["Pollutant"]) - set(
             desc_to_parent.keys()
         )
@@ -139,7 +150,9 @@ def analyze_impaired_waters(
                 "Water Body CALWNUMS",
             ]
         )
-        newly_impaired_water_bodies[category] = impaired_set_2024 - impaired_set_2018
+        newly_impaired_water_bodies[category] = (
+            impaired_set_2024 - impaired_set_2018
+        )
         impaired_water_bodies[category] = impaired_set_2024
 
     # Create all column names first
@@ -161,14 +174,20 @@ def analyze_impaired_waters(
     )
 
     # Pre-allocate all columns with zeros/empty strings
-    new_data = pd.DataFrame(0, index=facilities_list.index, columns=column_names)
+    new_data = pd.DataFrame(
+        0, index=facilities_list.index, columns=column_names
+    )
     new_data["Discharges to Impaired Water Bodies and Not Limited"] = ""
 
     # Process all categories at once
     for category in all_categories:
         # Calculate masks for the whole dataset at once
         def check_impaired(x, water_bodies):
-            return any(wb in str(x) for wb in water_bodies) if pd.notna(x) else False
+            return (
+                any(wb in str(x) for wb in water_bodies)
+                if pd.notna(x)
+                else False
+            )
 
         newly_impaired_mask = facilities_list["CAL WATERSHED NAME"].apply(
             check_impaired, water_bodies=newly_impaired_water_bodies[category]
@@ -181,12 +200,16 @@ def analyze_impaired_waters(
         new_data[f"Discharges to Newly {category} Impaired"] = (
             newly_impaired_mask.astype(int)
         )
-        new_data[f"Discharges to {category} Impaired"] = impaired_mask.astype(int)
+        new_data[f"Discharges to {category} Impaired"] = impaired_mask.astype(
+            int
+        )
 
         # Check limits for facilities with newly impaired waters
         for index in facilities_list[newly_impaired_mask].index:
             npdes = facilities_list.loc[index, "NPDES # CA#"]
-            sub_limits = limits_2023[limits_2023["EXTERNAL_PERMIT_NMBR"] == npdes]
+            sub_limits = limits_2023[
+                limits_2023["EXTERNAL_PERMIT_NMBR"] == npdes
+            ]
             has_limit = any(
                 (sub_limits["SUB_CATEGORY"] == category)
                 & (sub_limits["LIMIT_VALUE_NMBR"].notna())
@@ -223,13 +246,14 @@ def analyze_impaired_waters(
         ]
         return ", ".join(categories)
 
-    new_data["Discharges to Impaired Water Bodies and Not Limited"] = new_data.apply(
-        get_impaired_categories, axis=1
+    new_data["Discharges to Impaired Water Bodies and Not Limited"] = (
+        new_data.apply(get_impaired_categories, axis=1)
     )
 
     # Calculate total parameters per facility
     parameter_cols = [
-        f"Discharges to Newly {cat} Impaired and Not Limited" for cat in sub_categories
+        f"Discharges to Newly {cat} Impaired and Not Limited"
+        for cat in sub_categories
     ]
 
     # Ensure all columns are numeric before summing
@@ -245,9 +269,9 @@ def analyze_impaired_waters(
                     .astype(float)
                 )
 
-    new_data["Discharges to Impaired and Not Limited: Number of Parameters"] = new_data[
-        parameter_cols
-    ].sum(axis=1)
+    new_data[
+        "Discharges to Impaired and Not Limited: Number of Parameters"
+    ] = new_data[parameter_cols].sum(axis=1)
 
     # Combine original data with new columns efficiently
     facilities_list = pd.concat([facilities_list, new_data], axis=1)
@@ -366,9 +390,9 @@ def generate_visualizations(
     )
 
     # Add parameter counts
-    facilities_with_coords["Parameters"] = facilities_with_coords["NPDES_CODE"].map(
-        lambda x: num_parameters_per_facility.get(x, 0)
-    )
+    facilities_with_coords["Parameters"] = facilities_with_coords[
+        "NPDES_CODE"
+    ].map(lambda x: num_parameters_per_facility.get(x, 0))
 
     # Create scatter plot
     plt.figure(figsize=(10, 8))
@@ -380,7 +404,9 @@ def generate_visualizations(
         alpha=0.6,
     )
     plt.colorbar(label="Number of Parameters")
-    plt.title("Facilities by Number of Parameters\nwith Possible Future Limits")
+    plt.title(
+        "Facilities by Number of Parameters\nwith Possible Future Limits"
+    )
     plt.xlabel("Longitude")
     plt.ylabel("Latitude")
     plt.tight_layout()
