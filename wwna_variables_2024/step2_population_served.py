@@ -2,7 +2,7 @@ import pandas as pd
 import logging
 import os
 import matplotlib.pyplot as plt
-from us_sewersheds import load_cwns_data
+import requests
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -11,44 +11,46 @@ logger = logging.getLogger(__name__)
 os.makedirs("processed_data/step2", exist_ok=True)
 
 
-def load_and_process_cwns_data():
-    """Load and process CWNS data for California facilities"""
-    logger.info("Loading CWNS data...")
-    cwns_data = load_cwns_data(data_dir="data/cwns/CA_2022CWNS_APR2024/")
+def load_cwns_data():
+    """Download and load CWNS facilities data from GitHub"""
+    logger.info("Downloading CWNS facilities data from GitHub...")
 
-    # Filter for California facilities
-    facilities = cwns_data["facilities"][
-        cwns_data["facilities"]["STATE_CODE"] == "CA"
-    ]
+    # URL for the CWNS data file
+    url = "https://raw.githubusercontent.com/dalyw/us-sewersheds/refs/heads/main/processed_data/facilities_2022_merged.csv"  # noqa: E501
 
-    # Merge with other CWNS datasets
-    merge_columns = {
-        "permits": ["CWNS_ID", "PERMIT_NUMBER"],
-        "counties": ["CWNS_ID", "COUNTY_NAME"],
-        "types": ["CWNS_ID", "FACILITY_TYPE"],
-        "flow": ["CWNS_ID", "CURRENT_DESIGN_FLOW"],
-        "population": [
-            "CWNS_ID",
-            "TOTAL_RES_POPULATION_2022",
-            "TOTAL_RES_POPULATION_2042",
-        ],
-    }
+    # Local file path
+    local_file = "data/cwns/facilities_2022_merged.csv"
 
-    for df_name, columns in merge_columns.items():
-        logger.info(f"Merging {df_name} data...")
-        facilities = facilities.merge(
-            cwns_data[df_name][columns], on="CWNS_ID", how="left"
-        )
+    # Create directory if it doesn't exist
+    os.makedirs(os.path.dirname(local_file), exist_ok=True)
 
-    return facilities
+    # Download file if it doesn't exist locally
+    if not os.path.exists(local_file):
+        logger.info(f"Downloading {url} to {local_file}")
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception for bad status codes
+
+        with open(local_file, "wb") as f:
+            f.write(response.content)
+        logger.info(f"Successfully downloaded CWNS data to {local_file}")
+    else:
+        logger.info(f"Using existing CWNS data file: {local_file}")
+
+    # Load the CSV file
+    logger.info("Loading CWNS facilities data...")
+    facilities_df = pd.read_csv(local_file)
+
+    # Filter for California facilities only
+    ca_facilities = facilities_df[facilities_df["STATE_CODE"] == "CA"].copy()
+    logger.info(f"Loaded {len(ca_facilities)} California facilities from CWNS data")
+
+    return ca_facilities
 
 
 def load_covid_monitoring_data():
     """Load COVID monitoring dataset with population information"""
     logger.info("Loading COVID monitoring data...")
-    return pd.read_csv(
-        "data/ww_surveillance/wastewatersurveillancecalifornia.csv"
-    )
+    return pd.read_csv("data/ww_surveillance/wastewatersurveillancecalifornia.csv")
 
 
 def load_sso_data():
@@ -82,9 +84,7 @@ def merge_population_data(facilities_df, covid_data, sso_data):
     if "population_served" in covid_data.columns:
         # Check if epaid column contains lists instead of strings
         if covid_data["epaid"].apply(lambda x: isinstance(x, list)).any():
-            logger.info(
-                "Found list values in epaid column, exploding to separate rows"
-            )
+            logger.info("Found list values in epaid column, exploding to separate rows")
             # Explode the epaid column if it contains lists
             covid_data = covid_data.explode("epaid")
 
@@ -131,9 +131,7 @@ def merge_population_data(facilities_df, covid_data, sso_data):
     )
 
     # Save merged population data
-    merged_pop.to_csv(
-        "processed_data/step2/merged_population_data.csv", index=False
-    )
+    merged_pop.to_csv("processed_data/step2/merged_population_data.csv", index=False)
 
     return merged_pop
 
@@ -172,7 +170,7 @@ def generate_visualizations(merged_pop):
 def main():
     try:
         # Load and process all data sources
-        facilities_df = load_and_process_cwns_data()
+        facilities_df = load_cwns_data()
         covid_data = load_covid_monitoring_data()
         sso_data = load_sso_data()
 

@@ -1,0 +1,29 @@
+"FACILITY_TYPE","INFRASTRUCTURE_TYPE","DISPLAY_ORDER"
+"Desalination - NPS","Nonpoint Source",43
+"Treatment Plant","Wastewater",1
+"Collection: Combined Sewers","Wastewater",2
+"Collection: Separate Sewers","Wastewater",3
+"Biosolids Handling Facility","Wastewater",5
+"Onsite Wastewater Treatment System","Decentralized Wastewater Treatment",11
+"Clustered System","Decentralized Wastewater Treatment",12
+"Unregulated Community Stormwater","Stormwater",23
+"Phase I MS4","Stormwater",20
+"Phase II MS4","Stormwater",21
+"Non-traditional MS4","Stormwater",22
+"Agriculture - Cropland","Nonpoint Source",31
+"Agriculture - Animals","Nonpoint Source",32
+"Silviculture","Nonpoint Source",33
+"Marinas","Nonpoint Source",35
+"Resource Extraction","Nonpoint Source",36
+"Brownfields","Nonpoint Source",37
+"Storage Tanks","Nonpoint Source",38
+"Sanitary Landfills","Nonpoint Source",39
+"Ground Water - Unknown Source","Nonpoint Source",40
+"Hydromodification","Nonpoint Source",41
+"Estuary Management","Nonpoint Source",42
+"Collection: Interceptor Sewers","Wastewater",4
+"Water Reuse","Wastewater",10
+"Collection: Pump Stations","Wastewater",6
+"Storage Facility","Wastewater",7
+"Honey Bucket Lagoon","Wastewater",8
+"Desalination - WW","Wastewater",9

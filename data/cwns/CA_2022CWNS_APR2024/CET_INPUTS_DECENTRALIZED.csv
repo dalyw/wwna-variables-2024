@@ -1,0 +1,117 @@
+"CWNS_ID","FACILITY_ID","STATE_CODE","COST_METHOD","FACILITY_DOCUMENT_CET_ID","FACILITY_DOCUMENT_COST_ID","CONSTRUCTION_TYPE","SIZING_METHOD","COUNTY_ID","COUNTY_NAME","NUM_HOME_SERVED","POP_SERVED","POP_PER_HOUSEHOLD"
+"06000000148",3608849,"CA","Decentralized",9632,44458,"New","Number of Homes Served",180,"Alameda",1155,,2.82
+"06000000148",3608849,"CA","Decentralized",9633,44458,"Replace","Number of Homes Served",180,"Alameda",1711,,2.82
+"06000000231",3611355,"CA","Decentralized",9925,45857,"New","Number of Homes Served",181,"Alpine",1185,,2.87
+"06000000231",3611355,"CA","Decentralized",9926,45857,"Replace","Number of Homes Served",181,"Alpine",1895,,2.87
+"06000000232",3611356,"CA","Decentralized",7848,36372,"New","Number of Homes Served",182,"Amador",1212,,2.38
+"06000000232",3611356,"CA","Decentralized",7849,36372,"Replace","Number of Homes Served",182,"Amador",1512,,2.38
+"06000000233",3611357,"CA","Decentralized",9963,46208,"New","Number of Homes Served",183,"Butte",545,,2.57
+"06000000233",3611357,"CA","Decentralized",9964,46208,"Replace","Number of Homes Served",183,"Butte",527,,2.57
+"06000000234",3611358,"CA","Decentralized",9801,45063,"Replace","Number of Homes Served",184,"Calaveras",2553,,2.66
+"06000000234",3611358,"CA","Decentralized",9800,45063,"New","Number of Homes Served",184,"Calaveras",1308,,2.66
+"06000000235",3611359,"CA","Decentralized",9966,46233,"Replace","Number of Homes Served",185,"Colusa",508,,2.94
+"06000000235",3611359,"CA","Decentralized",9965,46233,"New","Number of Homes Served",185,"Colusa",787,,2.94
+"06000000236",3611360,"CA","Decentralized",7716,36165,"New","Number of Homes Served",186,"Contra Costa",252,,2.87
+"06000000236",3611360,"CA","Decentralized",7717,36165,"Replace","Number of Homes Served",186,"Contra Costa",556,,2.87
+"06000000237",3611361,"CA","Decentralized",7710,36161,"New","Number of Homes Served",187,"Del Norte",288,,2.47
+"06000000237",3611361,"CA","Decentralized",7711,36161,"Replace","Number of Homes Served",187,"Del Norte",464,,2.47
+"06000000238",3611362,"CA","Decentralized",7736,36179,"New","Number of Homes Served",188,"El Dorado",2564,,2.63
+"06000000238",3611362,"CA","Decentralized",7737,36179,"Replace","Number of Homes Served",188,"El Dorado",3596,,2.63
+"06000000239",3611363,"CA","Decentralized",10141,48602,"New","Number of Homes Served",189,"Fresno",1432,,3.14
+"06000000239",3611363,"CA","Decentralized",10142,48602,"Replace","Number of Homes Served",189,"Fresno",763,,3.14
+"06000000240",3611364,"CA","Decentralized",8369,37723,"New","Number of Homes Served",190,"Glenn",356,,2.74
+"06000000240",3611364,"CA","Decentralized",8370,37723,"Replace","Number of Homes Served",190,"Glenn",344,,2.74
+"06000000241",3611365,"CA","Decentralized",7808,36293,"New","Number of Homes Served",191,"Humboldt",796,,2.41
+"06000000241",3611365,"CA","Decentralized",7809,36293,"Replace","Number of Homes Served",191,"Humboldt",1108,,2.41
+"06000000242",3611366,"CA","Decentralized",7811,36296,"Replace","Number of Homes Served",192,"Imperial",104,,3.81
+"06000000242",3611366,"CA","Decentralized",7810,36296,"New","Number of Homes Served",192,"Imperial",224,,3.81
+"06000000243",3611367,"CA","Decentralized",10143,48625,"New","Number of Homes Served",193,"Inyo",2926,,2.18
+"06000000243",3611367,"CA","Decentralized",10144,48625,"Replace","Number of Homes Served",193,"Inyo",2963,,2.18
+"06000000244",3611368,"CA","Decentralized",7815,36300,"Replace","Number of Homes Served",194,"Kern",4435,,3.17
+"06000000244",3611368,"CA","Decentralized",7814,36300,"New","Number of Homes Served",194,"Kern",4285,,3.17
+"06000000245",3611369,"CA","Decentralized",10145,48644,"New","Number of Homes Served",195,"Kings",2299,,3.13
+"06000000245",3611369,"CA","Decentralized",10146,48644,"Replace","Number of Homes Served",195,"Kings",1984,,3.13
+"06000000246",3611370,"CA","Decentralized",10599,51968,"New","Number of Homes Served",196,"Lake",1914,,2.46
+"06000000246",3611370,"CA","Decentralized",10600,51968,"Replace","Number of Homes Served",196,"Lake",2217,,2.46
+"06000000247",3611371,"CA","Decentralized",10230,49840,"New","Number of Homes Served",197,"Lassen",1464,,2.26
+"06000000247",3611371,"CA","Decentralized",10231,49840,"Replace","Number of Homes Served",197,"Lassen",931,,2.26
+"06000000248",3611372,"CA","Decentralized",9581,44330,"New","Number of Homes Served",198,"Los Angeles",2012,,2.99
+"06000000248",3611372,"CA","Decentralized",9582,44330,"Replace","Number of Homes Served",198,"Los Angeles",452,,2.99
+"06000000249",3611373,"CA","Decentralized",8573,39092,"Replace","Number of Homes Served",199,"Madera",796,,3.28
+"06000000249",3611373,"CA","Decentralized",8572,39092,"New","Number of Homes Served",199,"Madera",2132,,3.28
+"06000000250",3611374,"CA","Decentralized",7816,36304,"New","Number of Homes Served",200,"Marin",376,,2.4
+"06000000250",3611374,"CA","Decentralized",7817,36304,"Replace","Number of Homes Served",200,"Marin",608,,2.4
+"06000000251",3611375,"CA","Decentralized",7818,36306,"New","Number of Homes Served",201,"Mariposa",904,,2.13
+"06000000251",3611375,"CA","Decentralized",7819,36306,"Replace","Number of Homes Served",201,"Mariposa",104,,2.13
+"06000000252",3611376,"CA","Decentralized",7820,36314,"New","Number of Homes Served",202,"Mendocino",1388,,2.47
+"06000000252",3611376,"CA","Decentralized",7821,36314,"Replace","Number of Homes Served",202,"Mendocino",672,,2.47
+"06000000253",3611377,"CA","Decentralized",9799,45055,"Replace","Number of Homes Served",203,"Merced",455,,3.32
+"06000000253",3611377,"CA","Decentralized",9798,45055,"New","Number of Homes Served",203,"Merced",1203,,3.32
+"06000000254",3611378,"CA","Decentralized",10234,49843,"New","Number of Homes Served",204,"Modoc",2201,,2.33
+"06000000254",3611378,"CA","Decentralized",10235,49843,"Replace","Number of Homes Served",204,"Modoc",884,,2.33
+"06000000255",3611379,"CA","Decentralized",7856,36379,"New","Number of Homes Served",205,"Mono",336,,2.93
+"06000000255",3611379,"CA","Decentralized",7857,36379,"Replace","Number of Homes Served",205,"Mono",296,,2.93
+"06000000256",3611380,"CA","Decentralized",7823,36319,"Replace","Number of Homes Served",206,"Monterey",1948,,3.27
+"06000000256",3611380,"CA","Decentralized",7822,36319,"New","Number of Homes Served",206,"Monterey",1360,,3.27
+"06000000257",3611381,"CA","Decentralized",7825,36330,"New","Number of Homes Served",207,"Napa",1512,,2.78
+"06000000257",3611381,"CA","Decentralized",7826,36330,"Replace","Number of Homes Served",207,"Napa",1100,,2.78
+"06000000258",3611382,"CA","Decentralized",7828,36336,"Replace","Number of Homes Served",208,"Nevada",4068,,2.4
+"06000000258",3611382,"CA","Decentralized",7827,36336,"New","Number of Homes Served",208,"Nevada",672,,2.4
+"06000000259",3611383,"CA","Decentralized",10601,51976,"New","Number of Homes Served",209,"Orange",6360,,3.01
+"06000000259",3611383,"CA","Decentralized",10602,51976,"Replace","Number of Homes Served",209,"Orange",6337,,3.01
+"06000000260",3611384,"CA","Decentralized",10087,47611,"Replace","Number of Homes Served",210,"Placer",2737,,2.67
+"06000000260",3611384,"CA","Decentralized",10086,47611,"New","Number of Homes Served",210,"Placer",1322,,2.67
+"06000000261",3611385,"CA","Decentralized",8576,39100,"New","Number of Homes Served",211,"Plumas",1120,,2.16
+"06000000261",3611385,"CA","Decentralized",8577,39100,"Replace","Number of Homes Served",211,"Plumas",1320,,2.16
+"06000000262",3611386,"CA","Decentralized",8431,38139,"Replace","Number of Homes Served",212,"Riverside",4756,,3.28
+"06000000262",3611386,"CA","Decentralized",8430,38139,"New","Number of Homes Served",212,"Riverside",7576,,3.28
+"06000000263",3611387,"CA","Decentralized",7858,36381,"New","Number of Homes Served",213,"Sacramento",1508,,2.76
+"06000000263",3611387,"CA","Decentralized",7859,36381,"Replace","Number of Homes Served",213,"Sacramento",2932,,2.76
+"06000000264",3611388,"CA","Decentralized",8445,38255,"Replace","Number of Homes Served",214,"San Benito",316,,3.31
+"06000000264",3611388,"CA","Decentralized",8444,38255,"New","Number of Homes Served",214,"San Benito",648,,3.31
+"06000000265",3611389,"CA","Decentralized",8371,37732,"New","Number of Homes Served",215,"San Bernardino",4400,,3.29
+"06000000265",3611389,"CA","Decentralized",8372,37732,"Replace","Number of Homes Served",215,"San Bernardino",6660,,3.29
+"06000000266",3611390,"CA","Decentralized",8374,37746,"Replace","Number of Homes Served",216,"San Diego",7596,,2.87
+"06000000266",3611390,"CA","Decentralized",8373,37746,"New","Number of Homes Served",216,"San Diego",6304,,2.87
+"06000000267",3611391,"CA","Decentralized",9970,46266,"New","Number of Homes Served",217,"San Francisco",1356,,2.36
+"06000000267",3611391,"CA","Decentralized",9971,46266,"Replace","Number of Homes Served",217,"San Francisco",3074,,2.36
+"06000000268",3611392,"CA","Decentralized",8443,38254,"Replace","Number of Homes Served",218,"San Joaquin",3972,,3.17
+"06000000268",3611392,"CA","Decentralized",8442,38254,"New","Number of Homes Served",218,"San Joaquin",2084,,3.17
+"06000000269",3611393,"CA","Decentralized",8591,39136,"Replace","Number of Homes Served",219,"San Luis Obispo",1093,,2.51
+"06000000269",3611393,"CA","Decentralized",8590,39136,"New","Number of Homes Served",219,"San Luis Obispo",867,,2.51
+"06000000270",3611394,"CA","Decentralized",9972,46284,"New","Number of Homes Served",220,"San Mateo",1128,,2.87
+"06000000270",3611394,"CA","Decentralized",9973,46284,"Replace","Number of Homes Served",220,"San Mateo",604,,2.87
+"06000000271",3611395,"CA","Decentralized",7860,36386,"New","Number of Homes Served",221,"Santa Barbara",708,,2.91
+"06000000271",3611395,"CA","Decentralized",7861,36386,"Replace","Number of Homes Served",221,"Santa Barbara",2544,,2.91
+"06000000272",3611396,"CA","Decentralized",7862,36388,"New","Number of Homes Served",222,"Santa Clara",1128,,2.95
+"06000000272",3611396,"CA","Decentralized",7863,36388,"Replace","Number of Homes Served",222,"Santa Clara",604,,2.95
+"06000000273",3611397,"CA","Decentralized",10084,47587,"New","Number of Homes Served",223,"Santa Cruz",1356,,2.72
+"06000000273",3611397,"CA","Decentralized",10085,47587,"Replace","Number of Homes Served",223,"Santa Cruz",3074,,2.72
+"06000000274",3611398,"CA","Decentralized",8575,39095,"Replace","Number of Homes Served",224,"Shasta",1380,,2.47
+"06000000274",3611398,"CA","Decentralized",8574,39095,"New","Number of Homes Served",224,"Shasta",3113,,2.47
+"06000000275",3611399,"CA","Decentralized",7864,36392,"New","Number of Homes Served",225,"Sierra",160,,2.28
+"06000000275",3611399,"CA","Decentralized",7865,36392,"Replace","Number of Homes Served",225,"Sierra",92,,2.28
+"06000000276",3611400,"CA","Decentralized",7867,36393,"Replace","Number of Homes Served",226,"Siskiyou",388,,2.23
+"06000000276",3611400,"CA","Decentralized",7866,36393,"New","Number of Homes Served",226,"Siskiyou",1288,,2.23
+"06000000277",3611401,"CA","Decentralized",9968,46244,"Replace","Number of Homes Served",227,"Solano",1206,,2.88
+"06000000277",3611401,"CA","Decentralized",9967,46244,"New","Number of Homes Served",227,"Solano",1002,,2.88
+"06000000278",3611402,"CA","Decentralized",8364,37632,"Replace","Number of Homes Served",228,"Sonoma",8732,,2.59
+"06000000278",3611402,"CA","Decentralized",8363,37632,"New","Number of Homes Served",228,"Sonoma",5580,,2.59
+"06000000279",3611403,"CA","Decentralized",9630,44457,"New","Number of Homes Served",229,"Stanislaus",1186,,3.09
+"06000000279",3611403,"CA","Decentralized",9631,44457,"Replace","Number of Homes Served",229,"Stanislaus",1714,,3.09
+"06000000280",3611404,"CA","Decentralized",7869,36394,"Replace","Number of Homes Served",230,"Sutter",352,,2.91
+"06000000280",3611404,"CA","Decentralized",7868,36394,"New","Number of Homes Served",230,"Sutter",544,,2.91
+"06000000281",3611405,"CA","Decentralized",10521,51113,"New","Number of Homes Served",231,"Tehama",1494,,2.61
+"06000000281",3611405,"CA","Decentralized",10522,51113,"Replace","Number of Homes Served",231,"Tehama",929,,2.61
+"06000000282",3611406,"CA","Decentralized",10523,51120,"New","Number of Homes Served",232,"Trinity",1930,,2.09
+"06000000282",3611406,"CA","Decentralized",10524,51120,"Replace","Number of Homes Served",232,"Trinity",813,,2.09
+"06000000283",3611407,"CA","Decentralized",8441,38253,"Replace","Number of Homes Served",233,"Tulare",460,,3.3
+"06000000283",3611407,"CA","Decentralized",8440,38253,"New","Number of Homes Served",233,"Tulare",2684,,3.3
+"06000000284",3611408,"CA","Decentralized",9591,44363,"New","Number of Homes Served",234,"Tuolumne",628,,2.24
+"06000000284",3611408,"CA","Decentralized",9592,44363,"Replace","Number of Homes Served",234,"Tuolumne",2176,,2.24
+"06000000285",3611409,"CA","Decentralized",8365,37641,"New","Number of Homes Served",235,"Ventura",1220,,3.08
+"06000000285",3611409,"CA","Decentralized",8366,37641,"Replace","Number of Homes Served",235,"Ventura",1860,,3.08
+"06000000286",3611410,"CA","Decentralized",7871,36395,"Replace","Number of Homes Served",236,"Yolo",236,,2.81
+"06000000286",3611410,"CA","Decentralized",7870,36395,"New","Number of Homes Served",236,"Yolo",736,,2.81
+"06000000287",3611411,"CA","Decentralized",10090,47668,"New","Number of Homes Served",237,"Yuba",459,,2.84
+"06000000287",3611411,"CA","Decentralized",10091,47668,"Replace","Number of Homes Served",237,"Yuba",1504,,2.84

@@ -1,0 +1,208 @@
+IR_PARAMETER_DESC,CATEGORY
+Indicator Bacteria,Pathogens
+Aluminum,Metals
+"Oxygen, Dissolved",Dissolved Oxygen
+Mercury,Metals
+Sedimentation/Siltation,Non-dissolved Solids
+Dioxin Toxic Equivalents,Toxic Organics
+PCBs (Polychlorinated biphenyls),Toxic Organics
+Sediment,Non-dissolved Solids
+pH,pH
+"Temperature, water",Temperature
+Turbidity,Color
+Specific Conductivity,Dissolved Solids
+Diazinon,Toxic Organics
+Phosphorus,Nutrients
+Manganese,Metals
+Cyanobacteria hepatotoxic microcystins,Pathogens
+Nutrients,Not Yet Categorized
+Organic Enrichment/Low Dissolved Oxygen,Dissolved Oxygen
+Invasive Species,Other
+Total Dissolved Solids,Dissolved Solids
+Arsenic,Toxic Inorganics
+Biostimulatory Conditions,Other
+Nickel,Metals
+Copper,Metals
+Boron,Inorganics
+pH (high),pH
+Eutrophication,pH
+Chlordane,Toxic Organics
+DDT (Dichlorodiphenyltrichloroethane),Toxic Organics
+Dieldrin,Toxic Organics
+"Dioxin compounds (including 2,3,7,8-TCDD)",Toxic Organics
+Furan Compounds,Toxic Organics
+PAHs (Polycyclic Aromatic Hydrocarbons),Toxic Organics
+Selenium,Metals
+Toxicity,Total Toxics
+Ammonia,Not Yet Categorized
+Hydrogen Sulfide,Toxic Inorganics
+Trash,Other
+Lead,Metals
+Silver,Metals
+Zinc,Metals
+"Total DDT (sum of 4,4'- and 2,4'- isomers of DDT, DDE, and DDD)",Toxic Organics
+Heptachlor epoxide,Toxic Organics
+Toxaphene,Toxic Organics
+Salinity/TDS/Chlorides,Dissolved Solids
+PCBs (Polychlorinated biphenyls) (sediment),Toxic Organics
+Chloride,Dissolved Solids
+PCBs (Polychlorinated biphenyls) (dioxin-like),Toxic Organics
+Fipronil,Toxic Organics
+Bifenthrin,Toxic Organics
+Cypermethrin,Toxic Organics
+Pyrethroids,Toxic Organics
+Deltamethrin,Toxic Organics
+Cyfluthrin,Toxic Organics
+Imidacloprid,Toxic Organics
+Mercury (sediment),Non-dissolved Solids
+Dacthal,Toxic Organics
+Escherichia coli (E. coli),Pathogens
+Benthic Community Effects,Other
+Nitrate,Not Yet Categorized
+Fecal Coliform,Toxic Organics
+Sodium,Dissolved Solids
+Chlorophyll-a,Not Yet Categorized
+DDD (Dichlorodiphenyldichloroethane),Toxic Organics
+DDE (Dichlorodiphenyldichloroethylene),Toxic Organics
+Dimethoate,Toxic Organics
+Malathion,Toxic Organics
+Total Coliform,Toxic Organics
+Carbaryl,Toxic Organics
+Enterococcus,Pathogens
+Chromium,Metals
+Chlorpyrifos,Toxic Organics
+"Cyhalothrin, Lambda",Toxic Organics
+Endrin,Toxic Organics
+Microcystins,Metals
+Scum/Foam-unnatural,Other
+Bensulide,Toxic Organics
+Methomyl,Toxic Organics
+Oxyfluorfen,Toxic Organics
+Cadmium,Metals
+Molybdenum,Metals
+Linuron,Toxic Organics
+Organophosphate Pesticides,Toxic Organics
+Priority Organics,Organics
+Pesticides,Toxic Organics
+Metals,Metals
+Anatoxin-A,Toxic Organics
+Clothianidin,Toxic Organics
+Prometryn,Toxic Organics
+Permethrin,Toxic Organics
+Disulfoton,Toxic Organics
+Thiamethoxam,Toxic Organics
+Fenpropathrin,Toxic Organics
+Cyanide,Toxic Inorganics
+Iron,Metals
+Sulfates,Dissolved Solids
+PCBs (Polychlorinated biphenyls) (tissue),Other
+Dieldrin (sediment),Toxic Organics
+Toxaphene (tissue),Other
+Coliform Bacteria,Toxic Organics
+Chlordane (tissue),Other
+DDT (tissue & sediment),Other
+Endosulfan (tissue),Other
+Toxaphene (tissue & sediment),Other
+DDT (tissue),Other
+Endosulfan,Toxic Organics
+Chlordane (tissue & sediment),Other
+Chlorpyrifos (tissue),Other
+Dieldrin (tissue),Other
+Endosulfan (tissue & sediment),Other
+Lindane/gamma Hexachlorocyclohexane (gamma-HCH),Toxic Organics
+"Nitrogen, Nitrate",Nutrients
+"Copper, Dissolved",Metals
+Benzo(a)anthracene,Toxic Organics
+Benzo(a)pyrene,Toxic Organics
+Chrysene (C1-C4),Toxic Organics
+Phenanthrene,Toxic Organics
+Pyrene,Toxic Organics
+Odor,Other
+"Dibenz[a,h]anthracene",Toxic Organics
+2-Methylnaphthalene,Toxic Organics
+Cadmium (sediment),Non-dissolved Solids
+Copper (sediment),Non-dissolved Solids
+Lead (sediment),Non-dissolved Solids
+PCBs (Polychlorinated biphenyls) (tissue & sediment),Other
+Zinc (sediment),Non-dissolved Solids
+DDT (sediment),Toxic Organics
+Nitrogen,Nutrients
+Esfenvalerate/Fenvalerate,Toxic Organics
+Fipronil Sulfone,Toxic Organics
+Chlorine,Disinfectants
+Oil and Grease,FOG
+Eutrophic,Not Yet Categorized
+Algae,Not Yet Categorized
+alpha-Endosulfan (Endosulfan 1),Toxic Organics
+Profenofos,Toxic Organics
+Oil,FOG
+Bis(2ethylhexyl)phthalate (DEHP),Toxic Organics
+Fish Barriers (Fish Passage),Other
+Specific Conductance,Dissolved Solids
+Dioxin,Toxic Organics
+Sodium Adsorption Ratio (SAR),Dissolved Solids
+Viruses (enteric),Pathogens
+Exotic Vegetation,Other
+Habitat alterations,Other
+Reduced Tidal Flushing,Other
+Nitrate and Nitrite,Not Yet Categorized
+ChemA (tissue),Other
+"Nitrogen, Nitrite",Nutrients
+ChemA,Toxic Organics
+Nitrate as Nitrate (NO3),Not Yet Categorized
+Nitrate/Nitrite (Nitrite + Nitrate as N),Not Yet Categorized
+Lindane/gamma-Hexachlorocyclohexane (gamma-HCH) (tissue),Other
+"Selenium, Total",Metals
+Nutrients (Algae),Not Yet Categorized
+"Zinc, Dissolved",Metals
+Swimming Restrictions,Other
+Pathogens,Pathogens
+Low Dissolved Oxygen,Dissolved Oxygen
+Azinphos-methyl (Guthion),Toxic Organics
+Salinity,Dissolved Solids
+Electrical Conductivity,Dissolved Solids
+Group A Pesticides,Toxic Organics
+Trifluralin,Toxic Organics
+Alkalinity as CaCO3,pH
+Metolachlor,Toxic Organics
+alpha.-BHC (Benzenehexachloride or alpha-HCH),Toxic Organics
+Diuron,Toxic Organics
+Simazine,Toxic Organics
+cis-permethrin,Toxic Organics
+Benzo[b]fluoranthene,Toxic Organics
+pH (low),pH
+"Nitrogen, ammonia (Total Ammonia)",Nutrients
+Benzo[k]fluoranthene,Toxic Organics
+"Indeno[1,2,3-cd]pyrene",Toxic Organics
+"Ammonia as N, Total",Not Yet Categorized
+Hexachlorobenzene/ HCB,Toxic Organics
+Paraquat,Toxic Organics
+Acid Mine Drainage,pH
+"BOD, Biochemical oxygen demand",Organics
+Ammonia (Unionized),Not Yet Categorized
+Pentachlorophenol (PCP),Toxic Organics
+Methyl Parathion,Toxic Organics
+Fluoride,Dissolved Solids
+Unknown Toxicity,Total Toxics
+Total Kjeldahl Nitrogen (TKN),Nutrients
+Phosphate,Not Yet Categorized
+Trace Elements,Other
+Total Nitrogen as N,Nutrients
+Total Petroleum Hydrocarbons,Toxic Organics
+Naphthalene,Toxic Organics
+Chemical oxygen demand (COD),Organics
+Total Suspended Solids (TSS),Non-dissolved Solids
+Noxious aquatic plants,Other
+Color,Color
+Ammonia as Nitrogen,Nutrients
+Sediment Toxicity,Non-dissolved Solids
+Perchlorate,Toxic Organics
+Dichlorvos,Toxic Organics
+"1,4-Dioxane",Toxic Organics
+Tetrachloroethylene/PCE,Toxic Organics
+Trichloroethylene/TCE,Toxic Organics
+Fenpyroximate,Toxic Organics
+Solids,Non-dissolved Solids
+Surfactants (MBAS),Toxic Organics
+Synthetic Organics,Organics
+Thallium,Metals

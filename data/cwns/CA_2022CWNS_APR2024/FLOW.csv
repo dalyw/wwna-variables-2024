@@ -1,0 +1,2471 @@
+"CWNS_ID","FACILITY_ID","STATE_CODE","FLOW_TYPE","CURRENT_DESIGN_FLOW","FUTURE_DESIGN_FLOW"
+"06001079001",1175232,"CA","Municipal Flow",3.01,3.01
+"06001079001",1175232,"CA","Industrial Flow",,
+"06001079001",1175232,"CA","Infiltration Flow",,
+"06001079001",1175232,"CA","Wet Weather Peak",7,21.7
+"06001079001",1175232,"CA","Total Flow",3.01,3.01
+"06005008001",1175528,"CA","Municipal Flow",4.5,4.5
+"06005008001",1175528,"CA","Industrial Flow",0.5,0.5
+"06005008001",1175528,"CA","Infiltration Flow",,
+"06005008001",1175528,"CA","Wet Weather Peak",,
+"06005008001",1175528,"CA","Total Flow",5,5
+"06005028001",1175550,"CA","Municipal Flow",,
+"06005028001",1175550,"CA","Industrial Flow",,
+"06005028001",1175550,"CA","Infiltration Flow",,
+"06005028001",1175550,"CA","Wet Weather Peak",,
+"06005028001",1175550,"CA","Total Flow",1.069,2.34
+"06005261001",1175742,"CA","Municipal Flow",1.11,1.11
+"06005261001",1175742,"CA","Industrial Flow",,
+"06005261001",1175742,"CA","Infiltration Flow",,
+"06005261001",1175742,"CA","Wet Weather Peak",,
+"06005261001",1175742,"CA","Total Flow",1.11,1.11
+"06009031002",1176067,"CA","Municipal Flow",,
+"06009031002",1176067,"CA","Industrial Flow",,
+"06009031002",1176067,"CA","Infiltration Flow",,
+"06009031002",1176067,"CA","Wet Weather Peak",,
+"06009031002",1176067,"CA","Total Flow",32,56.7
+"06005046001",1175566,"CA","Wet Weather Peak",,
+"06005046001",1175566,"CA","Total Flow",0.58,0.58
+"06005272001",1175747,"CA","Municipal Flow",0.15,0.15
+"06005272001",1175747,"CA","Industrial Flow",,
+"06005272001",1175747,"CA","Infiltration Flow",,
+"06005272001",1175747,"CA","Wet Weather Peak",,
+"06005272001",1175747,"CA","Total Flow",0.15,0.15
+"06007018001",1175927,"CA","Municipal Flow",0.25,0.25
+"06007018001",1175927,"CA","Industrial Flow",,
+"06007018001",1175927,"CA","Infiltration Flow",,
+"06007018001",1175927,"CA","Wet Weather Peak",,
+"06007018001",1175927,"CA","Total Flow",0.25,0.25
+"06008027001",1175982,"CA","Municipal Flow",0.6,0.6
+"06008027001",1175982,"CA","Industrial Flow",,
+"06008027001",1175982,"CA","Infiltration Flow",,
+"06008027001",1175982,"CA","Wet Weather Peak",,
+"06008027001",1175982,"CA","Total Flow",0.6,0.6
+"06008085001",1176028,"CA","Municipal Flow",,
+"06008085001",1176028,"CA","Industrial Flow",,
+"06008085001",1176028,"CA","Infiltration Flow",,
+"06008085001",1176028,"CA","Wet Weather Peak",,
+"06008085001",1176028,"CA","Total Flow",22.5,38.5
+"06005094001",1238819,"CA","Municipal Flow",0.11,0.11
+"06005094001",1238819,"CA","Industrial Flow",,
+"06005094001",1238819,"CA","Infiltration Flow",,
+"06005094001",1238819,"CA","Wet Weather Peak",,
+"06005094001",1238819,"CA","Total Flow",0.11,0.11
+"06001082001",1175233,"CA","Municipal Flow",1.4,1.4
+"06001082001",1175233,"CA","Industrial Flow",,
+"06001082001",1175233,"CA","Infiltration Flow",,
+"06001082001",1175233,"CA","Wet Weather Peak",,
+"06001082001",1175233,"CA","Total Flow",1.4,1.4
+"06002033001",1175290,"CA","Municipal Flow",,
+"06002033001",1175290,"CA","Industrial Flow",,
+"06002033001",1175290,"CA","Infiltration Flow",,
+"06002033001",1175290,"CA","Wet Weather Peak",,
+"06002033001",1175290,"CA","Total Flow",15.4,15.4
+"06003053001",1175421,"CA","Municipal Flow",0.95,0.95
+"06003053001",1175421,"CA","Industrial Flow",0.05,0.05
+"06003053001",1175421,"CA","Infiltration Flow",,
+"06003053001",1175421,"CA","Wet Weather Peak",,
+"06003053001",1175421,"CA","Total Flow",1,1
+"06003060001",1175427,"CA","Municipal Flow",,
+"06003060001",1175427,"CA","Industrial Flow",,
+"06003060001",1175427,"CA","Infiltration Flow",,
+"06003060001",1175427,"CA","Wet Weather Peak",10.2,10.2
+"06003060001",1175427,"CA","Total Flow",9,9
+"06005074001",1175592,"CA","Municipal Flow",0.06,0.06
+"06005074001",1175592,"CA","Industrial Flow",,
+"06005074001",1175592,"CA","Infiltration Flow",,
+"06005074001",1175592,"CA","Wet Weather Peak",,
+"06005074001",1175592,"CA","Total Flow",0.06,0.06
+"06005780001",1175851,"CA","Municipal Flow",0.1,0.07
+"06005780001",1175851,"CA","Industrial Flow",,
+"06005780001",1175851,"CA","Infiltration Flow",,
+"06005780001",1175851,"CA","Wet Weather Peak",,
+"06005780001",1175851,"CA","Total Flow",0.1,0.07
+"06007019001",1175928,"CA","Municipal Flow",0.375,0.375
+"06007019001",1175928,"CA","Industrial Flow",,
+"06007019001",1175928,"CA","Infiltration Flow",,
+"06007019001",1175928,"CA","Wet Weather Peak",,
+"06007019001",1175928,"CA","Total Flow",0.375,0.375
+"06007041001",1175940,"CA","Municipal Flow",0.08,0.08
+"06007041001",1175940,"CA","Industrial Flow",,
+"06007041001",1175940,"CA","Infiltration Flow",,
+"06007041001",1175940,"CA","Wet Weather Peak",,
+"06007041001",1175940,"CA","Total Flow",0.08,0.08
+"06005033001",1238815,"CA","Municipal Flow",0.5,0.5
+"06005033001",1238815,"CA","Industrial Flow",,
+"06005033001",1238815,"CA","Infiltration Flow",,
+"06005033001",1238815,"CA","Wet Weather Peak",1.3,1.3
+"06005033001",1238815,"CA","Total Flow",0.5,0.5
+"06001015001",1175184,"CA","Municipal Flow",1.37,1.37
+"06001015001",1175184,"CA","Industrial Flow",,
+"06001015001",1175184,"CA","Infiltration Flow",,
+"06001015001",1175184,"CA","Wet Weather Peak",,
+"06001015001",1175184,"CA","Total Flow",1.37,1.37
+"06001041001",1175206,"CA","Municipal Flow",,
+"06001041001",1175206,"CA","Industrial Flow",,
+"06001041001",1175206,"CA","Infiltration Flow",,
+"06001041001",1175206,"CA","Wet Weather Peak",6.12,6.12
+"06001041001",1175206,"CA","Total Flow",1.86,1.86
+"06002012001",1175273,"CA","Municipal Flow",,
+"06002012001",1175273,"CA","Industrial Flow",,
+"06002012001",1175273,"CA","Infiltration Flow",,
+"06002012001",1175273,"CA","Wet Weather Peak",80,80
+"06002012001",1175273,"CA","Total Flow",39,40
+"06002025001",1175283,"CA","Municipal Flow",,
+"06002025001",1175283,"CA","Industrial Flow",,
+"06002025001",1175283,"CA","Infiltration Flow",,
+"06002025001",1175283,"CA","Wet Weather Peak",250,250
+"06002025001",1175283,"CA","Total Flow",53.8,53.8
+"06002063002",1175323,"CA","Municipal Flow",0.04,0.04
+"06002063002",1175323,"CA","Industrial Flow",,
+"06002063002",1175323,"CA","Infiltration Flow",,
+"06002063002",1175323,"CA","Wet Weather Peak",,
+"06002063002",1175323,"CA","Total Flow",0.04,0.04
+"06003009001",1175378,"CA","Municipal Flow",5.5,5.5
+"06003009001",1175378,"CA","Industrial Flow",,
+"06003009001",1175378,"CA","Infiltration Flow",,
+"06003009001",1175378,"CA","Wet Weather Peak",,
+"06003009001",1175378,"CA","Total Flow",5.5,5.5
+"06003068001",1175436,"CA","Municipal Flow",0.15,0.15
+"06003068001",1175436,"CA","Industrial Flow",,
+"06003068001",1175436,"CA","Infiltration Flow",,
+"06003068001",1175436,"CA","Wet Weather Peak",,
+"06003068001",1175436,"CA","Total Flow",0.15,0.15
+"06005022001",1175543,"CA","Municipal Flow",1,1
+"06005022001",1175543,"CA","Industrial Flow",,
+"06005022001",1175543,"CA","Infiltration Flow",,
+"06005022001",1175543,"CA","Wet Weather Peak",,
+"06005022001",1175543,"CA","Total Flow",1,1
+"06005243001",1175729,"CA","Municipal Flow",1.6,1.6
+"06005243001",1175729,"CA","Industrial Flow",,
+"06005243001",1175729,"CA","Infiltration Flow",,
+"06005243001",1175729,"CA","Wet Weather Peak",4.9,4.9
+"06005243001",1175729,"CA","Total Flow",1.6,1.6
+"06005299001",1175755,"CA","Municipal Flow",0.5,0.5
+"06005299001",1175755,"CA","Industrial Flow",,
+"06005299001",1175755,"CA","Infiltration Flow",,
+"06005299001",1175755,"CA","Wet Weather Peak",,
+"06005299001",1175755,"CA","Total Flow",0.5,0.5
+"06001010005",1175180,"CA","Municipal Flow",,
+"06001010005",1175180,"CA","Industrial Flow",,
+"06001010005",1175180,"CA","Infiltration Flow",,
+"06001010005",1175180,"CA","Wet Weather Peak",12,12
+"06001010005",1175180,"CA","Total Flow",8.6,8.6
+"06002109001",1175348,"CA","Municipal Flow",,
+"06002109001",1175348,"CA","Industrial Flow",,
+"06002109001",1175348,"CA","Infiltration Flow",,
+"06002109001",1175348,"CA","Wet Weather Peak",12.4,12.4
+"06002109001",1175348,"CA","Total Flow",8.5,11.1
+"06003038001",1175403,"CA","Municipal Flow",0.2,0.2
+"06003038001",1175403,"CA","Industrial Flow",,
+"06003038001",1175403,"CA","Infiltration Flow",,
+"06003038001",1175403,"CA","Wet Weather Peak",,
+"06003038001",1175403,"CA","Total Flow",0.2,0.2
+"06005249003",1175735,"CA","Municipal Flow",4,4.1
+"06005249003",1175735,"CA","Industrial Flow",,
+"06005249003",1175735,"CA","Infiltration Flow",,
+"06005249003",1175735,"CA","Wet Weather Peak",9.9,13.2
+"06005249003",1175735,"CA","Total Flow",4,4.1
+"06006011001",1175864,"CA","Municipal Flow",0.37,0.37
+"06006011001",1175864,"CA","Industrial Flow",,
+"06006011001",1175864,"CA","Infiltration Flow",,
+"06006011001",1175864,"CA","Wet Weather Peak",,
+"06006011001",1175864,"CA","Total Flow",0.37,0.37
+"06002006001",1175267,"CA","Municipal Flow",,
+"06002006001",1175267,"CA","Industrial Flow",,
+"06002006001",1175267,"CA","Infiltration Flow",,
+"06002006001",1175267,"CA","Wet Weather Peak",60.7,74
+"06002006001",1175267,"CA","Total Flow",20.2,23.9
+"06002015001",1175274,"CA","Municipal Flow",,
+"06002015001",1175274,"CA","Industrial Flow",,
+"06002015001",1175274,"CA","Infiltration Flow",,
+"06002015001",1175274,"CA","Wet Weather Peak",24.7,24.7
+"06002015001",1175274,"CA","Total Flow",3.6,3.6
+"06002036001",1175294,"CA","Municipal Flow",110,110
+"06002036001",1175294,"CA","Industrial Flow",10,10
+"06002036001",1175294,"CA","Infiltration Flow",,
+"06002036001",1175294,"CA","Wet Weather Peak",,
+"06002036001",1175294,"CA","Total Flow",120,120
+"06005018001",1175539,"CA","Municipal Flow",0.5,0.5
+"06005018001",1175539,"CA","Industrial Flow",,
+"06005018001",1175539,"CA","Infiltration Flow",,
+"06005018001",1175539,"CA","Wet Weather Peak",0.75,0.75
+"06005018001",1175539,"CA","Total Flow",0.5,0.5
+"06005057001",1175576,"CA","Municipal Flow",0.43,0.43
+"06005057001",1175576,"CA","Industrial Flow",0.06,0.06
+"06005057001",1175576,"CA","Infiltration Flow",,
+"06005057001",1175576,"CA","Wet Weather Peak",,
+"06005057001",1175576,"CA","Total Flow",0.49,0.49
+"06005082016",1175604,"CA","Municipal Flow",0.009,0.009
+"06005082016",1175604,"CA","Industrial Flow",,
+"06005082016",1175604,"CA","Infiltration Flow",,
+"06005082016",1175604,"CA","Wet Weather Peak",,
+"06005082016",1175604,"CA","Total Flow",0.009,0.009
+"06005329001",1175773,"CA","Municipal Flow",1.6,1.6
+"06005329001",1175773,"CA","Industrial Flow",,
+"06005329001",1175773,"CA","Infiltration Flow",,
+"06005329001",1175773,"CA","Wet Weather Peak",,5.7
+"06005329001",1175773,"CA","Total Flow",1.6,1.6
+"06005061001",1238816,"CA","Municipal Flow",5,5
+"06005061001",1238816,"CA","Industrial Flow",,
+"06005061001",1238816,"CA","Infiltration Flow",,
+"06005061001",1238816,"CA","Wet Weather Peak",,
+"06005061001",1238816,"CA","Total Flow",5,5
+"06004009006",1175482,"CA","Municipal Flow",,
+"06004009006",1175482,"CA","Industrial Flow",,
+"06004009006",1175482,"CA","Infiltration Flow",,
+"06004009006",1175482,"CA","Wet Weather Peak",60,60
+"06004009006",1175482,"CA","Total Flow",25,25
+"06005112001",1175643,"CA","Municipal Flow",0.55,1.6
+"06005112001",1175643,"CA","Industrial Flow",,
+"06005112001",1175643,"CA","Infiltration Flow",,
+"06005112001",1175643,"CA","Wet Weather Peak",,
+"06005112001",1175643,"CA","Total Flow",0.55,1.6
+"06002063001",1175322,"CA","Municipal Flow",0.98,0.98
+"06002063001",1175322,"CA","Industrial Flow",,
+"06002063001",1175322,"CA","Infiltration Flow",,
+"06002063001",1175322,"CA","Wet Weather Peak",,
+"06002063001",1175322,"CA","Total Flow",0.98,0.98
+"06004022002",1175509,"CA","Municipal Flow",0.32,0.32
+"06004022002",1175509,"CA","Industrial Flow",,
+"06004022002",1175509,"CA","Infiltration Flow",,
+"06004022002",1175509,"CA","Wet Weather Peak",,
+"06004022002",1175509,"CA","Total Flow",0.32,0.32
+"06005082007",1175602,"CA","Municipal Flow",0.2,0.2
+"06005082007",1175602,"CA","Industrial Flow",,
+"06005082007",1175602,"CA","Infiltration Flow",,
+"06005082007",1175602,"CA","Wet Weather Peak",,
+"06005082007",1175602,"CA","Total Flow",0.2,0.2
+"06005099001",1175619,"CA","Municipal Flow",,
+"06005099001",1175619,"CA","Industrial Flow",,
+"06005099001",1175619,"CA","Infiltration Flow",,
+"06005099001",1175619,"CA","Wet Weather Peak",,
+"06005099001",1175619,"CA","Total Flow",0.71,1
+"06005235001",1175722,"CA","Municipal Flow",,
+"06005235001",1175722,"CA","Industrial Flow",,
+"06005235001",1175722,"CA","Infiltration Flow",,
+"06005235001",1175722,"CA","Wet Weather Peak",,
+"06005235001",1175722,"CA","Total Flow",1.4,1.5
+"06005693001",1175847,"CA","Municipal Flow",0.04,0.04
+"06005693001",1175847,"CA","Industrial Flow",,
+"06005693001",1175847,"CA","Infiltration Flow",,
+"06005693001",1175847,"CA","Wet Weather Peak",,
+"06005693001",1175847,"CA","Total Flow",0.04,0.04
+"06008020001",1175973,"CA","Municipal Flow",,
+"06008020001",1175973,"CA","Industrial Flow",,
+"06008020001",1175973,"CA","Infiltration Flow",,
+"06008020001",1175973,"CA","Wet Weather Peak",,
+"06008020001",1175973,"CA","Total Flow",11.5,12.2
+"06009011001",1176042,"CA","Municipal Flow",40.51,40.51
+"06009011001",1176042,"CA","Industrial Flow",,
+"06009011001",1176042,"CA","Infiltration Flow",,
+"06009011001",1176042,"CA","Wet Weather Peak",,
+"06009011001",1176042,"CA","Total Flow",40.51,40.51
+"06009040001",1176078,"CA","Municipal Flow",5,5
+"06009040001",1176078,"CA","Industrial Flow",,
+"06009040001",1176078,"CA","Infiltration Flow",,
+"06009040001",1176078,"CA","Wet Weather Peak",,
+"06009040001",1176078,"CA","Total Flow",5,5
+"06005296001",3408470,"CA","Municipal Flow",0.1,0.1
+"06005296001",3408470,"CA","Industrial Flow",,
+"06005296001",3408470,"CA","Infiltration Flow",,
+"06005296001",3408470,"CA","Wet Weather Peak",0.05,0.05
+"06005296001",3408470,"CA","Total Flow",0.1,0.1
+"06009080001",392614,"CA","Municipal Flow",,
+"06009080001",392614,"CA","Industrial Flow",,
+"06009080001",392614,"CA","Infiltration Flow",,
+"06009080001",392614,"CA","Wet Weather Peak",,
+"06009080001",392614,"CA","Total Flow",8,8
+"06002043001",1175301,"CA","Municipal Flow",,
+"06002043001",1175301,"CA","Industrial Flow",,
+"06002043001",1175301,"CA","Infiltration Flow",,
+"06002043001",1175301,"CA","Wet Weather Peak",40,60
+"06002043001",1175301,"CA","Total Flow",15.7,15.7
+"06005178001",1175688,"CA","Municipal Flow",1.07,1.07
+"06005178001",1175688,"CA","Industrial Flow",,
+"06005178001",1175688,"CA","Infiltration Flow",,
+"06005178001",1175688,"CA","Wet Weather Peak",1.96,1.96
+"06005178001",1175688,"CA","Total Flow",1.07,1.07
+"06007069001",1175944,"CA","Municipal Flow",0.05,0.05
+"06007069001",1175944,"CA","Industrial Flow",,
+"06007069001",1175944,"CA","Infiltration Flow",,
+"06007069001",1175944,"CA","Wet Weather Peak",,
+"06007069001",1175944,"CA","Total Flow",0.05,0.05
+"06008012001",1175963,"CA","Municipal Flow",4,4
+"06008012001",1175963,"CA","Industrial Flow",,
+"06008012001",1175963,"CA","Infiltration Flow",,
+"06008012001",1175963,"CA","Wet Weather Peak",,
+"06008012001",1175963,"CA","Total Flow",4,4
+"06002044004",1175304,"CA","Municipal Flow",10,10
+"06002044004",1175304,"CA","Industrial Flow",,
+"06002044004",1175304,"CA","Infiltration Flow",,
+"06002044004",1175304,"CA","Wet Weather Peak",,
+"06002044004",1175304,"CA","Total Flow",10,10
+"06002057001",1175314,"CA","Municipal Flow",12.5,12.5
+"06002057001",1175314,"CA","Industrial Flow",,
+"06002057001",1175314,"CA","Infiltration Flow",,
+"06002057001",1175314,"CA","Wet Weather Peak",,
+"06002057001",1175314,"CA","Total Flow",12.5,12.5
+"06003041001",1175408,"CA","Municipal Flow",1.5,1.5
+"06003041001",1175408,"CA","Industrial Flow",,
+"06003041001",1175408,"CA","Infiltration Flow",,
+"06003041001",1175408,"CA","Wet Weather Peak",,
+"06003041001",1175408,"CA","Total Flow",1.5,1.5
+"06004011009",1175497,"CA","Municipal Flow",,
+"06004011009",1175497,"CA","Industrial Flow",,
+"06004011009",1175497,"CA","Infiltration Flow",,
+"06004011009",1175497,"CA","Wet Weather Peak",,
+"06004011009",1175497,"CA","Total Flow",0.36,0.36
+"06005035001",1175556,"CA","Municipal Flow",1.2,1.2
+"06005035001",1175556,"CA","Industrial Flow",,
+"06005035001",1175556,"CA","Infiltration Flow",,
+"06005035001",1175556,"CA","Wet Weather Peak",3.8,
+"06005035001",1175556,"CA","Total Flow",1.2,1.2
+"06005125001",1175656,"CA","Municipal Flow",1.7,1.7
+"06005125001",1175656,"CA","Industrial Flow",,
+"06005125001",1175656,"CA","Infiltration Flow",,
+"06005125001",1175656,"CA","Wet Weather Peak",,
+"06005125001",1175656,"CA","Total Flow",1.7,1.7
+"06005126001",1175657,"CA","Municipal Flow",,
+"06005126001",1175657,"CA","Industrial Flow",,
+"06005126001",1175657,"CA","Infiltration Flow",,
+"06005126001",1175657,"CA","Wet Weather Peak",,
+"06005126001",1175657,"CA","Total Flow",2.5,3.5
+"06005238001",1175725,"CA","Municipal Flow",0.06,0.06
+"06005238001",1175725,"CA","Industrial Flow",,
+"06005238001",1175725,"CA","Infiltration Flow",,
+"06005238001",1175725,"CA","Wet Weather Peak",,
+"06005238001",1175725,"CA","Total Flow",0.06,0.06
+"06005271001",1175746,"CA","Municipal Flow",0.08,0.08
+"06005271001",1175746,"CA","Industrial Flow",,
+"06005271001",1175746,"CA","Infiltration Flow",,
+"06005271001",1175746,"CA","Wet Weather Peak",,
+"06005271001",1175746,"CA","Total Flow",0.08,0.08
+"06005306001",1175758,"CA","Municipal Flow",2,2
+"06005306001",1175758,"CA","Industrial Flow",,
+"06005306001",1175758,"CA","Infiltration Flow",,
+"06005306001",1175758,"CA","Wet Weather Peak",,
+"06005306001",1175758,"CA","Total Flow",2,2
+"06005311001",1175762,"CA","Municipal Flow",0.02,0.02
+"06005311001",1175762,"CA","Industrial Flow",,
+"06005311001",1175762,"CA","Infiltration Flow",,
+"06005311001",1175762,"CA","Wet Weather Peak",,
+"06005311001",1175762,"CA","Total Flow",0.02,0.02
+"06009036001",1176075,"CA","Municipal Flow",2,2
+"06009036001",1176075,"CA","Industrial Flow",,
+"06009036001",1176075,"CA","Infiltration Flow",,
+"06009036001",1176075,"CA","Wet Weather Peak",,
+"06009036001",1176075,"CA","Total Flow",2,2
+"06009053001",1176088,"CA","Municipal Flow",0.12,0.12
+"06009053001",1176088,"CA","Industrial Flow",,
+"06009053001",1176088,"CA","Infiltration Flow",,
+"06009053001",1176088,"CA","Wet Weather Peak",,
+"06009053001",1176088,"CA","Total Flow",0.12,0.12
+"06002032002",1175288,"CA","Municipal Flow",,
+"06002032002",1175288,"CA","Industrial Flow",,
+"06002032002",1175288,"CA","Infiltration Flow",,
+"06002032002",1175288,"CA","Wet Weather Peak",85,85
+"06002032002",1175288,"CA","Total Flow",0,0
+"06002038001",1175296,"CA","Municipal Flow",,
+"06002038001",1175296,"CA","Industrial Flow",,
+"06002038001",1175296,"CA","Infiltration Flow",,
+"06002038001",1175296,"CA","Wet Weather Peak",32,35
+"06002038001",1175296,"CA","Total Flow",23.7,37.1
+"06003050001",1175418,"CA","Municipal Flow",,
+"06003050001",1175418,"CA","Industrial Flow",,
+"06003050001",1175418,"CA","Infiltration Flow",,
+"06003050001",1175418,"CA","Wet Weather Peak",,
+"06003050001",1175418,"CA","Total Flow",5.5,5.5
+"06005006001",1175527,"CA","Municipal Flow",0.47,0.47
+"06005006001",1175527,"CA","Industrial Flow",0.04,0.04
+"06005006001",1175527,"CA","Infiltration Flow",,
+"06005006001",1175527,"CA","Wet Weather Peak",,
+"06005006001",1175527,"CA","Total Flow",0.51,0.51
+"06005357001",1175790,"CA","Municipal Flow",0.62,0.62
+"06005357001",1175790,"CA","Industrial Flow",,
+"06005357001",1175790,"CA","Infiltration Flow",,
+"06005357001",1175790,"CA","Wet Weather Peak",,
+"06005357001",1175790,"CA","Total Flow",0.62,0.62
+"06009031001",1176066,"CA","Municipal Flow",,
+"06009031001",1176066,"CA","Industrial Flow",,
+"06009031001",1176066,"CA","Infiltration Flow",,
+"06009031001",1176066,"CA","Wet Weather Peak",,
+"06009031001",1176066,"CA","Total Flow",240,268.8
+"06009074001",1176093,"CA","Municipal Flow",,
+"06009074001",1176093,"CA","Industrial Flow",,
+"06009074001",1176093,"CA","Infiltration Flow",,
+"06009074001",1176093,"CA","Wet Weather Peak",,
+"06009074001",1176093,"CA","Total Flow",3,5.8
+"06006009002",3522480,"CA","Infiltration Flow",,
+"06006009002",3522480,"CA","Wet Weather Peak",,
+"06006009002",3522480,"CA","Total Flow",6,8.5
+"06003019001",1175386,"CA","Municipal Flow",0.08,0.08
+"06003019001",1175386,"CA","Industrial Flow",,
+"06003019001",1175386,"CA","Infiltration Flow",,
+"06003019001",1175386,"CA","Wet Weather Peak",,
+"06003019001",1175386,"CA","Total Flow",0.08,0.08
+"06009004001",1176034,"CA","Municipal Flow",,
+"06009004001",1176034,"CA","Industrial Flow",,
+"06009004001",1176034,"CA","Infiltration Flow",,
+"06009004001",1176034,"CA","Wet Weather Peak",6.2,
+"06009004001",1176034,"CA","Total Flow",2.7,2.7
+"06004009003",1175479,"CA","Municipal Flow",,
+"06004009003",1175479,"CA","Industrial Flow",,
+"06004009003",1175479,"CA","Infiltration Flow",,
+"06004009003",1175479,"CA","Wet Weather Peak",200,250
+"06004009003",1175479,"CA","Total Flow",100,100
+"06004010003",1175493,"CA","Municipal Flow",,
+"06004010003",1175493,"CA","Industrial Flow",,
+"06004010003",1175493,"CA","Infiltration Flow",,
+"06004010003",1175493,"CA","Wet Weather Peak",28,28
+"06004010003",1175493,"CA","Total Flow",20,20
+"06005245002",1175731,"CA","Municipal Flow",,
+"06005245002",1175731,"CA","Industrial Flow",,
+"06005245002",1175731,"CA","Infiltration Flow",,
+"06003027001",1175394,"CA","Municipal Flow",,
+"06003027001",1175394,"CA","Industrial Flow",,
+"06003027001",1175394,"CA","Infiltration Flow",,
+"06003027001",1175394,"CA","Wet Weather Peak",12.7,14.1
+"06003027001",1175394,"CA","Total Flow",4.9,5.4
+"06005040001",1175560,"CA","Municipal Flow",1.67,1.67
+"06005040001",1175560,"CA","Industrial Flow",,
+"06005040001",1175560,"CA","Infiltration Flow",,
+"06005040001",1175560,"CA","Wet Weather Peak",,
+"06005040001",1175560,"CA","Total Flow",1.67,1.67
+"06005187001",1175696,"CA","Municipal Flow",0.6,0.6
+"06005187001",1175696,"CA","Industrial Flow",,
+"06005187001",1175696,"CA","Infiltration Flow",,
+"06005187001",1175696,"CA","Wet Weather Peak",,
+"06005187001",1175696,"CA","Total Flow",0.6,0.6
+"06005197001",1175701,"CA","Municipal Flow",7,7
+"06005197001",1175701,"CA","Industrial Flow",,
+"06005197001",1175701,"CA","Infiltration Flow",,
+"06005197001",1175701,"CA","Wet Weather Peak",,
+"06005197001",1175701,"CA","Total Flow",7,7
+"06005315002",1175764,"CA","Municipal Flow",2,2
+"06005315002",1175764,"CA","Industrial Flow",,
+"06005315002",1175764,"CA","Infiltration Flow",,
+"06005315002",1175764,"CA","Wet Weather Peak",,3.7
+"06005315002",1175764,"CA","Total Flow",2,2
+"06005245002",1175731,"CA","Wet Weather Peak",,
+"06005245002",1175731,"CA","Total Flow",1.4,1.4
+"06006008001",1175861,"CA","Municipal Flow",9.6,12.1
+"06006008001",1175861,"CA","Industrial Flow",,
+"06006008001",1175861,"CA","Infiltration Flow",,
+"06006008001",1175861,"CA","Wet Weather Peak",11.8,15.3
+"06006008001",1175861,"CA","Total Flow",9.6,12.1
+"06005421001",1175804,"CA","Municipal Flow",0.72,0.72
+"06005421001",1175804,"CA","Industrial Flow",,
+"06005421001",1175804,"CA","Infiltration Flow",,
+"06005421001",1175804,"CA","Wet Weather Peak",3,3
+"06005421001",1175804,"CA","Total Flow",0.72,0.72
+"06008033001",1175988,"CA","Municipal Flow",28,28
+"06008033001",1175988,"CA","Industrial Flow",,
+"06008033001",1175988,"CA","Infiltration Flow",,
+"06008033001",1175988,"CA","Wet Weather Peak",,
+"06008033001",1175988,"CA","Total Flow",28,28
+"06006009002",3522480,"CA","Municipal Flow",,
+"06006009002",3522480,"CA","Industrial Flow",,
+"06005234001",1238821,"CA","Municipal Flow",,
+"06005234001",1238821,"CA","Industrial Flow",,
+"06005234001",1238821,"CA","Infiltration Flow",,
+"06005234001",1238821,"CA","Wet Weather Peak",3,6.6
+"06005234001",1238821,"CA","Total Flow",5.9,8.4
+"06005345001",1175781,"CA","Municipal Flow",0.4,0.4
+"06005345001",1175781,"CA","Industrial Flow",,
+"06005345001",1175781,"CA","Infiltration Flow",,
+"06005345001",1175781,"CA","Wet Weather Peak",,
+"06005345001",1175781,"CA","Total Flow",0.4,0.4
+"06006031001",1175885,"CA","Municipal Flow",,
+"06006031001",1175885,"CA","Industrial Flow",,
+"06006031001",1175885,"CA","Infiltration Flow",,
+"06006031001",1175885,"CA","Wet Weather Peak",,
+"06006031001",1175885,"CA","Total Flow",0.2,0.2
+"06008016003",1175969,"CA","Municipal Flow",8,8
+"06008016003",1175969,"CA","Industrial Flow",,
+"06008016003",1175969,"CA","Infiltration Flow",,
+"06008016003",1175969,"CA","Wet Weather Peak",12,12
+"06008016003",1175969,"CA","Total Flow",8,8
+"06008034001",1175989,"CA","Municipal Flow",,
+"06008034001",1175989,"CA","Industrial Flow",,
+"06008034001",1175989,"CA","Infiltration Flow",,
+"06008034001",1175989,"CA","Wet Weather Peak",,
+"06008034001",1175989,"CA","Total Flow",1.3,1.3
+"06009006001",1176037,"CA","Municipal Flow",,
+"06009006001",1176037,"CA","Industrial Flow",,
+"06009006001",1176037,"CA","Infiltration Flow",,
+"06009006001",1176037,"CA","Wet Weather Peak",,
+"06009006001",1176037,"CA","Total Flow",6.7,6.7
+"06009019001",1176050,"CA","Municipal Flow",13,13
+"06009019001",1176050,"CA","Industrial Flow",,
+"06009019001",1176050,"CA","Infiltration Flow",,
+"06009019001",1176050,"CA","Wet Weather Peak",,
+"06009019001",1176050,"CA","Total Flow",13,13
+"06008020003",3518636,"CA","Municipal Flow",,
+"06008020003",3518636,"CA","Industrial Flow",,
+"06008020003",3518636,"CA","Infiltration Flow",,
+"06008020003",3518636,"CA","Wet Weather Peak",,
+"06008020003",3518636,"CA","Total Flow",1,1.1
+"06001014001",433503,"CA","Municipal Flow",0.09,0.09
+"06001014001",433503,"CA","Industrial Flow",,
+"06001014001",433503,"CA","Infiltration Flow",,
+"06001014001",433503,"CA","Wet Weather Peak",,
+"06001014001",433503,"CA","Total Flow",0.09,0.09
+"06001003001",1175169,"CA","Municipal Flow",0.5,0.5
+"06001003001",1175169,"CA","Industrial Flow",,
+"06001003001",1175169,"CA","Infiltration Flow",,
+"06001003001",1175169,"CA","Wet Weather Peak",1.5,1.5
+"06001003001",1175169,"CA","Total Flow",0.5,0.5
+"06001093001",1175240,"CA","Municipal Flow",0.14,0.1
+"06001093001",1175240,"CA","Industrial Flow",,
+"06001093001",1175240,"CA","Infiltration Flow",,
+"06001093001",1175240,"CA","Wet Weather Peak",,
+"06001093001",1175240,"CA","Total Flow",0.14,0.1
+"06002023001",1175281,"CA","Municipal Flow",,
+"06002023001",1175281,"CA","Industrial Flow",,
+"06002023001",1175281,"CA","Infiltration Flow",,
+"06002023001",1175281,"CA","Wet Weather Peak",31.1,31.1
+"06002023001",1175281,"CA","Total Flow",19.5,19.5
+"06002082001",1175340,"CA","Municipal Flow",,
+"06002082001",1175340,"CA","Industrial Flow",,
+"06002082001",1175340,"CA","Infiltration Flow",,
+"06002082001",1175340,"CA","Wet Weather Peak",11,11
+"06002082001",1175340,"CA","Total Flow",4.5,4.8
+"06003080001",1175444,"CA","Municipal Flow",0.09,0.09
+"06003080001",1175444,"CA","Industrial Flow",,
+"06003080001",1175444,"CA","Infiltration Flow",,
+"06003080001",1175444,"CA","Wet Weather Peak",,
+"06003080001",1175444,"CA","Total Flow",0.09,0.09
+"06005158001",1175676,"CA","Municipal Flow",0.55,0.55
+"06005158001",1175676,"CA","Industrial Flow",0.7,0.7
+"06005158001",1175676,"CA","Infiltration Flow",,
+"06005158001",1175676,"CA","Wet Weather Peak",,
+"06005158001",1175676,"CA","Total Flow",1.25,1.25
+"06007002001",1175909,"CA","Municipal Flow",8,8
+"06007002001",1175909,"CA","Industrial Flow",,
+"06007002001",1175909,"CA","Infiltration Flow",,
+"06007002001",1175909,"CA","Wet Weather Peak",,
+"06007002001",1175909,"CA","Total Flow",8,8
+"06005082003",1175600,"CA","Municipal Flow",0.17,0.17
+"06005082003",1175600,"CA","Industrial Flow",,
+"06005082003",1175600,"CA","Infiltration Flow",,
+"06005082003",1175600,"CA","Wet Weather Peak",,
+"06005082003",1175600,"CA","Total Flow",0.17,0.17
+"06005179001",1175689,"CA","Municipal Flow",1.25,1.25
+"06005179001",1175689,"CA","Industrial Flow",,
+"06005179001",1175689,"CA","Infiltration Flow",,
+"06005179001",1175689,"CA","Wet Weather Peak",,
+"06005179001",1175689,"CA","Total Flow",1.25,1.25
+"06007003001",1175910,"CA","Municipal Flow",10.9,10.9
+"06007003001",1175910,"CA","Industrial Flow",,
+"06007003001",1175910,"CA","Infiltration Flow",,
+"06007003001",1175910,"CA","Wet Weather Peak",,
+"06007003001",1175910,"CA","Total Flow",10.9,10.9
+"06009015003",1176047,"CA","Municipal Flow",,
+"06009015003",1176047,"CA","Industrial Flow",,
+"06009015003",1176047,"CA","Infiltration Flow",,
+"06009015003",1176047,"CA","Wet Weather Peak",,
+"06009015003",1176047,"CA","Total Flow",1.3,1.3
+"06001040001",1175205,"CA","Municipal Flow",0.097,0.097
+"06001040001",1175205,"CA","Industrial Flow",,
+"06001040001",1175205,"CA","Infiltration Flow",,
+"06001040001",1175205,"CA","Wet Weather Peak",0.384,0.384
+"06001040001",1175205,"CA","Total Flow",0.097,0.097
+"06002074001",1175336,"CA","Municipal Flow",0.5,0.5
+"06002074001",1175336,"CA","Industrial Flow",,
+"06002074001",1175336,"CA","Infiltration Flow",,
+"06002074001",1175336,"CA","Wet Weather Peak",2.8,2.8
+"06002074001",1175336,"CA","Total Flow",0.5,0.5
+"06003012001",1175381,"CA","Municipal Flow",,
+"06003012001",1175381,"CA","Industrial Flow",,
+"06003012001",1175381,"CA","Infiltration Flow",,
+"06003012001",1175381,"CA","Wet Weather Peak",75.6,75.6
+"06003012001",1175381,"CA","Total Flow",29.6,29.6
+"06003047001",1175415,"CA","Municipal Flow",0.27,0.27
+"06003047001",1175415,"CA","Industrial Flow",,
+"06003047001",1175415,"CA","Infiltration Flow",,
+"06003047001",1175415,"CA","Wet Weather Peak",,
+"06003047001",1175415,"CA","Total Flow",0.27,0.27
+"06004010004",1175494,"CA","Municipal Flow",,
+"06004010004",1175494,"CA","Industrial Flow",,
+"06004010004",1175494,"CA","Infiltration Flow",,
+"06004010004",1175494,"CA","Wet Weather Peak",160,160
+"06004010004",1175494,"CA","Total Flow",80,80
+"06005081001",1175598,"CA","Municipal Flow",10.5,10.5
+"06005081001",1175598,"CA","Industrial Flow",,
+"06005081001",1175598,"CA","Infiltration Flow",,
+"06005081001",1175598,"CA","Wet Weather Peak",,
+"06005081001",1175598,"CA","Total Flow",10.5,10.5
+"06005157001",1175675,"CA","Municipal Flow",0.8,0.8
+"06005157001",1175675,"CA","Industrial Flow",,
+"06005157001",1175675,"CA","Infiltration Flow",,
+"06005157001",1175675,"CA","Wet Weather Peak",,
+"06005157001",1175675,"CA","Total Flow",0.8,0.8
+"06005297001",1175754,"CA","Municipal Flow",1.18,1.18
+"06005297001",1175754,"CA","Industrial Flow",,
+"06005297001",1175754,"CA","Infiltration Flow",,
+"06005297001",1175754,"CA","Wet Weather Peak",2.1,2.1
+"06005297001",1175754,"CA","Total Flow",1.18,1.18
+"06002011001",1175272,"CA","Municipal Flow",,
+"06002011001",1175272,"CA","Industrial Flow",,
+"06002011001",1175272,"CA","Infiltration Flow",,
+"06002011001",1175272,"CA","Wet Weather Peak",16,16
+"06002011001",1175272,"CA","Total Flow",5.5,5.5
+"06002064001",1175324,"CA","Municipal Flow",1.14,1.14
+"06002064001",1175324,"CA","Industrial Flow",,
+"06002064001",1175324,"CA","Infiltration Flow",,
+"06002064001",1175324,"CA","Wet Weather Peak",,
+"06002064001",1175324,"CA","Total Flow",1.14,1.14
+"06002127001",1175359,"CA","Municipal Flow",0.55,0.55
+"06002127001",1175359,"CA","Industrial Flow",,
+"06002127001",1175359,"CA","Infiltration Flow",,
+"06002127001",1175359,"CA","Wet Weather Peak",2.8,2.8
+"06002127001",1175359,"CA","Total Flow",0.55,0.55
+"06003036001",1175401,"CA","Municipal Flow",0.2,0.2
+"06003036001",1175401,"CA","Industrial Flow",,
+"06003036001",1175401,"CA","Infiltration Flow",,
+"06003036001",1175401,"CA","Wet Weather Peak",,
+"06003036001",1175401,"CA","Total Flow",0.2,0.2
+"06003040001",1175407,"CA","Municipal Flow",,
+"06003040001",1175407,"CA","Industrial Flow",,
+"06003040001",1175407,"CA","Infiltration Flow",,
+"06003040001",1175407,"CA","Wet Weather Peak",,
+"06003040001",1175407,"CA","Total Flow",13.5,13.5
+"06004007001",1175462,"CA","Municipal Flow",,
+"06004007001",1175462,"CA","Industrial Flow",,
+"06004007001",1175462,"CA","Infiltration Flow",,
+"06004007001",1175462,"CA","Wet Weather Peak",,
+"06004007001",1175462,"CA","Total Flow",14,14
+"06005046001",1175566,"CA","Municipal Flow",0.54,0.54
+"06005046001",1175566,"CA","Industrial Flow",0.04,0.04
+"06005046001",1175566,"CA","Infiltration Flow",,
+"06001055001",1175221,"CA","Municipal Flow",0.17,0.17
+"06001055001",1175221,"CA","Industrial Flow",,
+"06001055001",1175221,"CA","Infiltration Flow",0.1,0.1
+"06001055001",1175221,"CA","Wet Weather Peak",0.77,0.77
+"06001055001",1175221,"CA","Total Flow",0.27,0.27
+"06002081001",1175339,"CA","Municipal Flow",,
+"06002081001",1175339,"CA","Industrial Flow",,
+"06002081001",1175339,"CA","Infiltration Flow",,
+"06002081001",1175339,"CA","Wet Weather Peak",,
+"06002081001",1175339,"CA","Total Flow",33,37.7
+"06002125001",1175358,"CA","Municipal Flow",29,29
+"06002125001",1175358,"CA","Industrial Flow",,
+"06002125001",1175358,"CA","Infiltration Flow",,
+"06002125001",1175358,"CA","Wet Weather Peak",,
+"06002125001",1175358,"CA","Total Flow",29,29
+"06004010001",1175491,"CA","Municipal Flow",450,511.5
+"06004010001",1175491,"CA","Industrial Flow",,
+"06004010001",1175491,"CA","Infiltration Flow",,
+"06004010001",1175491,"CA","Wet Weather Peak",,
+"06004010001",1175491,"CA","Total Flow",450,511.5
+"06005109001",1175641,"CA","Municipal Flow",5,5
+"06005109001",1175641,"CA","Industrial Flow",,
+"06005109001",1175641,"CA","Infiltration Flow",,
+"06005109001",1175641,"CA","Wet Weather Peak",,
+"06005109001",1175641,"CA","Total Flow",5,5
+"06005169001",1175684,"CA","Municipal Flow",0.11,0.11
+"06005169001",1175684,"CA","Industrial Flow",,
+"06005169001",1175684,"CA","Infiltration Flow",,
+"06005169001",1175684,"CA","Wet Weather Peak",,
+"06005019004",395847,"CA","Municipal Flow",0.25,0.25
+"06005019004",395847,"CA","Industrial Flow",,
+"06005019004",395847,"CA","Infiltration Flow",,
+"06005019004",395847,"CA","Wet Weather Peak",,
+"06005019004",395847,"CA","Total Flow",0.25,0.25
+"06001069001",1175228,"CA","Municipal Flow",0.12,0.12
+"06001069001",1175228,"CA","Industrial Flow",,
+"06001069001",1175228,"CA","Infiltration Flow",,
+"06001069001",1175228,"CA","Wet Weather Peak",0.6,
+"06001069001",1175228,"CA","Total Flow",0.12,0.12
+"06003037001",1175402,"CA","Municipal Flow",10.48,10.48
+"06003037001",1175402,"CA","Industrial Flow",0.52,0.52
+"06003037001",1175402,"CA","Infiltration Flow",,
+"06003037001",1175402,"CA","Wet Weather Peak",,
+"06003037001",1175402,"CA","Total Flow",11,11
+"06005113001",1175644,"CA","Municipal Flow",0.3,0.3
+"06005113001",1175644,"CA","Industrial Flow",,
+"06005113001",1175644,"CA","Infiltration Flow",,
+"06005113001",1175644,"CA","Wet Weather Peak",,
+"06005113001",1175644,"CA","Total Flow",0.3,0.3
+"06005114001",1175645,"CA","Municipal Flow",0.5,0.5
+"06005114001",1175645,"CA","Industrial Flow",,
+"06005114001",1175645,"CA","Infiltration Flow",,
+"06005114001",1175645,"CA","Wet Weather Peak",,
+"06005114001",1175645,"CA","Total Flow",0.5,0.5
+"06006004001",1175857,"CA","Municipal Flow",,
+"06006004001",1175857,"CA","Industrial Flow",,
+"06001038001",1175204,"CA","Municipal Flow",0.355,0.355
+"06001038001",1175204,"CA","Industrial Flow",,
+"06001038001",1175204,"CA","Infiltration Flow",,
+"06001038001",1175204,"CA","Wet Weather Peak",,
+"06001038001",1175204,"CA","Total Flow",0.355,0.355
+"06002072001",1175334,"CA","Municipal Flow",,
+"06002072001",1175334,"CA","Industrial Flow",,
+"06002072001",1175334,"CA","Infiltration Flow",,
+"06002072001",1175334,"CA","Wet Weather Peak",0,0
+"06002072001",1175334,"CA","Total Flow",6,9
+"06005161001",1175679,"CA","Municipal Flow",0.61,0.61
+"06005161001",1175679,"CA","Industrial Flow",,
+"06005161001",1175679,"CA","Infiltration Flow",,
+"06005161001",1175679,"CA","Wet Weather Peak",,
+"06005161001",1175679,"CA","Total Flow",0.61,0.61
+"06005204001",1175707,"CA","Municipal Flow",,
+"06005204001",1175707,"CA","Industrial Flow",,
+"06005204001",1175707,"CA","Infiltration Flow",,
+"06005204001",1175707,"CA","Wet Weather Peak",,
+"06005204001",1175707,"CA","Total Flow",0.3,0.3
+"06005266001",1175745,"CA","Municipal Flow",0.1,0.2
+"06005266001",1175745,"CA","Industrial Flow",0.02,0.02
+"06005266001",1175745,"CA","Infiltration Flow",,
+"06005266001",1175745,"CA","Wet Weather Peak",,
+"06005266001",1175745,"CA","Total Flow",0.12,0.22
+"06005347001",1175782,"CA","Municipal Flow",1.5,1.5
+"06005347001",1175782,"CA","Industrial Flow",,
+"06005347001",1175782,"CA","Infiltration Flow",,
+"06005347001",1175782,"CA","Wet Weather Peak",,
+"06005347001",1175782,"CA","Total Flow",1.5,1.5
+"06005681001",1175845,"CA","Municipal Flow",0.69,0.69
+"06005681001",1175845,"CA","Industrial Flow",,
+"06005681001",1175845,"CA","Infiltration Flow",,
+"06005681001",1175845,"CA","Wet Weather Peak",,
+"06005681001",1175845,"CA","Total Flow",0.69,0.69
+"06004009014",3482611,"CA","Municipal Flow",0.2,0.2
+"06004009014",3482611,"CA","Industrial Flow",,
+"06004009014",3482611,"CA","Infiltration Flow",,
+"06004009014",3482611,"CA","Wet Weather Peak",,
+"06004009014",3482611,"CA","Total Flow",0.2,0.2
+"06005169001",1175684,"CA","Total Flow",0.11,0.11
+"06005294001",3478111,"CA","Municipal Flow",0.1,0.1
+"06005294001",3478111,"CA","Industrial Flow",,
+"06005294001",3478111,"CA","Infiltration Flow",,
+"06005294001",3478111,"CA","Wet Weather Peak",,
+"06005294001",3478111,"CA","Total Flow",0.1,0.1
+"06006004001",1175857,"CA","Infiltration Flow",,
+"06006004001",1175857,"CA","Wet Weather Peak",,
+"06006004001",1175857,"CA","Total Flow",7.7,7.7
+"06009058001",1176089,"CA","Municipal Flow",0.31,0.31
+"06009058001",1176089,"CA","Industrial Flow",,
+"06009058001",1176089,"CA","Infiltration Flow",,
+"06009058001",1176089,"CA","Wet Weather Peak",,
+"06009058001",1176089,"CA","Total Flow",0.31,0.31
+"06003016001",1175384,"CA","Municipal Flow",0.65,0.65
+"06003016001",1175384,"CA","Industrial Flow",,
+"06003016001",1175384,"CA","Infiltration Flow",,
+"06003016001",1175384,"CA","Wet Weather Peak",,
+"06003016001",1175384,"CA","Total Flow",0.65,0.65
+"06003028001",1175395,"CA","Municipal Flow",,
+"06003028001",1175395,"CA","Industrial Flow",,
+"06003028001",1175395,"CA","Infiltration Flow",,
+"06003028001",1175395,"CA","Wet Weather Peak",1.9,2.2
+"06003028001",1175395,"CA","Total Flow",1.9,1.9
+"06005047001",1175567,"CA","Municipal Flow",1.25,1.25
+"06005047001",1175567,"CA","Industrial Flow",,
+"06005047001",1175567,"CA","Infiltration Flow",,
+"06005047001",1175567,"CA","Wet Weather Peak",,
+"06005047001",1175567,"CA","Total Flow",1.25,1.25
+"06005108001",1175640,"CA","Municipal Flow",1.8,1.8
+"06005108001",1175640,"CA","Industrial Flow",,
+"06005108001",1175640,"CA","Infiltration Flow",,
+"06005108001",1175640,"CA","Wet Weather Peak",,
+"06005108001",1175640,"CA","Total Flow",1.8,1.8
+"06005551001",1175825,"CA","Municipal Flow",0.06,0.06
+"06005551001",1175825,"CA","Industrial Flow",,
+"06005551001",1175825,"CA","Infiltration Flow",,
+"06005551001",1175825,"CA","Wet Weather Peak",,
+"06005551001",1175825,"CA","Total Flow",0.06,0.06
+"06005043001",1175563,"CA","Wet Weather Peak",,
+"06005043001",1175563,"CA","Total Flow",1.8,1.8
+"06005066001",1175587,"CA","Municipal Flow",,
+"06005066001",1175587,"CA","Industrial Flow",,
+"06005066001",1175587,"CA","Infiltration Flow",,
+"06005066001",1175587,"CA","Wet Weather Peak",,
+"06005066001",1175587,"CA","Total Flow",0.53,0.75
+"06005123001",1175654,"CA","Municipal Flow",0.22,0.22
+"06005123001",1175654,"CA","Industrial Flow",,
+"06005123001",1175654,"CA","Infiltration Flow",,
+"06005123001",1175654,"CA","Wet Weather Peak",,
+"06005123001",1175654,"CA","Total Flow",0.22,0.22
+"06005236001",1175723,"CA","Municipal Flow",0.8,0.92
+"06005236001",1175723,"CA","Industrial Flow",0.8,0.92
+"06005236001",1175723,"CA","Infiltration Flow",,
+"06005236001",1175723,"CA","Wet Weather Peak",1.2,1.2
+"06005236001",1175723,"CA","Total Flow",1.6,1.84
+"06001049001",1175215,"CA","Municipal Flow",0.01,0.01
+"06001049001",1175215,"CA","Industrial Flow",,
+"06001049001",1175215,"CA","Infiltration Flow",,
+"06001049001",1175215,"CA","Wet Weather Peak",,
+"06001049001",1175215,"CA","Total Flow",0.01,0.01
+"06002092001",1175344,"CA","Municipal Flow",0.065,0.065
+"06002092001",1175344,"CA","Industrial Flow",,
+"06002092001",1175344,"CA","Infiltration Flow",,
+"06002092001",1175344,"CA","Wet Weather Peak",0.065,
+"06002092001",1175344,"CA","Total Flow",0.065,0.065
+"06004009005",1175481,"CA","Municipal Flow",,
+"06004009005",1175481,"CA","Industrial Flow",,
+"06004009005",1175481,"CA","Infiltration Flow",,
+"06004009005",1175481,"CA","Wet Weather Peak",75,100
+"06004009005",1175481,"CA","Total Flow",37.5,37.5
+"06005068001",1175588,"CA","Municipal Flow",,
+"06005068001",1175588,"CA","Industrial Flow",,
+"06005068001",1175588,"CA","Infiltration Flow",,
+"06005068001",1175588,"CA","Wet Weather Peak",,
+"06005068001",1175588,"CA","Total Flow",7.9,7.9
+"06007021001",1175929,"CA","Municipal Flow",,
+"06007021001",1175929,"CA","Industrial Flow",,
+"06007021001",1175929,"CA","Infiltration Flow",,
+"06007021001",1175929,"CA","Wet Weather Peak",,
+"06007021001",1175929,"CA","Total Flow",2.5,2.5
+"06005511002",1175815,"CA","Municipal Flow",0.066,0.066
+"06005511002",1175815,"CA","Industrial Flow",,
+"06005511002",1175815,"CA","Infiltration Flow",,
+"06005511002",1175815,"CA","Wet Weather Peak",,
+"06005511002",1175815,"CA","Total Flow",0.066,0.066
+"06009014002",1176046,"CA","Municipal Flow",1,1
+"06009014002",1176046,"CA","Industrial Flow",,
+"06009014002",1176046,"CA","Infiltration Flow",,
+"06009014002",1176046,"CA","Wet Weather Peak",,
+"06009014002",1176046,"CA","Total Flow",1,1
+"06009028001",1176063,"CA","Municipal Flow",5.25,5.25
+"06009028001",1176063,"CA","Industrial Flow",,
+"06009028001",1176063,"CA","Infiltration Flow",,
+"06009028001",1176063,"CA","Wet Weather Peak",,
+"06009028001",1176063,"CA","Total Flow",5.25,5.25
+"06001020001",1175189,"CA","Municipal Flow",0.4,0.4
+"06001020001",1175189,"CA","Industrial Flow",,
+"06001020001",1175189,"CA","Infiltration Flow",,
+"06001020001",1175189,"CA","Wet Weather Peak",,
+"06001020001",1175189,"CA","Total Flow",0.4,0.4
+"06001035001",1175201,"CA","Municipal Flow",1,1
+"06001035001",1175201,"CA","Industrial Flow",,
+"06001035001",1175201,"CA","Infiltration Flow",,
+"06001035001",1175201,"CA","Wet Weather Peak",,
+"06001035001",1175201,"CA","Total Flow",1,1
+"06003044001",1175412,"CA","Municipal Flow",12,12
+"06003044001",1175412,"CA","Industrial Flow",,
+"06003044001",1175412,"CA","Infiltration Flow",,
+"06003044001",1175412,"CA","Wet Weather Peak",38.2,38.2
+"06001070001",1175229,"CA","Municipal Flow",0.31,0.31
+"06001070001",1175229,"CA","Industrial Flow",,
+"06001070001",1175229,"CA","Infiltration Flow",,
+"06001070001",1175229,"CA","Wet Weather Peak",,
+"06001070001",1175229,"CA","Total Flow",0.31,0.31
+"06004003001",1175458,"CA","Municipal Flow",,
+"06004003001",1175458,"CA","Industrial Flow",,
+"06004003001",1175458,"CA","Infiltration Flow",,
+"06004003001",1175458,"CA","Wet Weather Peak",,
+"06004003001",1175458,"CA","Total Flow",12.5,12.9
+"06004009009",1175485,"CA","Municipal Flow",,
+"06004009009",1175485,"CA","Industrial Flow",,
+"06004009009",1175485,"CA","Infiltration Flow",,
+"06004009009",1175485,"CA","Wet Weather Peak",41.6,67.6
+"06004009009",1175485,"CA","Total Flow",21,26
+"06005088002",1175609,"CA","Municipal Flow",6.5,6.5
+"06005088002",1175609,"CA","Industrial Flow",,
+"06005088002",1175609,"CA","Infiltration Flow",,
+"06005088002",1175609,"CA","Wet Weather Peak",12,12
+"06005088002",1175609,"CA","Total Flow",6.5,6.5
+"06005106001",1175638,"CA","Municipal Flow",3.6,3.6
+"06005106001",1175638,"CA","Industrial Flow",2.4,2.4
+"06005106001",1175638,"CA","Infiltration Flow",,
+"06005106001",1175638,"CA","Wet Weather Peak",,
+"06005106001",1175638,"CA","Total Flow",6,6
+"06005351001",1175785,"CA","Municipal Flow",0.4,0.4
+"06005351001",1175785,"CA","Industrial Flow",,
+"06005351001",1175785,"CA","Infiltration Flow",,
+"06005351001",1175785,"CA","Wet Weather Peak",,
+"06005351001",1175785,"CA","Total Flow",0.4,0.4
+"06006005001",1175858,"CA","Municipal Flow",4.5,4.5
+"06006005001",1175858,"CA","Industrial Flow",,
+"06006005001",1175858,"CA","Infiltration Flow",,
+"06006005001",1175858,"CA","Wet Weather Peak",,
+"06006005001",1175858,"CA","Total Flow",4.5,4.5
+"06007005001",1175911,"CA","Municipal Flow",4.3,4.3
+"06007005001",1175911,"CA","Industrial Flow",,0.2
+"06007005001",1175911,"CA","Infiltration Flow",,
+"06005077001",1175595,"CA","Total Flow",20,20
+"06005105001",1175637,"CA","Municipal Flow",,
+"06005105001",1175637,"CA","Industrial Flow",,
+"06005105001",1175637,"CA","Infiltration Flow",,
+"06005105001",1175637,"CA","Wet Weather Peak",,
+"06005105001",1175637,"CA","Total Flow",10.8,17.7
+"06005226001",1175717,"CA","Municipal Flow",2,2
+"06005226001",1175717,"CA","Industrial Flow",,
+"06005226001",1175717,"CA","Infiltration Flow",,
+"06005226001",1175717,"CA","Wet Weather Peak",,
+"06005226001",1175717,"CA","Total Flow",2,2
+"06005262001",1175743,"CA","Municipal Flow",0.02,0.02
+"06005262001",1175743,"CA","Industrial Flow",,
+"06005262001",1175743,"CA","Infiltration Flow",,
+"06005262001",1175743,"CA","Wet Weather Peak",,
+"06005262001",1175743,"CA","Total Flow",0.02,0.02
+"06003044001",1175412,"CA","Total Flow",12,12
+"06003115001",1175455,"CA","Municipal Flow",0.35,0.35
+"06003115001",1175455,"CA","Industrial Flow",,
+"06003115001",1175455,"CA","Infiltration Flow",,
+"06003115001",1175455,"CA","Wet Weather Peak",,
+"06003115001",1175455,"CA","Total Flow",0.35,0.35
+"06005010002",1175531,"CA","Municipal Flow",16,32
+"06005010002",1175531,"CA","Industrial Flow",,
+"06005010002",1175531,"CA","Infiltration Flow",,
+"06005010002",1175531,"CA","Wet Weather Peak",,
+"06005010002",1175531,"CA","Total Flow",16,32
+"06005118001",1175649,"CA","Municipal Flow",0.22,0.21
+"06005118001",1175649,"CA","Industrial Flow",,0.01
+"06005118001",1175649,"CA","Infiltration Flow",,
+"06005118001",1175649,"CA","Wet Weather Peak",,
+"06005118001",1175649,"CA","Total Flow",0.22,0.22
+"06005233001",1175721,"CA","Municipal Flow",,
+"06005233001",1175721,"CA","Industrial Flow",,
+"06005233001",1175721,"CA","Infiltration Flow",,
+"06005233001",1175721,"CA","Wet Weather Peak",,
+"06005233001",1175721,"CA","Total Flow",0.5,0.5
+"06005240001",1175727,"CA","Municipal Flow",0.5,0.5
+"06005240001",1175727,"CA","Industrial Flow",,
+"06005240001",1175727,"CA","Infiltration Flow",,
+"06005240001",1175727,"CA","Wet Weather Peak",0.8,0.8
+"06005240001",1175727,"CA","Total Flow",0.5,0.5
+"06005325001",1175771,"CA","Municipal Flow",2.1,2.1
+"06005325001",1175771,"CA","Industrial Flow",,
+"06005325001",1175771,"CA","Infiltration Flow",,
+"06005325001",1175771,"CA","Wet Weather Peak",,
+"06005325001",1175771,"CA","Total Flow",2.1,2.1
+"06001009001",1175176,"CA","Municipal Flow",0.13,0.13
+"06001009001",1175176,"CA","Industrial Flow",,
+"06001009001",1175176,"CA","Infiltration Flow",,
+"06001009001",1175176,"CA","Wet Weather Peak",,
+"06001009001",1175176,"CA","Total Flow",0.13,0.13
+"06005032001",1175554,"CA","Municipal Flow",1,1
+"06005032001",1175554,"CA","Industrial Flow",,0.6
+"06005032001",1175554,"CA","Infiltration Flow",,
+"06005032001",1175554,"CA","Wet Weather Peak",2.45,4.2
+"06005032001",1175554,"CA","Total Flow",1,1.6
+"06005055001",1175574,"CA","Municipal Flow",0.1,0.1
+"06006009001",1175862,"CA","Municipal Flow",,
+"06006009001",1175862,"CA","Industrial Flow",,
+"06006009001",1175862,"CA","Infiltration Flow",,
+"06006009001",1175862,"CA","Wet Weather Peak",,
+"06006009001",1175862,"CA","Total Flow",18,18
+"06007010001",1175920,"CA","Municipal Flow",1.138,1.138
+"06001048001",1175214,"CA","Municipal Flow",0.19,0.19
+"06001048001",1175214,"CA","Industrial Flow",,
+"06001048001",1175214,"CA","Infiltration Flow",,
+"06001048001",1175214,"CA","Wet Weather Peak",,
+"06001048001",1175214,"CA","Total Flow",0.19,0.19
+"06003005001",1175376,"CA","Municipal Flow",1.4,1.4
+"06003005001",1175376,"CA","Industrial Flow",,
+"06003005001",1175376,"CA","Infiltration Flow",,
+"06003005001",1175376,"CA","Wet Weather Peak",,
+"06007005001",1175911,"CA","Wet Weather Peak",,
+"06007005001",1175911,"CA","Total Flow",4.3,4.5
+"06007032001",1175939,"CA","Municipal Flow",3.6,3.6
+"06007032001",1175939,"CA","Industrial Flow",,
+"06007032001",1175939,"CA","Infiltration Flow",,
+"06007032001",1175939,"CA","Wet Weather Peak",,
+"06007032001",1175939,"CA","Total Flow",3.6,3.6
+"06008080001",1176025,"CA","Municipal Flow",0.16,0.16
+"06008080001",1176025,"CA","Industrial Flow",,
+"06008080001",1176025,"CA","Infiltration Flow",,
+"06008080001",1176025,"CA","Wet Weather Peak",,
+"06008080001",1176025,"CA","Total Flow",0.16,0.16
+"06002041001",1175299,"CA","Infiltration Flow",,
+"06002041001",1175299,"CA","Wet Weather Peak",,
+"06002041001",1175299,"CA","Total Flow",167,142
+"06002155001",1175365,"CA","Municipal Flow",3.6,3.6
+"06002155001",1175365,"CA","Industrial Flow",,
+"06002155001",1175365,"CA","Infiltration Flow",,
+"06002155001",1175365,"CA","Wet Weather Peak",24.7,24.7
+"06002155001",1175365,"CA","Total Flow",3.6,3.6
+"06003049001",1175417,"CA","Municipal Flow",,
+"06003049001",1175417,"CA","Industrial Flow",,
+"06003049001",1175417,"CA","Infiltration Flow",,
+"06003049001",1175417,"CA","Wet Weather Peak",,
+"06003049001",1175417,"CA","Total Flow",3.7,5
+"06003072001",1175440,"CA","Municipal Flow",0.96,0.96
+"06003072001",1175440,"CA","Industrial Flow",,
+"06003072001",1175440,"CA","Infiltration Flow",,
+"06003072001",1175440,"CA","Wet Weather Peak",,
+"06003072001",1175440,"CA","Total Flow",0.96,0.96
+"06005145001",1175665,"CA","Municipal Flow",0.55,0.55
+"06005145001",1175665,"CA","Industrial Flow",,
+"06005145001",1175665,"CA","Infiltration Flow",,
+"06005145001",1175665,"CA","Wet Weather Peak",,
+"06005145001",1175665,"CA","Total Flow",0.55,0.55
+"06007022001",1175930,"CA","Municipal Flow",5.9,5.9
+"06007022001",1175930,"CA","Industrial Flow",,
+"06007022001",1175930,"CA","Infiltration Flow",,
+"06007022001",1175930,"CA","Wet Weather Peak",,
+"06007022001",1175930,"CA","Total Flow",5.9,5.9
+"06007010001",1175920,"CA","Industrial Flow",,
+"06007010001",1175920,"CA","Infiltration Flow",,
+"06007010001",1175920,"CA","Wet Weather Peak",,
+"06007010001",1175920,"CA","Total Flow",1.138,1.138
+"06003005001",1175376,"CA","Total Flow",1.4,1.4
+"06003061001",1175428,"CA","Municipal Flow",2,2
+"06003061001",1175428,"CA","Industrial Flow",,
+"06003061001",1175428,"CA","Infiltration Flow",,
+"06003061001",1175428,"CA","Wet Weather Peak",,
+"06003061001",1175428,"CA","Total Flow",2,2
+"06003083001",1175446,"CA","Municipal Flow",0.06,0.06
+"06003083001",1175446,"CA","Industrial Flow",,
+"06003083001",1175446,"CA","Infiltration Flow",,
+"06003083001",1175446,"CA","Wet Weather Peak",,
+"06003083001",1175446,"CA","Total Flow",0.06,0.06
+"06005062001",1175583,"CA","Municipal Flow",8.5,8.5
+"06005062001",1175583,"CA","Industrial Flow",,
+"06005062001",1175583,"CA","Infiltration Flow",,
+"06005062001",1175583,"CA","Wet Weather Peak",15.6,15.6
+"06005062001",1175583,"CA","Total Flow",8.5,8.5
+"06005064001",1175585,"CA","Municipal Flow",,
+"06005064001",1175585,"CA","Industrial Flow",,
+"06005064001",1175585,"CA","Infiltration Flow",,
+"06005055001",1175574,"CA","Industrial Flow",,
+"06005055001",1175574,"CA","Infiltration Flow",,
+"06005055001",1175574,"CA","Wet Weather Peak",,
+"06005055001",1175574,"CA","Total Flow",0.1,0.1
+"06005143001",1175664,"CA","Municipal Flow",0.58,0.58
+"06005143001",1175664,"CA","Industrial Flow",,
+"06005143001",1175664,"CA","Infiltration Flow",,
+"06005143001",1175664,"CA","Wet Weather Peak",,
+"06005143001",1175664,"CA","Total Flow",0.58,0.58
+"06005367001",1175794,"CA","Municipal Flow",1.2,1.2
+"06005367001",1175794,"CA","Industrial Flow",1,1
+"06005367001",1175794,"CA","Infiltration Flow",,
+"06005367001",1175794,"CA","Wet Weather Peak",,
+"06005367001",1175794,"CA","Total Flow",2.2,2.2
+"06001026001",1175194,"CA","Municipal Flow",0.18,0.18
+"06001026001",1175194,"CA","Industrial Flow",,
+"06001026001",1175194,"CA","Infiltration Flow",,
+"06001026001",1175194,"CA","Wet Weather Peak",0.3,0.3
+"06001026001",1175194,"CA","Total Flow",0.18,0.18
+"06001045003",1175211,"CA","Municipal Flow",0.65,0.65
+"06001045003",1175211,"CA","Industrial Flow",,
+"06001045003",1175211,"CA","Infiltration Flow",,
+"06001045003",1175211,"CA","Wet Weather Peak",,
+"06001045003",1175211,"CA","Total Flow",0.65,0.65
+"06002166001",1175369,"CA","Municipal Flow",0.036,0.036
+"06002166001",1175369,"CA","Industrial Flow",,
+"06002166001",1175369,"CA","Infiltration Flow",,
+"06002166001",1175369,"CA","Wet Weather Peak",,
+"06002166001",1175369,"CA","Total Flow",0.036,0.036
+"06001032001",1175200,"CA","Municipal Flow",0.14,0.14
+"06001032001",1175200,"CA","Industrial Flow",,
+"06001032001",1175200,"CA","Infiltration Flow",,
+"06001032001",1175200,"CA","Wet Weather Peak",,
+"06001032001",1175200,"CA","Total Flow",0.14,0.14
+"06005079001",1175597,"CA","Municipal Flow",3,3
+"06005079001",1175597,"CA","Industrial Flow",,
+"06005079001",1175597,"CA","Infiltration Flow",,
+"06005079001",1175597,"CA","Wet Weather Peak",,
+"06005079001",1175597,"CA","Total Flow",3,3
+"06005198001",1175702,"CA","Municipal Flow",2.78,2.78
+"06005198001",1175702,"CA","Industrial Flow",,
+"06005198001",1175702,"CA","Infiltration Flow",,
+"06005198001",1175702,"CA","Wet Weather Peak",7.6,7.6
+"06005198001",1175702,"CA","Total Flow",2.78,2.78
+"06005319001",1175766,"CA","Municipal Flow",0.25,0.25
+"06005319001",1175766,"CA","Industrial Flow",,
+"06005319001",1175766,"CA","Infiltration Flow",,
+"06005319001",1175766,"CA","Wet Weather Peak",,
+"06005319001",1175766,"CA","Total Flow",0.25,0.25
+"06005064001",1175585,"CA","Wet Weather Peak",,
+"06005064001",1175585,"CA","Total Flow",12,20
+"06005159001",1175677,"CA","Municipal Flow",0.15,0.15
+"06005159001",1175677,"CA","Industrial Flow",,
+"06005159001",1175677,"CA","Infiltration Flow",,
+"06005159001",1175677,"CA","Wet Weather Peak",,
+"06005159001",1175677,"CA","Total Flow",0.15,0.15
+"06005310001",1175761,"CA","Municipal Flow",2.5,2.5
+"06005310001",1175761,"CA","Industrial Flow",,
+"06005310001",1175761,"CA","Infiltration Flow",,
+"06005310001",1175761,"CA","Wet Weather Peak",,
+"06005310001",1175761,"CA","Total Flow",2.5,2.5
+"06006010001",1175863,"CA","Municipal Flow",2.2,2.2
+"06006010001",1175863,"CA","Industrial Flow",,
+"06006010001",1175863,"CA","Infiltration Flow",,
+"06006010001",1175863,"CA","Wet Weather Peak",,
+"06006010001",1175863,"CA","Total Flow",2.2,2.2
+"06008001001",1175945,"CA","Municipal Flow",,
+"06008001001",1175945,"CA","Industrial Flow",,
+"06008001001",1175945,"CA","Infiltration Flow",,
+"06008001001",1175945,"CA","Wet Weather Peak",,
+"06008001001",1175945,"CA","Total Flow",46,46
+"06008041002",1175996,"CA","Wet Weather Peak",,
+"06008041002",1175996,"CA","Total Flow",8,16.3
+"06009012001",1176043,"CA","Municipal Flow",0.023,0.023
+"06009012001",1176043,"CA","Industrial Flow",,
+"06009012001",1176043,"CA","Infiltration Flow",,
+"06009012001",1176043,"CA","Wet Weather Peak",,
+"06009012001",1176043,"CA","Total Flow",0.023,0.023
+"06009031004",1176069,"CA","Municipal Flow",,
+"06009031004",1176069,"CA","Industrial Flow",,
+"06009031004",1176069,"CA","Infiltration Flow",,
+"06009031004",1176069,"CA","Wet Weather Peak",,
+"06009031004",1176069,"CA","Total Flow",18,20.2
+"06001028001",1175196,"CA","Municipal Flow",,
+"06001028001",1175196,"CA","Industrial Flow",,
+"06001028001",1175196,"CA","Infiltration Flow",,
+"06001028001",1175196,"CA","Wet Weather Peak",2.2,2.2
+"06001028001",1175196,"CA","Total Flow",1,1
+"06002123001",1175357,"CA","Municipal Flow",2.2,2.2
+"06002123001",1175357,"CA","Industrial Flow",,
+"06002123001",1175357,"CA","Infiltration Flow",,
+"06002123001",1175357,"CA","Wet Weather Peak",,
+"06002123001",1175357,"CA","Total Flow",2.2,2.2
+"06004016001",1175503,"CA","Municipal Flow",1.2,1.2
+"06004016001",1175503,"CA","Industrial Flow",,
+"06004016001",1175503,"CA","Infiltration Flow",,
+"06004016001",1175503,"CA","Wet Weather Peak",,
+"06004016001",1175503,"CA","Total Flow",1.2,1.2
+"06005038001",1175558,"CA","Municipal Flow",0.5,0.5
+"06005038001",1175558,"CA","Industrial Flow",,
+"06005038001",1175558,"CA","Infiltration Flow",,
+"06005038001",1175558,"CA","Wet Weather Peak",,
+"06005038001",1175558,"CA","Total Flow",0.5,0.5
+"06005082004",1175601,"CA","Municipal Flow",0.03,0.03
+"06005082004",1175601,"CA","Industrial Flow",,
+"06005082004",1175601,"CA","Infiltration Flow",,
+"06005082004",1175601,"CA","Wet Weather Peak",,
+"06005082004",1175601,"CA","Total Flow",0.03,0.03
+"06005082020",1175605,"CA","Municipal Flow",0.02,0.02
+"06005082020",1175605,"CA","Industrial Flow",,
+"06005082020",1175605,"CA","Infiltration Flow",,
+"06005283001",3106372,"CA","Municipal Flow",0.35,0.35
+"06005283001",3106372,"CA","Industrial Flow",,
+"06005283001",3106372,"CA","Infiltration Flow",,
+"06005283001",3106372,"CA","Wet Weather Peak",0.894,0.894
+"06005283001",3106372,"CA","Total Flow",0.35,0.35
+"06005082020",1175605,"CA","Wet Weather Peak",,
+"06005082020",1175605,"CA","Total Flow",0.02,0.02
+"06005186001",1175695,"CA","Municipal Flow",0.28,0.27
+"06005186001",1175695,"CA","Industrial Flow",0.11,0.12
+"06005186001",1175695,"CA","Infiltration Flow",,
+"06005186001",1175695,"CA","Wet Weather Peak",,
+"06005186001",1175695,"CA","Total Flow",0.39,0.39
+"06005349001",1175784,"CA","Municipal Flow",0.3,0.3
+"06005349001",1175784,"CA","Industrial Flow",,
+"06005349001",1175784,"CA","Infiltration Flow",,
+"06005349001",1175784,"CA","Wet Weather Peak",,
+"06005349001",1175784,"CA","Total Flow",0.3,0.3
+"06008041002",1175996,"CA","Municipal Flow",,
+"06008041002",1175996,"CA","Industrial Flow",,
+"06008041002",1175996,"CA","Infiltration Flow",,
+"06005146001",1175666,"CA","Municipal Flow",9.87,9.87
+"06005146001",1175666,"CA","Industrial Flow",,
+"06005146001",1175666,"CA","Infiltration Flow",,
+"06005146001",1175666,"CA","Wet Weather Peak",,13
+"06005146001",1175666,"CA","Total Flow",9.87,9.87
+"06007030001",1175937,"CA","Municipal Flow",1.2,1.2
+"06007030001",1175937,"CA","Industrial Flow",,
+"06007030001",1175937,"CA","Infiltration Flow",,
+"06007030001",1175937,"CA","Wet Weather Peak",3,
+"06007030001",1175937,"CA","Total Flow",1.2,1.2
+"06008006006",1175954,"CA","Municipal Flow",,
+"06008006006",1175954,"CA","Industrial Flow",,
+"06008006006",1175954,"CA","Infiltration Flow",,
+"06008006006",1175954,"CA","Wet Weather Peak",,
+"06008006006",1175954,"CA","Total Flow",30,51.6
+"06008020002",1175974,"CA","Municipal Flow",3,3
+"06008020002",1175974,"CA","Industrial Flow",,
+"06008020002",1175974,"CA","Infiltration Flow",,
+"06008020002",1175974,"CA","Wet Weather Peak",4.5,4.5
+"06008020002",1175974,"CA","Total Flow",3,3
+"06003035001",1238813,"CA","Industrial Flow",,
+"06003035001",1238813,"CA","Infiltration Flow",,
+"06003035001",1238813,"CA","Wet Weather Peak",,
+"06003035001",1238813,"CA","Total Flow",0.2,0.2
+"06002108001",1175347,"CA","Municipal Flow",,
+"06002108001",1175347,"CA","Industrial Flow",,
+"06002108001",1175347,"CA","Infiltration Flow",,
+"06002108001",1175347,"CA","Wet Weather Peak",8,8
+"06002108001",1175347,"CA","Total Flow",2.92,2.92
+"06004044001",1175519,"CA","Municipal Flow",2.55,2.55
+"06004044001",1175519,"CA","Industrial Flow",,
+"06004044001",1175519,"CA","Infiltration Flow",,
+"06004044001",1175519,"CA","Wet Weather Peak",,
+"06004044001",1175519,"CA","Total Flow",2.55,2.55
+"06005043001",1175563,"CA","Municipal Flow",,
+"06005043001",1175563,"CA","Industrial Flow",,
+"06005043001",1175563,"CA","Infiltration Flow",,
+"06005322001",1175769,"CA","Municipal Flow",0.45,0.6
+"06005322001",1175769,"CA","Industrial Flow",,
+"06005322001",1175769,"CA","Infiltration Flow",,
+"06005322001",1175769,"CA","Wet Weather Peak",0.6,1
+"06005322001",1175769,"CA","Total Flow",0.45,0.6
+"06003017001",1238812,"CA","Municipal Flow",,
+"06003017001",1238812,"CA","Industrial Flow",,
+"06003017001",1238812,"CA","Infiltration Flow",,
+"06003017001",1238812,"CA","Wet Weather Peak",12,12
+"06003017001",1238812,"CA","Total Flow",3,3
+"06004002001",1175457,"CA","Municipal Flow",,
+"06004002001",1175457,"CA","Industrial Flow",,
+"06004002001",1175457,"CA","Infiltration Flow",,
+"06004002001",1175457,"CA","Wet Weather Peak",9,9
+"06004002001",1175457,"CA","Total Flow",3,3
+"06004017001",1175504,"CA","Municipal Flow",,
+"06004017001",1175504,"CA","Industrial Flow",,
+"06004017001",1175504,"CA","Infiltration Flow",,
+"06004017001",1175504,"CA","Wet Weather Peak",,
+"06004017001",1175504,"CA","Total Flow",1.8,2.4
+"06005308001",1175759,"CA","Municipal Flow",0.2,0.2
+"06005308001",1175759,"CA","Industrial Flow",,
+"06005308001",1175759,"CA","Infiltration Flow",,
+"06005308001",1175759,"CA","Wet Weather Peak",,
+"06005308001",1175759,"CA","Total Flow",0.2,0.2
+"06006012001",1175865,"CA","Municipal Flow",0.08,0.08
+"06006012001",1175865,"CA","Industrial Flow",,
+"06006012001",1175865,"CA","Infiltration Flow",,
+"06006012001",1175865,"CA","Wet Weather Peak",,
+"06006012001",1175865,"CA","Total Flow",0.08,0.08
+"06007016001",1175924,"CA","Municipal Flow",0.2,0.2
+"06007016001",1175924,"CA","Industrial Flow",,
+"06007016001",1175924,"CA","Infiltration Flow",,
+"06007016001",1175924,"CA","Wet Weather Peak",,
+"06007016001",1175924,"CA","Total Flow",0.2,0.2
+"06008024001",1175978,"CA","Municipal Flow",,
+"06008024001",1175978,"CA","Industrial Flow",,
+"06008024001",1175978,"CA","Infiltration Flow",,
+"06008024001",1175978,"CA","Wet Weather Peak",,
+"06008024001",1175978,"CA","Total Flow",10.4,11.5
+"06006027001",1175883,"CA","Municipal Flow",0.2,0.2
+"06006027001",1175883,"CA","Industrial Flow",0.01,0.01
+"06006027001",1175883,"CA","Infiltration Flow",,
+"06006027001",1175883,"CA","Wet Weather Peak",,
+"06006027001",1175883,"CA","Total Flow",0.21,0.21
+"06008019001",1175972,"CA","Municipal Flow",,
+"06008019001",1175972,"CA","Industrial Flow",,
+"06008019001",1175972,"CA","Infiltration Flow",,
+"06008019001",1175972,"CA","Wet Weather Peak",,
+"06008019001",1175972,"CA","Total Flow",8,8
+"06008010006",3486596,"CA","Municipal Flow",,
+"06008010006",3486596,"CA","Industrial Flow",,
+"06008010006",3486596,"CA","Infiltration Flow",,
+"06008010006",3486596,"CA","Wet Weather Peak",,
+"06008010006",3486596,"CA","Total Flow",12,14
+"06005080001",1238817,"CA","Municipal Flow",1,1
+"06005080001",1238817,"CA","Industrial Flow",,
+"06005080001",1238817,"CA","Infiltration Flow",,
+"06005080001",1238817,"CA","Wet Weather Peak",,
+"06005080001",1238817,"CA","Total Flow",1,1
+"06007011001",1238829,"CA","Municipal Flow",0.81,0.81
+"06007011001",1238829,"CA","Industrial Flow",,
+"06007011001",1238829,"CA","Infiltration Flow",,
+"06007011001",1238829,"CA","Wet Weather Peak",,
+"06007011001",1238829,"CA","Total Flow",0.81,0.81
+"06002058001",1175315,"CA","Municipal Flow",4,4
+"06002058001",1175315,"CA","Industrial Flow",,
+"06002058001",1175315,"CA","Infiltration Flow",,
+"06002058001",1175315,"CA","Wet Weather Peak",15,
+"06002058001",1175315,"CA","Total Flow",4,4
+"06004032001",1175516,"CA","Municipal Flow",9,9
+"06004032001",1175516,"CA","Industrial Flow",2,2
+"06004032001",1175516,"CA","Infiltration Flow",,
+"06004032001",1175516,"CA","Wet Weather Peak",18,18
+"06004032001",1175516,"CA","Total Flow",11,11
+"06005024001",1175545,"CA","Municipal Flow",1.4,1.4
+"06005024001",1175545,"CA","Industrial Flow",,
+"06005024001",1175545,"CA","Infiltration Flow",,
+"06005024001",1175545,"CA","Wet Weather Peak",5.9,5.9
+"06005024001",1175545,"CA","Total Flow",1.4,1.4
+"06005257001",1175740,"CA","Municipal Flow",,
+"06005257001",1175740,"CA","Industrial Flow",,
+"06005257001",1175740,"CA","Infiltration Flow",,
+"06005257001",1175740,"CA","Wet Weather Peak",,
+"06005257001",1175740,"CA","Total Flow",5,5
+"06008006002",1175951,"CA","Municipal Flow",,
+"06008006002",1175951,"CA","Industrial Flow",,
+"06002032004",442052,"CA","Municipal Flow",,
+"06002032004",442052,"CA","Industrial Flow",,
+"06002032004",442052,"CA","Infiltration Flow",,
+"06002032004",442052,"CA","Wet Weather Peak",,
+"06002032004",442052,"CA","Total Flow",2,2.3
+"06001085001",1175236,"CA","Municipal Flow",0.156,0.156
+"06001085001",1175236,"CA","Industrial Flow",,
+"06001085001",1175236,"CA","Infiltration Flow",,
+"06001085001",1175236,"CA","Wet Weather Peak",,
+"06001085001",1175236,"CA","Total Flow",0.156,0.156
+"06003030001",1175398,"CA","Municipal Flow",1,1
+"06003030001",1175398,"CA","Industrial Flow",,
+"06003030001",1175398,"CA","Infiltration Flow",,
+"06003030001",1175398,"CA","Wet Weather Peak",,
+"06003030001",1175398,"CA","Total Flow",1,1
+"06004009002",1175478,"CA","Municipal Flow",,
+"06004009002",1175478,"CA","Industrial Flow",,
+"06001096001",1175243,"CA","Municipal Flow",0.092,0.092
+"06001096001",1175243,"CA","Industrial Flow",,
+"06001096001",1175243,"CA","Infiltration Flow",,
+"06001096001",1175243,"CA","Wet Weather Peak",,
+"06001096001",1175243,"CA","Total Flow",0.092,0.092
+"06002042001",1175300,"CA","Municipal Flow",0.95,0.95
+"06002042001",1175300,"CA","Industrial Flow",,
+"06002042001",1175300,"CA","Infiltration Flow",,
+"06002042001",1175300,"CA","Wet Weather Peak",,
+"06002042001",1175300,"CA","Total Flow",0.95,0.95
+"06005045001",1175565,"CA","Municipal Flow",0.52,0.82
+"06005045001",1175565,"CA","Industrial Flow",,
+"06005045001",1175565,"CA","Infiltration Flow",0.3,0.3
+"06005045001",1175565,"CA","Wet Weather Peak",1.2,1.8
+"06005045001",1175565,"CA","Total Flow",0.82,1.12
+"06005054001",1175573,"CA","Municipal Flow",,
+"06005054001",1175573,"CA","Industrial Flow",,
+"06005054001",1175573,"CA","Infiltration Flow",,
+"06005054001",1175573,"CA","Wet Weather Peak",,
+"06005054001",1175573,"CA","Total Flow",3,4.5
+"06004009002",1175478,"CA","Infiltration Flow",,
+"06004009002",1175478,"CA","Wet Weather Peak",30,30
+"06004009002",1175478,"CA","Total Flow",15,15
+"06008006002",1175951,"CA","Infiltration Flow",,
+"06008006002",1175951,"CA","Wet Weather Peak",,
+"06008006002",1175951,"CA","Total Flow",22.5,38.7
+"06005004001",1238814,"CA","Municipal Flow",10.4,10.4
+"06005004001",1238814,"CA","Industrial Flow",,
+"06005004001",1238814,"CA","Infiltration Flow",,
+"06005004001",1238814,"CA","Wet Weather Peak",,
+"06005004001",1238814,"CA","Total Flow",10.4,10.4
+"06005360001",1238827,"CA","Municipal Flow",0.33,0.33
+"06005360001",1238827,"CA","Industrial Flow",,
+"06005360001",1238827,"CA","Infiltration Flow",,
+"06005360001",1238827,"CA","Wet Weather Peak",,
+"06005360001",1238827,"CA","Total Flow",0.33,0.33
+"06009065001",2948926,"CA","Municipal Flow",0.025,0.025
+"06009065001",2948926,"CA","Industrial Flow",,
+"06009065001",2948926,"CA","Infiltration Flow",0.017,0.017
+"06009065001",2948926,"CA","Wet Weather Peak",,
+"06009065001",2948926,"CA","Total Flow",0.042,0.042
+"06007013001",1175921,"CA","Municipal Flow",0.85,0.85
+"06007013001",1175921,"CA","Industrial Flow",,
+"06007013001",1175921,"CA","Infiltration Flow",,
+"06007013001",1175921,"CA","Wet Weather Peak",,
+"06007013001",1175921,"CA","Total Flow",0.85,0.85
+"06001012001",1175182,"CA","Municipal Flow",0.162,0.162
+"06001012001",1175182,"CA","Industrial Flow",,
+"06001012001",1175182,"CA","Infiltration Flow",,
+"06001012001",1175182,"CA","Wet Weather Peak",,
+"06001012001",1175182,"CA","Total Flow",0.162,0.162
+"06002024001",1175282,"CA","Municipal Flow",,
+"06002024001",1175282,"CA","Industrial Flow",,
+"06002024001",1175282,"CA","Infiltration Flow",,
+"06002024001",1175282,"CA","Wet Weather Peak",8.5,8.5
+"06002024001",1175282,"CA","Total Flow",3.2,3.2
+"06003022001",1175389,"CA","Municipal Flow",,
+"06003022001",1175389,"CA","Industrial Flow",,
+"06003022001",1175389,"CA","Infiltration Flow",,
+"06003022001",1175389,"CA","Wet Weather Peak",,
+"06003022001",1175389,"CA","Total Flow",1,2
+"06003042001",1175409,"CA","Municipal Flow",0.3,0.3
+"06003042001",1175409,"CA","Industrial Flow",,
+"06003042001",1175409,"CA","Infiltration Flow",,
+"06003042001",1175409,"CA","Wet Weather Peak",,
+"06003042001",1175409,"CA","Total Flow",0.3,0.3
+"06004008010",1175469,"CA","Municipal Flow",0.5,0.5
+"06004008010",1175469,"CA","Industrial Flow",,
+"06004008010",1175469,"CA","Infiltration Flow",,
+"06004008010",1175469,"CA","Wet Weather Peak",,
+"06004008010",1175469,"CA","Total Flow",0.5,0.5
+"06005023002",1175544,"CA","Municipal Flow",2,2
+"06005023002",1175544,"CA","Industrial Flow",,
+"06005023002",1175544,"CA","Infiltration Flow",,
+"06005023002",1175544,"CA","Wet Weather Peak",4,4
+"06005023002",1175544,"CA","Total Flow",2,2
+"06005121001",1175652,"CA","Municipal Flow",0.48,0.48
+"06005121001",1175652,"CA","Industrial Flow",,
+"06005121001",1175652,"CA","Infiltration Flow",,
+"06005121001",1175652,"CA","Wet Weather Peak",,
+"06005121001",1175652,"CA","Total Flow",0.48,0.48
+"06007770001",3522264,"CA","Municipal Flow",,
+"06007770001",3522264,"CA","Industrial Flow",,
+"06007770001",3522264,"CA","Infiltration Flow",,
+"06007770001",3522264,"CA","Wet Weather Peak",,
+"06007770001",3522264,"CA","Total Flow",1,1.6
+"06002071001",1175331,"CA","Municipal Flow",7,7
+"06002071001",1175331,"CA","Industrial Flow",,
+"06002071001",1175331,"CA","Infiltration Flow",,
+"06002071001",1175331,"CA","Wet Weather Peak",,30.7
+"06002071001",1175331,"CA","Total Flow",7,7
+"06003003001",1175374,"CA","Municipal Flow",0.006,0.006
+"06003003001",1175374,"CA","Industrial Flow",,
+"06003003001",1175374,"CA","Infiltration Flow",,
+"06003003001",1175374,"CA","Wet Weather Peak",,
+"06003003001",1175374,"CA","Total Flow",0.006,0.006
+"06003058001",1175426,"CA","Municipal Flow",0.2,0.2
+"06003058001",1175426,"CA","Industrial Flow",,
+"06003058001",1175426,"CA","Infiltration Flow",,
+"06003058001",1175426,"CA","Wet Weather Peak",,
+"06003058001",1175426,"CA","Total Flow",0.2,0.2
+"06003070001",1175438,"CA","Municipal Flow",0.763,1.3
+"06003070001",1175438,"CA","Industrial Flow",,
+"06003070001",1175438,"CA","Infiltration Flow",,
+"06003070001",1175438,"CA","Wet Weather Peak",,
+"06003070001",1175438,"CA","Total Flow",0.763,1.3
+"06004011010",1175498,"CA","Municipal Flow",0.25,0.25
+"06004011010",1175498,"CA","Industrial Flow",,
+"06004011010",1175498,"CA","Infiltration Flow",,
+"06004011010",1175498,"CA","Wet Weather Peak",,
+"06004011010",1175498,"CA","Total Flow",0.25,0.25
+"06005011001",1175532,"CA","Municipal Flow",12,12
+"06005011001",1175532,"CA","Industrial Flow",,
+"06005011001",1175532,"CA","Infiltration Flow",,
+"06005011001",1175532,"CA","Wet Weather Peak",28,28
+"06005011001",1175532,"CA","Total Flow",12,12
+"06005025001",1175546,"CA","Municipal Flow",35,35
+"06005025001",1175546,"CA","Industrial Flow",20,20
+"06005025001",1175546,"CA","Infiltration Flow",,
+"06005025001",1175546,"CA","Wet Weather Peak",,
+"06005025001",1175546,"CA","Total Flow",55,55
+"06005097001",1175617,"CA","Municipal Flow",0.25,0.25
+"06005097001",1175617,"CA","Industrial Flow",,
+"06005097001",1175617,"CA","Infiltration Flow",,
+"06005097001",1175617,"CA","Wet Weather Peak",,
+"06005097001",1175617,"CA","Total Flow",0.25,0.25
+"06004029001",1175514,"CA","Municipal Flow",,
+"06004029001",1175514,"CA","Industrial Flow",,
+"06004029001",1175514,"CA","Infiltration Flow",,
+"06004029001",1175514,"CA","Wet Weather Peak",,
+"06004029001",1175514,"CA","Total Flow",7.25,7.25
+"06005142001",1175663,"CA","Municipal Flow",0.8,0.8
+"06005142001",1175663,"CA","Industrial Flow",,
+"06005142001",1175663,"CA","Infiltration Flow",,
+"06005142001",1175663,"CA","Wet Weather Peak",,
+"06005142001",1175663,"CA","Total Flow",0.8,0.8
+"06007014001",1175922,"CA","Municipal Flow",,
+"06007014001",1175922,"CA","Industrial Flow",,
+"06007014001",1175922,"CA","Infiltration Flow",,
+"06007014001",1175922,"CA","Wet Weather Peak",,
+"06007014001",1175922,"CA","Total Flow",2.4,2.4
+"06007029001",1175936,"CA","Municipal Flow",,
+"06007029001",1175936,"CA","Industrial Flow",,
+"06007029001",1175936,"CA","Infiltration Flow",,
+"06007029001",1175936,"CA","Wet Weather Peak",13.5,20
+"06007029001",1175936,"CA","Total Flow",13.5,20
+"06006028002",3349051,"CA","Municipal Flow",0.072,0.072
+"06006028002",3349051,"CA","Industrial Flow",,
+"06006028002",3349051,"CA","Infiltration Flow",,
+"06006028002",3349051,"CA","Wet Weather Peak",0.044,0.044
+"06006028002",3349051,"CA","Total Flow",0.072,0.072
+"06005511004",3477631,"CA","Municipal Flow",0.083,0.083
+"06005511004",3477631,"CA","Industrial Flow",,
+"06005511004",3477631,"CA","Infiltration Flow",,
+"06005511004",3477631,"CA","Wet Weather Peak",,
+"06005511004",3477631,"CA","Total Flow",0.083,0.083
+"06002060007",1175319,"CA","Municipal Flow",0.04,0.04
+"06002060007",1175319,"CA","Industrial Flow",,
+"06002060007",1175319,"CA","Infiltration Flow",,
+"06002060007",1175319,"CA","Wet Weather Peak",0.16,0.16
+"06002060007",1175319,"CA","Total Flow",0.04,0.04
+"06005012001",1175534,"CA","Municipal Flow",1.2,1.2
+"06005012001",1175534,"CA","Industrial Flow",,
+"06005012001",1175534,"CA","Infiltration Flow",,
+"06005012001",1175534,"CA","Wet Weather Peak",,
+"06005012001",1175534,"CA","Total Flow",1.2,1.2
+"06005042003",1175562,"CA","Municipal Flow",,
+"06005042003",1175562,"CA","Industrial Flow",,
+"06005042003",1175562,"CA","Infiltration Flow",,
+"06005042003",1175562,"CA","Wet Weather Peak",,
+"06005042003",1175562,"CA","Total Flow",7.2,7.2
+"06005077001",1175595,"CA","Municipal Flow",,
+"06005077001",1175595,"CA","Industrial Flow",,
+"06005077001",1175595,"CA","Infiltration Flow",,
+"06005077001",1175595,"CA","Wet Weather Peak",,
+"06003035001",1238813,"CA","Municipal Flow",0.2,0.2
+"06001064001",1175223,"CA","Municipal Flow",,
+"06001064001",1175223,"CA","Industrial Flow",,
+"06001064001",1175223,"CA","Infiltration Flow",,
+"06001064001",1175223,"CA","Wet Weather Peak",,
+"06001064001",1175223,"CA","Total Flow",0.12,0.12
+"06003014001",1175382,"CA","Municipal Flow",2.36,2.36
+"06003014001",1175382,"CA","Industrial Flow",,
+"06003014001",1175382,"CA","Infiltration Flow",,
+"06003014001",1175382,"CA","Wet Weather Peak",6.64,6.64
+"06003014001",1175382,"CA","Total Flow",2.36,2.36
+"06005082002",1175599,"CA","Municipal Flow",0.065,0.065
+"06005082002",1175599,"CA","Industrial Flow",,
+"06005082002",1175599,"CA","Infiltration Flow",,
+"06005082002",1175599,"CA","Wet Weather Peak",,
+"06005082002",1175599,"CA","Total Flow",0.065,0.065
+"06005241001",1175728,"CA","Municipal Flow",0.5,0.5
+"06005241001",1175728,"CA","Industrial Flow",,
+"06005241001",1175728,"CA","Infiltration Flow",,
+"06005241001",1175728,"CA","Wet Weather Peak",,
+"06005241001",1175728,"CA","Total Flow",0.5,0.5
+"06005249001",1175733,"CA","Municipal Flow",3.6,3.6
+"06005249001",1175733,"CA","Industrial Flow",,
+"06005249001",1175733,"CA","Infiltration Flow",,
+"06005249001",1175733,"CA","Wet Weather Peak",13.1,13.1
+"06005249001",1175733,"CA","Total Flow",3.6,3.6
+"06009038001",1176076,"CA","Municipal Flow",7,7
+"06009038001",1176076,"CA","Industrial Flow",,
+"06009038001",1176076,"CA","Infiltration Flow",,
+"06009038001",1176076,"CA","Wet Weather Peak",,
+"06009038001",1176076,"CA","Total Flow",7,7
+"06000000105",3607961,"CA","Municipal Flow",,
+"06000000105",3607961,"CA","Industrial Flow",,
+"06000000105",3607961,"CA","Infiltration Flow",,
+"06000000105",3607961,"CA","Total Flow",40,40
+"06000000105",3607961,"CA","Wet Weather Peak",,
+"06000000089",3607790,"CA","Municipal Flow",,
+"06000000089",3607790,"CA","Industrial Flow",,
+"06000000089",3607790,"CA","Infiltration Flow",,
+"06000000089",3607790,"CA","Total Flow",100,130
+"06000000089",3607790,"CA","Wet Weather Peak",,
+"06000000090",3607791,"CA","Municipal Flow",,
+"06000000090",3607791,"CA","Industrial Flow",,
+"06000000090",3607791,"CA","Infiltration Flow",,
+"06000000090",3607791,"CA","Total Flow",7.5,7.5
+"06000000090",3607791,"CA","Wet Weather Peak",,
+"06000000098",3607877,"CA","Municipal Flow",,
+"06000000098",3607877,"CA","Industrial Flow",,
+"06000000098",3607877,"CA","Infiltration Flow",,
+"06000000098",3607877,"CA","Total Flow",2.35,2.35
+"06000000098",3607877,"CA","Wet Weather Peak",,
+"06000000114",3608100,"CA","Municipal Flow",,
+"06000000114",3608100,"CA","Industrial Flow",,
+"06000000114",3608100,"CA","Infiltration Flow",,
+"06000000114",3608100,"CA","Total Flow",100,100
+"06000000153",3608861,"CA","Municipal Flow",,
+"06000000153",3608861,"CA","Industrial Flow",,
+"06000000153",3608861,"CA","Infiltration Flow",,
+"06000000153",3608861,"CA","Total Flow",0,1.5
+"06000000153",3608861,"CA","Wet Weather Peak",,
+"06000000154",3608935,"CA","Municipal Flow",,
+"06000000154",3608935,"CA","Industrial Flow",,
+"06000000154",3608935,"CA","Infiltration Flow",,
+"06000000154",3608935,"CA","Total Flow",0,4.4
+"06000000154",3608935,"CA","Wet Weather Peak",,
+"06000000165",3609119,"CA","Municipal Flow",,
+"06000000165",3609119,"CA","Industrial Flow",,
+"06000000165",3609119,"CA","Infiltration Flow",,
+"06000000165",3609119,"CA","Total Flow",7.5,18
+"06000000165",3609119,"CA","Wet Weather Peak",,
+"06000000174",3609167,"CA","Municipal Flow",8,8
+"06000000174",3609167,"CA","Industrial Flow",,
+"06000000174",3609167,"CA","Infiltration Flow",,
+"06000000174",3609167,"CA","Total Flow",8,8
+"06000000174",3609167,"CA","Wet Weather Peak",,
+"06000000068",3606909,"CA","Municipal Flow",,
+"06000000068",3606909,"CA","Industrial Flow",,
+"06000000068",3606909,"CA","Infiltration Flow",,
+"06000000068",3606909,"CA","Total Flow",20,22.4
+"06000000068",3606909,"CA","Wet Weather Peak",,
+"06000000114",3608100,"CA","Wet Weather Peak",,
+"06000000116",3608102,"CA","Municipal Flow",,
+"06000000116",3608102,"CA","Industrial Flow",,
+"06000000116",3608102,"CA","Infiltration Flow",,
+"06000000116",3608102,"CA","Total Flow",158,158
+"06000000116",3608102,"CA","Wet Weather Peak",,
+"06000000115",3608101,"CA","Municipal Flow",,
+"06000000115",3608101,"CA","Industrial Flow",,
+"06000000115",3608101,"CA","Infiltration Flow",,
+"06000000115",3608101,"CA","Total Flow",51,51
+"06000000115",3608101,"CA","Wet Weather Peak",,
+"06005253001",1175738,"CA","Municipal Flow",0.65,0.65
+"06005253001",1175738,"CA","Industrial Flow",,
+"06005253001",1175738,"CA","Infiltration Flow",,
+"06005253001",1175738,"CA","Wet Weather Peak",2.3,2.3
+"06005253001",1175738,"CA","Total Flow",0.65,0.65
+"06006041001",1175894,"CA","Municipal Flow",,
+"06006041001",1175894,"CA","Industrial Flow",,
+"06006041001",1175894,"CA","Infiltration Flow",,
+"06006041001",1175894,"CA","Wet Weather Peak",,
+"06006041001",1175894,"CA","Total Flow",1.27,1.27
+"06007023001",1175931,"CA","Municipal Flow",0.1,0.1
+"06007023001",1175931,"CA","Industrial Flow",,
+"06007023001",1175931,"CA","Infiltration Flow",,
+"06007023001",1175931,"CA","Wet Weather Peak",,
+"06007023001",1175931,"CA","Total Flow",0.1,0.1
+"06008007001",1175956,"CA","Municipal Flow",4.89,5
+"06008007001",1175956,"CA","Industrial Flow",,
+"06008007001",1175956,"CA","Infiltration Flow",,
+"06008007001",1175956,"CA","Wet Weather Peak",7,10
+"06008007001",1175956,"CA","Total Flow",4.89,5
+"06008052001",1176004,"CA","Municipal Flow",,
+"06008052001",1176004,"CA","Industrial Flow",,
+"06008052001",1176004,"CA","Infiltration Flow",,
+"06008052001",1176004,"CA","Wet Weather Peak",,
+"06008052001",1176004,"CA","Total Flow",11.7,11.7
+"06001036001",1175202,"CA","Municipal Flow",,
+"06001036001",1175202,"CA","Industrial Flow",,
+"06001036001",1175202,"CA","Infiltration Flow",,
+"06001036001",1175202,"CA","Wet Weather Peak",7.2,7.2
+"06001036001",1175202,"CA","Total Flow",2.25,2.25
+"06005001001",1175523,"CA","Municipal Flow",,
+"06005001001",1175523,"CA","Industrial Flow",,
+"06005001001",1175523,"CA","Infiltration Flow",,
+"06005001001",1175523,"CA","Wet Weather Peak",,
+"06005001001",1175523,"CA","Total Flow",2.45,2.45
+"06005063001",1175584,"CA","Municipal Flow",0.332,0.332
+"06005063001",1175584,"CA","Industrial Flow",,
+"06005063001",1175584,"CA","Infiltration Flow",,
+"06005063001",1175584,"CA","Wet Weather Peak",,
+"06005063001",1175584,"CA","Total Flow",0.332,0.332
+"06009016001",1176048,"CA","Municipal Flow",0.45,0.45
+"06009016001",1176048,"CA","Industrial Flow",,
+"06009016001",1176048,"CA","Infiltration Flow",,
+"06009016001",1176048,"CA","Wet Weather Peak",1.35,1.8
+"06009016001",1176048,"CA","Total Flow",0.45,0.45
+"06001056001",3477690,"CA","Municipal Flow",0.132,0.132
+"06001056001",3477690,"CA","Industrial Flow",,
+"06001056001",3477690,"CA","Infiltration Flow",,
+"06001056001",3477690,"CA","Wet Weather Peak",,
+"06001056001",3477690,"CA","Total Flow",0.132,0.132
+"06000000117",3608103,"CA","Municipal Flow",,
+"06000000117",3608103,"CA","Industrial Flow",,
+"06000000117",3608103,"CA","Infiltration Flow",,
+"06000000117",3608103,"CA","Total Flow",18.75,18.75
+"06000000117",3608103,"CA","Wet Weather Peak",,
+"06000000181",3609275,"CA","Municipal Flow",4,4
+"06000000181",3609275,"CA","Industrial Flow",,
+"06000000181",3609275,"CA","Infiltration Flow",,
+"06000000181",3609275,"CA","Total Flow",4,4
+"06000000181",3609275,"CA","Wet Weather Peak",,
+"06000000099",3607878,"CA","Municipal Flow",,
+"06000000099",3607878,"CA","Industrial Flow",,
+"06000000099",3607878,"CA","Infiltration Flow",,
+"06000000099",3607878,"CA","Total Flow",2.35,2.35
+"06000000099",3607878,"CA","Wet Weather Peak",,
+"06000000122",3608176,"CA","Municipal Flow",,
+"06000000122",3608176,"CA","Industrial Flow",,
+"06000000122",3608176,"CA","Infiltration Flow",,
+"06000000122",3608176,"CA","Total Flow",0.5,0.8
+"06000000122",3608176,"CA","Wet Weather Peak",,
+"06000000195",3609479,"CA","Municipal Flow",,
+"06000000195",3609479,"CA","Industrial Flow",,
+"06000000195",3609479,"CA","Infiltration Flow",,
+"06000000195",3609479,"CA","Total Flow",0,4
+"06000000195",3609479,"CA","Wet Weather Peak",,
+"06003046001",1175414,"CA","Municipal Flow",0.083,0.083
+"06003046001",1175414,"CA","Industrial Flow",,
+"06003046001",1175414,"CA","Infiltration Flow",,
+"06003046001",1175414,"CA","Wet Weather Peak",,
+"06003046001",1175414,"CA","Total Flow",0.083,0.083
+"06005246001",1175732,"CA","Municipal Flow",,
+"06005246001",1175732,"CA","Industrial Flow",,
+"06005246001",1175732,"CA","Infiltration Flow",,
+"06005246001",1175732,"CA","Wet Weather Peak",3.33,3.33
+"06005246001",1175732,"CA","Total Flow",1.75,1.75
+"06009025001",1176057,"CA","Municipal Flow",0.05,0.05
+"06009025001",1176057,"CA","Industrial Flow",,
+"06009025001",1176057,"CA","Infiltration Flow",,
+"06009025001",1176057,"CA","Wet Weather Peak",,
+"06009025001",1176057,"CA","Total Flow",0.05,0.05
+"06000000082",3607552,"CA","Municipal Flow",,
+"06000000082",3607552,"CA","Industrial Flow",,
+"06000000082",3607552,"CA","Infiltration Flow",,
+"06000000082",3607552,"CA","Total Flow",15,15
+"06000000082",3607552,"CA","Wet Weather Peak",,
+"06000000081",3607551,"CA","Municipal Flow",,
+"06000000081",3607551,"CA","Industrial Flow",,
+"06000000081",3607551,"CA","Infiltration Flow",,
+"06000000081",3607551,"CA","Total Flow",5,5
+"06000000081",3607551,"CA","Wet Weather Peak",,
+"06005227001",1238820,"CA","Municipal Flow",,
+"06005227001",1238820,"CA","Industrial Flow",,
+"06005227001",1238820,"CA","Infiltration Flow",,
+"06005227001",1238820,"CA","Wet Weather Peak",,
+"06005227001",1238820,"CA","Total Flow",18,27.7
+"06000000083",3607553,"CA","Municipal Flow",,
+"06000000083",3607553,"CA","Industrial Flow",,
+"06000000083",3607553,"CA","Infiltration Flow",,
+"06000000083",3607553,"CA","Total Flow",9.9,9.9
+"06000000083",3607553,"CA","Wet Weather Peak",,
+"06000000123",3608282,"CA","Municipal Flow",,
+"06000000123",3608282,"CA","Industrial Flow",,
+"06000000123",3608282,"CA","Infiltration Flow",,
+"06000000123",3608282,"CA","Total Flow",1,1
+"06000000123",3608282,"CA","Wet Weather Peak",,
+"06000000124",3608283,"CA","Municipal Flow",,
+"06000000124",3608283,"CA","Industrial Flow",,
+"06000000124",3608283,"CA","Infiltration Flow",,
+"06000000124",3608283,"CA","Total Flow",5,5
+"06000000124",3608283,"CA","Wet Weather Peak",,
+"06000000132",3608439,"CA","Municipal Flow",,
+"06000000132",3608439,"CA","Industrial Flow",,
+"06000000132",3608439,"CA","Infiltration Flow",,
+"06000000132",3608439,"CA","Total Flow",0,0.15
+"06000000132",3608439,"CA","Wet Weather Peak",,
+"06000000137",3608581,"CA","Municipal Flow",,
+"06000000137",3608581,"CA","Industrial Flow",,
+"06000000137",3608581,"CA","Infiltration Flow",,
+"06000000137",3608581,"CA","Total Flow",3.6,3.6
+"06000000137",3608581,"CA","Wet Weather Peak",,
+"06003021001",1175388,"CA","Total Flow",9.8,9.8
+"06005031001",1175553,"CA","Municipal Flow",3,3
+"06005031001",1175553,"CA","Industrial Flow",,
+"06005031001",1175553,"CA","Infiltration Flow",,
+"06005031001",1175553,"CA","Wet Weather Peak",,
+"06005031001",1175553,"CA","Total Flow",3,3
+"06007007001",1175913,"CA","Municipal Flow",,
+"06007007001",1175913,"CA","Industrial Flow",,
+"06007007001",1175913,"CA","Infiltration Flow",,
+"06007007001",1175913,"CA","Wet Weather Peak",,
+"06007007001",1175913,"CA","Total Flow",1.73,1.73
+"06009020001",1176052,"CA","Municipal Flow",0.4,0.4
+"06009020001",1176052,"CA","Industrial Flow",,
+"06009020001",1176052,"CA","Infiltration Flow",,
+"06009020001",1176052,"CA","Wet Weather Peak",1.35,1.35
+"06009020001",1176052,"CA","Total Flow",0.4,0.4
+"06005082001",1238818,"CA","Municipal Flow",0.58,0.58
+"06005082001",1238818,"CA","Industrial Flow",,
+"06005082001",1238818,"CA","Infiltration Flow",,
+"06005082001",1238818,"CA","Wet Weather Peak",,
+"06005082001",1238818,"CA","Total Flow",0.58,0.58
+"06000000140",3608711,"CA","Municipal Flow",,
+"06000000140",3608711,"CA","Industrial Flow",,
+"06000000140",3608711,"CA","Infiltration Flow",,
+"06000000140",3608711,"CA","Total Flow",1.6,3.5
+"06000000140",3608711,"CA","Wet Weather Peak",,
+"06000000065",3606861,"CA","Municipal Flow",,
+"06000000065",3606861,"CA","Industrial Flow",,
+"06000000065",3606861,"CA","Infiltration Flow",,
+"06000000065",3606861,"CA","Total Flow",14.9,20
+"06000000065",3606861,"CA","Wet Weather Peak",,
+"06009074002",3334975,"CA","Municipal Flow",,
+"06009074002",3334975,"CA","Industrial Flow",,
+"06009074002",3334975,"CA","Infiltration Flow",,
+"06009074002",3334975,"CA","Total Flow",9,17.8
+"06009074002",3334975,"CA","Wet Weather Peak",,
+"06000000102",3607908,"CA","Municipal Flow",,
+"06000000102",3607908,"CA","Industrial Flow",,
+"06000000102",3607908,"CA","Infiltration Flow",,
+"06000000102",3607908,"CA","Total Flow",0,32.8
+"06000000102",3607908,"CA","Wet Weather Peak",,
+"06001050001",1175216,"CA","Municipal Flow",0.04,0.04
+"06001050001",1175216,"CA","Industrial Flow",,
+"06001050001",1175216,"CA","Infiltration Flow",,
+"06001050001",1175216,"CA","Wet Weather Peak",,
+"06001050001",1175216,"CA","Total Flow",0.04,0.04
+"06003004001",1175375,"CA","Municipal Flow",5.1,5.1
+"06003004001",1175375,"CA","Industrial Flow",,
+"06003004001",1175375,"CA","Infiltration Flow",,
+"06003004001",1175375,"CA","Wet Weather Peak",22,22
+"06003004001",1175375,"CA","Total Flow",5.1,5.1
+"06003021001",1175388,"CA","Municipal Flow",,
+"06003021001",1175388,"CA","Industrial Flow",,
+"06003021001",1175388,"CA","Infiltration Flow",,
+"06003021001",1175388,"CA","Wet Weather Peak",25.4,25.4
+"06000000091",3607829,"CA","Municipal Flow",,
+"06000000091",3607829,"CA","Industrial Flow",,
+"06000000091",3607829,"CA","Infiltration Flow",,
+"06000000091",3607829,"CA","Total Flow",7,7
+"06000000091",3607829,"CA","Wet Weather Peak",20,20
+"06000000073",3607081,"CA","Municipal Flow",,
+"06000000073",3607081,"CA","Industrial Flow",,
+"06000000073",3607081,"CA","Infiltration Flow",,
+"06000000073",3607081,"CA","Total Flow",12,12
+"06000000073",3607081,"CA","Wet Weather Peak",,
+"06001004001",1175170,"CA","Municipal Flow",0.029,0.029
+"06001004001",1175170,"CA","Industrial Flow",,
+"06001004001",1175170,"CA","Infiltration Flow",,
+"06001004001",1175170,"CA","Wet Weather Peak",,
+"06001004001",1175170,"CA","Total Flow",0.029,0.029
+"06002069001",1175329,"CA","Municipal Flow",,
+"06002069001",1175329,"CA","Industrial Flow",,
+"06002069001",1175329,"CA","Infiltration Flow",,
+"06002069001",1175329,"CA","Wet Weather Peak",16,16
+"06002069001",1175329,"CA","Total Flow",3,3
+"06005053001",1175571,"CA","Municipal Flow",,
+"06005053001",1175571,"CA","Industrial Flow",,
+"06005053001",1175571,"CA","Infiltration Flow",,
+"06005053001",1175571,"CA","Wet Weather Peak",,
+"06005053001",1175571,"CA","Total Flow",68,68
+"06005335001",1175774,"CA","Municipal Flow",0.08,0.08
+"06005335001",1175774,"CA","Industrial Flow",,
+"06005335001",1175774,"CA","Infiltration Flow",,
+"06005335001",1175774,"CA","Wet Weather Peak",,
+"06005335001",1175774,"CA","Total Flow",0.08,0.08
+"06002090001",3521216,"CA","Municipal Flow",4.3,4.3
+"06002090001",3521216,"CA","Industrial Flow",,
+"06002090001",3521216,"CA","Infiltration Flow",,
+"06002090001",3521216,"CA","Wet Weather Peak",,
+"06002090001",3521216,"CA","Total Flow",4.3,4.3
+"06005082021",3489196,"CA","Municipal Flow",0.189,0.189
+"06005082021",3489196,"CA","Industrial Flow",,
+"06005082021",3489196,"CA","Infiltration Flow",,
+"06005082021",3489196,"CA","Wet Weather Peak",0.282,0.282
+"06005082021",3489196,"CA","Total Flow",0.189,0.189
+"06005244001",1175730,"CA","Municipal Flow",,
+"06005244001",1175730,"CA","Industrial Flow",,
+"06005244001",1175730,"CA","Infiltration Flow",,
+"06005244001",1175730,"CA","Wet Weather Peak",,
+"06005244001",1175730,"CA","Total Flow",3.5,3.8
+"06007025001",1175933,"CA","Municipal Flow",,
+"06007025001",1175933,"CA","Industrial Flow",,
+"06007025001",1175933,"CA","Infiltration Flow",,
+"06007025001",1175933,"CA","Wet Weather Peak",,
+"06007025001",1175933,"CA","Total Flow",4.5,4.5
+"06002041001",1175299,"CA","Municipal Flow",,
+"06002041001",1175299,"CA","Industrial Flow",,
+"06005019002",3478130,"CA","Municipal Flow",,
+"06005019002",3478130,"CA","Industrial Flow",,
+"06005019002",3478130,"CA","Infiltration Flow",,
+"06005019002",3478130,"CA","Wet Weather Peak",,
+"06005019002",3478130,"CA","Total Flow",1,6
+"06003010001",1175379,"CA","Municipal Flow",17,17
+"06003010001",1175379,"CA","Industrial Flow",0,0
+"06003010001",1175379,"CA","Infiltration Flow",,
+"06003010001",1175379,"CA","Wet Weather Peak",81,81
+"06003010001",1175379,"CA","Total Flow",17,17
+"06003081001",1175445,"CA","Municipal Flow",5,5
+"06003081001",1175445,"CA","Industrial Flow",,
+"06003081001",1175445,"CA","Infiltration Flow",,
+"06003081001",1175445,"CA","Wet Weather Peak",,
+"06003081001",1175445,"CA","Total Flow",5,5
+"06004026001",1175512,"CA","Municipal Flow",16.1,16.1
+"06004026001",1175512,"CA","Industrial Flow",,
+"06004026001",1175512,"CA","Infiltration Flow",,
+"06004026001",1175512,"CA","Wet Weather Peak",32,32
+"06004026001",1175512,"CA","Total Flow",16.1,16.1
+"06005205001",1175708,"CA","Municipal Flow",7.5,7.5
+"06005205001",1175708,"CA","Industrial Flow",,
+"06005205001",1175708,"CA","Infiltration Flow",,
+"06005205001",1175708,"CA","Wet Weather Peak",,
+"06005205001",1175708,"CA","Total Flow",7.5,7.5
+"06008010005",3486593,"CA","Municipal Flow",,
+"06008010005",3486593,"CA","Industrial Flow",,
+"06008010005",3486593,"CA","Infiltration Flow",,
+"06008010005",3486593,"CA","Wet Weather Peak",,
+"06008010005",3486593,"CA","Total Flow",15,17.6
+"06001008001",1175175,"CA","Municipal Flow",,
+"06001008001",1175175,"CA","Industrial Flow",,
+"06001008001",1175175,"CA","Infiltration Flow",,
+"06001008001",1175175,"CA","Wet Weather Peak",,
+"06001008001",1175175,"CA","Total Flow",0.55,0.55
+"06001099001",1175246,"CA","Municipal Flow",0.9,0.9
+"06001099001",1175246,"CA","Industrial Flow",,
+"06001099001",1175246,"CA","Infiltration Flow",,
+"06001099001",1175246,"CA","Wet Weather Peak",5,5
+"06001099001",1175246,"CA","Total Flow",0.9,0.9
+"06002029001",1175287,"CA","Municipal Flow",,
+"06002029001",1175287,"CA","Industrial Flow",,
+"06002029001",1175287,"CA","Infiltration Flow",,
+"06002029001",1175287,"CA","Wet Weather Peak",,
+"06002029001",1175287,"CA","Total Flow",18.5,23.7
+"06002120001",1175354,"CA","Municipal Flow",4.06,4.06
+"06002120001",1175354,"CA","Industrial Flow",,
+"06002120001",1175354,"CA","Infiltration Flow",,
+"06002120001",1175354,"CA","Wet Weather Peak",,
+"06002120001",1175354,"CA","Total Flow",4.06,4.06
+"06002121001",1175355,"CA","Municipal Flow",,
+"06002121001",1175355,"CA","Industrial Flow",,
+"06005227002",3520617,"CA","Municipal Flow",,
+"06005227002",3520617,"CA","Industrial Flow",,
+"06005227002",3520617,"CA","Infiltration Flow",,
+"06005227002",3520617,"CA","Wet Weather Peak",,
+"06005227002",3520617,"CA","Total Flow",12,18.5
+"06005511003",3477617,"CA","Municipal Flow",0.004,0.004
+"06005511003",3477617,"CA","Industrial Flow",,
+"06005511003",3477617,"CA","Infiltration Flow",,
+"06005511003",3477617,"CA","Wet Weather Peak",,
+"06005511003",3477617,"CA","Total Flow",0.004,0.004
+"06002032003",1175289,"CA","Municipal Flow",,
+"06002032003",1175289,"CA","Industrial Flow",,
+"06002032003",1175289,"CA","Infiltration Flow",,
+"06002032003",1175289,"CA","Wet Weather Peak",,
+"06002032003",1175289,"CA","Total Flow",85.4,100.3
+"06001013001",1175183,"CA","Municipal Flow",0.121,0.121
+"06001013001",1175183,"CA","Industrial Flow",,
+"06001013001",1175183,"CA","Infiltration Flow",,
+"06001013001",1175183,"CA","Wet Weather Peak",,
+"06001013001",1175183,"CA","Total Flow",0.121,0.121
+"06001045001",1175209,"CA","Municipal Flow",19.8,19.8
+"06001045001",1175209,"CA","Industrial Flow",0.5,0.5
+"06001045001",1175209,"CA","Infiltration Flow",1,1
+"06001045001",1175209,"CA","Wet Weather Peak",90,90
+"06001045001",1175209,"CA","Total Flow",21.3,21.3
+"06005078001",1175596,"CA","Municipal Flow",22,22
+"06005078001",1175596,"CA","Industrial Flow",,
+"06005078001",1175596,"CA","Infiltration Flow",,
+"06005078001",1175596,"CA","Wet Weather Peak",,
+"06005078001",1175596,"CA","Total Flow",22,22
+"06005300001",1175756,"CA","Municipal Flow",1,1
+"06005300001",1175756,"CA","Industrial Flow",,
+"06005300001",1175756,"CA","Infiltration Flow",,
+"06005300001",1175756,"CA","Wet Weather Peak",,
+"06005300001",1175756,"CA","Total Flow",1,1
+"06006002001",1175855,"CA","Municipal Flow",2,2
+"06006002001",1175855,"CA","Industrial Flow",,
+"06006002001",1175855,"CA","Infiltration Flow",,
+"06006002001",1175855,"CA","Wet Weather Peak",,4
+"06006002001",1175855,"CA","Total Flow",2,2
+"06008100001",1176031,"CA","Municipal Flow",6,6
+"06008100001",1176031,"CA","Industrial Flow",,
+"06008100001",1176031,"CA","Infiltration Flow",,
+"06008100001",1176031,"CA","Wet Weather Peak",,
+"06008100001",1176031,"CA","Total Flow",6,6
+"06001001001",1175167,"CA","Municipal Flow",0.16,0.16
+"06001001001",1175167,"CA","Industrial Flow",,
+"06001001001",1175167,"CA","Infiltration Flow",,
+"06001001001",1175167,"CA","Wet Weather Peak",,
+"06001001001",1175167,"CA","Total Flow",0.16,0.16
+"06002121001",1175355,"CA","Infiltration Flow",,
+"06002121001",1175355,"CA","Wet Weather Peak",,
+"06002121001",1175355,"CA","Total Flow",17,17
+"06004010002",1175492,"CA","Municipal Flow",30,30
+"06004010002",1175492,"CA","Industrial Flow",,
+"06004010002",1175492,"CA","Infiltration Flow",,
+"06004010002",1175492,"CA","Wet Weather Peak",,
+"06004010002",1175492,"CA","Total Flow",30,30
+"06005015001",1175537,"CA","Municipal Flow",4.2,4.2
+"06005015001",1175537,"CA","Industrial Flow",0.8,0.8
+"06005015001",1175537,"CA","Infiltration Flow",,
+"06005015001",1175537,"CA","Wet Weather Peak",,
+"06005015001",1175537,"CA","Total Flow",5,5
+"06005039001",1175559,"CA","Municipal Flow",0.85,0.85
+"06005039001",1175559,"CA","Industrial Flow",0.15,0.15
+"06005039001",1175559,"CA","Infiltration Flow",,
+"06005039001",1175559,"CA","Wet Weather Peak",,
+"06005039001",1175559,"CA","Total Flow",1,1
+"06005160001",1175678,"CA","Municipal Flow",0.28,0.28
+"06005160001",1175678,"CA","Industrial Flow",,
+"06005160001",1175678,"CA","Infiltration Flow",,
+"06005160001",1175678,"CA","Wet Weather Peak",,
+"06005160001",1175678,"CA","Total Flow",0.28,0.28
+"06005184001",1175693,"CA","Municipal Flow",,
+"06005184001",1175693,"CA","Industrial Flow",,
+"06005184001",1175693,"CA","Infiltration Flow",,
+"06005184001",1175693,"CA","Wet Weather Peak",,
+"06005184001",1175693,"CA","Total Flow",15,15
+"06005682001",1175846,"CA","Municipal Flow",0.026,0.026
+"06005682001",1175846,"CA","Industrial Flow",,
+"06005682001",1175846,"CA","Infiltration Flow",,
+"06005682001",1175846,"CA","Wet Weather Peak",,
+"06005682001",1175846,"CA","Total Flow",0.026,0.026
+"06002039001",1175297,"CA","Municipal Flow",,
+"06002039001",1175297,"CA","Industrial Flow",,
+"06002039001",1175297,"CA","Infiltration Flow",,
+"06002039001",1175297,"CA","Wet Weather Peak",9,10.4
+"06002039001",1175297,"CA","Total Flow",3,3.5
+"06005098001",1175618,"CA","Municipal Flow",8.8,10
+"06005098001",1175618,"CA","Industrial Flow",,
+"06005098001",1175618,"CA","Infiltration Flow",,
+"06005098001",1175618,"CA","Wet Weather Peak",,
+"06005098001",1175618,"CA","Total Flow",8.8,10
+"06005316001",1175765,"CA","Municipal Flow",0.3,0.3
+"06005316001",1175765,"CA","Industrial Flow",,
+"06005316001",1175765,"CA","Infiltration Flow",,
+"06005316001",1175765,"CA","Wet Weather Peak",,
+"06005316001",1175765,"CA","Total Flow",0.3,0.3
+"06001054001",1175220,"CA","Municipal Flow",0.227,0.227
+"06001054001",1175220,"CA","Industrial Flow",,
+"06001054001",1175220,"CA","Infiltration Flow",,
+"06001054001",1175220,"CA","Wet Weather Peak",0.99,0.99
+"06001054001",1175220,"CA","Total Flow",0.227,0.227
+"06002021001",1175279,"CA","Municipal Flow",0.033,0.033
+"06002021001",1175279,"CA","Industrial Flow",,
+"06002021001",1175279,"CA","Infiltration Flow",,
+"06002021001",1175279,"CA","Wet Weather Peak",,
+"06002021001",1175279,"CA","Total Flow",0.033,0.033
+"06005162001",1175680,"CA","Municipal Flow",0.4,0.4
+"06005162001",1175680,"CA","Industrial Flow",,
+"06005162001",1175680,"CA","Infiltration Flow",,
+"06005162001",1175680,"CA","Wet Weather Peak",,
+"06005162001",1175680,"CA","Total Flow",0.4,0.4
+"06008010001",1175959,"CA","Municipal Flow",,
+"06008010001",1175959,"CA","Industrial Flow",,
+"06008010001",1175959,"CA","Infiltration Flow",,
+"06008010001",1175959,"CA","Wet Weather Peak",,
+"06008010001",1175959,"CA","Total Flow",44,51.5
+"06009041001",1176079,"CA","Municipal Flow",,
+"06009041001",1176079,"CA","Industrial Flow",,
+"06009041001",1176079,"CA","Infiltration Flow",,
+"06009041001",1176079,"CA","Wet Weather Peak",,
+"06009041001",1176079,"CA","Total Flow",5.5,6
+"06005284001",1175750,"CA","Municipal Flow",1.34,1.34
+"06005284001",1175750,"CA","Industrial Flow",,
+"06005284001",1175750,"CA","Infiltration Flow",,
+"06005284001",1175750,"CA","Wet Weather Peak",,
+"06005284001",1175750,"CA","Total Flow",1.34,1.34
+"06005654001",1175840,"CA","Municipal Flow",0.41,0.41
+"06005654001",1175840,"CA","Industrial Flow",,
+"06005654001",1175840,"CA","Infiltration Flow",,
+"06005654001",1175840,"CA","Wet Weather Peak",,
+"06005654001",1175840,"CA","Total Flow",0.41,0.41
+"06008022002",1175977,"CA","Municipal Flow",,
+"06008022002",1175977,"CA","Industrial Flow",,
+"06008022002",1175977,"CA","Infiltration Flow",,
+"06008022002",1175977,"CA","Wet Weather Peak",,
+"06008022002",1175977,"CA","Total Flow",150,155
+"06005014001",1175536,"CA","Municipal Flow",0.025,0.025
+"06005014001",1175536,"CA","Industrial Flow",,
+"06005014001",1175536,"CA","Infiltration Flow",,
+"06005014001",1175536,"CA","Wet Weather Peak",,
+"06005014001",1175536,"CA","Total Flow",0.025,0.025
+"06005200001",1175704,"CA","Municipal Flow",0.64,0.64
+"06005200001",1175704,"CA","Industrial Flow",,
+"06005200001",1175704,"CA","Infiltration Flow",,
+"06005200001",1175704,"CA","Wet Weather Peak",,
+"06005200001",1175704,"CA","Total Flow",0.64,0.64
+"06005366001",1175793,"CA","Municipal Flow",0.14,0.14
+"06005366001",1175793,"CA","Industrial Flow",,
+"06005366001",1175793,"CA","Infiltration Flow",,
+"06005366001",1175793,"CA","Wet Weather Peak",0.8,0.8
+"06005366001",1175793,"CA","Total Flow",0.14,0.14
+"06006049001",1175898,"CA","Municipal Flow",0.36,0.36
+"06006049001",1175898,"CA","Industrial Flow",,
+"06006049001",1175898,"CA","Infiltration Flow",,
+"06006049001",1175898,"CA","Wet Weather Peak",,
+"06006049001",1175898,"CA","Total Flow",0.36,0.36
+"06000000305",3612766,"CA","Municipal Flow",8.4,8.4
+"06000000305",3612766,"CA","Industrial Flow",,
+"06000000305",3612766,"CA","Infiltration Flow",,
+"06000000305",3612766,"CA","Total Flow",8.4,8.4
+"06000000305",3612766,"CA","Wet Weather Peak",,
+"06000000307",3612790,"CA","Municipal Flow",,
+"06000000307",3612790,"CA","Industrial Flow",,
+"06000000307",3612790,"CA","Infiltration Flow",,
+"06000000307",3612790,"CA","Total Flow",9.5,9.5
+"06000000307",3612790,"CA","Wet Weather Peak",,
+"06000000311",3613059,"CA","Municipal Flow",,
+"06000000311",3613059,"CA","Industrial Flow",,
+"06000000311",3613059,"CA","Infiltration Flow",,
+"06000000311",3613059,"CA","Total Flow",0,4.2
+"06000000311",3613059,"CA","Wet Weather Peak",,
+"06008086001",3380875,"CA","Municipal Flow",,
+"06008086001",3380875,"CA","Industrial Flow",,
+"06008086001",3380875,"CA","Infiltration Flow",,
+"06008086001",3380875,"CA","Wet Weather Peak",,
+"06008086001",3380875,"CA","Total Flow",1.58,1.58
+"06008010004",3486590,"CA","Municipal Flow",,
+"06008010004",3486590,"CA","Industrial Flow",,
+"06008010004",3486590,"CA","Infiltration Flow",,
+"06008010004",3486590,"CA","Wet Weather Peak",,
+"06008010004",3486590,"CA","Total Flow",14,16.3
+"06005285001",1238823,"CA","Municipal Flow",0.43,0.43
+"06005285001",1238823,"CA","Industrial Flow",,
+"06005285001",1238823,"CA","Infiltration Flow",,
+"06005285001",1238823,"CA","Wet Weather Peak",1.33,1.33
+"06005285001",1238823,"CA","Total Flow",0.43,0.43
+"06002032005",443709,"CA","Municipal Flow",,
+"06002032005",443709,"CA","Industrial Flow",,
+"06002032005",443709,"CA","Infiltration Flow",,
+"06002032005",443709,"CA","Wet Weather Peak",,
+"06002032005",443709,"CA","Total Flow",43,50.3
+"06000000310",3612940,"CA","Municipal Flow",0.06,0.06
+"06000000310",3612940,"CA","Industrial Flow",,
+"06000000310",3612940,"CA","Infiltration Flow",,
+"06000000310",3612940,"CA","Total Flow",0.06,0.06
+"06000000310",3612940,"CA","Wet Weather Peak",,
+"06003054002",1175423,"CA","Municipal Flow",0.01,0.01
+"06003054002",1175423,"CA","Industrial Flow",,
+"06003054002",1175423,"CA","Infiltration Flow",,
+"06003054002",1175423,"CA","Wet Weather Peak",,
+"06003054002",1175423,"CA","Total Flow",0.01,0.01
+"06004009010",1175486,"CA","Municipal Flow",,
+"06004009010",1175486,"CA","Industrial Flow",,
+"06004009010",1175486,"CA","Infiltration Flow",,
+"06004009010",1175486,"CA","Wet Weather Peak",37.5,58.5
+"06004009010",1175486,"CA","Total Flow",12,15
+"06005049001",1175569,"CA","Municipal Flow",0.5,0.5
+"06005049001",1175569,"CA","Industrial Flow",,
+"06005049001",1175569,"CA","Infiltration Flow",,
+"06005049001",1175569,"CA","Wet Weather Peak",,
+"06005049001",1175569,"CA","Total Flow",0.5,0.5
+"06005124001",1175655,"CA","Municipal Flow",0.35,0.35
+"06005124001",1175655,"CA","Industrial Flow",,
+"06005124001",1175655,"CA","Infiltration Flow",,
+"06005124001",1175655,"CA","Wet Weather Peak",,
+"06005124001",1175655,"CA","Total Flow",0.35,0.35
+"06001007001",1175174,"CA","Municipal Flow",0.18,0.18
+"06001007001",1175174,"CA","Industrial Flow",,
+"06001007001",1175174,"CA","Infiltration Flow",,
+"06001007001",1175174,"CA","Wet Weather Peak",,
+"06001007001",1175174,"CA","Total Flow",0.18,0.18
+"06000000295",3612367,"CA","Municipal Flow",,
+"06000000295",3612367,"CA","Industrial Flow",,
+"06000000295",3612367,"CA","Infiltration Flow",,
+"06000000295",3612367,"CA","Total Flow",1.7,1.7
+"06000000295",3612367,"CA","Wet Weather Peak",,
+"06005328001",1175772,"CA","Municipal Flow",0.5,0.5
+"06005328001",1175772,"CA","Industrial Flow",,
+"06005328001",1175772,"CA","Infiltration Flow",,
+"06005328001",1175772,"CA","Wet Weather Peak",,
+"06005328001",1175772,"CA","Total Flow",0.5,0.5
+"06005368001",1175795,"CA","Municipal Flow",2.5,4.8
+"06005368001",1175795,"CA","Industrial Flow",,
+"06005368001",1175795,"CA","Infiltration Flow",,
+"06005368001",1175795,"CA","Wet Weather Peak",,
+"06005368001",1175795,"CA","Total Flow",2.5,4.8
+"06008006001",1175950,"CA","Municipal Flow",,
+"06008006001",1175950,"CA","Industrial Flow",,
+"06008006001",1175950,"CA","Infiltration Flow",,
+"06008006001",1175950,"CA","Wet Weather Peak",,
+"06008006001",1175950,"CA","Total Flow",20,34.4
+"06001016001",1175185,"CA","Municipal Flow",0.046,0.046
+"06001016001",1175185,"CA","Industrial Flow",,
+"06001016001",1175185,"CA","Infiltration Flow",,
+"06001016001",1175185,"CA","Wet Weather Peak",,
+"06001016001",1175185,"CA","Total Flow",0.046,0.046
+"06001047001",1175213,"CA","Municipal Flow",2.3,2.3
+"06001047001",1175213,"CA","Industrial Flow",,
+"06001047001",1175213,"CA","Infiltration Flow",,
+"06001047001",1175213,"CA","Wet Weather Peak",5.9,5.9
+"06001047001",1175213,"CA","Total Flow",2.3,2.3
+"06002040001",1175298,"CA","Municipal Flow",10.3,10.3
+"06002040001",1175298,"CA","Industrial Flow",0,
+"06002040001",1175298,"CA","Infiltration Flow",,
+"06002040001",1175298,"CA","Wet Weather Peak",25,25
+"06002040001",1175298,"CA","Total Flow",10.3,10.3
+"06004009008",1175484,"CA","Municipal Flow",,
+"06004009008",1175484,"CA","Industrial Flow",,
+"06004009008",1175484,"CA","Infiltration Flow",,
+"06004009008",1175484,"CA","Wet Weather Peak",38.3,47.3
+"06004009008",1175484,"CA","Total Flow",21.6,21.6
+"06004020001",1175507,"CA","Municipal Flow",0.5,0.5
+"06004020001",1175507,"CA","Industrial Flow",,
+"06004020001",1175507,"CA","Infiltration Flow",,
+"06004020001",1175507,"CA","Wet Weather Peak",0.91,1.75
+"06004020001",1175507,"CA","Total Flow",0.5,0.5
+"06005051001",1175570,"CA","Municipal Flow",0.4,0.4
+"06005051001",1175570,"CA","Industrial Flow",,
+"06005051001",1175570,"CA","Infiltration Flow",,
+"06005051001",1175570,"CA","Wet Weather Peak",,
+"06005051001",1175570,"CA","Total Flow",0.4,0.4
+"06005056001",1175575,"CA","Municipal Flow",0.6,0.6
+"06005056001",1175575,"CA","Industrial Flow",,
+"06005056001",1175575,"CA","Infiltration Flow",,
+"06005056001",1175575,"CA","Wet Weather Peak",,
+"06005056001",1175575,"CA","Total Flow",0.6,0.6
+"06006013001",1175866,"CA","Municipal Flow",2.3,2.3
+"06006013001",1175866,"CA","Industrial Flow",,
+"06006013001",1175866,"CA","Infiltration Flow",,
+"06006013001",1175866,"CA","Wet Weather Peak",,
+"06006013001",1175866,"CA","Total Flow",2.3,2.3
+"06008004001",1175948,"CA","Municipal Flow",,
+"06008004001",1175948,"CA","Industrial Flow",,
+"06008004001",1175948,"CA","Infiltration Flow",,
+"06008004001",1175948,"CA","Wet Weather Peak",,
+"06008004001",1175948,"CA","Total Flow",33,36.9
+"06009039001",1176077,"CA","Municipal Flow",0.5,0.5
+"06009039001",1176077,"CA","Industrial Flow",,
+"06009039001",1176077,"CA","Infiltration Flow",,
+"06009039001",1176077,"CA","Wet Weather Peak",,
+"06009039001",1176077,"CA","Total Flow",0.5,0.5
+"06009041002",1176080,"CA","Municipal Flow",,
+"06009041002",1176080,"CA","Industrial Flow",,
+"06009041002",1176080,"CA","Infiltration Flow",,
+"06009041002",1176080,"CA","Wet Weather Peak",,
+"06009041002",1176080,"CA","Total Flow",15.5,16
+"06009075001",1176094,"CA","Municipal Flow",6,6
+"06009075001",1176094,"CA","Industrial Flow",,
+"06001168001",3477030,"CA","Municipal Flow",0.063,0.063
+"06001168001",3477030,"CA","Industrial Flow",,
+"06001168001",3477030,"CA","Infiltration Flow",,
+"06001168001",3477030,"CA","Wet Weather Peak",,
+"06001168001",3477030,"CA","Total Flow",0.063,0.063
+"06000000302",3612659,"CA","Municipal Flow",,
+"06000000302",3612659,"CA","Industrial Flow",,
+"06000000302",3612659,"CA","Infiltration Flow",,
+"06000000302",3612659,"CA","Total Flow",0.07,0.07
+"06000000302",3612659,"CA","Wet Weather Peak",,
+"06000000309",3612938,"CA","Municipal Flow",0.03,0.03
+"06000000309",3612938,"CA","Industrial Flow",,
+"06000000309",3612938,"CA","Infiltration Flow",,
+"06000000309",3612938,"CA","Total Flow",0.03,0.03
+"06000000309",3612938,"CA","Wet Weather Peak",,
+"06000000294",3612365,"CA","Municipal Flow",,
+"06000000294",3612365,"CA","Industrial Flow",,
+"06000000294",3612365,"CA","Infiltration Flow",,
+"06000000294",3612365,"CA","Total Flow",0.1,0.1
+"06000000294",3612365,"CA","Wet Weather Peak",,
+"06009075001",1176094,"CA","Infiltration Flow",,
+"06009075001",1176094,"CA","Wet Weather Peak",,
+"06009075001",1176094,"CA","Total Flow",6,6
+"06002030001",1238810,"CA","Municipal Flow",12.5,12.5
+"06002030001",1238810,"CA","Industrial Flow",3.5,3.5
+"06002030001",1238810,"CA","Infiltration Flow",,
+"06002030001",1238810,"CA","Wet Weather Peak",,
+"06002030001",1238810,"CA","Total Flow",16,16
+"06001011001",1175181,"CA","Municipal Flow",1.5,1.5
+"06001011001",1175181,"CA","Industrial Flow",,
+"06001011001",1175181,"CA","Infiltration Flow",,
+"06001011001",1175181,"CA","Wet Weather Peak",,
+"06001011001",1175181,"CA","Total Flow",1.5,1.5
+"06005041001",1175561,"CA","Municipal Flow",0.8,1.01
+"06005041001",1175561,"CA","Industrial Flow",0.1,0.15
+"06005041001",1175561,"CA","Infiltration Flow",,
+"06005041001",1175561,"CA","Wet Weather Peak",2.24,4.38
+"06005041001",1175561,"CA","Total Flow",0.9,1.16
+"06005065001",1175586,"CA","Municipal Flow",,
+"06005065001",1175586,"CA","Industrial Flow",,
+"06005065001",1175586,"CA","Infiltration Flow",,
+"06005065001",1175586,"CA","Wet Weather Peak",,
+"06005065001",1175586,"CA","Total Flow",14.9,20
+"06005177001",1175687,"CA","Municipal Flow",,
+"06005177001",1175687,"CA","Industrial Flow",,
+"06005177001",1175687,"CA","Infiltration Flow",,
+"06005177001",1175687,"CA","Wet Weather Peak",,
+"06005177001",1175687,"CA","Total Flow",3,3
+"06009032001",1176070,"CA","Municipal Flow",,
+"06009032001",1176070,"CA","Industrial Flow",,
+"06009032001",1176070,"CA","Infiltration Flow",,
+"06009032001",1176070,"CA","Wet Weather Peak",,
+"06009032001",1176070,"CA","Total Flow",18,19.6
+"06002034002",1175292,"CA","Municipal Flow",0.3,0.3
+"06002034002",1175292,"CA","Industrial Flow",0.9,0.9
+"06002034002",1175292,"CA","Infiltration Flow",,
+"06002034002",1175292,"CA","Wet Weather Peak",,
+"06002034002",1175292,"CA","Total Flow",1.2,1.2
+"06002047001",1175307,"CA","Municipal Flow",15.5,15.5
+"06002047001",1175307,"CA","Industrial Flow",,
+"06002047001",1175307,"CA","Infiltration Flow",,
+"06002047001",1175307,"CA","Wet Weather Peak",60,60
+"06002047001",1175307,"CA","Total Flow",15.5,15.5
+"06003008001",1175377,"CA","Municipal Flow",1.5,1.5
+"06003008001",1175377,"CA","Industrial Flow",,
+"06003008001",1175377,"CA","Infiltration Flow",,
+"06003008001",1175377,"CA","Wet Weather Peak",,
+"06003008001",1175377,"CA","Total Flow",1.5,1.5
+"06003063001",1175430,"CA","Municipal Flow",2.69,2.69
+"06003063001",1175430,"CA","Industrial Flow",,
+"06003063001",1175430,"CA","Infiltration Flow",,
+"06003063001",1175430,"CA","Wet Weather Peak",,
+"06003063001",1175430,"CA","Total Flow",2.69,2.69
+"06005071001",1175590,"CA","Municipal Flow",,
+"06005071001",1175590,"CA","Industrial Flow",,
+"06005071001",1175590,"CA","Infiltration Flow",,
+"06005071001",1175590,"CA","Wet Weather Peak",,
+"06005071001",1175590,"CA","Total Flow",8,8
+"06000000303",3612732,"CA","Municipal Flow",0.5,0.5
+"06000000303",3612732,"CA","Industrial Flow",,
+"06000000303",3612732,"CA","Infiltration Flow",,
+"06000000303",3612732,"CA","Total Flow",0.5,0.5
+"06000000303",3612732,"CA","Wet Weather Peak",,
+"06008029001",1175985,"CA","Municipal Flow",6,10
+"06008029001",1175985,"CA","Industrial Flow",,
+"06008029001",1175985,"CA","Infiltration Flow",,
+"06008029001",1175985,"CA","Total Flow",6,10
+"06008029001",1175985,"CA","Wet Weather Peak",,
+"06000000301",3612652,"CA","Municipal Flow",,
+"06000000301",3612652,"CA","Industrial Flow",,
+"06000000301",3612652,"CA","Infiltration Flow",,
+"06000000301",3612652,"CA","Total Flow",0,0.053
+"06000000301",3612652,"CA","Wet Weather Peak",,
+"06002118001",1175353,"CA","Municipal Flow",6.1,6.1
+"06002118001",1175353,"CA","Industrial Flow",0.6,0.6
+"06002118001",1175353,"CA","Infiltration Flow",,
+"06002118001",1175353,"CA","Wet Weather Peak",36,36
+"06002118001",1175353,"CA","Total Flow",6.7,6.7
+"06004006001",1175461,"CA","Municipal Flow",,
+"06004006001",1175461,"CA","Industrial Flow",,
+"06004006001",1175461,"CA","Infiltration Flow",,
+"06004006001",1175461,"CA","Wet Weather Peak",,
+"06004006001",1175461,"CA","Total Flow",14,14
+"06005060004",1175582,"CA","Municipal Flow",2,2
+"06005060004",1175582,"CA","Industrial Flow",,
+"06005060004",1175582,"CA","Infiltration Flow",,
+"06005060004",1175582,"CA","Wet Weather Peak",,
+"06005060004",1175582,"CA","Total Flow",2,2
+"06006033001",1175886,"CA","Municipal Flow",1.2,1.2
+"06006033001",1175886,"CA","Industrial Flow",,
+"06006033001",1175886,"CA","Infiltration Flow",,
+"06006033001",1175886,"CA","Wet Weather Peak",,
+"06006033001",1175886,"CA","Total Flow",1.2,1.2
+"06001092001",2875821,"CA","Municipal Flow",0.04,0.04
+"06001092001",2875821,"CA","Industrial Flow",,
+"06001092001",2875821,"CA","Infiltration Flow",,
+"06001092001",2875821,"CA","Wet Weather Peak",0.187,0.187
+"06001092001",2875821,"CA","Total Flow",0.04,0.04
+"06003033001",3486842,"CA","Municipal Flow",0.4,0.4
+"06003033001",3486842,"CA","Industrial Flow",,
+"06003033001",3486842,"CA","Infiltration Flow",,
+"06003033001",3486842,"CA","Wet Weather Peak",,
+"06003033001",3486842,"CA","Total Flow",0.4,0.4
+"06004027001",1175513,"CA","Municipal Flow",,
+"06004027001",1175513,"CA","Industrial Flow",,
+"06004027001",1175513,"CA","Infiltration Flow",,
+"06004027001",1175513,"CA","Wet Weather Peak",40,45
+"06004027001",1175513,"CA","Total Flow",31.7,31.7
+"06005086001",1175607,"CA","Municipal Flow",2,2
+"06005086001",1175607,"CA","Industrial Flow",,
+"06005086001",1175607,"CA","Infiltration Flow",,
+"06005086001",1175607,"CA","Wet Weather Peak",,
+"06005086001",1175607,"CA","Total Flow",2,2
+"06001065001",1175224,"CA","Municipal Flow",0.13,0.13
+"06001065001",1175224,"CA","Industrial Flow",,
+"06001065001",1175224,"CA","Infiltration Flow",,
+"06001065001",1175224,"CA","Wet Weather Peak",,
+"06001065001",1175224,"CA","Total Flow",0.13,0.13
+"06002046001",1175306,"CA","Municipal Flow",9.9,9.9
+"06002046001",1175306,"CA","Industrial Flow",3.1,3.1
+"06002046001",1175306,"CA","Infiltration Flow",,
+"06002046001",1175306,"CA","Wet Weather Peak",60,
+"06002046001",1175306,"CA","Total Flow",13,13
+"06004009004",1175480,"CA","Municipal Flow",,
+"06004009004",1175480,"CA","Industrial Flow",,
+"06004009004",1175480,"CA","Infiltration Flow",,
+"06004009004",1175480,"CA","Wet Weather Peak",25,25
+"06004009004",1175480,"CA","Total Flow",15,15
+"06004009007",1175483,"CA","Municipal Flow",,
+"06004009007",1175483,"CA","Industrial Flow",,
+"06004009007",1175483,"CA","Infiltration Flow",,
+"06004009007",1175483,"CA","Wet Weather Peak",14.3,14.3
+"06004009007",1175483,"CA","Total Flow",6.5,6.5
+"06005058001",1175577,"CA","Municipal Flow",0.56,0.56
+"06005058001",1175577,"CA","Industrial Flow",0.07,0.07
+"06005058001",1175577,"CA","Infiltration Flow",,
+"06005058001",1175577,"CA","Wet Weather Peak",,
+"06005058001",1175577,"CA","Total Flow",0.63,0.63
+"06005232001",1175720,"CA","Municipal Flow",1.3,1.3
+"06005232001",1175720,"CA","Industrial Flow",,
+"06005232001",1175720,"CA","Infiltration Flow",,
+"06005232001",1175720,"CA","Wet Weather Peak",,
+"06005232001",1175720,"CA","Total Flow",1.3,1.3
+"06006021001",1175876,"CA","Municipal Flow",0.45,0.45
+"06006021001",1175876,"CA","Industrial Flow",,
+"06006021001",1175876,"CA","Infiltration Flow",,
+"06006021001",1175876,"CA","Wet Weather Peak",,
+"06006021001",1175876,"CA","Total Flow",0.45,0.45
+"06009076001",1176095,"CA","Municipal Flow",7.5,7.5
+"06009076001",1176095,"CA","Industrial Flow",,
+"06009076001",1176095,"CA","Infiltration Flow",,
+"06009076001",1176095,"CA","Wet Weather Peak",,
+"06009076001",1176095,"CA","Total Flow",7.5,7.5
+"06001027001",1175195,"CA","Municipal Flow",7,7
+"06001027001",1175195,"CA","Industrial Flow",,
+"06001027001",1175195,"CA","Infiltration Flow",,
+"06001027001",1175195,"CA","Wet Weather Peak",3,4
+"06005279001",1238822,"CA","Municipal Flow",0.5,0.5
+"06005279001",1238822,"CA","Industrial Flow",,
+"06005279001",1238822,"CA","Infiltration Flow",,
+"06005279001",1238822,"CA","Wet Weather Peak",,
+"06005279001",1238822,"CA","Total Flow",0.5,0.5
+"06001027001",1175195,"CA","Total Flow",7,7
+"06001042001",1175207,"CA","Municipal Flow",1,1
+"06001042001",1175207,"CA","Industrial Flow",,
+"06001042001",1175207,"CA","Infiltration Flow",,
+"06001042001",1175207,"CA","Wet Weather Peak",,
+"06001042001",1175207,"CA","Total Flow",1,1
+"06005107001",1175639,"CA","Municipal Flow",3.73,3.73
+"06005107001",1175639,"CA","Industrial Flow",,
+"06005107001",1175639,"CA","Infiltration Flow",,
+"06005107001",1175639,"CA","Wet Weather Peak",,
+"06005107001",1175639,"CA","Total Flow",3.73,3.73
+"06005282001",1175749,"CA","Municipal Flow",0.5,0.5
+"06005282001",1175749,"CA","Industrial Flow",,
+"06005282001",1175749,"CA","Infiltration Flow",,
+"06005282001",1175749,"CA","Wet Weather Peak",,
+"06005282001",1175749,"CA","Total Flow",0.5,0.5
+"06005607001",1175831,"CA","Municipal Flow",0.34,0.34
+"06005607001",1175831,"CA","Industrial Flow",,
+"06005607001",1175831,"CA","Infiltration Flow",,
+"06005607001",1175831,"CA","Wet Weather Peak",,
+"06005607001",1175831,"CA","Total Flow",0.34,0.34
+"06004009001",1175477,"CA","Municipal Flow",,
+"06004009001",1175477,"CA","Industrial Flow",,
+"06004009001",1175477,"CA","Infiltration Flow",,
+"06004009001",1175477,"CA","Wet Weather Peak",675,675
+"06004009001",1175477,"CA","Total Flow",400,400
+"06005009001",1175529,"CA","Municipal Flow",,
+"06005009001",1175529,"CA","Industrial Flow",,
+"06005009001",1175529,"CA","Infiltration Flow",,
+"06005009001",1175529,"CA","Wet Weather Peak",392,474
+"06005009001",1175529,"CA","Total Flow",115,181
+"06005010001",1175530,"CA","Municipal Flow",25,25
+"06005010001",1175530,"CA","Industrial Flow",,
+"06005010001",1175530,"CA","Infiltration Flow",,
+"06005010001",1175530,"CA","Wet Weather Peak",40.8,40.8
+"06005010001",1175530,"CA","Total Flow",25,25
+"06005026001",1175548,"CA","Municipal Flow",,
+"06005026001",1175548,"CA","Industrial Flow",,
+"06005026001",1175548,"CA","Infiltration Flow",,
+"06005026001",1175548,"CA","Wet Weather Peak",12,12
+"06005026001",1175548,"CA","Total Flow",4.9,4.9
+"06005164001",1175682,"CA","Municipal Flow",0.5,0.5
+"06005164001",1175682,"CA","Industrial Flow",,
+"06005164001",1175682,"CA","Infiltration Flow",,
+"06005164001",1175682,"CA","Wet Weather Peak",0.5,0.5
+"06005164001",1175682,"CA","Total Flow",0.5,0.5
+"06005218001",1175712,"CA","Municipal Flow",0.09,0.09
+"06005218001",1175712,"CA","Industrial Flow",,
+"06005218001",1175712,"CA","Infiltration Flow",,
+"06005218001",1175712,"CA","Wet Weather Peak",0.345,0.345
+"06005218001",1175712,"CA","Total Flow",0.09,0.09
+"06005265001",1175744,"CA","Municipal Flow",0.38,0.38
+"06005265001",1175744,"CA","Industrial Flow",,
+"06005265001",1175744,"CA","Infiltration Flow",,
+"06005265001",1175744,"CA","Wet Weather Peak",,
+"06005265001",1175744,"CA","Total Flow",0.38,0.38
+"06005783001",1175853,"CA","Municipal Flow",0.5,0.5
+"06005783001",1175853,"CA","Industrial Flow",,
+"06005783001",1175853,"CA","Infiltration Flow",,
+"06005783001",1175853,"CA","Wet Weather Peak",,
+"06005783001",1175853,"CA","Total Flow",0.5,0.5
+"06005098002",3479031,"CA","Municipal Flow",3.8,4.4
+"06005098002",3479031,"CA","Industrial Flow",,
+"06005098002",3479031,"CA","Infiltration Flow",,
+"06005098002",3479031,"CA","Wet Weather Peak",,
+"06005098002",3479031,"CA","Total Flow",3.8,4.4
+"06002054001",3486530,"CA","Municipal Flow",2.5,4
+"06002054001",3486530,"CA","Industrial Flow",,
+"06002054001",3486530,"CA","Infiltration Flow",,
+"06002054001",3486530,"CA","Wet Weather Peak",5,5
+"06002054001",3486530,"CA","Total Flow",2.5,4
+"06009069001",3368012,"CA","Municipal Flow",0.25,0.25
+"06009069001",3368012,"CA","Industrial Flow",,
+"06009069001",3368012,"CA","Infiltration Flow",,
+"06009069001",3368012,"CA","Wet Weather Peak",,
+"06009069001",3368012,"CA","Total Flow",0.25,0.25
+"06002053001",1175311,"CA","Municipal Flow",0.7,0.7
+"06002053001",1175311,"CA","Industrial Flow",,
+"06002053001",1175311,"CA","Infiltration Flow",,
+"06002053001",1175311,"CA","Wet Weather Peak",,
+"06002053001",1175311,"CA","Total Flow",0.7,0.7
+"06004014001",1175501,"CA","Municipal Flow",,
+"06004014001",1175501,"CA","Industrial Flow",,
+"06004014001",1175501,"CA","Infiltration Flow",,
+"06004014001",1175501,"CA","Wet Weather Peak",,
+"06004014001",1175501,"CA","Total Flow",3,5
+"06001002001",1175168,"CA","Municipal Flow",0.24,0.24
+"06001002001",1175168,"CA","Industrial Flow",,
+"06001002001",1175168,"CA","Infiltration Flow",,
+"06001002001",1175168,"CA","Wet Weather Peak",,
+"06001002001",1175168,"CA","Total Flow",0.24,0.24
+"06002008001",1175269,"CA","Municipal Flow",,
+"06002008001",1175269,"CA","Industrial Flow",,
+"06002008001",1175269,"CA","Infiltration Flow",,
+"06002008001",1175269,"CA","Wet Weather Peak",,
+"06002008001",1175269,"CA","Total Flow",29.5,38.3
+"06002060003",1175317,"CA","Municipal Flow",0.06,0.06
+"06002060003",1175317,"CA","Industrial Flow",,
+"06002060003",1175317,"CA","Infiltration Flow",,
+"06002060003",1175317,"CA","Wet Weather Peak",,
+"06002060003",1175317,"CA","Total Flow",0.06,0.06
+"06008022001",1175976,"CA","Municipal Flow",,
+"06008022001",1175976,"CA","Industrial Flow",,
+"06008022001",1175976,"CA","Infiltration Flow",,
+"06008022001",1175976,"CA","Wet Weather Peak",,
+"06008022001",1175976,"CA","Total Flow",182,195
+"06009068002",1176092,"CA","Municipal Flow",0.07,0.07
+"06009068002",1176092,"CA","Industrial Flow",,
+"06009068002",1176092,"CA","Infiltration Flow",,
+"06009068002",1176092,"CA","Wet Weather Peak",,
+"06009068002",1176092,"CA","Total Flow",0.07,0.07
+"06000000171",3609136,"CA","Municipal Flow",29,29
+"06000000171",3609136,"CA","Industrial Flow",,
+"06000000171",3609136,"CA","Infiltration Flow",,
+"06000000171",3609136,"CA","Total Flow",29,29
+"06000000171",3609136,"CA","Wet Weather Peak",71,71
+"06000000313",3613126,"CA","Municipal Flow",,
+"06000000313",3613126,"CA","Industrial Flow",,
+"06000000313",3613126,"CA","Infiltration Flow",,
+"06000000313",3613126,"CA","Total Flow",0,7
+"06000000313",3613126,"CA","Wet Weather Peak",,
+"06000000304",3612733,"CA","Municipal Flow",0.131,0.131
+"06000000304",3612733,"CA","Industrial Flow",,
+"06000000304",3612733,"CA","Infiltration Flow",,
+"06000000304",3612733,"CA","Total Flow",0.131,0.131
+"06000000304",3612733,"CA","Wet Weather Peak",0.269,0.269
+"06000000296",3612541,"CA","Municipal Flow",,
+"06000000296",3612541,"CA","Industrial Flow",,
+"06000000296",3612541,"CA","Infiltration Flow",,
+"06000000296",3612541,"CA","Total Flow",0.023,0.023
+"06000000296",3612541,"CA","Wet Weather Peak",,
+"06000000215",3610516,"CA","Municipal Flow",,
+"06000000215",3610516,"CA","Industrial Flow",,
+"06000000215",3610516,"CA","Infiltration Flow",,
+"06000000215",3610516,"CA","Total Flow",3,3
+"06000000215",3610516,"CA","Wet Weather Peak",,
+"06000000300",3612651,"CA","Municipal Flow",,
+"06000000300",3612651,"CA","Industrial Flow",,
+"06000000300",3612651,"CA","Infiltration Flow",,
+"06000000300",3612651,"CA","Total Flow",0.042,0.042
+"06000000300",3612651,"CA","Wet Weather Peak",,

@@ -1,0 +1,25 @@
+"NEEDS_CATEGORY","CATEGORY_NAME","VALID_FOR_SSO_FLAG","DISPLAY_ORDER"
+"I","Secondary Wastewater Treatment","Y",1
+"II","Advanced Wastewater Treatment","Y",2
+"III-A","Infiltration/Inflow (I/I) Correction","Y",3
+"III-B","Sewer Replacement/ Rehabilitation","Y",4
+"IV-A","New Collector Sewers and Appurtenances","Y",5
+"IV-B","New Interceptor Sewers and Appurtenances","Y",6
+"V","Combined Sewer Overflow (CSO) Correction","N",7
+"VI-A","Gray Infrastructure","N",9
+"VI-B","Green Infrastructure","N",10
+"VI-C","General Stormwater Management","N",11
+"VII-A","NPS Control: Agriculture (Cropland)","N",14
+"VII-B","NPS Control: Agriculture (Animals)","N",15
+"VII-C","NPS Control: Silviculture","N",16
+"VII-F","NPS Control: Marinas","N",19
+"VII-G","NPS Control: Resource Extraction","N",20
+"VII-H","NPS Control: Brownfields/Superfund","N",21
+"VII-I","NPS Control: Storage Tanks","N",22
+"VII-J","NPS Control: Sanitary Landfills","N",23
+"VII-K","NPS Control: Hydromodification","N",24
+"VII-M","NPS Control: Other Estuary Management Activities","N",24
+"X","Water Reuse","N",27
+"XII","Decentralized Wastewater Treatment Systems","N",29
+"XIV","Desalination","N",30
+"VII-E","NPS Control:Groundwater Protection(Unknown Source)","N",18

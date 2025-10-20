@@ -25,9 +25,7 @@ def load_dmr_data():
 
     dmr_files = list(Path("data/dmrs").glob("*.csv"))
     if not dmr_files:
-        raise FileNotFoundError(
-            "No DMR data files found in data/dmrs directory"
-        )
+        raise FileNotFoundError("No DMR data files found in data/dmrs directory")
 
     dfs = []
     for file in dmr_files:
@@ -45,9 +43,7 @@ def load_ir_data():
 
     ir_file = Path("data/ir/303d_list.csv")
     if not ir_file.exists():
-        raise FileNotFoundError(
-            "303d list file not found in data/ir directory"
-        )
+        raise FileNotFoundError("303d list file not found in data/ir directory")
 
     ir_data = pd.read_csv(ir_file)
     logger.info(f"Loaded {len(ir_data)} IR records")
@@ -60,9 +56,7 @@ def load_esmr_data():
 
     esmr_files = list(Path("data/esmr").glob("*.csv"))
     if not esmr_files:
-        raise FileNotFoundError(
-            "No eSMR data files found in data/esmr directory"
-        )
+        raise FileNotFoundError("No eSMR data files found in data/esmr directory")
 
     dfs = []
     for file in esmr_files:
@@ -112,15 +106,15 @@ def standardize_parameters(dmr_data, ir_data, esmr_data):
     esmr_standardized = esmr_data.copy()
 
     # Apply mapping to each dataset
-    dmr_standardized["parameter_standardized"] = dmr_standardized[
-        "parameter_name"
-    ].map(param_mapping)
-    ir_standardized["parameter_standardized"] = ir_standardized[
-        "pollutant"
-    ].map(param_mapping)
-    esmr_standardized["parameter_standardized"] = esmr_standardized[
-        "parameter"
-    ].map(param_mapping)
+    dmr_standardized["parameter_standardized"] = dmr_standardized["parameter_name"].map(
+        param_mapping
+    )
+    ir_standardized["parameter_standardized"] = ir_standardized["pollutant"].map(
+        param_mapping
+    )
+    esmr_standardized["parameter_standardized"] = esmr_standardized["parameter"].map(
+        param_mapping
+    )
 
     # Create summary of standardization
     summary = {
@@ -179,13 +173,9 @@ def main():
     # Import IR Data
     impaired_303d_2024 = pd.read_csv("data/ir/2024-303d.csv", skiprows=1)
     ir_parameter_df = (
-        impaired_303d_2024[["Pollutant"]]
-        .drop_duplicates()
-        .reset_index(drop=True)
+        impaired_303d_2024[["Pollutant"]].drop_duplicates().reset_index(drop=True)
     )
-    ir_parameter_df.rename(
-        columns={"Pollutant": "IR_PARAMETER_DESC"}, inplace=True
-    )
+    ir_parameter_df.rename(columns={"Pollutant": "IR_PARAMETER_DESC"}, inplace=True)
 
     # Import CA toxics rule data
     # toxics_df = pd.read_csv("data/toxics/criteria_for_toxics.csv")
@@ -219,9 +209,7 @@ def main():
     dmr_parameter_df.loc[mask, "SUB_CATEGORY"] = ""
 
     # save ir_parameter_df
-    ir_parameter_df.to_csv(
-        "processed_data/step1/ir_parameter_df.csv", index=False
-    )
+    ir_parameter_df.to_csv("processed_data/step1/ir_parameter_df.csv", index=False)
 
     # Plot category distributions
     plot_pie_counts(dmr_parameter_df, "REF_Parameter Categories")
@@ -237,9 +225,7 @@ def main():
         "TOXICS_PARAMETER_DESC"
     ].apply(normalize_param_desc)
     dmr_parameter_df["ESMR_PARAMETER_DESC_MATCHED"] = dmr_parameter_df.apply(
-        lambda row: match_parameter_desc(
-            row, esmr_parameter_df, "ESMR_PARAMETER_DESC"
-        ),
+        lambda row: match_parameter_desc(row, esmr_parameter_df, "ESMR_PARAMETER_DESC"),
         axis=1,
     )
     dmr_parameter_df["TOXICS_PARAMETER_DESC"] = dmr_parameter_df.apply(
@@ -283,9 +269,7 @@ def main():
     dmr_parameter_df = dmr_parameter_df.drop(
         columns=["ESMR_PARAMETER_DESC_MATCHED", "ESMR_PARAMETER_DESC_MANUAL"]
     ).rename(columns={"PARAMETER_DESC": "DMR_PARAMETER_DESC"})
-    dmr_parameter_df.to_csv(
-        "processed_data/step1/dmr_esmr_mapping.csv", index=False
-    )
+    dmr_parameter_df.to_csv("processed_data/step1/dmr_esmr_mapping.csv", index=False)
 
 
 if __name__ == "__main__":

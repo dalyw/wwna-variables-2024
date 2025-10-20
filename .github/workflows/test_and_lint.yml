@@ -35,7 +35,7 @@ jobs:
         pip install .[test]
     - name: Lint with flake8
       run: |
-        flake8 wwna_variables_2024 --count --verbose --show-source --statistics
+        flake8 wwna_variables_2024 --count --verbose --show-source --statistics --max-line-length=88
     - name: Check with black
       run: |
-        black --check wwna_variables_2024
+        black --check --line-length=88 wwna_variables_2024

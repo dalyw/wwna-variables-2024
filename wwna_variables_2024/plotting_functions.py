@@ -42,9 +42,7 @@ def plot_pie_counts(df: pd.DataFrame, title: str) -> None:
         startangle=140,
     )
     plt.title(title)
-    plt.legend(
-        category_counts.index, loc="center left", bbox_to_anchor=(1, 0, 0.5, 1)
-    )
+    plt.legend(category_counts.index, loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
     save_and_close(f'{title.lower().replace(" ", "_")}.png', 1)
 
 
@@ -138,15 +136,11 @@ def plot_facilities_map(
         .head(10)
     )
 
-    top_facilities_sorted = top_facilities.sort_values(
-        "LATITUDE", ascending=False
-    )
+    top_facilities_sorted = top_facilities.sort_values("LATITUDE", ascending=False)
 
     # Calculate label positions
     label_x = ax.get_xlim()[0] + 0.02 * (ax.get_xlim()[1] - ax.get_xlim()[0])
-    label_y_start = ax.get_ylim()[1] - 0.57 * (
-        ax.get_ylim()[1] - ax.get_ylim()[0]
-    )
+    label_y_start = ax.get_ylim()[1] - 0.57 * (ax.get_ylim()[1] - ax.get_ylim()[0])
     label_y_step = 0.03 * (ax.get_ylim()[1] - ax.get_ylim()[0])
 
     for idx, (_, row) in enumerate(top_facilities_sorted.iterrows()):
@@ -226,9 +220,7 @@ def plot_population_source_comparison(merged_pop: pd.DataFrame) -> None:
     plt.ylabel("Population (log scale)")
     plt.title("Population Estimates by Data Source")
     plt.xticks(rotation=45)
-    save_and_close(
-        "processed_data/step2/figures_py/population_source_comparison.png"
-    )
+    save_and_close("processed_data/step2/figures_py/population_source_comparison.png")
 
 
 def plot_facilities_summary(
@@ -307,9 +299,7 @@ def plot_facilities_scatter(facilities_with_coords: pd.DataFrame) -> None:
         alpha=0.6,
     )
     plt.colorbar(scatter, label="Number of Parameters")
-    plt.title(
-        "Facilities by Number of Parameters\nwith Possible Future Limits"
-    )
+    plt.title("Facilities by Number of Parameters\nwith Possible Future Limits")
     plt.xlabel("Longitude"), plt.ylabel("Latitude")
     save_and_close("figures_py/facilities_summary_scatter.png", 4)
 
@@ -319,8 +309,7 @@ def generate_facility_plots(
 ) -> None:
     """Generate detailed plots for each facility."""
     impaired_facilities = facilities_list[
-        facilities_list["Discharges to Impaired Water Bodies and Not Limited"]
-        != ""
+        facilities_list["Discharges to Impaired Water Bodies and Not Limited"] != ""
     ]
 
     for _, facility in impaired_facilities.iterrows():

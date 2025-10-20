@@ -1,0 +1,122 @@
+﻿Number compound,CAS No.,B1,B2,C1,C2,D1,D2
+1. Antimony,7440360,,,,,a s 14,a t 4300
+2. Arsenicb,7440382,i m w 340,i m w 150,i m 69,i m 36,,
+3. Beryllium,7440417,,,,,(n),(n)
+4. Cadmiumb,7440439,e i m w x 4.3,e i m w 2.2,i m 42,i m 9.3,(n),(n)
+5a. Chromium (III),16065831,e i m o 550,e i m o 180,,,(n),(n)
+5b. Chromium (VI)b,18540299,i m w 16,i m w 11,i m 1100,i m 50,(n),(n)
+6. Copperb,7440508,e i m w x 13,e i m w 9.0,i m 4.8,i m 3.1,1300,
+7. Leadb,7439921,e i m z 65,e i m z 2.5,i m 210,i m 8.1,(n),(n)
+8. Mercuryb,7439976,[Reserved],[Reserved],[Reserved],[Reserved],a 0.050,a 0.051
+9. Nickelb,7440020,e i m w 470,e i m w 52,i m 74,i m 8.2,a 610,a 4600
+10. Seleniumb,7782492,p[Reserved],q 5.0,i m 290,i m 71,(n),(n)
+11. Silverb,7440224,e i m 3.4,,i m 1.9,,,
+12. Thallium,7440280,,,,,a s 1.7,a t 6.3
+13. Zincb,7440666,e i m w x120,e i m w 120,i m 90,i m 81,,
+14. Cyanideb,57125,o 22,o 5.2,r thnsp;1,r 1,a 700,"a j 220,000"
+15. Asbestos,1332214,,,,,"k s 7,000,000 fibers/l",
+"16. 2,3,7,8-TCDD (Dioxin)",1746016,,,,,c> 0.000000013,c> 0.000000014
+17. Acrolein,107028,,,,,s> 320,t> 780
+18. Acrylonitrile,107131,,,,,a c s 0.059,a c t 0.66
+19. Benzene,71432,,,,,a c 1.2,a c 71
+20. Bromoform,75252,,,,,a c 4.3,a c 360
+21. Carbon Tetrachloride,56235,,,,,a c s 0.25,a c t 4.4
+22. Chlorobenzene,108907,,,,,a s 680,"a j t 21,000"
+23. Chlorodibromomethane,124481,,,,,a c y 0.41,a c 34
+24. Chloroethane,75003,,,,,,
+25. 2-Chloroethylvinyl Ether,110758,,,,,,
+26. Chloroform,67663,,,,,[Reserved],[Reserved]
+27. Dichlorobromomethane,75274,,,,,a c y 0.56,a c 46
+"28. 1,1-Dichloroethane",75343,,,,,,
+"29. 1,2-Dichloroethane",107062,,,,,a c s 0.38,a c t 99
+"30. 1,1-Dichloroethylene",75354,,,,,a c s 0.057,a c t 3.2
+"31. 1,2-Dichloropropane",78875,,,,,a 0.52,a 39
+"32. 1,3-Dichloropropylene",542756,,,,,a s 10,"a t 1,700"
+33. Ethylbenzene,100414,,,,,"a s 3,100","a t 29,000"
+34. Methyl Bromide,74839,,,,,a 48,"a 4,000"
+35. Methyl Chloride,74873,,,,,(n),(n)
+36. Methylene Chloride,75092,,,,,a c 4.7,"a c 1,600"
+"37. 1,1,2,2-Tetrachloroethane",79345,,,,,a c s 0.17,a c t 11
+38. Tetrachloroethylene,127184,,,,,c s 0.8,c t 8.85
+39. Toluene,108883,,,,,"a 6,800","a 200,000"
+"40. 1,2-Trans-Dichloroethylene",156605,,,,,a 700,"a 140,000"
+"41. 1,1,1-Trichloroethane",71556,,,,,(n),(n)
+"42. 1,1,2-Trichloroethane",79005,,,,,a c s 0.60,a c t 42
+43. Trichloroethylene,79016,,,,,c s 2.7,c t 81
+44. Vinyl Chloride,75014,,,,,c s 2,c t 525
+45. 2-Chlorophenol,95578,,,,,a 120,a 400
+"46. 2,4-Dichlorophenol",120832,,,,,a s 93,a t 790
+"47. 2,4-Dimethylphenol",105679,,,,,a 540,"a 2,300"
+"48. 2-Methyl-4,6-Dinitrophenol",534521,,,,,s> 13.4,t> 765
+"49. 2,4-Dinitrophenol",51285,,,,,a s 70,"a t 14,000"
+50. 2-Nitrophenol,88755,,,,,,
+51. 4-Nitrophenol,100027,,,,,,
+52. 3-Methyl-4-Chlorophenol,59507,,,,,,
+53. Pentachlorophenol,87865,f w 19,f w 15,13,7.9,a c 0.28,a c j 8.2
+54. Phenol,108952,,,,,"a 21,000","a j t 4,600,000"
+"55. 2,4,6-Trichlorophenol",88062,,,,,a c 2.1,a c 6.5
+56. Acenaphthene,83329,,,,,"a 1,200","a 2,700"
+57. Acenaphthylene,208968,,,,,,
+58. Anthracene,120127,,,,,"a 9,600","a 110,000"
+59. Benzidine,92875,,,,,a c s 0.00012,a c t 0.00054
+60. Benzo(a)Anthracene,56553,,,,,a c 0.0044,a c 0.049
+61. Benzo(a)Pyrene,50328,,,,,a c 0.0044,a c 0.049
+62. Benzo(b)Fluoranthene,205992,,,,,a c 0.0044,a c 0.049
+63. Benzo(ghi)Perylene,191242,,,,,,
+64. Benzo(k)Fluoranthene,207089,,,,,a c 0.0044,a c 0.049
+65. Bis(2-Chloroethoxy)Methane,111911,,,,,,
+66. Bis(2-Chloroethyl)Ether,111444,,,,,a c s 0.031,a c t 1.4
+67. Bis(2-Chloroisopropyl)Ether,108601,,,,,"a 1,400","a t 170,000"
+68. Bis(2-Ethylhexyl)Phthalate,117817,,,,,a c s 1.8,a c t 5.9
+69. 4-Bromophenyl Phenyl Ether,101553,,,,,,
+70. Butylbenzyl Phthalate,85687,,,,,"a 3,000","a 5,200"
+71. 2-Chloronaphthalene,91587,,,,,"a 1,700","a 4,300"
+72. 4-Chlorophenyl Phenyl Ether,7005723,,,,,,
+73. Chrysene,218019,,,,,a c 0.0044,a c 0.049
+"74. Dibenzo(a,h)Anthracene",53703,,,,,a c 0.0044,a c 0.049
+"75. 1,2 Dichlorobenzene",95501,,,,,"a 2,700","a 17,000"
+"76. 1,3 Dichlorobenzene",541731,,,,,400,"2,600"
+"77. 1,4 Dichlorobenzene",106467,,,,,400,"2,600"
+"78. 3,3′-Dichlorobenzidine",91941,,,,,a c s 0.04,a c t 0.077
+79. Diethyl Phthalate,84662,,,,,"a s 23,000","a t 120,000"
+80. Dimethyl Phthalate,131113,,,,,"s> 313,000","t> 2,900,000"
+81. Di-n-Butyl Phthalate,84742,,,,,"a s 2,700","a t 12,000"
+"82. 2,4-Dinitrotoluene",121142,,,,,c s 0.11,c t 9.1
+"83. 2,6-Dinitrotoluene",606202,,,,,,
+84. Di-n-Octyl Phthalate,117840,,,,,,
+"85. 1,2-Diphenylhydrazine",122667,,,,,a c s 0.040,a c t 0.54
+86. Fluoranthene,206440,,,,,a 300,a 370
+87. Fluorene,86737,,,,,"a 1,300","a 14,000"
+88. Hexachlorobenzene,118741,,,,,a c 0.00075,a c 0.00077
+89. Hexachlorobutadiene,87683,,,,,a c s 0.44,a c t 50
+90. Hexachlorocyclopentadiene,77474,,,,,a s 240,"a j t 17,000"
+91. Hexachloroethane,67721,,,,,a c s 1.9,a c t 8.9
+"92. Indeno(1,2,3-cd) Pyrene",193395,,,,,a c 0.0044,a c 0.049
+93. Isophorone,78591,,,,,c s 8.4,c t 600
+94. Naphthalene,91203,,,,,,
+95. Nitrobenzene,98953,,,,,a s 17,"a j t 1,900"
+96. N-Nitrosodimethylamine,62759,,,,,a c s 0.00069,a c t 8.1
+97. N-Nitrosodi-n-Propylamine,621647,,,,,a 0.005,a 1.4
+98. N-Nitrosodiphenylamine,86306,,,,,a c s 5.0,a c t 16
+99. Phenanthrene,85018,,,,,,
+100. Pyrene,129000,,,,,a 960,"a 11,000"
+"101. 1,2,4-Trichlorobenzene",120821,,,,,,
+102. Aldrin,309002,g> 3,,g> 1.3,,a c 0.00013,a c 0.00014
+103. alpha-BHC,319846,,,,,a c 0.0039,a c 0.013
+104. beta-BHC,319857,,,,,a c 0.014,a c 0.046
+105. gamma-BHC,58899,w> 0.95,,g> 0.16,,c> 0.019,c> 0.063
+106. delta-BHC,319868,,,,,,
+107. Chlordane,57749,g> 2.4,g> 0.0043,g> 0.09,g> 0.004,a c 0.00057,a c 0.00059
+"108. 4,4′-DDT",50293,g> 1.1,g> 0.001,g> 0.13,g> 0.001,a c 0.00059,a c 0.00059
+"109. 4,4′-DDE",72559,,,,,a c 0.00059,a c 0.00059
+"110. 4,4′-DDD",72548,,,,,a c 0.00083,a c 0.00084
+111. Dieldrin,60571,w> 0.24,w> 0.056,g> 0.71,g> 0.0019,a c 0.00014,a c 0.00014
+112. alpha-Endosulfan,959988,g> 0.22,g> 0.056,g> 0.034,g> 0.0087,a 110,a 240
+113. beta-Endosulfan,33213659,g> 0.22,g> 0.056,g> 0.034,g> 0.0087,a 110,a 240
+114. Endosulfan Sulfate,1031078,,,,,a 110,a 240
+115. Endrin,72208,w> 0.086,w> 0.036,g> 0.037,g> 0.0023,a 0.76,a j 0.81
+116. Endrin Aldehyde,7421934,,,,,a 0.76,a j 0.81
+117. Heptachlor,76448,g> 0.52,g> 0.0038,g> 0.053,g> 0.0036,a c 0.00021,a c 0.00021
+118. Heptachlor Epoxide,1024573,g> 0.52,g> 0.0038,g> 0.053,g> 0.0036,a c 0.00010,a c 0.00011
+119-125. Polychlorinated biphenyls (PCBs),,,ur> 0.014,,ur> 0.03,c v 0.00017,c v 0.00017
+126. Toxaphene,8001352,0.73,0.0002,0.21,0.0002,a c 0.00073,a c 0.00075

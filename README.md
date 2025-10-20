@@ -41,7 +41,7 @@ python step4_future_limits.py
 
 ### R Scripts
 
-For R users, ensure you have the required packages installed, then run:
+Ensure you have the required packages installed, then run:
 ```r
 source("RUN_ALL.R")
 ```
@@ -67,7 +67,9 @@ Standardizes parameter names from different data sources to create a unified nam
 **Data used:**
 - `data/dmrs`: EPA ICIS DMR datasets (files too large for GitHub; must be downloaded from ICIS for years 2014-2023)
 - `data/ir`: California Integrated Report 303d list of impaired water bodies
-- `data/esmr`: Analytical results from electronic self-monitoring reports (eSMRs) from CIWQS database (files too large for GitHub; must be downloaded from CIWQS)
+- `data/esmr`: Analytical results from electronic self-monitoring reports (eSMRs) from CIWQS database
+(files too large for GitHub;
+must be downloaded from https://lab.data.ca.gov/dataset/water-quality-effluent-electronic-self-monitoring-report-esmr-data)
 
 ### 2. Population Served
 **Files:** `step2_population_served.py` / `step2_population_served.R`
@@ -105,7 +107,7 @@ Uses outputs from steps 2, 3, and 4 to generate an updated facilities list with 
 
 ## Dependencies
 
-This project uses the [us-sewersheds](https://github.com/dalyw/us-sewersheds) package for CWNS data loading and processing functions.
+This project uses the outputs of the [us-sewersheds](https://github.com/dalyw/us-sewersheds) package for CWNS data population consolidation.
 
 ## Python Functions Reference
 
@@ -125,7 +127,7 @@ This project uses the [us-sewersheds](https://github.com/dalyw/us-sewersheds) pa
 - `plot_facilities_map(num_parameters_per_facility, legend_label, label_threshold)` - Plots facilities on CA map
 - `plot_population_distribution(merged_pop)` - Plots distribution of population served
 - `plot_population_source_comparison(merged_pop)` - Plots comparison of population data sources
-- `plot_facilities_summary(num_parameters_per_facility, title="Facilities with Exceedances")` - Plots summary without geographic data
+- `plot_facilities_summary(num_parameters_per_facility)` - Plots summary without geographic data
 - `plot_future_limits_summary(df_sorted)` - Plots summary of facilities with future limits
 - `plot_facilities_scatter(facilities_with_coords)` - Plots scatter plot when map unavailable
-- `generate_facility_plots(facilities_list, limits_2023)` - Generates detailed plots for each facility
+- `generate_facility_plots(facilities_list, limits_2024)` - Generates detailed plots for each facility

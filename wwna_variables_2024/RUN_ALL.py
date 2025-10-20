@@ -9,12 +9,6 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler(
-            f"processed_data/logging/"
-            f"run_log_"
-            f'{datetime.now().strftime("%Y%m%d_%H%M%S")}'
-            f".log"
-        ),
         logging.StreamHandler(sys.stdout),
     ],
 )
@@ -44,9 +38,7 @@ def generate_final_facilities_list():
 
     proc_data = "processed_data"
     # Load results from previous steps
-    population_data = pd.read_csv(
-        proc_data + "/step2/merged_population_data.csv"
-    )
+    population_data = pd.read_csv(proc_data + "/step2/merged_population_data.csv")
     exceedance_data = pd.read_csv(
         proc_data + "/step3/facilities_with_slope_and_near_exceedance.csv"
     )
@@ -73,9 +65,7 @@ def generate_final_facilities_list():
     exceedance_counts = (
         exceedance_data.groupby("NPDES_CODE")
         .size()
-        .reset_index(
-            name="Number of Parameters with Slope and Near Exceedance"
-        )
+        .reset_index(name="Number of Parameters with Slope and Near Exceedance")
     )
     facilities_list = facilities_list.merge(
         exceedance_counts,
@@ -86,13 +76,25 @@ def generate_final_facilities_list():
 
     # Add future limits data
     logger.info("Adding future limits data...")
+
+    # First, aggregate the future limits data to avoid duplicates
+    def aggregate_future_limits(x):
+        # Get unique non-null values
+        unique_vals = x.dropna().unique()
+        # Filter out empty strings and convert to string
+        filtered_vals = [
+            str(val) for val in unique_vals if str(val) != "" and str(val) != "nan"
+        ]
+        return ", ".join(filtered_vals) if filtered_vals else ""
+
+    future_limits_aggregated = (
+        future_limits_data.groupby("NPDES # CA#")
+        .agg({"Discharges to Impaired Waters and Not Limited": aggregate_future_limits})
+        .reset_index()
+    )
+
     facilities_list = facilities_list.merge(
-        future_limits_data[
-            [
-                "NPDES # CA#",
-                "Discharges to Impaired Water Bodies and Not Limited",
-            ]
-        ],
+        future_limits_aggregated,
         on="NPDES # CA#",
         how="left",
     )
@@ -103,26 +105,27 @@ def generate_final_facilities_list():
         "Discharges to Impaired Water Bodies and Not Limited": "",
     }
     facilities_list = facilities_list.fillna(fill_na).drop(
-        columns=[
-            c
-            for c in ["NPDES_CODE", "CWNS_ID"]
-            if c in facilities_list.columns
-        ]
+        columns=[c for c in ["NPDES_CODE", "CWNS_ID"] if c in facilities_list.columns]
     )
 
-    # Save final output
-    facilities_list.to_csv(
-        "processed_data/facilities_list_updated.csv", index=False
+    # Check for duplicates and remove them
+    initial_count = len(facilities_list)
+    facilities_list = facilities_list.drop_duplicates(
+        subset=["FACILITY ID"], keep="first"
     )
+    final_count = len(facilities_list)
+
+    if initial_count != final_count:
+        logger.warning(f"Removed {initial_count - final_count} duplicate facilities")
+
+    # Save final output
+    facilities_list.to_csv("processed_data/facilities_list_updated.csv", index=False)
     logger.info("Final facilities list generated successfully")
 
 
 def main(skip_steps=None):
     # Create processed_data directory and subdirectories if they don't exist
-    [
-        os.makedirs(f"processed_data/step{i}", exist_ok=True)
-        for i in range(1, 5)
-    ]
+    [os.makedirs(f"processed_data/step{i}", exist_ok=True) for i in range(1, 5)]
 
     # List of scripts to run in order
     scripts = [
