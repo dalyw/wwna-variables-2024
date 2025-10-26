@@ -22,7 +22,18 @@ pip install -e .
 pip install -e ".[dev]"
 ```
 
-## Running the Analysis
+## Getting Started
+
+### 1. Download Data
+
+First, download the large data files (~25GB):
+```bash
+python wwna_variables_2024/step0_download_data.py
+```
+
+This downloads all required data files from public sources to `data/` directory. Large files (>100MB) are excluded from git.
+
+### 2. Run the Analysis
 
 ### Python Scripts
 
@@ -65,7 +76,7 @@ The analysis scripts perform the following steps:
 Standardizes parameter names from different data sources to create a unified naming convention. This standardization is critical for the subsequent analysis steps that combine multiple data sources.
 
 **Data used:**
-- `data/dmrs`: EPA ICIS DMR datasets (files too large for GitHub; must be downloaded from ICIS for years 2014-2023)
+- `data/dmr`: EPA ICIS DMR datasets (files too large for GitHub; must be downloaded from ICIS for years 2014-2023)
 - `data/ir`: California Integrated Report 303d list of impaired water bodies
 - `data/esmr`: Analytical results from electronic self-monitoring reports (eSMRs) from CIWQS database
 (files too large for GitHub;
@@ -87,7 +98,7 @@ Merges multiple sources for population served into the primary facilities list. 
 Analyzes historical effluent data to determine which facilities are frequently at or near their permitted limits for various parameters. Calculates the percentage of measurements that exceed specific thresholds of the permitted limits. Generates visualizations stored in `processed_data/step3/`.
 
 **Data used:**
-- `data/dmrs`: EPA ICIS DMR datasets
+- `data/dmr`: EPA ICIS DMR datasets
 - `data/esmr`: Analytical results from electronic self-monitoring reports (eSMRs) from CIWQS database
 
 ### 4. Future Limits (Proximity to Impaired Waters)
@@ -109,13 +120,42 @@ Uses outputs from steps 2, 3, and 4 to generate an updated facilities list with 
 
 This project uses the outputs of the [us-sewersheds](https://github.com/dalyw/us-sewersheds) package for CWNS data population consolidation.
 
+## Data Loading and Filtering
+
+All data loading is handled through the centralized `file_configs.json` configuration file, which defines:
+- Column selection (dtypes)
+- Date parsing
+- Data filters (dropna, drop_notna, isin)
+- Data transformations
+- Column renames
+
+### DMR Data Filtering
+When loading DMR data, the following filters are applied:
+1. **Column selection** - Only loads necessary columns for analysis
+2. **Data quality filters**:
+   - Removes rows where No Data Indicator (NODI_CODE) is present
+   - Removes rows where limit values are missing (LIMIT_VALUE_NMBR is null)
+3. **Monitoring location filter** - Keeps only locations: 1, 2, EG, Y, or K
+4. **Permit filter** - Includes only permits from the CA Wastewater Needs Assessment facilities list
+5. **Parameter transformations**:
+   - Strips leading zeros from parameter codes
+   - Marks toxicity parameters (codes starting with T or W)
+
+### CWNS Data Filtering
+When loading CWNS data:
+1. **State filter** - Includes only California facilities (STATE_CODE = "CA")
+2. **Column selection** - Loads facility identifiers and population data
+3. **Column rename** - Renames TOTAL_RES_POPULATION_2022 to population_cwns
+
 ## Python Functions Reference
 
 ### helper_functions.py
-- `read_dmr(year, drop_no_limit=False)` - Reads CA DMR data for a given year
-- `read_all_dmrs(save=False, drop_toxicity=False)` - Reads all CA DMR data for analysis range
+- `load_data(data_type, year=None, file_path=None)` - Generic function to load config-driven data
+- `read_data_year(year, type, drop_toxicity=False)` - Reads DMR/ESMR data for a given year
+- `read_data_by_type(data_type, year_range, save=False, drop_toxicity=False)` - Reads all years of a data type
 - `read_limits(year)` - Reads CA DMR limits data for a given year
-- `read_esmr(save=False)` - Reads eSMR data with minimal required columns
+- `apply_filters(data, config)` - Applies config-defined filters (dropna, drop_notna, isin)
+- `apply_transformations(data, config)` - Applies config-defined transformations
 - `categorize_parameters(df, parameter_sorting_dict, desc_column)` - Categorizes parameters based on sorting dictionary
 - `normalize_param_desc(desc)` - Normalizes parameter descriptions for matching
 - `match_parameter_desc(row, target_df, target_desc_column)` - Matches parameter descriptions across datasets
@@ -124,10 +164,10 @@ This project uses the outputs of the [us-sewersheds](https://github.com/dalyw/us
 - `setup_figure(figsize=(10, 6))` - Creates and sets up a new figure with common settings
 - `save_and_close(path, dpi=FIGURE_DPI)` - Saves figure to path and closes it
 - `plot_pie_counts(df, title)` - Plots pie chart of parameter categories
-- `plot_facilities_map(num_parameters_per_facility, legend_label, label_threshold)` - Plots facilities on CA map
+- `plot_facilities_map(num_params_per_facility, legend_label, label_threshold)` - Plots facilities on CA map
 - `plot_population_distribution(merged_pop)` - Plots distribution of population served
 - `plot_population_source_comparison(merged_pop)` - Plots comparison of population data sources
-- `plot_facilities_summary(num_parameters_per_facility)` - Plots summary without geographic data
+- `plot_facilities_summary(num_params_per_facility)` - Plots summary without geographic data
 - `plot_future_limits_summary(df_sorted)` - Plots summary of facilities with future limits
 - `plot_facilities_scatter(facilities_with_coords)` - Plots scatter plot when map unavailable
 - `generate_facility_plots(facilities_list, limits_2024)` - Generates detailed plots for each facility

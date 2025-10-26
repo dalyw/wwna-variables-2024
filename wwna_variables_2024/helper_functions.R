@@ -15,7 +15,7 @@ npdes_from_facilities_list <- facilities_list %>%
   unique()
 facility_place_id_from_facilities_list <- facilities_list %>% pull(`FACILITY ID`)
 
-ref_parameter <- read_csv('data/dmrs/REF_PARAMETER.csv')
+ref_parameter <- read_csv('data/dmr/REF_PARAMETER.csv')
 
 columns_to_keep_dmr <- c(
   'EXTERNAL_PERMIT_NMBR',
@@ -65,7 +65,7 @@ read_dmr <- function(year, drop_no_limit = FALSE) {
   #
   # Returns the cleaned data
   
-  data <- read_csv(sprintf('data/dmrs/CA_FY%d_NPDES_DMRS_LIMITS/CA_FY%d_NPDES_DMRS.csv', year, year), 
+  data <- read_csv(sprintf('data/dmr/CA_FY%d_NPDES_DMRS_LIMITS/CA_FY%d_NPDES_DMRS.csv', year, year), 
                    col_types = cols(.default = "c"))
   cat(sprintf('%d DMR data has %d DMR events and %d unique permits\n', 
               year, nrow(data), n_distinct(data$EXTERNAL_PERMIT_NMBR)))
@@ -99,7 +99,7 @@ read_dmr <- function(year, drop_no_limit = FALSE) {
   return(data)
 }
 
-read_all_dmrs <- function(save = FALSE, load = TRUE) {
+read_all_dmr <- function(save = FALSE, load = TRUE) {
   # Reads all DMR data for the given years and saves it to a list
   
   if (save) {
@@ -127,7 +127,7 @@ read_all_dmrs <- function(save = FALSE, load = TRUE) {
 read_limits <- function(year) {
   # Reads the CA DMR data for the given year
   
-  data <- read.csv(sprintf('data/dmrs/CA_FY%d_NPDES_DMRS_LIMITS/CA_FY%d_NPDES_LIMITS.csv', year, year), 
+  data <- read.csv(sprintf('data/dmr/CA_FY%d_NPDES_DMRS_LIMITS/CA_FY%d_NPDES_LIMITS.csv', year, year), 
                    stringsAsFactors = FALSE)
   
   cat(sprintf('%d limits data has %d limits and %d unique permits\n', 
@@ -166,7 +166,7 @@ read_esmr <- function(save = FALSE) {
     dtype_dict <- sapply(dtype_dict, function(dtype) if (dtype %in% c('text', 'timestamp')) 'character' else 'numeric')
     
     # Read the csv with the dtype_dict
-    data <- read.csv('data/esmr/esmr-analytical-export_years-2006-2024_2024-09-03.csv', 
+    data <- read.csv('data/esmr/esmr-analytical-export_years-2006-2025_2025-10-06.csv', 
                      colClasses = dtype_dict)
     
     # Convert timestamp columns to datetime

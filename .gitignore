@@ -1,17 +1,19 @@
 # Large input data files (>100MB)
-data/esmr/esmr-analytical-export_years-2006-2025_2025-10-06.csv
-data/dmrs/CA_FY2018_NPDES_DMRS_LIMITS/CA_FY2018_NPDES**
-data/dmrs/CA_FY2020_NPDES_DMRS_LIMITS/CA_FY2020_NPDES**
-data/dmrs/CA_FY2021_NPDES_DMRS_LIMITS/CA_FY2021_NPDES**
-data/dmrs/CA_FY2019_NPDES_DMRS_LIMITS/CA_FY2019_NPDES**
-data/dmrs/CA_FY2017_NPDES_DMRS_LIMITS/CA_FY2017_NPDES**
-data/dmrs/CA_FY2022_NPDES_DMRS_LIMITS/CA_FY2022_NPDES**
-data/dmrs/CA_FY2023_NPDES_DMRS_LIMITS/CA_FY2023_NPDES**
-data/dmrs/CA_FY2024_NPDES_DMRS_LIMITS/CA_FY2024_NPDES**
-data/dmrs/CA_FY2025_NPDES_DMRS_LIMITS/CA_FY2025_NPDES**
-data/dmrs/CA_FY2016_NPDES_DMRS_LIMITS/CA_FY2016_NPDES**
-data/dmrs/CA_FY2015_NPDES_DMRS_LIMITS/CA_FY2015_NPDES**
-data/dmrs/CA_FY2014_NPDES_DMRS_LIMITS/CA_FY2014_NPDES**
+data/esmr/esmr-analytical-export*.csv
+data/dmr/CA_FY2018_NPDES_DMRS_LIMITS/CA_FY2018_NPDES**
+
+data/ir/*.xlsx
+data/dmr/CA_FY2020_NPDES_DMRS_LIMITS/CA_FY2020_NPDES**
+data/dmr/CA_FY2021_NPDES_DMRS_LIMITS/CA_FY2021_NPDES**
+data/dmr/CA_FY2019_NPDES_DMRS_LIMITS/CA_FY2019_NPDES**
+data/dmr/CA_FY2017_NPDES_DMRS_LIMITS/CA_FY2017_NPDES**
+data/dmr/CA_FY2022_NPDES_DMRS_LIMITS/CA_FY2022_NPDES**
+data/dmr/CA_FY2023_NPDES_DMRS_LIMITS/CA_FY2023_NPDES**
+data/dmr/CA_FY2024_NPDES_DMRS_LIMITS/CA_FY2024_NPDES**
+data/dmr/CA_FY2025_NPDES_DMRS_LIMITS/CA_FY2025_NPDES**
+data/dmr/CA_FY2016_NPDES_DMRS_LIMITS/CA_FY2016_NPDES**
+data/dmr/CA_FY2015_NPDES_DMRS_LIMITS/CA_FY2015_NPDES**
+data/dmr/CA_FY2014_NPDES_DMRS_LIMITS/CA_FY2014_NPDES**
 data/ww_surveillance/wastewatersurveillancecalifornia.csv
 
 # Large processed data files
@@ -20,6 +22,7 @@ processed_data/step3/data_dict.pkl
 processed_data/step3/csv/data_dict.pkl
 processed_data/step3/csv/facility_param_dict.pkl
 processed_data/step3/facility_param_dict.pkl
+
 
 DS_Store
 

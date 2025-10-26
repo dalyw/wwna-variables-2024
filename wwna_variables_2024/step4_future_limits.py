@@ -1,376 +1,195 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from helper_functions import read_limits, ref_parameter
-import json
+import matplotlib.gridspec as gridspec
 from collections import defaultdict
-import numpy as np
-import os
-from wwna_variables_2024.plotting_functions import (
-    generate_facility_plots,
+from helper_functions import (
+    read_limits,
+    load_data,
+    load_facilities_list,
     plot_facilities_map,
+    save_and_close,
+    aggregate_by_group,
+    ref_parameter,
 )
 
-# Create output directory if it doesn't exist
-os.makedirs("processed_data/step4", exist_ok=True)
-
-
-def load_and_process_data():
-    """Load and process all required data."""
-    # Load facilities list
-    facilities_list = pd.read_csv(
-        "data/facilities_list/NPDES+WDR Facilities List_20240906.csv"
-    )
-
-    # Load and process 2023 limits
-    limits_2023 = read_limits(2023)
-
-    # Load IR parameter data and create category maps
-    ir_parameter_df = pd.read_csv("processed_data/step1/ir_parameter_df.csv")
-
-    # Map categories to limits using parameter descriptions
-    parameter_desc_map = dict(
-        zip(
-            ref_parameter["PARAMETER_CODE"].str.lstrip("0"),
-            ref_parameter["PARAMETER_DESC"],
-        )
-    )
-    desc_to_parent = dict(
-        zip(
-            ir_parameter_df["IR_PARAMETER_DESC"],
-            ir_parameter_df["PARENT_CATEGORY"],
-        )
-    )
-    desc_to_sub = dict(
-        zip(
-            ir_parameter_df["IR_PARAMETER_DESC"],
-            ir_parameter_df["SUB_CATEGORY"],
-        )
-    )
-
-    # Apply mappings to limits
-    limits_2023["PARAMETER_DESC_CLEAN"] = (
-        limits_2023["PARAMETER_CODE"].str.lstrip("0").map(parameter_desc_map)
-    )
-    limits_2023["PARENT_CATEGORY"] = limits_2023["PARAMETER_DESC_CLEAN"].map(
-        desc_to_parent
-    )
-    limits_2023["SUB_CATEGORY"] = limits_2023["PARAMETER_DESC_CLEAN"].map(desc_to_sub)
-
-    # Log unmapped parameters
-    unmapped_params = limits_2023[limits_2023["PARENT_CATEGORY"].isna()][
-        "PARAMETER_DESC"
-    ].unique()
-    if len(unmapped_params) > 0:
-        print(f"Unmapped parameters: {unmapped_params}")
-
-    # Get unique categories, removing any None values
-    parent_categories = [
-        cat for cat in ir_parameter_df["PARENT_CATEGORY"].unique() if pd.notna(cat)
-    ]
-    sub_categories = [
-        cat for cat in ir_parameter_df["SUB_CATEGORY"].unique() if pd.notna(cat)
-    ]
-
-    print(f"{len(parent_categories)} parent, {len(sub_categories)} subcategories")
-
-    # Load 303d lists
-    columns_to_keep = [
-        "Water Body CALWNUMS",
-        "Pollutant",
-        "Pollutant Category",
-        "Decision Status",
-        "TMDL Requirement Status",
-        "Sources",
-        "Expected TMDL Completion Date",
-        "Expected Attainment Date",
-    ]
-
-    impaired_303d = {}
-    for year, rows_to_skip in [(2018, 2), (2024, 1)]:
-        impaired_303d[year] = pd.read_csv(
-            f"data/ir/{year}-303d.csv", skiprows=rows_to_skip
-        )[columns_to_keep].dropna(subset=["Water Body CALWNUMS"])
-        impaired_303d[year]["PARENT_CATEGORY"] = impaired_303d[year]["Pollutant"].map(
-            desc_to_parent
-        )
-        impaired_303d[year]["SUB_CATEGORY"] = impaired_303d[year]["Pollutant"].map(
-            desc_to_sub
-        )
-        unmapped_pollutants = set(impaired_303d[year]["Pollutant"]) - set(
-            desc_to_parent.keys()
-        )
-        if unmapped_pollutants:
-            print(f"Unmapped pollutants in {year} data: {unmapped_pollutants}")
-
-    with open("data/manual_updates/parameter_sorting_dict.json", "r") as f:
-        parameter_sorting_dict = json.load(f)
-    return (
-        facilities_list,
-        limits_2023,
-        impaired_303d,
-        parameter_sorting_dict,
-        parent_categories,
-        sub_categories,
-    )
+count_string = ("Discharges to Impaired and Not Limited: Number of Parameters",)
+parameter_string = (
+    "Parameters Discharged into Newly Impaired Water Body and Not Yet Limited"
+)
 
 
 def analyze_impaired_waters(
-    facilities_list,
-    limits_2023,
-    impaired_303d,
-    parameter_sorting_dict,
-    parent_categories,
-    sub_categories,
+    facilities_list, limits_2023, impaired_303d, sub_categories
 ):
-    """Analyze impaired waters and
-    identify facilities requiring future limits."""
+    """Analyze impaired waters and identify facilities requiring future limits."""
 
     # Create dictionaries for impaired water bodies
-    newly_impaired_water_bodies = defaultdict(set)
+    newly_impaired_bodies = defaultdict(set)
     impaired_water_bodies = defaultdict(set)
 
+    impaired_sets = {}
     for category in sub_categories:
-        impaired_set_2018 = set(
-            impaired_303d[2018].loc[
-                impaired_303d[2018]["SUB_CATEGORY"] == category,
-                "Water Body CALWNUMS",
-            ]
-        )
-        impaired_set_2024 = set(
-            impaired_303d[2024].loc[
-                impaired_303d[2024]["SUB_CATEGORY"] == category,
-                "Water Body CALWNUMS",
-            ]
-        )
-        newly_impaired_water_bodies[category] = impaired_set_2024 - impaired_set_2018
-        impaired_water_bodies[category] = impaired_set_2024
+        for year in [2018, 2024]:
+            impaired_sets[year] = set(
+                impaired_303d[year].loc[
+                    impaired_303d[year]["SUB_CATEGORY"] == category,
+                    "Water Body CALWNUMS",
+                ]
+            )
+        newly_impaired_bodies[category] = impaired_sets[2024] - impaired_sets[2018]
+        impaired_water_bodies[category] = impaired_sets[2024]
 
-    # Create all column names first
-    all_categories = parent_categories + sub_categories
-    column_names = []
-    for category in all_categories:
-        column_names.extend(
-            [
-                f"Discharges to Newly {category} Impaired",
-                f"Discharges to {category} Impaired",
-                f"Discharges to Newly {category} Impaired and Not Limited",
-            ]
-        )
-    column_names.extend(
-        [
-            "Discharges to Impaired Water Bodies and Not Limited",
-            "Discharges to Impaired and Not Limited: Number of Parameters",
-        ]
-    )
+    # Find facilities discharging into newly impaired waters that are not yet limited
+    flagged_facilities_list = []
 
-    # Pre-allocate all columns with zeros/empty strings
-    new_data = pd.DataFrame(0, index=facilities_list.index, columns=column_names)
-    new_data["Discharges to Impaired Water Bodies and Not Limited"] = ""
+    # Calculate masks for all categories
+    def check_impaired(x, water_bodies):
+        return any(wb in str(x) for wb in water_bodies) if pd.notna(x) else False
 
-    # Process all categories at once
-    for category in all_categories:
-        # Calculate masks for the whole dataset at once
-        def check_impaired(x, water_bodies):
-            return any(wb in str(x) for wb in water_bodies) if pd.notna(x) else False
-
+    for category in sub_categories:
         newly_impaired_mask = facilities_list["CAL WATERSHED NAME"].apply(
-            check_impaired, water_bodies=newly_impaired_water_bodies[category]
-        )
-        impaired_mask = facilities_list["CAL WATERSHED NAME"].apply(
-            check_impaired, water_bodies=impaired_water_bodies[category]
+            check_impaired, water_bodies=newly_impaired_bodies[category]
         )
 
-        # Update columns using masks
-        new_data[f"Discharges to Newly {category} Impaired"] = (
-            newly_impaired_mask.astype(int)
-        )
-        new_data[f"Discharges to {category} Impaired"] = impaired_mask.astype(int)
-
-        # Check limits for facilities with newly impaired waters
-        for index in facilities_list[newly_impaired_mask].index:
-            npdes = facilities_list.loc[index, "NPDES # CA#"]
+        # Check if facilities have limits for this category
+        for idx in facilities_list[newly_impaired_mask].index:
+            npdes = facilities_list.loc[idx, "NPDES # CA#"]
             sub_limits = limits_2023[limits_2023["EXTERNAL_PERMIT_NMBR"] == npdes]
             has_limit = any(
                 (sub_limits["SUB_CATEGORY"] == category)
                 & (sub_limits["LIMIT_VALUE_NMBR"].notna())
                 & (sub_limits["LIMIT_VALUE_NMBR"] != "")
-                & (sub_limits["LIMIT_VALUE_NMBR"] != "nan")
             )
+
             if not has_limit:
-                new_data.loc[
-                    index,
-                    f"Discharges to Newly {category} Impaired and Not Limited",
-                ] = 1
-
-    # Calculate summary columns
-    impaired_categories = []
-    for category in sub_categories:
-        col_name = f"Discharges to Newly {category} Impaired and Not Limited"
-        total = new_data[col_name].sum()
-
-        # Handle different types of total values
-        if isinstance(total, pd.Series):
-            total = total.iloc[0] if len(total) == 1 else total.sum()
-        elif isinstance(total, (np.ndarray, np.generic)):
-            total = total.item() if total.size == 1 else total.sum()
-
-        if total > 0:
-            impaired_categories.append(category)
-
-    # Update summary columns using vectorized operations
-    def get_impaired_categories(row):
-        categories = [
-            cat
-            for cat in sub_categories
-            if row[f"Discharges to Newly {cat} Impaired and Not Limited"] > 0
-        ]
-        return ", ".join(categories)
-
-    new_data["Discharges to Impaired Water Bodies and Not Limited"] = new_data.apply(
-        get_impaired_categories, axis=1
-    )
-
-    # Calculate total parameters per facility
-    parameter_cols = [
-        f"Discharges to Newly {cat} Impaired and Not Limited" for cat in sub_categories
-    ]
-
-    # Ensure all columns are numeric before summing
-    for col in parameter_cols:
-        if col in new_data.columns:
-            try:
-                new_data[col] = new_data[col].astype(float)
-            except Exception:
-                new_data[col] = (
-                    new_data[col]
-                    .replace([np.inf, -np.inf], np.nan)
-                    .fillna(0)
-                    .astype(float)
+                # Note this facility needs limits for this category
+                flagged_facilities_list.append(
+                    {"NPDES # CA#": npdes, "SUB_CATEGORY": category}
                 )
 
-    new_data["Discharges to Impaired and Not Limited: Number of Parameters"] = new_data[
-        parameter_cols
-    ].sum(axis=1)
+    # Create dataframe of flagged facilities
+    if flagged_facilities_list:
+        flagged_df = pd.DataFrame(flagged_facilities_list)
+    else:
+        flagged_df = pd.DataFrame(columns=["NPDES # CA#", "SUB_CATEGORY"])
 
-    # Combine original data with new columns efficiently
-    facilities_list = pd.concat([facilities_list, new_data], axis=1)
+    if len(flagged_df) > 0:
+        aggregated = aggregate_by_group(
+            flagged_df, "NPDES # CA#", "SUB_CATEGORY", count_string, parameter_string
+        )
 
-    return facilities_list, newly_impaired_water_bodies
+        # Merge aggregated results back to facilities_list
+        facilities_list = facilities_list.merge(
+            aggregated,
+            left_on="NPDES # CA#",
+            right_on="NPDES # CA#",
+            how="left",
+            suffixes=("", "_agg"),
+        )
+
+        # Fill NaN values
+        facilities_list[parameter_string] = facilities_list[parameter_string].fillna("")
+        facilities_list[count_string] = (
+            facilities_list[count_string].fillna(0).astype(int)
+        )
+
+    return facilities_list
 
 
-def generate_visualizations(
-    facilities_list,
-    newly_impaired_water_bodies,
-    sub_categories,
-    parent_categories,
-    limits_2023,
-):
-    """Generate visualizations of the analysis results."""
-    # Create bar plot
-    all_categories = sub_categories + parent_categories
-    data = {}
-    for category in all_categories:
-        if len(newly_impaired_water_bodies[category]) > 0:
-            data[category] = {
-                "Discharges to Listed": facilities_list[
-                    f"Discharges to {category} Impaired"
-                ].sum(),
-                "Newly Listed and Not Yet Limited": facilities_list[
-                    f"Discharges to Newly {category} Impaired and Not Limited"
-                ].sum(),
-            }
+def generate_facility_plots(facilities_list, limits_2023):
+    """Generate detailed plots for each facility."""
+    impaired_facilities = facilities_list[facilities_list[parameter_string] != ""]
 
-    if not data:
-        return
+    for _, facility in impaired_facilities.iterrows():
+        npdes_code = facility["NPDES # CA#"]
+        categories_str = facility[parameter_string]
 
-    df = pd.DataFrame(data).T
-    df_sorted = df.sort_values(by=df.columns.tolist(), ascending=False)
+        if not categories_str:
+            continue
 
-    # Create bar plot
-    fig, ax = plt.subplots(figsize=(10, 6))
-    x = np.arange(len(df_sorted.index))
-    width = 0.35
+        categories = [cat.strip() for cat in categories_str.split(", ")]
 
-    # Use colormaps directly instead of get_cmap
-    ax.bar(
-        x - width / 2,
-        df_sorted["Discharges to Listed"],
-        width,
-        label="Discharging to Listed\nWater Body",
-        color=plt.colormaps["viridis"](0.2),
-    )
-    ax.bar(
-        x + width / 2,
-        df_sorted["Newly Listed and Not Yet Limited"],
-        width,
-        label="Discharging to Newly Listed\nWater Body and\nNot Yet Limited",
-        color=plt.colormaps["viridis"](0.8),
-    )
+        n_params = len(categories)
+        n_cols = min(3, n_params)
+        n_rows = (n_params + n_cols - 1) // n_cols
 
-    plt.ylabel("Number of Facilities", fontsize=14)
-    plt.legend(fontsize=12, frameon=False)
-    plt.xticks(x, df_sorted.index, rotation=45, ha="right")
+        fig = plt.figure(figsize=(6 * n_cols, 4 * n_rows))
+        gs = gridspec.GridSpec(n_rows, n_cols)
 
-    # Add value labels
-    for i, v in enumerate(df_sorted["Discharges to Listed"]):
-        ax.text(i - width / 2, v, str(int(v)), ha="center", va="bottom")
-    for i, v in enumerate(df_sorted["Newly Listed and Not Yet Limited"]):
-        ax.text(i + width / 2, v, str(int(v)), ha="center", va="bottom")
+        for idx, category in enumerate(categories):
+            row = idx // n_cols
+            col = idx % n_cols
+            ax = fig.add_subplot(gs[row, col])
 
-    plt.tight_layout()
-    plt.savefig(
-        "processed_data/step4/facilities_with_future_limits_efficient.png",
-        dpi=300,
-        bbox_inches="tight",
-    )
-    plt.close()
+            param_data = limits_2023[
+                (limits_2023["EXTERNAL_PERMIT_NMBR"] == npdes_code)
+                & (limits_2023["SUB_CATEGORY"] == category)
+            ]
+            if len(param_data) == 0:
+                ax.text(
+                    0.5,
+                    0.5,
+                    f"No {category} data",
+                    ha="center",
+                    va="center",
+                    transform=ax.transAxes,
+                )
+                ax.set_title(category, fontsize=10)
+                continue
+
+            for _, param_row in param_data.iterrows():
+                param_desc = param_row["PARAMETER_DESC"]
+                limit_value = param_row["LIMIT_VALUE_STANDARD_UNITS"]
+
+                ax.axhline(y=limit_value, color="r", linestyle="--", alpha=0.5)
+                for y1, y2, color in [
+                    (0, limit_value, "lightgreen"),
+                    (limit_value, limit_value * 2, "lightcoral"),
+                ]:
+                    ax.fill_between([-1, 1], [y1, y1], [y2, y2], color=color, alpha=0.3)
+
+                ax.set_title(f"{param_desc}\n{category}", fontsize=10)
+                ax.set_ylabel(param_row["STANDARD_UNIT_DESC"])
+
+        save_and_close(f"figures_py/{npdes_code}_parameters.png", 4)
+
+
+def generate_visualizations(facilities_list, limits_2023):
+    """Generate visualizations for step4 results."""
 
     # Generate facility plots
-    os.makedirs("processed_data/step4/facility_plots", exist_ok=True)
-    generate_facility_plots(
-        facilities_list,
-        newly_impaired_water_bodies,
-        limits_2023,
-        sub_categories,
-    )
+    generate_facility_plots(facilities_list, limits_2023)
 
-    num_parameters_per_facility = dict(
-        zip(
+    # Create map visualization
+    num_params_per_facility = {
+        npdes: num
+        for npdes, num in zip(
             facilities_list["NPDES # CA#"],
-            facilities_list[
-                "Discharges to Impaired and Not Limited: Number of Parameters"
-            ],
+            facilities_list[count_string],
         )
-    )
-    num_parameters_per_facility = {
-        k: v for k, v in num_parameters_per_facility.items() if v >= 1
+        if num >= 1
     }
 
     plot_facilities_map(
-        num_parameters_per_facility,
+        num_params_per_facility,
         "# of Parameters with\nPossible Future Limits",
         6,
     )
 
     # Create simple scatter plot of facilities
     facilities_with_coords = facilities_list[
-        [
-            "NPDES # CA#",
-            "LATITUDE DECIMAL DEGREES",
-            "LONGITUDE DECIMAL DEGREES",
-        ]
+        ["NPDES # CA#", "LATITUDE DECIMAL DEGREES", "LONGITUDE DECIMAL DEGREES"]
     ].copy()
     facilities_with_coords = facilities_with_coords.rename(
         columns={
-            "NPDES # CA#": "NPDES_CODE",
             "LATITUDE DECIMAL DEGREES": "LATITUDE",
             "LONGITUDE DECIMAL DEGREES": "LONGITUDE",
         }
     )
 
     # Add parameter counts
-    facilities_with_coords["Parameters"] = facilities_with_coords["NPDES_CODE"].map(
-        lambda x: num_parameters_per_facility.get(x, 0)
+    facilities_with_coords["Parameters"] = facilities_with_coords["NPDES # CA#"].map(
+        lambda x: num_params_per_facility.get(x, 0)
     )
 
     # Create scatter plot
@@ -388,49 +207,79 @@ def generate_visualizations(
     plt.ylabel("Latitude")
     plt.tight_layout()
     plt.savefig(
-        "processed_data/step4/figures_py/facilities_summary_scatter.png",
+        f"STEP_DIRS{4}/figures_py/facilities_summary_scatter.png",
         dpi=300,
         bbox_inches="tight",
     )
     plt.close()
 
 
-def main(generate_plots=True):
-    # Load and process data with updated return values
-    (
-        facilities_list,
-        limits_2023,
-        impaired_303d,
-        parameter_sorting_dict,
-        parent_categories,
-        sub_categories,
-    ) = load_and_process_data()
+def main():
+
+    # Load data
+    facilities_list = load_facilities_list()
+    limits_2023 = read_limits(2023)
+    ir_parameter_df = pd.read_csv(f"STEP_DIRS{1}/ir_parameter_df.csv")
+
+    #  Merge categories into limits df
+    limits_2023["PARAMETER_CODE_CLEAN"] = limits_2023["PARAMETER_CODE"].str.lstrip("0")
+    limits_2023 = limits_2023.merge(
+        ref_parameter[["PARAMETER_CODE", "PARAMETER_DESC"]].rename(
+            columns={"PARAMETER_DESC": "PARAMETER_DESC_CLEAN"}
+        ),
+        left_on="PARAMETER_CODE_CLEAN",
+        right_on="PARAMETER_CODE",
+        how="left",
+        suffixes=("", "_ref"),
+    )
+    limits_2023 = limits_2023.merge(
+        ir_parameter_df[["IR_PARAMETER_DESC", "PARENT_CATEGORY", "SUB_CATEGORY"]],
+        left_on="PARAMETER_DESC_CLEAN",
+        right_on="IR_PARAMETER_DESC",
+        how="left",
+    )
+
+    # Log unmapped parameters
+    unmapped_params = limits_2023[limits_2023["PARENT_CATEGORY"].isna()][
+        "PARAMETER_DESC"
+    ].unique()
+    if len(unmapped_params) > 0:
+        print(f"Unmapped parameters: {unmapped_params}")
+
+    # Get unique categories
+    parent_categories = [
+        cat for cat in ir_parameter_df["PARENT_CATEGORY"].unique() if pd.notna(cat)
+    ]
+    sub_categories = [
+        cat for cat in ir_parameter_df["SUB_CATEGORY"].unique() if pd.notna(cat)
+    ]
+    print(f"{len(parent_categories)} parent, {len(sub_categories)} subcategories")
+
+    # Load IR data
+    impaired_303d = {}
+    for year in [2018, 2024]:
+        impaired_303d[year] = load_data("IR", year=year)
+        impaired_303d[year] = impaired_303d[year].merge(
+            ir_parameter_df[["IR_PARAMETER_DESC", "PARENT_CATEGORY", "SUB_CATEGORY"]],
+            left_on="Pollutant",
+            right_on="IR_PARAMETER_DESC",
+            how="left",
+        )
+        unmapped_pollutants = impaired_303d[year][
+            impaired_303d[year]["PARENT_CATEGORY"].isna()
+        ]["Pollutant"].unique()
+        if len(unmapped_pollutants) > 0:
+            print(f"Unmapped pollutants in {year} data: {unmapped_pollutants}")
 
     # Analyze impaired waters with updated parameters
-    facilities_list, newly_impaired_water_bodies = analyze_impaired_waters(
-        facilities_list,
-        limits_2023,
-        impaired_303d,
-        parameter_sorting_dict,
-        parent_categories,
-        sub_categories,
+    facilities_list = analyze_impaired_waters(
+        facilities_list, limits_2023, impaired_303d, sub_categories
     )
 
     # Save results
-    facilities_list.to_csv(
-        "processed_data/step4/facilities_with_future_limits.csv", index=False
-    )
-
-    # Generate visualizations if requested
-    if generate_plots:
-        generate_visualizations(
-            facilities_list,
-            newly_impaired_water_bodies,
-            sub_categories,
-            parent_categories,
-            limits_2023,
-        )
+    facilities_list.to_csv(f"STEP_DIRS{4}/flagged_facilities_step4.csv", index=False)
+    generate_visualizations(facilities_list, limits_2023)
 
 
 if __name__ == "__main__":
-    main(generate_plots=True)
+    main()

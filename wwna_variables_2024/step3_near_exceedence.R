@@ -108,7 +108,7 @@ create_facility_dict <- function(data_dict) {
 if (file.exists('processed_data/step3/facility_dict.rds')) {
   facility_dict <- readRDS('processed_data/step3/facility_dict.rds')
 } else {
-  data_dict <- read_all_dmrs(save = FALSE, load = TRUE)
+  data_dict <- read_all_dmr(save = FALSE, load = TRUE)
   facility_dict <- create_facility_dict(data_dict)
   saveRDS(facility_dict, 'processed_data/step3/facility_dict.rds')
 }
@@ -160,20 +160,20 @@ for (NPDES_code in unique(data_dict[[current_year]]$EXTERNAL_PERMIT_NMBR)) {
   }
 }
 
-facilities_with_slope_and_near_exceedance <- intersect(facilities_with_slope, facilities_with_near_exceedance)
+flagged_facilities_step3 <- intersect(facilities_with_slope, facilities_with_near_exceedance)
 
 cat(sprintf('%d facility-parameter pairs with slope > %s%%\n', length(facilities_with_slope), slope_threshold*100))
 cat(sprintf('%d facility-parameter pairs with near exceedance > %s%% of limit more than %s%% of the time\n', 
             length(facilities_with_near_exceedance), limit_threshold*100, fraction_threshold*100))
-cat(sprintf('%d facility-parameter pairs with both slope and near exceedance\n', length(facilities_with_slope_and_near_exceedance)))
+cat(sprintf('%d facility-parameter pairs with both slope and near exceedance\n', length(flagged_facilities_step3)))
 cat(sprintf('%d facilities that have at least one parameter with slope and near exceedance\n', 
-            length(unique(map_chr(facilities_with_slope_and_near_exceedance, ~.x[1])))))
+            length(unique(map_chr(flagged_facilities_step3, ~.x[1])))))
 
-facilities_with_slope_and_near_exceedance_df <- as_tibble(do.call(rbind, facilities_with_slope_and_near_exceedance)) %>%
+flagged_facilities_step3_df <- as_tibble(do.call(rbind, flagged_facilities_step3)) %>%
   rename(NPDES_CODE = V1, PARAMETER_CODE = V2, LIMIT_VALUE_STANDARD_UNITS = V3)
 
 # Plot timeseries for each facility-parameter combination
-facilities_grouped <- facilities_with_slope_and_near_exceedance_df %>% group_by(NPDES_CODE)
+facilities_grouped <- flagged_facilities_step3_df %>% group_by(NPDES_CODE)
 
 for (NPDES_CODE in unique(facilities_grouped$NPDES_CODE)) {
   group <- facilities_grouped %>% filter(NPDES_CODE == !!NPDES_CODE)
@@ -215,7 +215,7 @@ for (NPDES_CODE in unique(facilities_grouped$NPDES_CODE)) {
 buffer_values <- c(limit_threshold)
 
 # Count the number of parameters for each facility with slope and near exceedance
-num_parameters_per_facility <- facilities_with_slope_and_near_exceedance_df %>%
+num_params_per_facility <- flagged_facilities_step3_df %>%
   group_by(NPDES_CODE) %>%
   summarise(num_parameters = n_distinct(PARAMETER_CODE))
 
@@ -226,10 +226,10 @@ facilities_with_coords <- facilities_list %>%
   select(`NPDES # CA#`, `LATITUDE DECIMAL DEGREES`, `LONGITUDE DECIMAL DEGREES`) %>%
   rename(NPDES_CODE = `NPDES # CA#`, LATITUDE = `LATITUDE DECIMAL DEGREES`, LONGITUDE = `LONGITUDE DECIMAL DEGREES`)
 
-facilities_with_slope_and_near_exceedance_df <- facilities_with_slope_and_near_exceedance_df %>%
+flagged_facilities_step3_df <- flagged_facilities_step3_df %>%
   left_join(facilities_with_coords, by = "NPDES_CODE")
 
-facilities_gdf <- st_as_sf(facilities_with_slope_and_near_exceedance_df, 
+facilities_gdf <- st_as_sf(flagged_facilities_step3_df, 
                            coords = c("LONGITUDE", "LATITUDE"), 
                            crs = 4326)
 
@@ -242,7 +242,7 @@ if (st_crs(facilities_gdf) != st_crs(ca_counties)) {
 }
 
 facilities_gdf <- facilities_gdf %>%
-  left_join(num_parameters_per_facility, by = "NPDES_CODE")
+  left_join(num_params_per_facility, by = "NPDES_CODE")
 
 ggplot() +
   geom_sf(data = ca_counties, fill = "lightgray", color = "white") +
@@ -256,11 +256,11 @@ ggplot() +
 ggsave("processed_figures/facilities_map.png", width = 10, height = 8)
 
 # Make a df with NPDES_CODE and the number of parameters with slope and near exceedance
-df <- num_parameters_per_facility %>%
+df <- num_params_per_facility %>%
   right_join(tibble(NPDES_CODE = unique(data_dict[[current_year]]$EXTERNAL_PERMIT_NMBR)), by = "NPDES_CODE") %>%
   replace_na(list(num_parameters = 0))
 
-write_csv(df, 'processed_data/step3/num_parameters_per_facility.csv')
+write_csv(df, 'processed_data/step3/num_params_per_facility.csv')
 
 # Import ciwqs_facilities and merge df into ciwqs_facilities based on NPDES_CODE
 ciwqs_facilities <- read_csv('data/facilities_list/NPDES+WDR Facilities List_20240906.csv')
@@ -307,7 +307,7 @@ ggsave("processed_figures/facilities_pie_charts_by_category.png", width = 12, he
 
 ## Print the most frequent parameter codes and their corresponding descriptions with value counts
 dmr_esmr_mapping <- read_csv('processed_data/step1/dmr_esmr_mapping.csv')
-most_frequent_parameter_codes <- facilities_with_slope_and_near_exceedance_df %>%
+most_frequent_parameter_codes <- flagged_facilities_step3_df %>%
   count(PARAMETER_CODE, sort = TRUE)
 
 for (i in 1:nrow(most_frequent_parameter_codes)) {

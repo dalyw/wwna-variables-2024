@@ -1,0 +1,206 @@
+{
+  "DMR": {
+    "data_type": "DMR",
+    "dtype": {
+      "EXTERNAL_PERMIT_NMBR": "str",
+      "LIMIT_SET_ID": "str",
+      "PARAMETER_CODE": "str",
+      "PARAMETER_DESC": "str",
+      "MONITORING_LOCATION_CODE": "str",
+      "LIMIT_VALUE_TYPE_CODE": "str",
+      "LIMIT_VALUE_NMBR": "float",
+      "LIMIT_VALUE_STANDARD_UNITS": "float",
+      "LIMIT_UNIT_CODE": "str",
+      "STANDARD_UNIT_CODE": "str",
+      "STANDARD_UNIT_DESC": "str",
+      "STATISTICAL_BASE_CODE": "str",
+      "STATISTICAL_BASE_TYPE_CODE": "str",
+      "LIMIT_VALUE_QUALIFIER_CODE": "str",
+      "LIMIT_FREQ_OF_ANALYSIS_CODE": "str",
+      "LIMIT_TYPE_CODE": "str",
+      "LIMIT_SET_DESIGNATOR": "str",
+      "LIMIT_SET_SCHEDULE_ID": "str",
+      "LIMIT_UNIT_DESC": "str",
+      "LIMIT_SAMPLE_TYPE_CODE": "str",
+      "DMR_VALUE_ID": "str",
+      "DMR_VALUE_NMBR": "float",
+      "DMR_UNIT_CODE": "str",
+      "DMR_UNIT_DESC": "str",
+      "DMR_VALUE_STANDARD_UNITS": "float",
+      "NODI_CODE": "str"
+    },
+    "parse_dates": ["MONITORING_PERIOD_END_DATE"],
+    "dropna": ["LIMIT_VALUE_NMBR"],
+    "drop_notna": ["NODI_CODE"],
+    "filters": {
+      "MONITORING_LOCATION_CODE": {
+        "isin": ["1", "2", "EG", "Y", "K"]
+      },
+      "EXTERNAL_PERMIT_NMBR": {
+        "isin_filter_list": true
+      }
+    },
+    "strip_leading_zeros": "PARAMETER_CODE",
+    "mark_toxicity": {
+      "column": "PARAMETER_CODE",
+      "pattern": "startswith",
+      "values": ["T", "W"],
+      "set_column": "PARAMETER_DESC",
+      "set_value": "Toxicity"
+    }
+  },
+  "LIMITS": {
+    "data_type": "LIMITS",
+    "dtype": {
+      "EXTERNAL_PERMIT_NMBR": "str",
+      "LIMIT_SET_ID": "str",
+      "PARAMETER_CODE": "str",
+      "PARAMETER_DESC": "str",
+      "MONITORING_LOCATION_CODE": "str",
+      "LIMIT_VALUE_TYPE_CODE": "str",
+      "LIMIT_VALUE_NMBR": "float",
+      "LIMIT_VALUE_STANDARD_UNITS": "float",
+      "LIMIT_UNIT_CODE": "str",
+      "STANDARD_UNIT_CODE": "str",
+      "STANDARD_UNIT_DESC": "str",
+      "STATISTICAL_BASE_CODE": "str",
+      "STATISTICAL_BASE_TYPE_CODE": "str",
+      "LIMIT_VALUE_QUALIFIER_CODE": "str",
+      "LIMIT_FREQ_OF_ANALYSIS_CODE": "str",
+      "LIMIT_TYPE_CODE": "str",
+      "LIMIT_SET_DESIGNATOR": "str",
+      "LIMIT_SET_SCHEDULE_ID": "str",
+      "LIMIT_UNIT_DESC": "str",
+      "LIMIT_SAMPLE_TYPE_CODE": "str"
+    },
+    "parse_dates": [],
+    "dropna": [],
+    "drop_notna": [],
+    "filters": {
+      "EXTERNAL_PERMIT_NMBR": {
+        "isin_filter_list": true
+      }
+    }
+  },
+  "ESMR": {
+    "data_type": "ESMR",
+    "dtype": {
+      "parameter": "str",
+      "qualifier": "str",
+      "result": "float",
+      "units": "str",
+      "mdl": "float",
+      "ml": "float",
+      "rl": "float",
+      "sampling_date": "str",
+      "sampling_time": "str",
+      "review_priority_indicator": "str",
+      "qa_codes": "str",
+      "comments": "str",
+      "facility_name": "str",
+      "facility_place_id": "str",
+      "report_name": "str",
+      "location_desc": "str"
+    },
+    "parse_dates": ["sampling_date"],
+    "dropna": [],
+    "drop_notna": [],
+    "filters": {},
+    "step1": {
+      "column": "parameter",
+      "desc_col": "ESMR_PARAMETER_DESC"
+    }
+  },
+  "IR": {
+    "data_type": "IR",
+    "dtype": {
+      "Water Body CALWNUMS": "str",
+      "Pollutant": "str",
+      "Pollutant Category": "str",
+      "Decision Status": "str",
+      "TMDL Requirement Status": "str",
+      "Sources": "str",
+      "Expected TMDL Completion Date": "str",
+      "Expected Attainment Date": "str"
+    },
+    "parse_dates": [],
+    "dropna": ["Water Body CALWNUMS"],
+    "drop_notna": [],
+    "filters": {},
+    "year_skiprows": {
+      "2018": 2,
+      "2024": 1
+    },
+    "step1": {
+      "column": "Pollutant",
+      "desc_col": "IR_PARAMETER_DESC",
+      "year": 2024,
+      "skiprows": 1
+    }
+  },
+  "TOXICS": {
+    "step1": {
+      "column": "Number compound",
+      "desc_col": "TOXICS_PARAMETER_DESC",
+      "post_process": {
+        "strip_prefix": {
+          "pattern": "^\\d+\\.\\s*",
+          "regex": true
+        }
+      }
+    }
+  },
+  "CWNS": {
+    "data_type": "CWNS",
+    "dtype": {
+      "STATE_CODE": "str",
+      "CWNS_ID": "str",
+      "PERMIT_NUMBER": "str",
+      "FACILITY_NAME": "str",
+      "TOTAL_RES_POPULATION_2022": "float"
+    },
+    "parse_dates": [],
+    "dropna": [],
+    "drop_notna": [],
+    "filters": {
+      "STATE_CODE": {
+        "isin": ["CA"]
+      }
+    },
+    "rename": {
+      "TOTAL_RES_POPULATION_2022": "population_cwns"
+    }
+  },
+  "WW_SURVEILLANCE": {
+    "data_type": "WW_SURVEILLANCE",
+    "dtype": {
+      "epaid": "str",
+      "population_served": "float"
+    },
+    "explode": ["epaid"],
+    "drop_duplicates": ["epaid"],
+    "rename": {
+      "population_served": "population_covid"
+    },
+    "file": "data/ww_surveillance/wastewatersurveillancecalifornia.csv"
+  },
+  "SSO": {
+    "data_type": "SSO",
+    "dtype": {
+      "Wdid": "str",
+      "SSOq Population Served": "float",
+      "Status": "str"
+    },
+    "rename": {
+      "SSOq Population Served": "population_sso",
+      "Wdid": "permit_number"
+    },
+    "filters": {
+      "Status": {
+        "isin": ["Active"]
+      }
+    },
+    "file": "data/sso/Questionnaire.csv"
+  }
+}
+

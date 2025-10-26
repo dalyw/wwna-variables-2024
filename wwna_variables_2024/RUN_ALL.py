@@ -1,160 +1,108 @@
 import os
 import sys
-import logging
 import pandas as pd
-from datetime import datetime
-
-# Set up logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-    ],
+from wwna_variables_2024.helper_functions import (
+    FACILITIES_LIST_PATH,
+    load_facilities_list,
 )
-logger = logging.getLogger(__name__)
 
 
 def run_script(script_name):
     """Run a Python script and check its exit code."""
-    logger.info(f"Starting {script_name}")
+    print(f"Starting {script_name}")
     result = os.system(f"python {script_name}")
-
     if result != 0:
-        logger.error(f"Error running {script_name}")
+        print(f"Error running {script_name}")
         sys.exit(1)
-
-    logger.info(f"Completed {script_name} successfully")
 
 
 def generate_final_facilities_list():
     """Generate final facilities list with all risk factors."""
-    logger.info("Generating final facilities list...")
 
-    # Load original facilities list
-    facilities_list = pd.read_csv(
-        "data/facilities_list/NPDES+WDR Facilities List_20240906.csv"
-    )
-
-    proc_data = "processed_data"
     # Load results from previous steps
-    population_data = pd.read_csv(proc_data + "/step2/merged_population_data.csv")
-    exceedance_data = pd.read_csv(
-        proc_data + "/step3/facilities_with_slope_and_near_exceedance.csv"
-    )
-    future_limits_data = pd.read_csv(
-        proc_data + "/step4/facilities_with_future_limits.csv"
-    )
+    facilities_list = load_facilities_list(FACILITIES_LIST_PATH)
+    population_data = pd.read_csv(f"STEP_DIRS{2}/merged_population_data.csv")
+    exceedance_data = pd.read_csv(f"STEP_DIRS{3}/flagged_facilities_step3.csv")
+    future_limits_data = pd.read_csv(f"STEP_DIRS{4}/flagged_facilities_step4.csv")
 
     # Add population data
-    logger.info("Adding population data...")
     facilities_list = facilities_list.merge(
-        population_data[["CWNS_ID", "population_mean", "population_cv"]],
-        left_on="FACILITY ID",
-        right_on="CWNS_ID",
-        how="left",
-    ).rename(
-        columns={
-            "population_mean": "Population Served",
-            "population_cv": "Population Data Coefficient of Variation",
-        }
+        population_data, left_on="FACILITY ID", right_on="CWNS_ID", how="left"
     )
 
-    # Add exceedance data
-    logger.info("Adding exceedance data...")
-    exceedance_counts = (
-        exceedance_data.groupby("NPDES_CODE")
-        .size()
-        .reset_index(name="Number of Parameters with Slope and Near Exceedance")
-    )
+    # Add exceedance data (already aggregated)
     facilities_list = facilities_list.merge(
-        exceedance_counts,
+        exceedance_data,
         left_on="NPDES # CA#",
-        right_on="NPDES_CODE",
+        right_on="EXTERNAL_PERMIT_NMBR",
         how="left",
     )
 
-    # Add future limits data
-    logger.info("Adding future limits data...")
-
-    # First, aggregate the future limits data to avoid duplicates
-    def aggregate_future_limits(x):
-        # Get unique non-null values
-        unique_vals = x.dropna().unique()
-        # Filter out empty strings and convert to string
-        filtered_vals = [
-            str(val) for val in unique_vals if str(val) != "" and str(val) != "nan"
-        ]
-        return ", ".join(filtered_vals) if filtered_vals else ""
-
-    future_limits_aggregated = (
-        future_limits_data.groupby("NPDES # CA#")
-        .agg({"Discharges to Impaired Waters and Not Limited": aggregate_future_limits})
-        .reset_index()
-    )
-
+    # Add future limits columns
+    future_cols = [
+        "NPDES # CA#",
+        "Parameters Discharged into Newly Impaired Water Body and Not Yet Limited",
+        "Discharges to Impaired and Not Limited: Number of Parameters",
+    ]
     facilities_list = facilities_list.merge(
-        future_limits_aggregated,
-        on="NPDES # CA#",
-        how="left",
+        future_limits_data[future_cols], on="NPDES # CA#", how="left"
     )
 
-    # Fill NA values and drop unnecessary columns
+    # Fill NA and drop columns
     fill_na = {
         "Number of Parameters with Slope and Near Exceedance": 0,
-        "Discharges to Impaired Water Bodies and Not Limited": "",
+        "Parameters with Slope and Near Exceedance": "",
+        "Parameters Discharged into Newly Impaired Water Body and Not Yet Limited": "",
+        "Discharges to Impaired and Not Limited: Number of Parameters": 0,
     }
-    facilities_list = facilities_list.fillna(fill_na).drop(
-        columns=[c for c in ["NPDES_CODE", "CWNS_ID"] if c in facilities_list.columns]
-    )
+    facilities_list = facilities_list.fillna(fill_na)
 
-    # Check for duplicates and remove them
+    # Remove duplicates
     initial_count = len(facilities_list)
     facilities_list = facilities_list.drop_duplicates(
         subset=["FACILITY ID"], keep="first"
     )
-    final_count = len(facilities_list)
+    if initial_count != len(facilities_list):
+        print(f"Removed {initial_count - len(facilities_list)} duplicates")
 
-    if initial_count != final_count:
-        logger.warning(f"Removed {initial_count - final_count} duplicate facilities")
-
-    # Save final output
+    # Save
     facilities_list.to_csv("processed_data/facilities_list_updated.csv", index=False)
-    logger.info("Final facilities list generated successfully")
+    print("Saved updated facilities list")
 
 
 def main(skip_steps=None):
     # Create processed_data directory and subdirectories if they don't exist
-    [os.makedirs(f"processed_data/step{i}", exist_ok=True) for i in range(1, 5)]
+    os.makedirs("processed_data", exist_ok=True)
+    for i in range(1, 5):
+        os.makedirs(f"STEP_DIRS{i}", exist_ok=True)
+        os.makedirs(f"STEP_DIRS{i}/figures_py", exist_ok=True)
 
     # List of scripts to run in order
     scripts = [
+        "step0_download_data.py",
         "step1_parameter_categorization.py",
         "step2_population_served.py",
         "step3_near_exceedance.py",
         "step4_future_limits.py",
     ]
 
-    # Determine which steps to skip
-    steps_to_skip = set(skip_steps) if skip_steps else set()
-
     # Run each script in sequence, unless skipped
+    steps_to_skip = set(skip_steps) if skip_steps else set()
     for i, script in enumerate(scripts, 1):
         if str(i) in steps_to_skip:
-            logger.info(f"Skipping step {i} ({script}) as requested")
+            print(f"Skipping step {i} ({script})")
             continue
 
-        if not os.path.exists(f"wwna_variables_2024/{script}"):
-            logger.error(f"Script {script} not found!")
+        script_path = f"wwna_variables_2024/{script}"
+        if not os.path.exists(script_path):
+            print(f"Error: {script} not found at {script_path}")
             sys.exit(1)
 
-        logger.info(f"Running step {i}: {script}")
-        run_script(f"wwna_variables_2024/{script}")
+        print(f"Running step {i-1}: {script}")
+        run_script(script_path)
 
     # Generate final facilities list
     generate_final_facilities_list()
-
-    logger.info("All analyses completed successfully!")
 
 
 if __name__ == "__main__":

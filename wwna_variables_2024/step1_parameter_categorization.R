@@ -7,10 +7,10 @@ library(readr)
 source('helper_functions.R')
 
 # Import DMR Parameter Data
-dmrs_2023 <- read_dmr(2023, drop_no_limit = TRUE)
-unique_parameter_codes_dmrs <- unique(dmrs_2023$PARAMETER_CODE)
-dmr_parameter_df <- read_csv('data/dmrs/REF_PARAMETER.csv', show_col_types = FALSE)
-dmr_parameter_df <- dmr_parameter_df[dmr_parameter_df$PARAMETER_CODE %in% unique_parameter_codes_dmrs,]
+dmr_2023 <- read_dmr(2023, drop_no_limit = TRUE)
+unique_parameter_codes_dmr <- unique(dmr_2023$PARAMETER_CODE)
+dmr_parameter_df <- read_csv('data/dmr/REF_PARAMETER.csv', show_col_types = FALSE)
+dmr_parameter_df <- dmr_parameter_df[dmr_parameter_df$PARAMETER_CODE %in% unique_parameter_codes_dmr,]
 cat(sprintf("%d parameters and %d unique pollutants in DMR limit and monitoring datasets\n", 
             nrow(dmr_parameter_df), length(unique(dmr_parameter_df$POLLUTANT_CODE))))
 

@@ -111,7 +111,7 @@ facilities_list <- facilities_list %>%
                  function(x) paste(names(x)[x], collapse = " and ")))
 
 # Save the processed data
-write_csv(facilities_list, 'processed_data/step4/facilities_with_future_limits.csv')
+write_csv(facilities_list, 'processed_data/step4/flagged_facilities_step4.csv')
 
 # Create plots in R and save to file
 num_categories <- length(categories)
