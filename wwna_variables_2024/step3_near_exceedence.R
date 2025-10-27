@@ -139,7 +139,7 @@ process_facility_group <- function(args) {
 
 main <- function(save = FALSE, drop_toxicity = FALSE) {
   # Load unique parameter codes from step1 output
-  unique_param_codes <- read_csv(file.path(STEP_DIRS[["1"]], "dmr_esmr_mapping_R.csv")) %>%
+  unique_param_codes <- suppressMessages(read_csv(file.path(STEP_DIRS[["1"]], "dmr_esmr_mapping_R.csv"))) %>%
     pull(PARAMETER_CODE) %>%
     unique()
   

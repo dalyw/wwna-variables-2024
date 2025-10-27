@@ -16,7 +16,7 @@ library(viridis)
 analysis_range <- 2014:2023
 
 # Import WWNA facilities list
-WWNA_LIST <- read_csv('data/wwna_list/NPDES+WDR Facilities List_20240906.csv')
+WWNA_LIST <- suppressMessages(read_csv('data/wwna_list/NPDES+WDR Facilities List_20240906.csv'))
 NPDES_FROM_WWNA_LIST <- WWNA_LIST %>%
   filter(!is.na(`NPDES # CA#`)) %>%
   pull(`NPDES # CA#`) %>%
@@ -278,7 +278,6 @@ save_fig <- function(path, step = NULL) {
   dir.create(dirname(full_path), recursive = TRUE, showWarnings = FALSE)
   
   ggsave(full_path, width = 10, height = 6, units = "in")
-  dev.off()
 }
 
 plot_barh <- function(data, x_col, y_col, xlabel, title, figsize = c(12, 6), path = NULL, step = NULL) {
@@ -299,9 +298,23 @@ plot_barh <- function(data, x_col, y_col, xlabel, title, figsize = c(12, 6), pat
 plot_map <- function(num_params_per_facility, label_threshold, step = 3) {
   ca_counties <- st_read('data/ca_counties/CA_Counties.shp')
   
+  # Set CRS
+  if (is.na(st_crs(ca_counties))) {
+    st_crs(ca_counties) <- st_crs(4326)
+  }
+  
   # Create DataFrame with facility IDs and merge
-  facilities_df <- data.frame("NPDES # CA#" = names(num_params_per_facility)) %>%
+  # Create column with proper name
+  facility_ids <- names(num_params_per_facility)
+  facilities_df <- data.frame(facility_ids, stringsAsFactors = FALSE)
+  names(facilities_df) <- "NPDES # CA#"
+  
+  facilities_df <- facilities_df %>%
     left_join(WWNA_LIST, by = "NPDES # CA#")
+  
+  # Filter out facilities with missing coordinates
+  facilities_df <- facilities_df %>%
+    filter(!is.na(`LONGITUDE DECIMAL DEGREES`) & !is.na(`LATITUDE DECIMAL DEGREES`))
   
   facilities_gdf <- st_as_sf(
     facilities_df,

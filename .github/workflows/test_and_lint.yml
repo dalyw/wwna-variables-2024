@@ -18,8 +18,7 @@ jobs:
         pip install .[test]
     - name: Test with pytest
       run: |
-        pytest --cov-report xml --cov=wwna_variables_2024 wwna_variables_2024/tests/
-        codecov -t ${{ secrets.CODECOV_TOKEN }}
+        pytest wwna_variables_2024/tests/
   lint:
     runs-on: ubuntu-latest
 

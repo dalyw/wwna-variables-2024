@@ -42,9 +42,7 @@ def main():
     exclude_categories = set(exclude_df["SUB_CATEGORY"].values)
     sub_categories = [cat for cat in sub_categories if cat not in exclude_categories]
     if len(exclude_categories) > 0:
-        print(
-            f"Excluding {len(exclude_categories)} categories: {sorted(exclude_categories)}"
-        )
+        print(f"Excluding {len(exclude_categories)} {sorted(exclude_categories)}")
 
     # Filter out excluded categories before checking unmapped parameters
     limits_filtered = limits_2023[~limits_2023["SUB_CATEGORY"].isin(exclude_categories)]
@@ -93,7 +91,7 @@ def main():
     # Find facilities discharging into newly impaired waters that are not yet limited
     FLAGGED_STEP4_LIST = []
     for category in sub_categories:
-        # Filter to facilities discharging into newly impaired waterbodies for this category
+        # Filter to facilities discharging into newly impaired waterbodies for category
         newly_impaired_mask = facilities["CAL WATERSHED NAME"].apply(
             check_impaired, water_bodies=newly_impaired_bodies[category]
         )

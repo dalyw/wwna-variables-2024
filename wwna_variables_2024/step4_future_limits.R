@@ -39,15 +39,6 @@ if (file.exists("data/manual_updates/categories_to_exclude_from_future_limits.cs
 limits_filtered <- limits_2023 %>% 
   filter(!SUB_CATEGORY %in% exclude_categories)
 
-# Log unmapped parameters for included categories
-unmapped_params <- limits_filtered %>%
-  filter(is.na(PARENT_CATEGORY)) %>%
-  pull(PARAMETER_DESC) %>%
-  unique()
-
-if (length(unmapped_params) > 0) {
-  cat("Unmapped parameters:", paste(unmapped_params, collapse = ", "), "\n")
-}
 
 # Load IR data (Integrated Report 303(d) lists)
 # Compares 2018 vs 2024 to identify newly impaired water bodies
@@ -57,30 +48,13 @@ ir_303d <- list()
 for (year in c(2018, 2024)) {
   df_year <- load_data("IR", year = year)
   
-  # Skip rows based on year
-  skiprows <- 0
-  if (year == 2018) {
-    skiprows <- 2
-  } else if (year == 2024) {
-    skiprows <- 1
-  }
-  
   df_year <- df_year %>%
     left_join(
       ir_parameter_df %>% dplyr::select(IR_PARAMETER_DESC, PARENT_CATEGORY, SUB_CATEGORY),
       by = c("Pollutant" = "IR_PARAMETER_DESC")
     )
   
-  unmapped <- df_year %>%
-    filter(is.na(PARENT_CATEGORY)) %>%
-    pull(Pollutant) %>%
-    unique()
-  
   ir_303d[[as.character(year)]] <- df_year
-  
-  if (length(unmapped) > 0) {
-    cat(sprintf("Unmapped pollutants in %d data: %s\n", year, paste(unmapped, collapse = ", ")))
-  }
 }
 
 # Analyze impaired waters

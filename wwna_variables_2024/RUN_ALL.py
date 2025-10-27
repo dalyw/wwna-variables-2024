@@ -57,14 +57,15 @@ def main(skip_steps=None):
     ]:
         print(f"\nMerging: {df.shape[0]} rows, {df.shape[1]} cols")
         print(f"  - WWNA_LIST_FINAL: {len(WWNA_LIST_FINAL)} rows")
-        
+
         # TODO: move to step2
-        # Deduplicate population data before merging (some facilities have multiple CWNS records)
+        # Deduplicate population data before merging
+        # (some facilities have multiple CWNS records)
         if right_on == "PERMIT_NUMBER":
             # For population, keep first non-null value for each permit
-            df = df.drop_duplicates(subset=[right_on], keep='first')
+            df = df.drop_duplicates(subset=[right_on], keep="first")
             print(f"  - After deduplication: {df.shape[0]} rows")
-        
+
         WWNA_LIST_FINAL = WWNA_LIST_FINAL.merge(
             df, left_on="NPDES # CA#", right_on=right_on, how="left"
         )

@@ -53,15 +53,19 @@ def get_flagged_facilities(facility_records, slope_threshold=0.05, limit_thresho
             flagged_near_exceedance.append(rec)
 
     # Find records in both lists
-    slope_tuples = {tuple(rec[col] for col in OUTPUT_COLS): rec for rec in flagged_slope}
-    exceedance_tuples = {tuple(rec[col] for col in OUTPUT_COLS): rec for rec in flagged_near_exceedance}
+    slope_tuples = {
+        tuple(rec[col] for col in OUTPUT_COLS): rec for rec in flagged_slope
+    }
+    exceedance_tuples = {
+        tuple(rec[col] for col in OUTPUT_COLS): rec for rec in flagged_near_exceedance
+    }
     flagged_keys = set(slope_tuples.keys()) & set(exceedance_tuples.keys())
     flagged_all = [slope_tuples[k] for k in flagged_keys]
 
     print(f"{len(flagged_slope)} w/ slope>slope_threshold")
     print(f"{len(flagged_near_exceedance)} pairs with Q1/Q3 > {limit_threshold}")
     print(f"{len(flagged_all)} pairs with both")
-    print(f"{len(set(rec['EXTERNAL_PERMIT_NMBR'] for rec in flagged_all))} facilities affected")
+    print(f"{len(set(rec['EXTERNAL_PERMIT_NMBR'] for rec in flagged_all))} facilities")
 
     return flagged_all
 

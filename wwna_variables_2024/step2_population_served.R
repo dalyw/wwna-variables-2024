@@ -53,7 +53,6 @@ main <- function() {
       if (nrow(matched_permits) > 1) {
         cat(sprintf("    Multiple matched permits, keeping first: %s\n", matched_permits$PERMIT_NUMBER[1]))
       }
-      cat("\n")
     }
   }
   

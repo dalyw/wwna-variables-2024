@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from helper_functions import load_data, save_fig, setup_fig, STEP_DIRS, WWNA_LIST
+from helper_functions import load_data, save_fig, setup_fig, STEP_DIRS
 
 
 def main():
@@ -45,7 +45,7 @@ def main():
 
         if len(matched_permits) > 1:
             print(
-                f"    ⚠️ Multiple matched permits, keeping first: {matched_permits.iloc[0]['PERMIT_NUMBER']}"
+                f"    Multiple permits for {matched_permits.iloc[0]['PERMIT_NUMBER']}"
             )
         print()
 

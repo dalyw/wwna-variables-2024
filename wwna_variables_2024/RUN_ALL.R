@@ -8,31 +8,26 @@ library(sf)
 library(ggplot2)
 
 # Step 0: Download data (optional - skip if data already exists)
-cat("----------------------------------------\n")
 source('wwna_variables_2024/step0_download_data.R')
 main()
 cat("\nStep 0 complete\n\n")
 
 # Step 1: Parameter Categorization
-cat("----------------------------------------\n")
 source('wwna_variables_2024/step1_parameter_categorization.R')
 main()
 cat("\n Step 1 complete\n\n")
 
 # Step 2: Population Served
-cat("----------------------------------------\n")
 source('wwna_variables_2024/step2_population_served.R')
 main()
 cat("\n Step 2 complete\n\n")
 
 # Step 3: Near Exceedance Analysis
-cat("----------------------------------------\n")
 source('wwna_variables_2024/step3_near_exceedence.R')
 main()
 cat("\n Step 3 complete\n\n")
 
 # Step 4: Future Limits
-cat("----------------------------------------\n")
 source('wwna_variables_2024/step4_future_limits.R')
 main()
 cat("\n Step 4 complete\n\n")

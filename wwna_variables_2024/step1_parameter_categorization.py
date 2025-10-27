@@ -245,9 +245,7 @@ def main():
     ref_parameter_merged.to_csv(
         f"{STEP_DIRS[1]}/ref_parameter_merged_py.csv", index=False
     )
-    print(
-        f"Saved consolidated parameter reference with {len(ref_parameter_merged)} parameters"
-    )
+    print(f"Saved parameter reference with {len(ref_parameter_merged)} parameters")
 
     # Plot category distributions
     for key in category_cols.keys():

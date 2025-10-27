@@ -222,8 +222,6 @@ main <- function() {
   download_data_by_type("IR", year_range = c(2018, 2022, 2024))
   download_data_by_type("SSO")
   download_data_by_type("TOXICS")
-  download_data_by_type("CWNS")
-  
-  cat("All data download completed!\n")
+  download_data_by_type("CWNS")  
 }
 
