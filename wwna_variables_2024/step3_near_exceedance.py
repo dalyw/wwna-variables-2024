@@ -6,13 +6,13 @@ import matplotlib.gridspec as gridspec
 from multiprocessing import Pool, cpu_count
 from helper_functions import (
     analysis_range,
-    aggregate_by_group,
-    read_data_by_type,
+    aggregate_flagged_params,
     STEP_DIRS,
-    save_and_close,
-    setup_figure,
-    plot_facilities_map,
-    DEFAULT_CMAP,
+    save_fig,
+    plot_barh,
+    plot_map,
+    load_data,
+    AGG_STRINGS,
 )
 
 # Grouping columns (DMR dataframe column names)
@@ -25,68 +25,6 @@ GROUP_COLS = [
 
 # Output columns
 OUTPUT_COLS = GROUP_COLS + ["LIMIT_SET_SCHEDULE_ID", "LIMIT_VALUE_TYPE_CODE"]
-
-
-def plot_facilities_summary(num_params_per_facility):
-    """Plot summary of facilities without geographic data."""
-    df = pd.DataFrame(
-        list(num_params_per_facility.items()),
-        columns=["Facility", "Parameters"],
-    ).sort_values("Parameters", ascending=True)
-
-    fig, ax = setup_figure(figsize=(12, 6))
-    bars = plt.barh(df["Facility"], df["Parameters"])
-    plt.xlabel("Number of Parameters with Slope and Near-Exceedance")
-    plt.ylabel("Facility ID")
-    plt.title("Facilities with Exceedances")
-
-    for bar in bars:
-        width = bar.get_width()
-        plt.text(
-            width,
-            bar.get_y() + bar.get_height() / 2,
-            f"{int(width)}",
-            ha="left",
-            va="center",
-            fontsize=8,
-        )
-
-    save_and_close("figures_py/facilities_summary.png", 3)
-
-
-def plot_future_limits_summary(df_sorted):
-    """Plot summary of facilities with future limits."""
-    fig, ax = setup_figure()
-    x = np.arange(len(df_sorted.index))
-    width = 0.35
-
-    colors = [plt.colormaps[DEFAULT_CMAP](val) for val in [0.2, 0.8]]
-    ax.bar(
-        x - width / 2,
-        df_sorted["Discharges to Listed"],
-        width,
-        label="Discharging to Listed\nWater Body",
-        color=colors[0],
-    )
-    ax.bar(
-        x + width / 2,
-        df_sorted["Newly Listed and Not Yet Limited"],
-        width,
-        label="Discharging to Newly Listed\nWater Body and\nNot Yet Limited",
-        color=colors[1],
-    )
-
-    plt.ylabel("Number of Facilities", fontsize=14)
-    plt.legend(fontsize=12, frameon=False)
-    plt.xticks(x, df_sorted.index, rotation=45, ha="right")
-
-    # Add value labels
-    for i, v in enumerate(df_sorted["Discharges to Listed"]):
-        ax.text(i - width / 2, v, str(int(v)), ha="center", va="bottom")
-    for i, v in enumerate(df_sorted["Newly Listed and Not Yet Limited"]):
-        ax.text(i + width / 2, v, str(int(v)), ha="center", va="bottom")
-
-    save_and_close("figures_py/flagged_facilities_step4.png", 4)
 
 
 def get_flagged_facilities(facility_records, slope_threshold=0.05, limit_threshold=0.1):
@@ -109,23 +47,26 @@ def get_flagged_facilities(facility_records, slope_threshold=0.05, limit_thresho
         else:
             has_slope, near_exceedance = False, False
 
-        facility_tuple = tuple(rec[col] for col in OUTPUT_COLS)
         if has_slope:
-            flagged_slope.append(facility_tuple)
+            flagged_slope.append(rec)
         if near_exceedance:
-            flagged_near_exceedance.append(facility_tuple)
+            flagged_near_exceedance.append(rec)
 
-    flagged_all = list(set(flagged_slope) & set(flagged_near_exceedance))
+    # Find records in both lists
+    slope_tuples = {tuple(rec[col] for col in OUTPUT_COLS): rec for rec in flagged_slope}
+    exceedance_tuples = {tuple(rec[col] for col in OUTPUT_COLS): rec for rec in flagged_near_exceedance}
+    flagged_keys = set(slope_tuples.keys()) & set(exceedance_tuples.keys())
+    flagged_all = [slope_tuples[k] for k in flagged_keys]
 
     print(f"{len(flagged_slope)} w/ slope>slope_threshold")
     print(f"{len(flagged_near_exceedance)} pairs with Q1/Q3 > {limit_threshold}")
     print(f"{len(flagged_all)} pairs with both")
-    print(f"{len(set(f[0] for f in flagged_all))} " f"facilities affected")
+    print(f"{len(set(rec['EXTERNAL_PERMIT_NMBR'] for rec in flagged_all))} facilities affected")
 
     return flagged_all
 
 
-def create_facility_parameter_plot(
+def _step3_facility_param_plot(
     npdes_code, param_desc, data, legend_elements, histogram_legend_elements
 ):
     """Create individual plot for a facility-parameter combination."""
@@ -219,10 +160,10 @@ def create_facility_parameter_plot(
         f"{param_desc.replace(' ', '_').replace(',', '').replace('[', '').replace(']', '')}"  # noqa: E501
         f".png"
     )
-    save_and_close(f"figures_py/{filename}", 3)
+    save_fig(f"figures_py/{filename}", 3)
 
 
-def step3_plotting(flagged_data):
+def step3_plotting(flagged_data, flagged_param_counts):
     """Generate exceedance analysis visualizations."""
 
     noline = {"linestyle": "None"}
@@ -255,13 +196,28 @@ def step3_plotting(flagged_data):
         param_groups = facility_data.groupby("PARAMETER_DESC")
 
         for param_desc, param_data in param_groups:
-            create_facility_parameter_plot(
+            _step3_facility_param_plot(
                 npdes_code,
                 param_desc,
                 param_data,
                 legend_elements,
                 histogram_legend_elements,
             )
+
+    df = pd.DataFrame(
+        list(flagged_param_counts.items()),
+        columns=["Facility", "Parameters"],
+    ).sort_values("Parameters", ascending=True)
+
+    plot_barh(
+        df,
+        x_col="Parameters",
+        y_col="Facility",
+        xlabel="Number of Parameters with Slope and Near-Exceedance",
+        title="Facilities with Exceedances",
+        path="figures_py/facilities_summary.png",
+        step=3,
+    )
 
 
 def process_facility_group(args):
@@ -279,7 +235,7 @@ def process_facility_group(args):
 
     # Get unique x values and their corresponding y means
     unique_dates = np.unique(dates)
-    if len(unique_dates) < 3:  # Need at least 3 unique points for trend
+    if len(unique_dates) < 3:  # At least 3 unique points for trend
         return None
 
     unique_vals = [np.mean(values[dates == d]) for d in unique_dates]
@@ -313,39 +269,46 @@ def process_facility_group(args):
     }
 
 
-def main():
+def main(save=False, drop_toxicity=False):
     # Load unique parameter codes from step1 output
-    unique_param_codes = pd.read_csv(f"{STEP_DIRS[1]}/dmr_esmr_mapping.csv")[
+    unique_param_codes = pd.read_csv(f"{STEP_DIRS[1]}/dmr_esmr_mapping_py.csv")[
         "PARAMETER_CODE"
     ].unique()
 
     # Load and filter DMR data
-    data_dict = read_data_by_type(
-        "DMR", analysis_range, save=False, drop_toxicity=False
-    )
+    data_dict = {}
+
+    for year in analysis_range:
+        data = load_data("DMR", year=year, drop_toxicity=drop_toxicity)
+        data_dict[year] = data
+
+    if save:
+        # Concatenate all years and save as CSV
+        all_data = pd.concat(data_dict.values(), ignore_index=True)
+        filename = f"processed_data/step3/{"DMR".lower()}_all_years_py.csv"
+        all_data.to_csv(filename, index=False)
+        print(f"Saved {len(all_data)} records from {len(data_dict)} years")
 
     filtered_data = pd.concat(
         data_dict[y][data_dict[y]["PARAMETER_CODE"].isin(unique_param_codes)]
         for y in analysis_range
     )
-
-    # Group by facility and parameter
     grouped_data = filtered_data.groupby(GROUP_COLS)
 
     # Parallel processing
     with Pool(processes=cpu_count() - 1) as pool:
         results = pool.map(process_facility_group, grouped_data)
 
-    # Filter out None results and process
+    # Create DataFrame of results (filter out None results)
     facility_records = [r for r in results if r is not None]
-
-    # Create DataFrame of results
     flagged_facilities = get_flagged_facilities(facility_records)
-    flagged_facilities_df = pd.DataFrame(flagged_facilities, columns=OUTPUT_COLS)
+    flagged_facilities_df = pd.DataFrame(flagged_facilities)
 
     # Count parameters per facility
     param_counts = {}
-    for facility, param, *_ in flagged_facilities:
+    for rec in flagged_facilities:
+        facility = rec["EXTERNAL_PERMIT_NMBR"]
+        param = rec["PARAMETER_CODE"]
         param_counts.setdefault(facility, set()).add(param)
     flagged_param_counts = {f: len(s) for f, s in param_counts.items()}
 
@@ -355,26 +318,30 @@ def main():
     )
 
     # Create facilities visualization
-    plot_facilities_map(
-        flagged_param_counts,
-        "# of Parameters\nwith Slope and\nNear-Exceedance",
-        4,
-    )
-    plot_facilities_summary(flagged_param_counts)
-    step3_plotting(flagged_data)
+    plot_map(flagged_param_counts, 4)
+    step3_plotting(flagged_data, flagged_param_counts)
 
-    # Save detailed results
-    flagged_facilities_df.to_csv(f"{STEP_DIRS[3]}/flagged_facilities.csv", index=False)
+    # Save detailed results (only selected columns)
+    flagged_facilities_df[
+        [
+            "EXTERNAL_PERMIT_NMBR",
+            "PARAMETER_CODE",
+            "slope",
+            "latest_limit",
+            "qualifier",
+            "Q1",
+            "Q3",
+        ]
+    ].to_csv(f"{STEP_DIRS[3]}/flagged_facilities_py.csv", index=False)
 
     # Save aggregated results
-    aggregated_df = aggregate_by_group(
+    aggregated_df = aggregate_flagged_params(
         flagged_facilities_df,
         "EXTERNAL_PERMIT_NMBR",
         "PARAMETER_CODE",
-        "Number of Parameters with Slope and Near Exceedance",
-        "Parameters with Slope and Near Exceedance",
+        AGG_STRINGS["3"],
     )
-    aggregated_df.to_csv(f"{STEP_DIRS[3]}/flagged_facilities_step3.csv", index=False)
+    aggregated_df.to_csv(f"{STEP_DIRS[3]}/flagged_facilities_step3_py.csv", index=False)
 
 
 if __name__ == "__main__":

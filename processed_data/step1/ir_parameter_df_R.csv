@@ -1,0 +1,764 @@
+IR_PARAMETER_DESC,PARENT_CATEGORY,SUB_CATEGORY
+Indicator Bacteria,Pathogens,Pathogens
+Aluminum,Metals,Aluminum
+"Oxygen, Dissolved",Uncategorized,Uncategorized
+Mercury,Metals,Mercury
+Sedimentation/Siltation,Solids,Suspended Solids
+Dioxin Toxic Equivalents,Toxic Organics,Toxic Organics
+PCBs (Polychlorinated biphenyls),Inorganics,Disinfectants
+Sediment,Solids,Suspended Solids
+pH,pH,pH
+"Temperature, water",Temperature,Temperature
+Turbidity,Color and Turbidity,Turbidity
+Specific Conductivity,Solids,Dissolved Solids
+Diazinon,Toxic Organics,Toxic Organics
+Phosphorus,Nutrients,Phosphorus
+Manganese,Metals,Manganese
+Cyanobacteria hepatotoxic microcystins,Metals,Tin
+Nutrients,Nutrients,Algae and other Nutrient-related
+Organic Enrichment/Low Dissolved Oxygen,Nutrients,Dissolved Oxygen
+Invasive Species,Other,Other
+Total Dissolved Solids,Solids,Dissolved Solids
+Arsenic,Metals,Arsenic
+Biostimulatory Conditions,Other,Other
+Nickel,Metals,Nickel
+Copper,Metals,Copper
+Boron,Inorganics,Toxic Inorganics
+pH (high),pH,pH
+Eutrophication,pH,pH
+Chlordane,Toxic Organics,Toxic Organics
+DDT (Dichlorodiphenyltrichloroethane),Toxic Organics,Toxic Organics
+Dieldrin,Toxic Organics,Toxic Organics
+"Dioxin compounds (including 2,3,7,8-TCDD)",Toxic Organics,Toxic Organics
+Furan Compounds,Toxic Organics,Toxic Organics
+PAHs (Polycyclic Aromatic Hydrocarbons),Toxic Organics,Toxic Organics
+Selenium,Metals,Selenium
+Toxicity,Aquatic Toxicity,Aquatic Toxicity
+Ammonia,Nutrients,Nitrogen
+Hydrogen Sulfide,Inorganics,Toxic Inorganics
+Trash,Other,Other
+Lead,Metals,Lead
+Silver,Metals,Silver
+Zinc,Metals,Zinc
+"Total DDT (sum of 4,4'- and 2,4'- isomers of DDT, DDE, and DDD)",Toxic Organics,Toxic Organics
+Heptachlor epoxide,Toxic Organics,Toxic Organics
+Toxaphene,Toxic Organics,Toxic Organics
+Salinity/TDS/Chlorides,Solids,Dissolved Solids
+PCBs (Polychlorinated biphenyls) (sediment),Inorganics,Disinfectants
+Chloride,Solids,Dissolved Solids
+PCBs (Polychlorinated biphenyls) (dioxin-like),Inorganics,Disinfectants
+Fipronil,Toxic Organics,Toxic Organics
+Bifenthrin,Toxic Organics,Toxic Organics
+Cypermethrin,Toxic Organics,Toxic Organics
+Pyrethroids,Toxic Organics,Toxic Organics
+Deltamethrin,Toxic Organics,Toxic Organics
+Cyfluthrin,Toxic Organics,Toxic Organics
+Imidacloprid,Toxic Organics,Toxic Organics
+Mercury (sediment),Metals,Mercury
+Dacthal,Toxic Organics,Toxic Organics
+Escherichia coli (E. coli),Pathogens,Pathogens
+Benthic Community Effects,Other,Other
+Nitrate,Nutrients,Nitrogen
+Fecal Coliform,Toxic Organics,Toxic Organics
+Sodium,Solids,Dissolved Solids
+Chlorophyll-a,Nutrients,Algae and other Nutrient-related
+DDD (Dichlorodiphenyldichloroethane),Toxic Organics,Toxic Organics
+DDE (Dichlorodiphenyldichloroethylene),Toxic Organics,Toxic Organics
+Dimethoate,Toxic Organics,Toxic Organics
+Malathion,Toxic Organics,Toxic Organics
+Total Coliform,Toxic Organics,Toxic Organics
+Carbaryl,Toxic Organics,Toxic Organics
+Enterococcus,Pathogens,Pathogens
+Chromium,Metals,Chromium
+Chlorpyrifos,Toxic Organics,Toxic Organics
+"Cyhalothrin, Lambda",Toxic Organics,Toxic Organics
+Endrin,Toxic Organics,Toxic Organics
+Microcystins,Metals,Tin
+Scum/Foam-unnatural,Other,Other
+Bensulide,Toxic Organics,Toxic Organics
+Methomyl,Toxic Organics,Toxic Organics
+Oxyfluorfen,Toxic Organics,Toxic Organics
+Cadmium,Metals,Cadmium
+Molybdenum,Metals,Molybdenum
+Linuron,Toxic Organics,Toxic Organics
+Organophosphate Pesticides,Toxic Organics,Toxic Organics
+Priority Organics,Organics,Other Organics
+Pesticides,Toxic Organics,Toxic Organics
+Metals,Metals,Other Metals
+Anatoxin-A,Toxic Organics,Toxic Organics
+Clothianidin,Toxic Organics,Toxic Organics
+Prometryn,Toxic Organics,Toxic Organics
+Permethrin,Toxic Organics,Toxic Organics
+Disulfoton,Toxic Organics,Toxic Organics
+Thiamethoxam,Toxic Organics,Toxic Organics
+Fenpropathrin,Toxic Organics,Toxic Organics
+Cyanide,Inorganics,Toxic Inorganics
+Iron,Metals,Iron
+Sulfates,Solids,Dissolved Solids
+PCBs (Polychlorinated biphenyls) (tissue),Other,Other
+Dieldrin (sediment),Toxic Organics,Toxic Organics
+Toxaphene (tissue),Other,Other
+Coliform Bacteria,Toxic Organics,Toxic Organics
+Chlordane (tissue),Other,Other
+DDT (tissue & sediment),Other,Other
+Endosulfan (tissue),Other,Other
+Toxaphene (tissue & sediment),Other,Other
+DDT (tissue),Other,Other
+Endosulfan,Toxic Organics,Toxic Organics
+Chlordane (tissue & sediment),Other,Other
+Chlorpyrifos (tissue),Other,Other
+Dieldrin (tissue),Other,Other
+Endosulfan (tissue & sediment),Other,Other
+Lindane/gamma Hexachlorocyclohexane (gamma-HCH),Other,Radiation
+"Nitrogen, Nitrate",Nutrients,Nitrogen
+"Copper, Dissolved",Metals,Copper
+Benzo(a)anthracene,Toxic Organics,Toxic Organics
+Benzo(a)pyrene,Toxic Organics,Toxic Organics
+Chrysene (C1-C4),Toxic Organics,Toxic Organics
+Phenanthrene,Toxic Organics,Toxic Organics
+Pyrene,Toxic Organics,Toxic Organics
+Odor,Other,Other
+"Dibenz[a,h]anthracene",Toxic Organics,Toxic Organics
+2-Methylnaphthalene,Toxic Organics,Toxic Organics
+Cadmium (sediment),Metals,Cadmium
+Copper (sediment),Metals,Copper
+Lead (sediment),Metals,Lead
+PCBs (Polychlorinated biphenyls) (tissue & sediment),Other,Other
+Zinc (sediment),Metals,Zinc
+DDT (sediment),Toxic Organics,Toxic Organics
+Nitrogen,Nutrients,Nitrogen
+Esfenvalerate/Fenvalerate,Toxic Organics,Toxic Organics
+Fipronil Sulfone,Toxic Organics,Toxic Organics
+Chlorine,Inorganics,Disinfectants
+Oil and Grease,Other,Fuel
+Eutrophic,Nutrients,Algae and other Nutrient-related
+Algae,Nutrients,Algae and other Nutrient-related
+alpha-Endosulfan (Endosulfan 1),Other,Other
+Profenofos,Toxic Organics,Toxic Organics
+Oil,Other,Fuel
+Bis(2ethylhexyl)phthalate (DEHP),Toxic Organics,Toxic Organics
+Fish Barriers (Fish Passage),Other,Other
+Specific Conductance,Solids,Dissolved Solids
+Dioxin,Toxic Organics,Toxic Organics
+Sodium Adsorption Ratio (SAR),Solids,Dissolved Solids
+Viruses (enteric),Pathogens,Pathogens
+Exotic Vegetation,Other,Other
+Habitat alterations,Other,Other
+Reduced Tidal Flushing,Other,Other
+Nitrate and Nitrite,Nutrients,Nitrogen
+ChemA (tissue),Other,Other
+"Nitrogen, Nitrite",Nutrients,Nitrogen
+ChemA,Toxic Organics,Toxic Organics
+Nitrate as Nitrate (NO3),Nutrients,Nitrogen
+Nitrate/Nitrite (Nitrite + Nitrate as N),Nutrients,Nitrogen
+Lindane/gamma-Hexachlorocyclohexane (gamma-HCH) (tissue),Other,Other
+"Selenium, Total",Metals,Selenium
+Nutrients (Algae),Nutrients,Algae and other Nutrient-related
+"Zinc, Dissolved",Metals,Zinc
+Swimming Restrictions,Other,Other
+Pathogens,Pathogens,Pathogens
+Low Dissolved Oxygen,Nutrients,Dissolved Oxygen
+Azinphos-methyl (Guthion),Toxic Organics,Toxic Organics
+Salinity,Solids,Dissolved Solids
+Electrical Conductivity,Solids,Dissolved Solids
+Group A Pesticides,Toxic Organics,Toxic Organics
+Trifluralin,Toxic Organics,Toxic Organics
+Alkalinity as CaCO3,pH,alkalinity
+Metolachlor,Toxic Organics,Toxic Organics
+alpha.-BHC (Benzenehexachloride or alpha-HCH),Other,Other
+Diuron,Toxic Organics,Toxic Organics
+Simazine,Toxic Organics,Toxic Organics
+cis-permethrin,Toxic Organics,Toxic Organics
+Benzo[b]fluoranthene,Toxic Organics,Toxic Organics
+pH (low),pH,pH
+"Nitrogen, ammonia (Total Ammonia)",Nutrients,Nitrogen
+Benzo[k]fluoranthene,Toxic Organics,Toxic Organics
+"Indeno[1,2,3-cd]pyrene",Toxic Organics,Toxic Organics
+"Ammonia as N, Total",Nutrients,Nitrogen
+Hexachlorobenzene/ HCB,Toxic Organics,Toxic Organics
+Paraquat,Toxic Organics,Toxic Organics
+Acid Mine Drainage,Uncategorized,Uncategorized
+"BOD, Biochemical oxygen demand",Organics,COD
+Ammonia (Unionized),Nutrients,Nitrogen
+Pentachlorophenol (PCP),Toxic Organics,Toxic Organics
+Methyl Parathion,Toxic Organics,Toxic Organics
+Fluoride,Solids,Dissolved Solids
+Unknown Toxicity,Aquatic Toxicity,Aquatic Toxicity
+Total Kjeldahl Nitrogen (TKN),Nutrients,Nitrogen
+Phosphate,Nutrients,Phosphorus
+Trace Elements,Other,Other
+Total Nitrogen as N,Nutrients,Nitrogen
+Total Petroleum Hydrocarbons,Other,Fuel
+Naphthalene,Toxic Organics,Toxic Organics
+Chemical oxygen demand (COD),Organics,COD
+Total Suspended Solids (TSS),Solids,Suspended Solids
+Noxious aquatic plants,Other,Other
+Color,Color and Turbidity,Color
+Ammonia as Nitrogen,Nutrients,Nitrogen
+Sediment Toxicity,Solids,Suspended Solids
+Perchlorate,Toxic Organics,Toxic Organics
+Dichlorvos,Toxic Organics,Toxic Organics
+"1,4-Dioxane",Toxic Organics,Toxic Organics
+Tetrachloroethylene/PCE,Toxic Organics,Toxic Organics
+Trichloroethylene/TCE,Toxic Organics,Toxic Organics
+Fenpyroximate,Toxic Organics,Toxic Organics
+Solids,Solids,Suspended Solids
+Surfactants (MBAS),Toxic Organics,Toxic Organics
+Synthetic Organics,Organics,Other Organics
+Thallium,Metals,Thallium
+PAHs (Polycyclic Aromatic Hydrocarbons) (sediment),Toxic Organics,Toxic Organics
+Pesticides (sediment),Toxic Organics,Toxic Organics
+"Permethrin, total",Toxic Organics,Toxic Organics
+Mercury (tissue),Metals,Mercury
+Chlordane (sediment),Toxic Organics,Toxic Organics
+Propanil (DCPA mono- and di-acid degrad),Toxic Organics,Toxic Organics
+Aldicarb,Toxic Organics,Toxic Organics
+"Tritium, total",Other,Radiation
+"Radium 226 + radium 228, total",Other,Radiation
+Methyl tert-butyl ether [MTBE],Toxic Organics,Toxic Organics
+Polynuclear Aromatic Hydrocarbons [PAHs],Toxic Organics,Toxic Organics
+"Uranium, total [in pci/L]",Metals,Uranium
+Total Organic Carbon % Removal,Organics,Other Organics
+"Cyanide, free available",Inorganics,Toxic Inorganics
+"Coliform, fecal - % samples exceeding limit",Toxic Organics,Toxic Organics
+Dichlorobromomethane,Toxic Organics,Toxic Organics
+Carbon tetrachloride,Toxic Organics,Toxic Organics
+"1,2-Dichloroethane",Toxic Organics,Toxic Organics
+Bromoform,Toxic Organics,Toxic Organics
+Dibromochloromethane,Toxic Organics,Toxic Organics
+Chloroform,Toxic Organics,Toxic Organics
+Toluene,Toxic Organics,Toxic Organics
+Benzene,Toxic Organics,Toxic Organics
+"Radiation, gross beta",Other,Other
+Oil and grease,Other,Fuel
+"2-Methyl-4,6-dinitrophenol",Toxic Organics,Toxic Organics
+Tributyltin,Metals,Tin
+Polychlorinated biphenyls [PCBs],Inorganics,Disinfectants
+Di[2-ethylhexyl] phthalate [DEHP],Toxic Organics,Toxic Organics
+Di-n-butyl phthalate,Toxic Organics,Toxic Organics
+Phthalate esters,Toxic Organics,Toxic Organics
+"4,4'-DDT",Toxic Organics,Toxic Organics
+"4,4'-DDD",Toxic Organics,Toxic Organics
+"4,4'-DDE",Toxic Organics,Toxic Organics
+Chlordane [tech mix. and metabolites],Toxic Organics,Toxic Organics
+"DDT/DDD/DDE, sum of p,p' & o,p' isomers",Toxic Organics,Toxic Organics
+Heptachlor,Toxic Organics,Toxic Organics
+Isophorone,Toxic Organics,Toxic Organics
+Methylene chloride,Toxic Organics,Toxic Organics
+N-Nitrosodi-N-propylamine,Toxic Organics,Toxic Organics
+N-Nitrosodiphenylamine,Toxic Organics,Toxic Organics
+N-Nitrosodimethylamine [NDMA],Toxic Organics,Toxic Organics
+TU Static 72Hr Chronic Strongyl. purpuratus,Aquatic Toxicity,Aquatic Toxicity
+"Solids, total dissolved",Solids,Suspended Solids
+E. coli,Pathogens,Pathogens
+Flow [dry weather],Flow,Flow
+"2,3,7,8-Tetrachlorodibenzo-p-dioxin",Toxic Organics,Toxic Organics
+Surfactants [MBAS],Toxic Organics,Toxic Organics
+Acrolein,Toxic Organics,Toxic Organics
+Acrylonitrile,Toxic Organics,Toxic Organics
+Benzo[a]pyrene,Toxic Organics,Toxic Organics
+Bis[2-chloroethyl] ether,Toxic Organics,Toxic Organics
+Bis[2-chloroethoxy]methane,Toxic Organics,Toxic Organics
+Bis[2-chloroisopropyl] ether,Toxic Organics,Toxic Organics
+Chlorobenzene,Toxic Organics,Toxic Organics
+Chlorodibromomethane,Toxic Organics,Toxic Organics
+Diethyl phthalate,Toxic Organics,Toxic Organics
+Dimethyl phthalate,Toxic Organics,Toxic Organics
+"1,2-Diphenylhydrazine",Toxic Organics,Toxic Organics
+Ethylbenzene,Toxic Organics,Toxic Organics
+Fluoranthene,Toxic Organics,Toxic Organics
+Hexachlorocyclopentadiene,Toxic Organics,Toxic Organics
+Hexachlorobutadiene,Toxic Organics,Toxic Organics
+Hexachloroethane,Toxic Organics,Toxic Organics
+"Flow, in conduit or thru treatment plant",Flow,Flow
+"Chlorine, total residual",Inorganics,Disinfectants
+"Chlorine, free available",Inorganics,Disinfectants
+Nitrobenzene,Toxic Organics,Toxic Organics
+Tetrachloroethylene,Toxic Organics,Toxic Organics
+"1,1-Dichloroethylene",Toxic Organics,Toxic Organics
+"1,1,1-Trichloroethane",Toxic Organics,Toxic Organics
+"1,1,2-Trichloroethane",Toxic Organics,Toxic Organics
+"1,1,2,2-Tetrachloroethane",Toxic Organics,Toxic Organics
+"1,4-Dichlorobenzene",Toxic Organics,Toxic Organics
+"2,4-Dinitrotoluene",Toxic Organics,Toxic Organics
+"2,4-Dinitrophenol",Toxic Organics,Toxic Organics
+"2,4,6-Trichlorophenol",Toxic Organics,Toxic Organics
+"3,3'-Dichlorobenzidine",Toxic Organics,Toxic Organics
+Enterococci,Pathogens,Pathogens
+"Turbidity, time above limit",Color and Turbidity,Turbidity
+"Phenolic compounds, unchlorinated",Inorganics,Disinfectants
+"Radiation, gross alpha",Other,Other
+"Trihalomethane, tot.",Toxic Organics,Toxic Organics
+"Tritium, total",Other,Radiation
+"Coliform, fecal general",Toxic Organics,Toxic Organics
+"Coliform, total general",Toxic Organics,Toxic Organics
+"Carbonaceous oxygen demand, % removal",Organics,COD
+Dichlorobenzene,Toxic Organics,Toxic Organics
+"Cyanide, total recoverable",Inorganics,Toxic Inorganics
+Halomethanes,Toxic Organics,Toxic Organics
+Effluent dilution ratio,Flow,Flow
+"Hexachlorocyclohexane, total",Toxic Organics,Toxic Organics
+"Alpha, gross particle activity",Other,Other
+"BOD, carbonaceous [5 day, 20 C]",Organics,COD
+"BOD, carb-5 day, 20 deg C, percent removal",Organics,COD
+"BOD, 5-day, percent removal",Organics,COD
+"Solids, suspended percent removal",Solids,Suspended Solids
+"Phenols, chlorinated",Inorganics,Disinfectants
+Specific conductance,Solids,Dissolved Solids
+"Nitrogen, ammonia, percent removal",Nutrients,Nitrogen
+"Chlorine, total residual, duration of violation",Inorganics,Disinfectants
+"Oxygen, dissolved [DO]",Nutrients,Dissolved Oxygen
+"BOD, 5-day, 20 deg. C",Organics,COD
+"Sulfate, total [as SO4]",Solids,Dissolved Solids
+"pH range excursions, > 60 minutes",pH,pH
+"pH range excursions, monthly total accum",pH,pH
+TCDD equivalents,Toxic Organics,Toxic Organics
+"Mercury, total recoverable",Metals,Mercury
+"Thallium, total recoverable",Metals,Thallium
+"Sodium, total recoverable",Solids,Dissolved Solids
+"Beryllium, total recoverable [as Be]",Metals,Beryllium
+"Boron, total recoverable",Inorganics,Toxic Inorganics
+"Phosphorus, total [as P]",Nutrients,Phosphorus
+"Molybdenum, total [as Mo]",Metals,Molybdenum
+"Nickel, total recoverable",Metals,Nickel
+Silver total recoverable,Metals,Silver
+"Zinc, total recoverable",Metals,Zinc
+"Aluminum, total recoverable",Metals,Aluminum
+"Cadmium, total recoverable",Metals,Cadmium
+"Lead, total recoverable",Metals,Lead
+"Chromium, total recoverable",Metals,Chromium
+"Copper, total recoverable",Metals,Copper
+"Antimony, total recoverable",Metals,Antimony
+"Chromium, hexavalent [as Cr]",Metals,Chromium
+"Chromium, trivalent [as Cr]",Metals,Chromium
+"Radiation,Gross Beta Particle Activity",Other,Other
+"Temperature, water deg. centigrade",Temperature,Temperature
+"Temperature, water deg. fahrenheit",Temperature,Temperature
+Temp. diff. between samp. & upstrm deg. F,Temperature,Temperature
+Temperature Increase Deg. F,Temperature,Temperature
+"Arsenic, total recoverable",Metals,Arsenic
+"Iron, total recoverable",Metals,Iron
+"Selenium, total recoverable",Metals,Selenium
+"Solids, total suspended",Solids,Suspended Solids
+"Solids, settleable",Solids,Suspended Solids
+Oil & Grease,Other,Fuel
+"Nitrogen, total [as N]",Nutrients,Nitrogen
+"Nitrogen, ammonia total [as N]",Nutrients,Nitrogen
+"Nitrogen, ammonia, tot unionized [as N]",Nutrients,Nitrogen
+"Nitrogen, nitrite total [as N]",Nutrients,Nitrogen
+"Ammonia, unionized",Nutrients,Nitrogen
+"Nitrogen, nitrate total [as N]",Nutrients,Nitrogen
+Nitrite + Nitrate total [as N],Nutrients,Nitrogen
+"Nitrogen, inorganic total",Nutrients,Nitrogen
+Chloride [as Cl],Solids,Dissolved Solids
+"Carbon, tot organic [TOC]",Organics,COD
+"Cyanide, total [as CN]",Inorganics,Toxic Inorganics
+"pH Range Excursion, Maximum Duration",pH,pH
+Haloacetic acids [HAA5],Toxic Organics,Toxic Organics
+"Polychlorinated biphenyls [PCBs], sum of Aroclors",Inorganics,Disinfectants
+"Strontium 90, total",Other,Radiation
+Beta/photon emitters,Other,Other
+Diazinon + Chlorpyrifos,Toxic Organics,Toxic Organics
+Color [PT-CO units],Uncommon,Uncommon
+Odor [Threshold Number],Uncommon,Uncommon
+Septage discharged to treatment fac.,Uncommon,Uncommon
+Radioactivity,Uncommon,Uncommon
+"Oxygen, dissolved percent saturation",Uncommon,Uncommon
+Ozone - residual,Uncommon,Uncommon
+"Alkalinity, total [as CaCO3]",Uncommon,Uncommon
+Bicarbonate ion- [as HCO3],Uncommon,Uncommon
+Carbonate ion- [as CO3],Uncommon,Uncommon
+"Solids, volatile suspended",Uncommon,Uncommon
+"Nitrogen, organic total [as N]",Uncommon,Uncommon
+"Nitrogen, Kjeldahl, total [as N]",Uncommon,Uncommon
+"Phosphate, total [as PO4]",Uncommon,Uncommon
+"Phosphorous, total recoverable",Uncommon,Uncommon
+"Phosphorus, dissolved reactive [drp as P]",Uncommon,Uncommon
+"Phosphate, ortho, dissolved [as P]",Uncommon,Uncommon
+"Carbon, dissolved organic [as C]",Uncommon,Uncommon
+Sulfite [as SO3],Uncommon,Uncommon
+"Sulfide, total [as S]",Uncommon,Uncommon
+"Sulfide, dissolved, [as S]",Uncommon,Uncommon
+"Hardness, total [as CaCO3]",Uncommon,Uncommon
+"Calcium, total [as Ca]",Uncommon,Uncommon
+"Calcium, total recoverable",Uncommon,Uncommon
+"Magnesium, total recoverable",Uncommon,Uncommon
+"Magnesium, total [as Mg]",Uncommon,Uncommon
+"Sodium, total [as Na]",Uncommon,Uncommon
+"Sodium, %",Uncommon,Uncommon
+"Potassium, total [as K]",Uncommon,Uncommon
+"Potassium, total recoverable",Uncommon,Uncommon
+"Chloride, total recoverable",Uncommon,Uncommon
+Asbestos,Uncommon,Uncommon
+"Fluoride, total [as F]",Uncommon,Uncommon
+"Silica, dissolved [as SiO2]",Uncommon,Uncommon
+"Silica, total [as SiO2]",Uncommon,Uncommon
+"Cobalt, total recoverable",Uncommon,Uncommon
+"Tin, total recoverable",Uncommon,Uncommon
+"Titanium, total recoverable",Uncommon,Uncommon
+"Barium, total [as Ba]",Uncommon,Uncommon
+"Barium, total recoverable",Uncommon,Uncommon
+"Beryllium, total [as Be]",Uncommon,Uncommon
+"Boron, total [as B]",Uncommon,Uncommon
+"Chromium, total [as Cr]",Uncommon,Uncommon
+"Copper, dissolved [as Cu]",Uncommon,Uncommon
+"Iron, total [as Fe]",Uncommon,Uncommon
+"Iron, dissolved [as Fe]",Uncommon,Uncommon
+"Manganese, dissolved [as Mn]",Uncommon,Uncommon
+"Strontium, total recoverable, ug/L",Uncommon,Uncommon
+"Zinc, dissolved [as Zn]",Uncommon,Uncommon
+"Aluminum, total [as Al]",Uncommon,Uncommon
+"Aluminum, dissolved [as Al]",Uncommon,Uncommon
+"Vanadium, total recoverable",Uncommon,Uncommon
+"Molybdenum, total recoverable",Uncommon,Uncommon
+"Lithium, total [as Li]",Uncommon,Uncommon
+Foaming agents,Uncommon,Uncommon
+Color [admi units],Uncommon,Uncommon
+Discharge flow as % of stream flow,Uncommon,Uncommon
+"1,2,3,4,6,7,8,9-Octachlorodibenzo-p-dioxin",Uncommon,Uncommon
+Dichloromethane,Uncommon,Uncommon
+"Phosphate, ortho [as P]",Uncommon,Uncommon
+"Chromium, trivalent total recoverable",Uncommon,Uncommon
+Diquat,Uncommon,Uncommon
+"Manganese, total recoverable",Uncommon,Uncommon
+"Uranium 238, total",Uncommon,Uncommon
+"Cerium, total",Uncommon,Uncommon
+Dinoseb,Uncommon,Uncommon
+"1,2,3,7,8-Pentachlorodibenzo-p-dioxin",Uncommon,Uncommon
+"1,2,3,4,7,8-Hexachlorodibenzo-p-dioxin",Uncommon,Uncommon
+"1,2,3,6,7,8-Hexachlorodibenzo-p-dioxin",Uncommon,Uncommon
+"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Uncommon,Uncommon
+"1,2,3,7,8-Pentachlorodibenzofuran",Uncommon,Uncommon
+"2,3,4,7,8-Pentachlorodibenzofuran",Uncommon,Uncommon
+"1,2,3,4,7,8-Hexachlorodibenzofuran",Uncommon,Uncommon
+"1,2,3,6,7,8-Hexachlorodibenzofuran",Uncommon,Uncommon
+"1,2,3,7,8,9-Hexachlorodibenzofuran",Uncommon,Uncommon
+"2,3,4,6,7,8-Hexachlorodibenzofuran",Uncommon,Uncommon
+"1,2,3,4,6,7,8-Heptachlorodibenzofuran",Uncommon,Uncommon
+"1,2,3,4,7,8,9-Heptachlorodibenzofuran",Uncommon,Uncommon
+"1,2,3,4,6,7,8-Heptachlorodibenzo-p-dioxin",Uncommon,Uncommon
+Chlorophyll A,Uncommon,Uncommon
+Monochlorobenzenes,Uncommon,Uncommon
+.delta.-BHC,Uncommon,Uncommon
+Acenaphthylene,Uncommon,Uncommon
+Acenaphthene,Uncommon,Uncommon
+Anthracene,Uncommon,Uncommon
+Butyl benzyl phthalate,Uncommon,Uncommon
+Chrysene,Uncommon,Uncommon
+Endosulfan sulfate,Uncommon,Uncommon
+.beta.-Endosulfan,Uncommon,Uncommon
+.alpha.-Endosulfan,Uncommon,Uncommon
+Endrin aldehyde,Uncommon,Uncommon
+Fluorene,Uncommon,Uncommon
+Methyl bromide [Bromomethane],Uncommon,Uncommon
+Methyl chloride [Chloromethane],Uncommon,Uncommon
+Trichlorofluoromethane,Uncommon,Uncommon
+"1,1-Dichloroethane",Uncommon,Uncommon
+Benzo[ghi]perylene,Uncommon,Uncommon
+Benzo[a]anthracene,Uncommon,Uncommon
+"1,2-Dichlorobenzene",Uncommon,Uncommon
+"1,2-Dichloropropane",Uncommon,Uncommon
+"trans-1,2-Dichloroethylene",Uncommon,Uncommon
+"1,2,4-Trichlorobenzene",Uncommon,Uncommon
+"1,3-Dichlorobenzene",Uncommon,Uncommon
+"2-Chloroethyl vinyl ether, [mixed]",Uncommon,Uncommon
+2-Chloronaphthalene,Uncommon,Uncommon
+2-Chlorophenol,Uncommon,Uncommon
+2-Nitrophenol,Uncommon,Uncommon
+Di-n-octyl phthalate,Uncommon,Uncommon
+"2,4-Dichlorophenol",Uncommon,Uncommon
+"2,4-Dimethylphenol",Uncommon,Uncommon
+"2,6-Dinitrotoluene",Uncommon,Uncommon
+4-Bromophenyl phenyl ether,Uncommon,Uncommon
+4-Chlorophenyl phenyl ether,Uncommon,Uncommon
+4-Nitrophenol,Uncommon,Uncommon
+"4,6-Dinitro-o-cresol",Uncommon,Uncommon
+PCB-1016,Uncommon,Uncommon
+Phenol,Uncommon,Uncommon
+"trans-1,3-Dichloropropene",Uncommon,Uncommon
+"cis-1,3-Dichloropropene",Uncommon,Uncommon
+Bolero,Uncommon,Uncommon
+"Surfactants, as CTAS, effluent",Uncommon,Uncommon
+Aminocarb,Uncommon,Uncommon
+Barban,Uncommon,Uncommon
+Dalapon,Uncommon,Uncommon
+Fenuron,Uncommon,Uncommon
+Methiocarb,Uncommon,Uncommon
+Mexacarbate,Uncommon,Uncommon
+Monuron,Uncommon,Uncommon
+Neburon,Uncommon,Uncommon
+Propoxur,Uncommon,Uncommon
+Siduron,Uncommon,Uncommon
+SWEP,Uncommon,Uncommon
+Chloromethane,Uncommon,Uncommon
+"2,3,7,8-Tetrachlorodibenzofuran",Uncommon,Uncommon
+"Bentazon, total",Uncommon,Uncommon
+Fluometuron,Uncommon,Uncommon
+Oxamyl,Uncommon,Uncommon
+Pentachlorophenol,Uncommon,Uncommon
+Atrazine,Uncommon,Uncommon
+Benzidine,Uncommon,Uncommon
+Alachlor,Uncommon,Uncommon
+Vinyl chloride,Uncommon,Uncommon
+Trichloroethylene,Uncommon,Uncommon
+Aldrin,Uncommon,Uncommon
+.alpha.-BHC,Uncommon,Uncommon
+.beta.-BHC,Uncommon,Uncommon
+.gamma.-BHC,Uncommon,Uncommon
+DDT,Uncommon,Uncommon
+"Endosulfan, total",Uncommon,Uncommon
+Ethion,Uncommon,Uncommon
+Methoxychlor,Uncommon,Uncommon
+PCB-1221,Uncommon,Uncommon
+PCB-1232,Uncommon,Uncommon
+PCB-1242,Uncommon,Uncommon
+PCB-1248,Uncommon,Uncommon
+Propham,Uncommon,Uncommon
+PCB-1254,Uncommon,Uncommon
+PCB-1260,Uncommon,Uncommon
+Parathion,Uncommon,Uncommon
+Demeton,Uncommon,Uncommon
+Guthion,Uncommon,Uncommon
+Methyl parathion,Uncommon,Uncommon
+Hexachlorobenzene,Uncommon,Uncommon
+Picloram,Uncommon,Uncommon
+"2,4-Dichlorophenoxyacetic acid",Uncommon,Uncommon
+Sevin,Uncommon,Uncommon
+Mirex,Uncommon,Uncommon
+Lindane,Uncommon,Uncommon
+Phenols,Uncommon,Uncommon
+Ethyl parathion,Uncommon,Uncommon
+Methylene blue active substances,Uncommon,Uncommon
+"1,2-Dibromo-3-chloropropane",Uncommon,Uncommon
+Molinate,Uncommon,Uncommon
+Duration,Uncommon,Uncommon
+Surface loading rate,Uncommon,Uncommon
+"1,2,3,4,6,7,8,9-Octachlorodibenzofuran",Uncommon,Uncommon
+Ultraviolet light transmittance,Uncommon,Uncommon
+"2,4-D SALTS AND ESTERS",Uncommon,Uncommon
+Di[2-ethylhexyl] adipate,Uncommon,Uncommon
+Endothall,Uncommon,Uncommon
+Bicarbonate as [CaCO3],Uncommon,Uncommon
+Carbonate ion [as CaCO3],Uncommon,Uncommon
+Sodium Bisulfite,Uncommon,Uncommon
+"Nitrogen, Nitrite  Total",Uncommon,Uncommon
+"Nitrogen, Nitrate  Total",Uncommon,Uncommon
+"Nitrogen, Kjeldahl  Total",Uncommon,Uncommon
+Esfenvalerate [Asana],Uncommon,Uncommon
+"Flow, total",Uncommon,Uncommon
+Imazapyr,Uncommon,Uncommon
+Triclopyr,Uncommon,Uncommon
+Penoxsulam,Uncommon,Uncommon
+Fluridone,Uncommon,Uncommon
+Dichloroacetic acid [DCAA],Uncommon,Uncommon
+Monobromoacetic acid [MBAA],Uncommon,Uncommon
+Peracetic Acid,Uncommon,Uncommon
+.lambda.-Cyhalothrin,Uncommon,Uncommon
+Giardia,Uncommon,Uncommon
+"Volume, total",Uncommon,Uncommon
+Tris[2-chloroethyl] phosphate [TCEP],Uncommon,Uncommon
+"TDCPP [Tris[1,3-dichloro-2-propyl] phosphate]",Uncommon,Uncommon
+TCPP [Tris [1-chloro-2-propyl] phosphate],Uncommon,Uncommon
+Hydroxide,Uncommon,Uncommon
+"Carbon, dissolved inorganic [as C]",Uncommon,Uncommon
+"2,2',5-TrCB , PCB-18  congener",Uncommon,Uncommon
+"2,4,4'-TrCB, PCB-28  congener",Uncommon,Uncommon
+"3,4,4'-TrCB , PCB-37  congener",Uncommon,Uncommon
+"2,2',3,5'-TeCB, PCB-44  congener",Uncommon,Uncommon
+"2,2',4,5'-TeCB , PCB-49  congener",Uncommon,Uncommon
+"2,2',5,5'-TeCB, PCB-52  congener",Uncommon,Uncommon
+"2,3',4,4'-TeCB, PCB-66  congener",Uncommon,Uncommon
+"2,3',4',5-TeCB , PCB-70  congener",Uncommon,Uncommon
+"2,4,4',5-TeCB , PCB-74  congener",Uncommon,Uncommon
+"3,3',4,4'-TeCB, PCB-77  congener",Uncommon,Uncommon
+"3,4,4',5-TeCB, PCB-81  congener",Uncommon,Uncommon
+"2,2',3,4,5'-PeCB , PCB-87  congener",Uncommon,Uncommon
+"2,2',4,4',5-PeCB , PCB-99  congener",Uncommon,Uncommon
+"2,2',4,5,5'-PeCB, PCB-101  congener",Uncommon,Uncommon
+"2,3,3',4,4'-PeCB, PCB-105  congener",Uncommon,Uncommon
+"2,3,3',4',6-PeCB , PCB-110  congener",Uncommon,Uncommon
+"2,3,4,4',5-PeCB, PCB-114  congener",Uncommon,Uncommon
+"2,3',4,4',5-PeCB, PCB-118  congener",Uncommon,Uncommon
+"2,3',4,4',6-PeCB , PCB-119  congener",Uncommon,Uncommon
+"2',3,4,4',5-PeCB, PCB-123  congener",Uncommon,Uncommon
+"3,3',4,4',5-PeCB, PCB-126  congener",Uncommon,Uncommon
+"2,2',3,3',4,4'-HxCB, PCB-128  congener",Uncommon,Uncommon
+"2,2',3,4,4',5'-HxCB, PCB-138  congener",Uncommon,Uncommon
+"2,2',3,4',5',6-HxCB , PCB-149  congener",Uncommon,Uncommon
+"2,2',3,5,5',6-HxCB , PCB-151  congener",Uncommon,Uncommon
+"2,2',4,4',5,5'-HxCB, PCB-153  congener",Uncommon,Uncommon
+"2,3,3',4,4',5-HxCB, PCB-156  congener",Uncommon,Uncommon
+"2,3,3',4,4',5'-HxCB, PCB-157  congener",Uncommon,Uncommon
+"2,3,3',4,4',6-HxCB , PCB-158  congener",Uncommon,Uncommon
+"2,3',4,4',5,5'-HxCB, PCB-167  congener",Uncommon,Uncommon
+"2,3',4,4',5',6-HxCB , PCB-168  congener",Uncommon,Uncommon
+"2,2',3,3',4,4',5-HpCB, PCB-170  congener",Uncommon,Uncommon
+"2,2',3,3',4',5,6-HpCB , PCB-177  congener",Uncommon,Uncommon
+"2,2',3,4,4',5,5'-HpCB, PCB-180  congener",Uncommon,Uncommon
+"2,2',3,4,4',5',6-HpCB , PCB-183  congener",Uncommon,Uncommon
+"2,2',3,4',5,5',6-HpCB, PCB-187  congener",Uncommon,Uncommon
+"2,3,3',4,4',5,5'-HpCB, PCB-189  congener",Uncommon,Uncommon
+"2,2',3,3',4,4',5,5'-OcCB , PCB-194  congener",Uncommon,Uncommon
+"2,2',3,3',4,5',6,6'-OcCB , PCB-201  congener",Uncommon,Uncommon
+"2,2',3,3',4,4',5,5',6-NoCB, PCB-206  congener",Uncommon,Uncommon
+"Polychlorinated biphenyls [PCBs], sum of congeners",Uncommon,Uncommon
+Imazamox,Uncommon,Uncommon
+Corrosivity,Uncommon,Uncommon
+"3,3',4,4',5,5'-HxCB,PCB-169 congener",Uncommon,Uncommon
+BDE 47,Uncommon,Uncommon
+BDE 99,Uncommon,Uncommon
+BDE 100,Uncommon,Uncommon
+BDE 183,Uncommon,Uncommon
+PER-AND POLYFLUOROALKYL SUBSTANCES,Uncommon,Uncommon
+Perchlorate [ClO4],Uncommon,Uncommon
+Cryptosporidium,Uncommon,Uncommon
+Ultraviolet light dosage,Uncommon,Uncommon
+4-Chloro-3-methylphenol,Uncommon,Uncommon
+"Solids, total dissolved [TDS]",Uncommon,Uncommon
+"Phosphate, total, color method [as P]",Uncommon,Uncommon
+Urea,Uncommon,Uncommon
+"Nitrogen, ammonia total [as NH4]",Uncommon,Uncommon
+"Nitrogen, nitrate total [as NO3]",Uncommon,Uncommon
+"Nitrogen, nitrite total [as NO2]",Uncommon,Uncommon
+Reservoir storage,Uncommon,Uncommon
+"Xylenes [total], dry weight",Uncommon,Uncommon
+"Stream flow, estimated",Uncommon,Uncommon
+"cis-1,2-Dichloroethylene",Uncommon,Uncommon
+"1,3-Dichloropropene",Uncommon,Uncommon
+"1,2,3-Trichloropropane",Uncommon,Uncommon
+Ethylene dibromide,Uncommon,Uncommon
+"1,1,2-Trichloro-1,2,2-trifluoroethane",Uncommon,Uncommon
+Nonylphenol,Uncommon,Uncommon
+Monochloroacetic acid [MCAA],Uncommon,Uncommon
+"Chromium, hexavalent tot recoverable",Uncommon,Uncommon
+"2,4,5-TP",Uncommon,Uncommon
+"Glyphosate, total",Uncommon,Uncommon
+"Dechlorination reagent, gen",Uncommon,Uncommon
+Dilution factor,Uncommon,Uncommon
+Methylmercury,Uncommon,Uncommon
+Chemical Oxygen Demand [COD],Uncommon,Uncommon
+Sulfate,Uncommon,Uncommon
+Chlorpropham,Uncommon,Uncommon
+Duration of discharge,Uncommon,Uncommon
+Chlorine usage,Uncommon,Uncommon
+Carbofuran,Uncommon,Uncommon
+Xylene [mix of m+o+p],Uncommon,Uncommon
+Dioxane,Uncommon,Uncommon
+"Sulfide, total",Uncommon,Uncommon
+Styrene,Uncommon,Uncommon
+"Sulfur dioxide, total",Uncommon,Uncommon
+"Boron, total",Uncommon,Uncommon
+"Radioactivity, gross",Uncommon,Uncommon
+"Hydrocarbons, petroleum",Uncommon,Uncommon
+Ammonia & ammonium- total,Uncommon,Uncommon
+Azinphos-methyl,Uncommon,Uncommon
+Dibromochloropropane,Uncommon,Uncommon
+p-Chloro-m-cresol,Uncommon,Uncommon
+Dibromoacetic acid [DBAA],Uncommon,Uncommon
+Trichloroacetic acid [TCAA],Uncommon,Uncommon
+Chloroethane,Uncommon,Uncommon
+"Aluminum, acid soluble",Uncommon,Uncommon
+IC25 Low Flow Pass/Fail Sub-Lethal Static Renewal 7 Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
+IC25 Low Flow Pass/Fail Sub-Lethal Static Renewal 7 Day Chronic Pimephales promelas,Uncommon,Uncommon
+% Effect Static 96HR Acute Americamysis bahia,Uncommon,Uncommon
+% Effect Static 96HR Acute Cyprinodeon variegas,Uncommon,Uncommon
+%Effect Static 4 Day Chronic Raphidocelis subcapitata,Uncommon,Uncommon
+%Effect Static 48Hr Chronic Macrocystis pyrifera,Uncommon,Uncommon
+%Effect Static 48Hr Chronic Haliotis rufescens,Uncommon,Uncommon
+%Effect Static Renewal 96Hr Acute Ceriodaphnia dubia,Uncommon,Uncommon
+%Effect Static Renewal 96Hr Acute Oncorhynchus mykiss,Uncommon,Uncommon
+%Effect Statre 4Day Chronic Selen. Capr.,Uncommon,Uncommon
+%Effect Static Renewal 7 Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
+%Effect Static Renewal 7Day Chronic Pimephales promelas,Uncommon,Uncommon
+%Effect Static Renewal 7 Day Chronic Atherinops affinis,Uncommon,Uncommon
+%Effect Static 20Min Chronic Strongylocentrotus purpuratus,Uncommon,Uncommon
+%Effect Static 20Min Chronic Dendraster excentricus,Uncommon,Uncommon
+Pass/Fail Static 96Hr Acute Ceriodaphnia Dubia,Uncommon,Uncommon
+Pass/Fail Static 96HR Acute Americamysis bahia,Uncommon,Uncommon
+Pass/Fail Static 96 Hr Acute Cyprinodon Variega,Uncommon,Uncommon
+Pass/Fail Static 96 Hr Acute Pimephales Promelas,Uncommon,Uncommon
+Pass/Fail Static 4 Day Chronic Raphidocelis subcapitata,Uncommon,Uncommon
+Pass/Fail Static 72Hr Chronic Strongylocentrotus purpuratus,Uncommon,Uncommon
+Pass/Fail Static 48Hr Chronic Macrocystis pyrifera,Uncommon,Uncommon
+Pass/Fail Static 48Hr Chronic Haliotis rufescens,Uncommon,Uncommon
+Pass/Fail Static Renewal 96Hr Acute Ceriodaphnia dubia,Uncommon,Uncommon
+Pass/Fail Static Renewal 96Hr Acute Pimephales Promelas,Uncommon,Uncommon
+Pass/Fail Static Renewal 96Hr Acute Oncorhynchus mykiss,Uncommon,Uncommon
+Pass/Fail Static Renewal 7 Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
+Pass/Fail Static Renewal 7Day Chronic Pimephales promelas,Uncommon,Uncommon
+Pass/Fail Static Renewal 7 Day Chronic Atherinops affinis,Uncommon,Uncommon
+Pass/Fail Static 96Hr Chronic Selen. Capricornutum,Uncommon,Uncommon
+Pass/Fail Static 20 Minute Fertilization Chronic Strongylocentrotus purpuratus,Uncommon,Uncommon
+Pass/Fail Static 20 Minute Fertilization Chronic Dendraster excentricus,Uncommon,Uncommon
+Static Renewal 7 Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
+%Surv Static Renewal 96Hr Acute Ceriodaphnia dubia,Uncommon,Uncommon
+%Surv Static 96Hr Acute Mysidopsis Bahia,Uncommon,Uncommon
+% Survival Static 96Hr Acute Americamysis bahia,Uncommon,Uncommon
+% Survival Static Renewal 96HR Acute Cyprinodeon variegatus,Uncommon,Uncommon
+%Surv Static 96Hr Acute Pimphales Promelas,Uncommon,Uncommon
+%Surv Static 96Hr Acute Oncorhynchus Mykiss,Uncommon,Uncommon
+%Srv Static Renewal 48Hr Acute Ceriodaphnia dubia,Uncommon,Uncommon
+96Hr Acute Ceriodaphn. Dubia % Srv,Uncommon,Uncommon
+%Surv Static Renewal 96Hr Acute Mysidopsis bahia,Uncommon,Uncommon
+% Survival Static Renewal 96Hr Acute Americamysis bahia,Uncommon,Uncommon
+% Survival Static Renewal 96Hr Acute Pimephales promelas,Uncommon,Uncommon
+%Surv Static Renewal 96Hr Oncorhynchus mykiss,Uncommon,Uncommon
+% Survival Flow Through 96Hr Acute Pimephales promelas,Uncommon,Uncommon
+% Survival Flow Through 96Hr Acute Oncorhynchus mykiss,Uncommon,Uncommon
+TU Static 96Hr Acute Americamysis bahia (formerly Mysidopsis bahia),Uncommon,Uncommon
+Static 96Hr Acute Holmesimysis costata,Uncommon,Uncommon
+TU Static 96Hr Acute Cyprinodon variegatus,Uncommon,Uncommon
+TU LC50 Static Renewal 96Hr Acute Pimephales promelas,Uncommon,Uncommon
+TU Static 96Hr Acute Medinia beryllina,Uncommon,Uncommon
+TU Static Renewal 96Hr Acute Pimphales promelas,Uncommon,Uncommon
+TU Static Renewal 96Hr Acute Menidia beryllina,Uncommon,Uncommon
+TU Flow Thru 96 Hr Acute Menidia beryllina,Uncommon,Uncommon
+Static 4Day Chronic Selen. Capricornutum,Uncommon,Uncommon
+TU Static 4 Day Chronic Raphidocelis subcapitata (formerly Selenastrum capricornutum),Uncommon,Uncommon
+TU Static 7Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
+Static 7Day Chronic Pimephales Promelas,Uncommon,Uncommon
+TU Static 7Day Chronic Menidia beryllina,Uncommon,Uncommon
+Static 72Hr Chronic Dendraster excentricus,Uncommon,Uncommon
+TU Static 48Hr Chronic Macrocystis pyrifera,Uncommon,Uncommon
+TU Static 48Hr Chronic Crassostrea gigas,Uncommon,Uncommon
+TU Static 48Hr Chronic Haliotis rufescens,Uncommon,Uncommon
+Static 48Hr Chronic Mytilis Species,Uncommon,Uncommon
+TU Static Renewal Chronic Cyprinodeon variegatus,Uncommon,Uncommon
+TU Static Renewal 7-Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
+TU Static Renewal 7-Day Chronic Americamysis bahia (formerly Mysidopsis bahia),Uncommon,Uncommon
+TU Static Renewal 7-Day Chronic Holmesimysis costata,Uncommon,Uncommon
+TU Static Renewal 7-Day Chronic Pimphales promelas,Uncommon,Uncommon
+TU Static Renewal 7-Day Chronic Menidia beryllina,Uncommon,Uncommon
+Toxic Units Static Renewal 7-Day Chronic Atherinops affinis,Uncommon,Uncommon
+Static 96Hr Chronic Selen. Capricornutum,Uncommon,Uncommon
+Static 96Hr Chronic Thalassiosira Pseudonana Mar.Diat,Uncommon,Uncommon
+TU Static 20Min Chronic Strongyl. purpuratus,Uncommon,Uncommon
+Static 20Min Chronic Dendraster excentricus,Uncommon,Uncommon
+"Chronic Mthd Sublethal Endpt, TSTcHo R/nR Pass/Fail, StatR7d A bahia",Uncommon,Uncommon
+"Chronic Mthd Sublethal Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, StatR8dmax C dubia",Uncommon,Uncommon
+"Chronic Mthd Sublethal Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, StatR7d P promelas",Uncommon,Uncommon
+"Chronic Mthd Sublethal Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, StatR7d A affinis",Uncommon,Uncommon
+"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr C dubia",Uncommon,Uncommon
+"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr A bahia",Uncommon,Uncommon
+"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr H costata",Uncommon,Uncommon
+"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr C variegatus",Uncommon,Uncommon
+"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr P promelas",Uncommon,Uncommon
+"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr O mykiss",Uncommon,Uncommon
+"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr M beryllina",Uncommon,Uncommon
+"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr A affinis",Uncommon,Uncommon
+"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d A bahia",Uncommon,Uncommon
+"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d H costata",Uncommon,Uncommon
+"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d P promelas",Uncommon,Uncommon
+"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d M beryllina",Uncommon,Uncommon
+"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d A affinis",Uncommon,Uncommon
+"Chronic Mthd, Survival Endpt %Effect, Reprod Endpt Median TSTcHo R/nR Pass/Fail, StatR8dmax C dubia",Uncommon,Uncommon
+"Chronic Mthd Growth Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static96hr R subcapitata",Uncommon,Uncommon
+"Chronic Mthd Larval Development Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Stat72hr S purpuratus",Uncommon,Uncommon
+"Chronic Mthd Larval Development Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Stat72hr D excentricus",Uncommon,Uncommon
+"Chronic Mthd Larval Development Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr C gigas",Uncommon,Uncommon
+"Chronic Mthd Larval Development Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr H rufescens",Uncommon,Uncommon
+"Chronic Mthd Larval Development Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr Mytilus spp",Uncommon,Uncommon
+"Chronic Mthd Fertilization Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static40min S purpuratus",Uncommon,Uncommon
+"Chronic Mthd Fertilization Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static40min D excentricus",Uncommon,Uncommon
+"Chronic Mthd Germination Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr M pyrifera",Uncommon,Uncommon
+"Chronic Mthd Germ Tube Length Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr M pyrifera",Uncommon,Uncommon

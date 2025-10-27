@@ -101,13 +101,35 @@ Analyzes historical effluent data to determine which facilities are frequently a
 - `data/dmr`: EPA ICIS DMR datasets
 - `data/esmr`: Analytical results from electronic self-monitoring reports (eSMRs) from CIWQS database
 
-### 4. Future Limits (Proximity to Impaired Waters)
+### 4. Future Limits Analysis (Potential Permit Tightening)
 **Files:** `step4_future_limits.py` / `step4_future_limits.R`
 
-Assesses which facilities discharge into newly-listed impaired water bodies but do not yet have a permitted limit for the listed parameters. Identifies facilities that may face stricter regulatory requirements in the future. Creates maps and visualizations in `processed_data/step4/`.
+Identifies facilities that may face stricter regulatory requirements based on newly-listed impaired water bodies. This analysis flags facilities for potential future permit tightening when:
+
+1. **Watershed was newly listed**: The facility's discharge location (CAL WATERSHED NAME) was added to the California Integrated Report 303(d) list between 2018 and 2024 for a specific pollutant category
+2. **Facility lacks limits**: The facility discharges parameters in that category but does not currently have a permitted limit for those parameters
+
+**Methodology:**
+- Compares Integrated Report from 2018 vs 2024 to identify newly impaired water bodies
+- For each newly listed water body and pollutant category:
+  - Identifies facilities discharging into that watershed
+  - Checks if facility monitors parameters in that category
+  - Flags facilities that have parameters but no limits for that category
+- Excludes specific categories that are unlikely to have wastewater discharge limits (configured in `data/manual_updates/categories_to_exclude_from_future_limits.csv`)
+
+POTWs are typically subject to secondary treatment standards unless:
+- They discharge into effluent-dominated water bodies
+- They cannot provide 20:1 or more dilution
+- Tertiary treatment is needed to protect beneficial uses
+
+When facilities cannot meet seasonal dilution requirements, they become subject to additional limits based on TMDLs applied to the water body. This analysis helps identify which facilities may need additional limits.
+
+**Output:** Creates maps and visualizations in `processed_data/step4/` showing facilities that may need future limits by pollutant category.
 
 **Data used:**
-- `data/ir`: California Integrated Report 303d list
+- `data/ir`: California Integrated Report 303(d) lists for 2018 and 2024
+- `data/dmr`: NPDES permit limits for 2023 (to check existing limits)
+- Parameter categorization from step 1 (to group pollutants by category)
 
 ### 5. Generate Updated Facilities List
 **Files:** `RUN_ALL.py` (Python) / `step5_update_facilities_list.R` (R only)
@@ -147,24 +169,32 @@ When loading CWNS data:
 2. **Column selection** - Loads facility identifiers and population data
 3. **Column rename** - Renames TOTAL_RES_POPULATION_2022 to population_cwns
 
+### Step 4: Future Limits Exclusion Configuration
+To exclude specific pollutant categories that are unlikely to have wastewater discharge limits, edit `data/manual_updates/categories_to_exclude_from_future_limits.csv`:
+
+e.g.
+```csv
+SUB_CATEGORY,REASON
+Silver,Not typically regulated
+Lead,Not typically regulated
+...
+```
+
+Categories listed in this file are excluded from the future limits analysis in step 4. The file can be edited without modifying code.
+
 ## Python Functions Reference
 
 ### helper_functions.py
 - `load_data(data_type, year=None, file_path=None)` - Generic function to load config-driven data
-- `read_data_year(year, type, drop_toxicity=False)` - Reads DMR/ESMR data for a given year
-- `read_data_by_type(data_type, year_range, save=False, drop_toxicity=False)` - Reads all years of a data type
-- `read_limits(year)` - Reads CA DMR limits data for a given year
+- `load_data(year, type, drop_toxicity=False)` - Reads DMR/ESMR data for a given year
 - `apply_filters(data, config)` - Applies config-defined filters (dropna, drop_notna, isin)
 - `apply_transformations(data, config)` - Applies config-defined transformations
-- `categorize_parameters(df, parameter_sorting_dict, desc_column)` - Categorizes parameters based on sorting dictionary
-- `normalize_param_desc(desc)` - Normalizes parameter descriptions for matching
-- `match_parameter_desc(row, target_df, target_desc_column)` - Matches parameter descriptions across datasets
 
 ### plotting_functions.py
-- `setup_figure(figsize=(10, 6))` - Creates and sets up a new figure with common settings
-- `save_and_close(path, dpi=FIGURE_DPI)` - Saves figure to path and closes it
+- `setup_fig(figsize=(10, 6))` - Creates and sets up a new figure with common settings
+- `save_fig(path)` - Saves figure to path and closes it
 - `plot_pie_counts(df, title)` - Plots pie chart of parameter categories
-- `plot_facilities_map(num_params_per_facility, legend_label, label_threshold)` - Plots facilities on CA map
+- `plot_map(num_params_per_facility, label_threshold)` - Plots facilities on CA map
 - `plot_population_distribution(merged_pop)` - Plots distribution of population served
 - `plot_population_source_comparison(merged_pop)` - Plots comparison of population data sources
 - `plot_facilities_summary(num_params_per_facility)` - Plots summary without geographic data

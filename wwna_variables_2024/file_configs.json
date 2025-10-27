@@ -1,27 +1,23 @@
 {
   "DMR": {
     "data_type": "DMR",
+    "file_pattern": "CA_FY{year}_NPDES_DMRS.csv",
+    "subdir_pattern": "CA_FY{year}_NPDES_DMRS_LIMITS",
     "dtype": {
       "EXTERNAL_PERMIT_NMBR": "str",
-      "LIMIT_SET_ID": "str",
       "PARAMETER_CODE": "str",
       "PARAMETER_DESC": "str",
       "MONITORING_LOCATION_CODE": "str",
       "LIMIT_VALUE_TYPE_CODE": "str",
       "LIMIT_VALUE_NMBR": "float",
       "LIMIT_VALUE_STANDARD_UNITS": "float",
-      "LIMIT_UNIT_CODE": "str",
       "STANDARD_UNIT_CODE": "str",
       "STANDARD_UNIT_DESC": "str",
-      "STATISTICAL_BASE_CODE": "str",
-      "STATISTICAL_BASE_TYPE_CODE": "str",
       "LIMIT_VALUE_QUALIFIER_CODE": "str",
       "LIMIT_FREQ_OF_ANALYSIS_CODE": "str",
       "LIMIT_TYPE_CODE": "str",
       "LIMIT_SET_DESIGNATOR": "str",
       "LIMIT_SET_SCHEDULE_ID": "str",
-      "LIMIT_UNIT_DESC": "str",
-      "LIMIT_SAMPLE_TYPE_CODE": "str",
       "DMR_VALUE_ID": "str",
       "DMR_VALUE_NMBR": "float",
       "DMR_UNIT_CODE": "str",
@@ -33,24 +29,19 @@
     "dropna": ["LIMIT_VALUE_NMBR"],
     "drop_notna": ["NODI_CODE"],
     "filters": {
-      "MONITORING_LOCATION_CODE": {
-        "isin": ["1", "2", "EG", "Y", "K"]
-      },
-      "EXTERNAL_PERMIT_NMBR": {
-        "isin_filter_list": true
-      }
+      "MONITORING_LOCATION_CODE": ["1", "2", "EG", "Y", "K"]
     },
     "strip_leading_zeros": "PARAMETER_CODE",
     "mark_toxicity": {
       "column": "PARAMETER_CODE",
       "pattern": "startswith",
       "values": ["T", "W"],
-      "set_column": "PARAMETER_DESC",
       "set_value": "Toxicity"
     }
   },
   "LIMITS": {
     "data_type": "LIMITS",
+    "base_dir_type": "DMR",
     "dtype": {
       "EXTERNAL_PERMIT_NMBR": "str",
       "LIMIT_SET_ID": "str",
@@ -63,8 +54,6 @@
       "LIMIT_UNIT_CODE": "str",
       "STANDARD_UNIT_CODE": "str",
       "STANDARD_UNIT_DESC": "str",
-      "STATISTICAL_BASE_CODE": "str",
-      "STATISTICAL_BASE_TYPE_CODE": "str",
       "LIMIT_VALUE_QUALIFIER_CODE": "str",
       "LIMIT_FREQ_OF_ANALYSIS_CODE": "str",
       "LIMIT_TYPE_CODE": "str",
@@ -76,14 +65,13 @@
     "parse_dates": [],
     "dropna": [],
     "drop_notna": [],
-    "filters": {
-      "EXTERNAL_PERMIT_NMBR": {
-        "isin_filter_list": true
-      }
-    }
+    "filters": {},
+    "file_pattern": "CA_FY{year}_NPDES_LIMITS.csv",
+    "subdir_pattern": "CA_FY{year}_NPDES_DMRS_LIMITS"
   },
   "ESMR": {
     "data_type": "ESMR",
+    "file_pattern": "esmr-analytical-export_year-{year}.csv",
     "dtype": {
       "parameter": "str",
       "qualifier": "str",
@@ -113,6 +101,7 @@
   },
   "IR": {
     "data_type": "IR",
+    "file_pattern": "{year}-303d.csv",
     "dtype": {
       "Water Body CALWNUMS": "str",
       "Pollutant": "str",
@@ -127,7 +116,7 @@
     "dropna": ["Water Body CALWNUMS"],
     "drop_notna": [],
     "filters": {},
-    "year_skiprows": {
+    "skiprows": {
       "2018": 2,
       "2024": 1
     },
@@ -139,6 +128,11 @@
     }
   },
   "TOXICS": {
+    "file_pattern": "criteria_for_toxics.csv",
+    "dtype": {
+      "Number compound": "str",
+      "CAS No.": "str"
+    },
     "step1": {
       "column": "Number compound",
       "desc_col": "TOXICS_PARAMETER_DESC",
@@ -152,6 +146,7 @@
   },
   "CWNS": {
     "data_type": "CWNS",
+    "file_pattern": "facilities_merged.csv",
     "dtype": {
       "STATE_CODE": "str",
       "CWNS_ID": "str",
@@ -163,16 +158,16 @@
     "dropna": [],
     "drop_notna": [],
     "filters": {
-      "STATE_CODE": {
-        "isin": ["CA"]
-      }
+      "STATE_CODE": ["CA"]
     },
     "rename": {
       "TOTAL_RES_POPULATION_2022": "population_cwns"
-    }
+    },
+    "drop_duplicates": ["CWNS_ID"]
   },
   "WW_SURVEILLANCE": {
     "data_type": "WW_SURVEILLANCE",
+    "file_pattern": "wastewatersurveillancecalifornia.csv",
     "dtype": {
       "epaid": "str",
       "population_served": "float"
@@ -181,11 +176,11 @@
     "drop_duplicates": ["epaid"],
     "rename": {
       "population_served": "population_covid"
-    },
-    "file": "data/ww_surveillance/wastewatersurveillancecalifornia.csv"
+    }
   },
   "SSO": {
     "data_type": "SSO",
+    "file_pattern": "Questionnaire.csv",
     "dtype": {
       "Wdid": "str",
       "SSOq Population Served": "float",
@@ -196,11 +191,9 @@
       "Wdid": "permit_number"
     },
     "filters": {
-      "Status": {
-        "isin": ["Active"]
-      }
+      "Status": ["Active"]
     },
-    "file": "data/sso/Questionnaire.csv"
+    "drop_duplicates": ["Wdid"]
   }
 }
 

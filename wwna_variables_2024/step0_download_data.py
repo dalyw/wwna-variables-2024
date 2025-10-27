@@ -5,8 +5,6 @@ from pathlib import Path
 from wwna_variables_2024.helper_functions import (
     analysis_range,
     ESMR_RESOURCE_IDS,
-    get_data_filename,
-    get_data_dir_path,
     get_data_file_path,
 )
 
@@ -65,11 +63,9 @@ def download_dmr_year(year):
     print(f"Downloading DMR for {year}")
     download_file(url, zip_path)
 
-    target_folder = get_data_dir_path("DMR", year)
-    target_folder.mkdir(exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         for file in zip_ref.namelist():
-            dest = target_folder / Path(file).name
+            dest = get_data_file_path("DMR", year) / Path(file).name
             with zip_ref.open(file) as source, open(dest, "wb") as target:
                 target.write(source.read())
 
@@ -81,9 +77,9 @@ def download_esmr_year(year):
     """Download one year of eSMR data."""
     print(f"Downloading eSMR for {year}")
     resource_id = ESMR_RESOURCE_IDS[year]
-    filename = get_data_filename("ESMR", year)
-    url = f"{BASE_DIRS['ESMR']['url']}/{resource_id}/download/{filename.rstrip('.csv')}_2025-10-06.csv"
     file_path = get_data_file_path("ESMR", year)
+    filename_no_ext = file_path.stem.rstrip("_2025-10-06")
+    url = f"{BASE_DIRS['ESMR']['url']}/{resource_id}/download/{filename_no_ext}_2025-10-06.csv"
     download_file(url, file_path)
 
 
@@ -133,19 +129,14 @@ def download_data_by_type(data_type, year_range="Base"):
     """Download data for the given type."""
     for item in year_range:
         # Get paths using helper functions
-        if data_type == "DMR":
-            base_dir_item = get_data_dir_path(data_type, item)
-        else:
-            base_dir_item = get_data_dir_path(data_type)
-        filename = get_data_filename(data_type, item)
-        path_to_check = base_dir_item / filename
+        path_to_check = get_data_file_path(data_type, item)
 
-        if path_to_check.exists():
+        if path_to_check.exists() and path_to_check.is_file():
             if path_to_check.stat().st_size > BASE_DIRS[data_type]["size_threshold"]:
                 continue
 
         print(f"{data_type} {item} missing or corrupted")
-        if path_to_check.exists():
+        if path_to_check.exists() and path_to_check.is_file():
             path_to_check.unlink()
         try:
             if data_type == "DMR":
@@ -157,7 +148,6 @@ def download_data_by_type(data_type, year_range="Base"):
             elif data_type == "SSO":
                 download_sso()
             else:  # TOXICS or CWNS
-                print(f"Downloading {data_type}")
                 download_file(BASE_DIRS[data_type]["url"], path_to_check)
         except Exception as e:
             print(f"Error processing {data_type} {item}: {e}")
