@@ -1,295 +1,382 @@
 import pandas as pd
-import pickle
 import json
-import logging
-import os
-import re
+from pathlib import Path
+import matplotlib.pyplot as plt
+import geopandas as gpd
 
 # IMPORT DMR AND ESMR DATA
 analysis_range = range(2014, 2024)
 save = False
 load = True
+DEFAULT_CMAP = "viridis"
 
-# Import list of NPDES codes for permits
-# in the filtered full facilities flat file
-facilities_list = pd.read_csv(
-    "data/facilities_list/NPDES+WDR Facilities List_20240906.csv"
+# WWNA FACILITY LIST
+WWNA_LIST_PATH = "data/wwna_list/NPDES+WDR Facilities List_20240906.csv"
+WWNA_LIST = pd.read_csv(WWNA_LIST_PATH)
+NPDES_FROM_WWNA_LIST = (
+    WWNA_LIST[WWNA_LIST["NPDES # CA#"].notna()]["NPDES # CA#"].unique().tolist()
 )
-npdes_from_facilities_list = (
-    facilities_list[facilities_list["NPDES # CA#"].notna()]["NPDES # CA#"]
-    .unique()
-    .tolist()
-)
+print(f"{len(NPDES_FROM_WWNA_LIST)} of {len(WWNA_LIST)} WWNA facilities have NPDES")
 
-ref_parameter = pd.read_csv("data/dmrs/REF_PARAMETER.csv")
+# Column name constants for aggregated results
+AGG_STRINGS = {
+    "3": {
+        "COUNT": "Parameters with Slope and Near Exceedance: Number of Parameters",
+        "PARAM": "Parameters with Slope and Near Exceedance: List of Parameters",
+    },
+    "4": {
+        "COUNT": "Discharges to Impaired and Not Limited: Number of Parameters",
+        "PARAM": "Discharges to Impaired and Not Limited: List of Parameters",
+    },
+}
+agg_columns = []
+for step in ["3", "4"]:
+    for key in ["COUNT", "PARAM"]:
+        agg_columns.append(AGG_STRINGS[step][key])
 
-columns_to_keep_limits = [
-    "EXTERNAL_PERMIT_NMBR",
-    "LIMIT_SET_ID",
-    "PARAMETER_CODE",
-    "PARAMETER_DESC",
-    "MONITORING_LOCATION_CODE",
-    "LIMIT_VALUE_TYPE_CODE",
-    "LIMIT_VALUE_NMBR",
-    "LIMIT_VALUE_STANDARD_UNITS",
-    "LIMIT_UNIT_CODE",
-    "STANDARD_UNIT_CODE",
-    "STANDARD_UNIT_DESC",
-    "STATISTICAL_BASE_CODE",
-    "STATISTICAL_BASE_TYPE_CODE",
-    "LIMIT_VALUE_QUALIFIER_CODE",
-    "LIMIT_FREQ_OF_ANALYSIS_CODE",
-    "LIMIT_TYPE_CODE",
-    "LIMIT_SET_DESIGNATOR",
-    "LIMIT_SET_SCHEDULE_ID",
-    "LIMIT_UNIT_DESC",
-    "LIMIT_SAMPLE_TYPE_CODE",
-]
 
-columns_to_keep_dmr = columns_to_keep_limits + [
-    "MONITORING_PERIOD_END_DATE",
-    "DMR_VALUE_ID",
-    "DMR_VALUE_NMBR",
-    "DMR_UNIT_CODE",
-    "DMR_UNIT_DESC",
-    "DMR_VALUE_STANDARD_UNITS",
-    "NODI_CODE",
-]
+# Data download configuration
+ESMR_RESOURCE_IDS = {
+    2014: "c0f64b3f-d921-4eb9-aa95-af1827e5033e",
+    2015: "81c399d4-f661-4808-8e6b-8e543281f1c9",
+    2016: "aacfe728-f063-452c-9dca-63482cc994ad",
+    2017: "44d1f39c-f21b-4060-8225-c175eaea129d",
+    2018: "bb3b3d85-44eb-4813-bbf9-ea3a0e623bb7",
+    2019: "2eaa2d55-9024-431e-b902-9676db949174",
+    2020: "4fa56f3f-7dca-4dbd-bec4-fe53d5823905",
+    2021: "28d3a164-7cec-4baf-9b11-7a9322544cd6",
+    2022: "8c6296f7-e226-42b7-9605-235cd33cdee2",
+    2023: "65eb7023-86b6-4960-b714-5f6574d43556",
+    2024: "7adb8aea-62fb-412f-9e67-d13b0729222f",
+    2025: "176a58bf-6f5d-4e3f-9ed9-592a509870eb",
+}
 
-columns_to_keep_esmr = [
-    "parameter",
-    "qualifier",
-    "result",
-    "units",
-    "mdl",
-    "ml",
-    "rl",
-    "sampling_date",
-    "sampling_time",
-    "review_priority_indicator",
-    "qa_codes",
-    "comments",
-    "facility_name",
-    "facility_place_id",
-    "report_name",
-    "location_desc",
+# Path constants for processed data directories
+STEP_DIRS = {}
+for i in range(4):
+    STEP_DIRS[i + 1] = f"processed_data/step{i+1}"
+
+SCRIPTS = [
+    "step0_download_data.py",
+    "step1_parameter_categorization.py",
+    "step2_population_served.py",
+    "step3_near_exceedance.py",
+    "step4_future_limits.py",
 ]
 
 
-def read_dmr(year, drop_no_limit=False):
-    """
-    Reads the CA DMR data for the given year
-    - Keeps only the columns that are needed
-    - Drops rows where the limit value is not present
-    (if drop_no_limit is True) and where the No Data Indicator is present
-    - Filters for monitoring locations 1, 2, EG, Y, or K
-    - Filters for permits in the npdes_list from CIWQS flat file
+with open("wwna_variables_2024/file_configs.json", "r") as f:
+    FILE_CONFIGS = json.load(f)
 
-    Returns the cleaned data
-    """
-    data = pd.read_csv(
-        f"data/dmrs/CA_FY{year}_NPDES_DMRS_LIMITS/CA_FY{year}_NPDES_DMRS.csv",
-        low_memory=False,
-    )
-    print(
-        f"{year} DMR data has {len(data)} DMR events and "
-        f'{len(data["EXTERNAL_PERMIT_NMBR"].unique())} unique permits'
-    )
-    data = data[columns_to_keep_dmr]
-    if drop_no_limit:
-        data = data[
-            data["LIMIT_VALUE_NMBR"].notna()
-        ]  # drop rows for monitoring without a permit limit
-    data = data[
-        data["NODI_CODE"].isna()
-    ]  # drop rows where No Data Indicator is present
-    data = data[
-        data["MONITORING_LOCATION_CODE"].isin(["1", "2", "EG", "Y", "K"])
-    ]
-    data = data[data["EXTERNAL_PERMIT_NMBR"].isin(npdes_from_facilities_list)]
-    # if data['PARAMETER_CODE'] has leading 0s, remove them
-    data["PARAMETER_CODE"] = data["PARAMETER_CODE"].str.lstrip("0")
-    data["POLLUTANT_CODE"] = data["PARAMETER_CODE"].map(
-        ref_parameter.copy().set_index("PARAMETER_CODE")["POLLUTANT_CODE"]
-    )
-    data["MONITORING_PERIOD_END_DATE"] = pd.to_datetime(
-        data["MONITORING_PERIOD_END_DATE"]
-    )
-    data["DMR_VALUE_STANDARD_UNITS"] = pd.to_numeric(
-        data["DMR_VALUE_STANDARD_UNITS"], errors="coerce"
-    )
-    data["MONITORING_PERIOD_END_DATE_NUMERIC"] = (
-        data["MONITORING_PERIOD_END_DATE"].dt.year
-        + data["MONITORING_PERIOD_END_DATE"].dt.month / 12
-        + data["MONITORING_PERIOD_END_DATE"].dt.day / 365
-    )
-    print(
-        f"{year} DMR data has {len(data)} DMR events and "
-        f'{len(data["EXTERNAL_PERMIT_NMBR"].unique())} '
-        f"unique permits after filtering"
-    )
-    return data
+# Convert dtype strings to Python types
+dtype_map = {"str": str, "float": float, "int": int, "bool": bool}
+for config in FILE_CONFIGS.values():
+    if "dtype" in config:
+        config["dtype"] = {
+            col: dtype_map.get(dtype_str, str)
+            for col, dtype_str in config["dtype"].items()
+        }
 
 
-def read_all_dmrs(save=False, drop_toxicity=False):
+def load_data(data_type, year=None, drop_toxicity=False):
     """
-    Uses read_dmr to read all the CA DMR data for years in the analysis range
-    - Changes the POLLUTANT_DESC on all rows with POLLUTANT_CODE
-    starting with T or W into 'Toxicity'
-    - Drops rows where the parameter description contains
-    'Toxicity' if drop_toxicity is True
-    - Saves the data to a pickle
-    """
-    if save:
-        data_dict = {}
-        for year in analysis_range:
-            data_dict[year] = read_dmr(year, drop_no_limit=True)
-            # for data_dict[year], change the POLLUTANT_DESC
-            # on all rows with POLLUTANT_CODE starting
-            # with T or W into 'Toxicity'
-            data_dict[year].loc[
-                data_dict[year]["PARAMETER_CODE"].str.startswith(("T", "W")),
-                "PARAMETER_DESC",
-            ] = "Toxicity"
-            if drop_toxicity:
-                data_dict[year] = data_dict[year][
-                    ~data_dict[year]["PARAMETER_DESC"].str.contains("Toxicity")
-                ]
-        # save the data_dict to a pickle
-        with open("processed_data/step3/data_dict.pkl", "wb") as f:
-            pickle.dump(data_dict, f)
-    else:  # load the data_dict from the pickle
-        with open("processed_data/step3/data_dict.pkl", "rb") as f:
-            data_dict = pickle.load(f)
-    return data_dict
-
-
-def read_limits(year):
-    """
-    Reads the CA DMR data for the given year
-    """
-    data = pd.read_csv(
-        f"data/dmrs/CA_FY{year}_NPDES_DMRS_LIMITS/"
-        f"CA_FY{year}_NPDES_LIMITS.csv",
-        low_memory=False,
-    )
-    len_orig = len(data)
-    data = data[data["EXTERNAL_PERMIT_NMBR"].isin(npdes_from_facilities_list)]
-    print(
-        f"{year} has {len(data)} limits, "
-        f' {len(data["EXTERNAL_PERMIT_NMBR"].unique())} unique permits '
-        f" after filtering ({len_orig} limits before filtering)"
-    )
-    return data[columns_to_keep_limits]
-
-
-def read_esmr(save=False):
-    """
-    Read eSMR data with minimal required columns.
+    Generic function to load data based on file_configs.json.
 
     Args:
-        save (bool): Whether to save processed data to CSV
+        data_type: Type of data to load (e.g., "DMR", "ESMR", "CWNS")
+        year: Optional year for time-series data
+        file_path: Optional explicit file path
+        drop_toxicity: If True, drop rows containing "Toxicity" in PARAMETER_DESC
 
     Returns:
-        pd.DataFrame: ESMR data with only required columns
+        Loaded and processed DataFrame
     """
-    logger = logging.getLogger(__name__)
+    config = FILE_CONFIGS[data_type]
+    file_path = str(get_data_file_path(data_type, year))
 
-    # Define only the essential columns we need
-    required_columns = [
-        "parameter",
-        "result",
-        "sampling_date",
-        "facility_place_id",
-    ]
-
-    # Read specific ESMR file
-    file_path = (
-        "data/esmr/esmr-analytical-export_years-2006-2024_2024-09-03.csv"
+    # Read data with configured columns and dtypes
+    skiprows = config.get("skiprows", 0)
+    if isinstance(skiprows, dict) and year is not None:
+        skiprows = skiprows.get(str(year), 0)
+    data = pd.read_csv(
+        file_path,
+        usecols=list(config["dtype"].keys()) + config.get("parse_dates", []),
+        dtype=config["dtype"] if config["dtype"] else None,
+        parse_dates=config.get("parse_dates", []),
+        skiprows=skiprows,
+        sep=config.get("separator", ","),
+        low_memory=False,
     )
 
-    if not os.path.exists(file_path):
-        raise FileNotFoundError(f"ESMR data file not found: {file_path}")
+    # dropna: drop rows where column IS NA
+    dropna_cols = [col for col in config.get("dropna", []) if col in data.columns]
+    if dropna_cols:
+        data = data.dropna(subset=dropna_cols)
 
-    data = pd.read_csv(file_path, usecols=required_columns)
+    # drop_notna: drop rows where column IS NOT NA
+    for col in config.get("drop_notna", []):
+        if col in data.columns:
+            data = data[data[col].isna()]
 
-    if save:
-        data.to_csv("processed_data/esmr_data.csv", index=False)
-        logger.info(f"Saved {len(data)} ESMR records")
+    for col, filter_values in config.get("filters", {}).items():
+        if col not in data.columns:
+            continue
+        if isinstance(filter_values, list):
+            # Filter by list of values
+            data = data[data[col].isin(filter_values)]
+
+    # Apply transformations from config
+    if config.get("strip_leading_zeros"):
+        transform = config["strip_leading_zeros"]
+        data[transform] = data[transform].str.lstrip("0")
+
+    elif config.get("mark_toxicity"):
+        transform = config["mark_toxicity"]
+        if transform["pattern"] == "startswith":
+            mask = data[transform["column"]].str.startswith(tuple(transform["values"]))
+            data.loc[mask, transform["column"]] = transform["set_value"]
+
+    # Apply post-processing (explode, drop_duplicates)
+    for col in config.get("explode", []):
+        if col in data.columns and data[col].apply(lambda x: isinstance(x, list)).any():
+            data = data.explode(col)
+
+    drop_dup_cols = config.get("drop_duplicates")
+    if drop_dup_cols:
+        data = data.drop_duplicates(subset=drop_dup_cols)
+
+    # Apply renames from config
+    rename_map = config.get("rename", {})
+    if rename_map:
+        data = data.rename(columns=rename_map)
+
+    if data_type == "DMR":  # Apply DMR-specific transformations
+        if drop_toxicity and "PARAMETER_DESC" in data.columns:
+            data = data[~data["PARAMETER_DESC"].str.contains("Toxicity")]
+
+        mped = "MONITORING_PERIOD_END_DATE"
+        data[f"{mped}_NUMERIC"] = (
+            data[mped].dt.year + data[mped].dt.month / 12 + data[mped].dt.day / 365
+        )
+
+        unique = data["EXTERNAL_PERMIT_NMBR"].nunique()
+        print(f"{year} {data_type}: {len(data)} records, {unique} facilities")
+
+    # Apply WWNA facilities list filter for DMR and LIMITS
+    if data_type in ["DMR", "LIMITS"]:
+        data = data[data["EXTERNAL_PERMIT_NMBR"].isin(NPDES_FROM_WWNA_LIST)]
+
+    if data_type == "LIMITS":
+        unique = data["EXTERNAL_PERMIT_NMBR"].nunique()
+        print(f"{year} has {len(data)} limits, {unique} unique permits")
 
     return data
 
 
-# CATEGORIZE PARAMETERS
-with open("data/manual_updates/parameter_sorting_dict.json", "r") as f:
-    parameter_sorting_dict = json.load(f)
-
-
-def categorize_parameters(df, parameter_sorting_dict, desc_column):
+def aggregate_flagged_params(data, group_col, value_col, col_names):
     """
-    Categorize parameters in a dataframe based on a sorting dictionary.
+    Aggregate flagged parameters by facility with count and comma-separated list.
 
     Args:
-    df (pd.DataFrame): The dataframe containing parameters to categorize.
-    parameter_sorting_dict (dict): Dictionary containing categories and
-    their associated keywords.
-    desc_column (str): Name of column containing parameter descriptions.
+        data: DataFrame to aggregate
+        group_col: Column to group by (facility identifier)
+        value_col: Column to aggregate (parameter identifier)
+        col_names: Dict with "COUNT" and "PARAM" keys for column names
 
     Returns:
-    pd.DataFrame: The input dataframe with additional
-    'PARENT_CATEGORY' and 'SUB_CATEGORY' columns.
+        Aggregated DataFrame
     """
-    df["PARENT_CATEGORY"] = "Uncategorized"
-    df["SUB_CATEGORY"] = "Uncategorized"
-    # iterate through the parameter sorting dictionary
-    for key, value in parameter_sorting_dict.items():
-        if "values" in value:
-            mask = df[desc_column].str.contains(
-                "|".join(map(re.escape, value["values"])),
-                case=value.get("case", False),
-            )
-            df.loc[mask, "PARENT_CATEGORY"] = key
-            df.loc[mask, "SUB_CATEGORY"] = key
-        else:
-            for sub_key, sub_value in value.items():
-                mask = df[desc_column].str.contains(
-                    "|".join(sub_value["values"]), case=False
-                )
-                df.loc[mask, "PARENT_CATEGORY"] = key
-                df.loc[mask, "SUB_CATEGORY"] = sub_key
-    return df
+    # Handle empty dataframe
+    if len(data) == 0:
+        return pd.DataFrame(columns=[group_col, col_names["COUNT"], col_names["PARAM"]])
+
+    agg_data = (
+        data.groupby(group_col)
+        .agg(
+            count=(value_col, "count"),
+            values=(value_col, lambda x: ", ".join(x.unique())),
+        )
+        .reset_index()
+    )
+    agg_data.columns = [group_col, col_names["COUNT"], col_names["PARAM"]]
+
+    # Fill NA values with defaults
+    agg_data[col_names["COUNT"]] = agg_data[col_names["COUNT"]].fillna(0).astype(int)
+    agg_data[col_names["PARAM"]] = agg_data[col_names["PARAM"]].fillna("")
+
+    return agg_data
 
 
-def normalize_param_desc(desc):
+def get_data_file_path(data_type, year=None):
+    """Get full file path for a data type and optional year."""
+    config = FILE_CONFIGS[data_type]
+
+    # Use base_dir_type if specified, otherwise use data_type
+    base_dir = config.get("base_dir_type", data_type)
+    dir_path = Path(f"data/{base_dir.lower()}")
+
+    if "subdir_pattern" in config and year:
+        dir_path = dir_path / config["subdir_pattern"].format(year=year)
+
+    # Filename pattern
+    if "file_pattern" in config:
+        filename = (
+            config["file_pattern"].format(year=year) if year else config["file_pattern"]
+        )
+        return dir_path / filename
+
+    return dir_path
+
+
+def setup_fig(figsize=(10, 6)):
+    """Create and setup a new figure with common settings."""
+    fig, ax = plt.subplots(figsize=figsize)
+    return fig, ax
+
+
+def save_fig(path, step=None):
+    """Save figure and close it."""
+    full_path = f"processed_data/step{step}/{path}" if step else path
+    plt.tight_layout()
+    plt.savefig(full_path, bbox_inches="tight")
+    plt.close()
+
+
+def plot_barh(data, x_col, y_col, xlabel, title, figsize=(12, 6), path=None, step=None):
+    """Create a horizontal bar chart with labels."""
+    fig, ax = setup_fig(figsize=figsize)
+    bars = ax.barh(data[y_col], data[x_col])
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)
+
+    # Add labels to bars (inline instead of separate function)
+    fmt_kwargs = {"ha": "left", "va": "center", "fontsize": 8}
+    for bar in bars:
+        width = bar.get_width()
+        plt.text(
+            width, bar.get_y() + bar.get_height() / 2, f"{int(width)}", **fmt_kwargs
+        )
+
+    save_fig(path, step)
+
+
+def plot_map(num_params_per_facility, label_threshold, step=3):
     """
-    Normalize the parameter description by removing commas, brackets,
-    spaces, apostrophes, and dots,
-    converting to lowercase, and removing "sum" and "total"
+    Plot facilities on a map of CA.
+
+    Args:
+        num_params_per_facility: Dictionary mapping facility IDs to parameter counts
+        legend_label: Label for the legend
+        label_threshold: Threshold for labeling facilities
+        step: Step number for saving the plot
     """
-    replacements = [
-        (", sum", ""),
-        (", total", ""),
-        (", tot.", ""),
-        (", Sum", ""),
-        (", Total", ""),
-        (",", ""),
-        ("[", "("),
-        ("]", ")"),
-        (" ", ""),
-        ("'", ""),
-        (".", ""),
-        ("&", "and"),
+    ca_counties = gpd.read_file("data/ca_counties/CA_Counties.shp")
+
+    # Create DataFrame with facility IDs and merge
+    facilities_with_coords_merged = pd.DataFrame(
+        {"NPDES # CA#": list(num_params_per_facility.keys())}
+    ).merge(WWNA_LIST.copy(), on="NPDES # CA#", how="left")
+
+    facilities_gdf = gpd.GeoDataFrame(
+        facilities_with_coords_merged,
+        geometry=gpd.points_from_xy(
+            facilities_with_coords_merged["LONGITUDE DECIMAL DEGREES"],
+            facilities_with_coords_merged["LATITUDE DECIMAL DEGREES"],
+        ),
+        crs="EPSG:4326",
+    )
+
+    # Counties are in EPSG:3857 (Web Mercator)
+    ca_counties_3857 = ca_counties.set_crs("EPSG:3857", allow_override=True)
+    target_crs = "EPSG:3310"  # NAD83 California Albers
+    ca_counties_proj = ca_counties_3857.to_crs(target_crs)
+
+    # Convert facilities to projected CRS for plotting
+    facilities_gdf_proj = facilities_gdf.to_crs(target_crs)
+
+    # Create plot
+    fig, ax = setup_fig(figsize=(8, 5))
+    ca_counties_proj.plot(
+        ax=ax, color="lightgray", zorder=1, edgecolor="white", linewidth=0.5
+    )
+    facilities_gdf_proj["param_count"] = facilities_gdf_proj["NPDES # CA#"].map(
+        num_params_per_facility
+    )
+
+    # Set axis limits to show CA extent
+    ax.set_xlim(ca_counties_proj.bounds.minx.min(), ca_counties_proj.bounds.maxx.max())
+    ax.set_ylim(ca_counties_proj.bounds.miny.min(), ca_counties_proj.bounds.maxy.max())
+
+    # Setup colormap
+    norm = plt.Normalize(
+        vmin=facilities_gdf_proj["param_count"].min(),
+        vmax=facilities_gdf_proj["param_count"].max(),
+    )
+    cmap = plt.cm.get_cmap(DEFAULT_CMAP)
+
+    facilities_gdf_proj.plot(
+        ax=ax, column="param_count", cmap=cmap, norm=norm, markersize=10, zorder=2
+    )
+
+    # Add facility labels
+    top_facilities = (
+        facilities_gdf_proj[facilities_gdf_proj["param_count"] >= label_threshold]
+        .sort_values("param_count", ascending=False)
+        .head(10)
+    )
+
+    # Sort by projected y coordinates for vertical ordering
+    top_facilities_sorted = top_facilities.copy()
+    top_facilities_sorted["geometry_y"] = top_facilities_sorted.geometry.y
+    top_facilities_sorted = top_facilities_sorted.sort_values(
+        "geometry_y", ascending=False
+    )
+
+    # Calculate label positions
+    label_x = ax.get_xlim()[0] + 0.02 * (ax.get_xlim()[1] - ax.get_xlim()[0])
+    label_y_start = ax.get_ylim()[1] - 0.57 * (ax.get_ylim()[1] - ax.get_ylim()[0])
+    label_y_step = 0.03 * (ax.get_ylim()[1] - ax.get_ylim()[0])
+
+    for idx, (_, row) in enumerate(top_facilities_sorted.iterrows()):
+        label_y = label_y_start - idx * label_y_step
+
+        ax.annotate(
+            f"{row['NPDES # CA#']}",
+            xy=(label_x, label_y),
+            xytext=(0, 0),
+            textcoords="offset points",
+            fontsize=8,
+            ha="left",
+            va="center",
+        )
+
+        ax.plot(
+            [row.geometry.x, label_x + 2.5 * 1e5],
+            [row.geometry.y, label_y],
+            color="k",
+            linewidth=0.5,
+        )
+
+    # Add legend
+    unique_params = sorted(facilities_gdf_proj["param_count"].unique())
+    legend_elements = [
+        plt.Line2D(
+            [0],
+            [0],
+            marker="o",
+            color="w",
+            label=str(int(value)),
+            markerfacecolor=cmap(norm(value)),
+            markersize=10,
+        )
+        for value in unique_params
     ]
-    for old, new in replacements:
-        desc = desc.replace(old, new)
-    return desc.lower()
+    ax.legend(
+        handles=legend_elements,
+        title="# Parameters Flagged",
+        loc="upper right",
+        frameon=False,
+    )
 
-
-def match_parameter_desc(row, target_df, target_desc_column):
-    """
-    Match the parameter description in the target dataframe
-    to the parameter description in the row.
-    """
-    normalized_desc = normalize_param_desc(str(row["PARAMETER_DESC"]))
-    match = target_df[target_df["normalized_desc"] == normalized_desc]
-    return match[target_desc_column].iloc[0] if len(match) > 0 else ""
+    ax.set_xlabel(""), ax.set_ylabel(""), ax.set_xticks([]), ax.set_yticks([])
+    save_fig("figures_py/facilities_map.png", step)

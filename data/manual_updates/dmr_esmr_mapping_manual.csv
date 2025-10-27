@@ -164,15 +164,9 @@ WI33L,"Chronic Mthd Fertilization Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, 
 WI33N,"Chronic Mthd Fertilization Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static40min D excentricus",4677,No Match (confirmed)
 WJK1D,"Chronic Mthd Germination Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr M pyrifera",4677,No Match (confirmed)
 WKK1D,"Chronic Mthd Germ Tube Length Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static48hr M pyrifera",4677,No Match (confirmed)
-7000,"Tritium, total",12446,Tritium
-11503,"Radium 226 + radium 228, total",12175,Radium-226 + Radium-228
-13501,"Strontium 90, total",12285,Strontium-90
 22417,Methyl tert-butyl ether [MTBE],10418,
 22456,Polynuclear Aromatic Hydrocarbons [PAHs],10100,
-28012,"Uranium, total [in pci/L]",6439,Uranium
-51197,Total Organic Carbon % Removal,11907,"Total Organic Carbon (TOC), Percent Removal"
 51173,"Cyanide, free available",5123,
-30500,"Coliform, fecal - % samples exceeding limit",10287,Fecal Coliform
 32101,Dichlorobromomethane,11660,
 32102,Carbon tetrachloride,10344,
 32103,"1,2-Dichloroethane",10262,

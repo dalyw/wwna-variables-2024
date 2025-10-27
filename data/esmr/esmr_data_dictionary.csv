@@ -1,0 +1,117 @@
+column,type,label,description
+region,text,Region,Water Board office that regulates the discharge for which the result was provided. More information about Water Board regions can be found at: https://www.waterboards.ca.gov/waterboards_map.html
+location,text,Location,"Name of monitoring location where sample was taken providing the given result. Generally these should match the names with the permit requiring the monitoring. Where this isn't possible (because of character length restrictions, for example), the following naming conventions should apply:  
+
+• Influent (INF-001, INF-002)  
+
+• Effluent (EFF-001, EFF-002 for different outfalls, or EFF-001A, EFF-001B for different monitoring locations on the same outfall). Effluent monitoring locations must be related to discharge points. Discharge point 001 is associated with EFF-001A and EFF-001B,
+etc.  
+
+• Internal (INT-001, INT-002…)  
+
+• Receiving Surface Water (RSW-001, RSW-002, etc.; optionally RSW-001U, RSW001D, RSW-002U, RSW-002D, etc. for upstream and downstream reference in a stream or river)  
+
+• Receiving Ground Water (RGW-001, RGW-002…)  
+
+• Discharge to land (LND-001, LND-002…)  
+
+• Reclamation Discharge (REC-001, REC-002…)  
+
+• Water Supply Monitoring (SPL-001, SPL-002...)"
+location_place_id,text,Location Place Identifier,Unique identifier associated with the monitoring location record.
+location_place_type,text,Location Place Type,"Monitoring Location Type for which results are provided. Options include:
+
+• Effluent Monitoring – monitoring of discharged water
+
+• Groundwater Monitoring – monitoring of groundwater, either as receiving water or ambient water
+
+• Influent Monitoring – monitoring of wastewater before treatment
+
+• Internal Process Monitoring for Effluent Limitation Guidelines
+
+• Receiving Water Monitoring
+
+• Water Supply – monitoring of water being used
+
+• Vadose Zone – Soil pore monitoring"
+parameter,text,Parameter,"The attribute for which results are being reported. Generally this is a chemical analyte but other attributes are also available. A complete list of parameters can be found at: https://www.waterboards.ca.gov/water_issues/programs/ciwqs/docs/chc_npdes/parameter_reference_list.xlsx
+
+Before being incorporated into this controlled vocabulary list, parameter names must be available at: http://www.edfdata.com/edfsource/validvaluelookup/PARLABEL?code_op=contains&code=&name_op=contains&name="
+analytical_method_code,text,Analytical Method Code,"A code representing the method that was used to determine the result for the given parameter. ""Data Unavailable [DU]"" is used when the result wasn't determined using an analytical method or an analytical method code is not available in the controlled vocabulary list. A complete list of analytical methods and associated codes can be found at: https://www.waterboards.ca.gov/water_issues/programs/ciwqs/docs/chc_npdes/analytical_method_list.xlsx
+
+Before being incorporated into this controlled vocabulary list, codes must be available at: http://www.edfdata.com/edfsource/validvaluelookup/ANMCODE?code_op=contains&code=&name_op=contains&name="
+analytical_method,text,Analytical Method,"The method that was used to determine the result for the given parameter. ""Data Unavailable [DU]"" is used when the result wasn't determined using an analytical method or an analytical method code is not available in the controlled vocabulary list. A complete list of analytical methods and associated codes can be found at: https://www.waterboards.ca.gov/water_issues/programs/ciwqs/docs/chc_npdes/analytical_method_list.xlsx
+
+Before being incorporated into this controlled vocabulary list, methods must be available at: http://www.edfdata.com/edfsource/validvaluelookup/ANMCODE?code_op=contains&code=&name_op=contains&name="
+calculated_method,text,Calculated Method,"A brief description of the calculation performed, such as 6-month median. Often calculations are required to demonstrate compliance with limit basis that are specified in a permit. ""Raw"" analytical results should have the calculated method of ""single."""
+qualifier,text,Qualifier,"Qualifies the analytical result of the sample. Options include:
+
+• =
+
+• <
+
+• <=
+
+• >
+
+• >=
+
+• ND (Non-detect)
+
+• DNQ (Detected but not Quantified)"
+result,numeric,Result,Numeric value corresponding to onsite conditions for the parameter.
+units,text,Units,"The units describing the result. A complete list of units can be found at: https://www.waterboards.ca.gov/water_issues/programs/ciwqs/docs/chc_npdes/units.xlsx  
+
+Before being incorporated into this controlled vocabulary list, units must be available at: http://www.edfdata.com/edfsource/validvaluelookup/UNITS?code_op=contains&code=&name_op=contains&name="
+mdl,numeric,MDL,"The Method Detection Limit for the analytical method used to determine the result for the given parameter. MDLs are not appropriate for all parameters and methods. The business rules require an MDL for results that are ""non-detect."""
+ml,numeric,ML,"The Minimum Level for the analytical test run to determine the result for the given parameter. MLs are not appropriate for all parameter and methods. The business rules require either an ML or an RL when the result is ""detected but not quantified."""
+rl,numeric,RL,"The Reporting Limit for the analytical test run to determine the result for the given parameter. RLs are not appropriate for all parameters and methods. The business rules require either an ML or an RL when the result is ""detected but not quantified."""
+sampling_date,timestamp,Sampling Date,"The date sample was collected. For composite samples, this should be the beginning of the compositing period."
+sampling_time,text,Sampling Time,"The time sample was collected. For composite samples, this should be the beginning of the compositing period."
+analysis_date,timestamp,Analysis Date,"Date analytical analysis was performed, as provided by the laboratory conducting analysis."
+analysis_time,text,Analysis Time,"Time analytical analysis was performed, as provided by the laboratory conducting analysis."
+review_priority_indicator,text,Review Priority Indicator,Flag applied to a result by report submitter that draws attention to the result.
+qa_codes,text,QA Codes,"Code applied to the result supplied by a laboratory. Options include the following:
+
+• B - Analyte present in the blank and the sample [B]
+
+• U - Compound was analyzed for, but was not detected [U]
+
+• R - Data rejected [R]
+
+• J - Estimated value [J]
+
+• BS - Insufficient sample available to follow standard QC procedures [BS]
+
+• GB - Matrix spike recovery not within control limits [GB]
+
+• IM - Method does not include this analyte as part of compound list [IM]
+
+• LN - MS and/or MSD below acceptance limits. See Blank Spike(LCS).
+
+• LO - MS and/or MSD result unavailable. Batch accept. based on LCS rec.
+
+• HR - Post digestion spike [HR]
+
+• IL - RPD exceeds laboratory control limit [IL]
+
+• BB - Sample > 4x spike concentration [BB]
+
+• BU - Sample analyzed after holding time expired [BU]
+
+• BU,U - Sample analyzed after holding time expired; Compound was analyzed for, but was not detected [BU,U]
+
+• GN - Surrogate recovery is outside of control limits [GN]
+
+• EB - Value is estimated [EB]
+
+Before being incorporated into this controlled vocabulary list, QA Codes must be available at: http://www.edfdata.com/edfsource/validvaluelookup/LNOTE?code_op=contains&code=&name_op=contains&name="
+comments,text,Comments,Notes for the result record supplied by the report submitter.
+facility_name,text,Facility Name,Name of the facility being regulated for which the monitoring results are provided.
+facility_place_id,text,Facility Place Identifier,Unique identifier associated with the facility record.
+report_name,text,Report Name,The name of the electronic report within which the result was submitted.
+latitude,numeric,Latitude,"Latitude of the monitoring location that was sampled and analyzed, producing the given results."
+longitude,numeric,Longitude,"Longitude of the monitoring location that was sampled and analyzed, producing the given results."
+receiving_water_body,text,Receiving Water Body,"The name of the water body that is sampled when the monitoring location type is ""receiving water."""
+smr_document_id,text,SMR Document Identifier,The CIWQS unique identifier associated with the report record within which the result was submitted.
+location_desc,text,Location Description,Optional field providing a narrative description of the monitoring location.

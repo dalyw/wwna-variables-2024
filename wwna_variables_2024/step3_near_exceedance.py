@@ -1,203 +1,235 @@
 import pandas as pd
 import numpy as np
-import logging
-import os
 from scipy import stats
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+from multiprocessing import Pool, cpu_count
 from helper_functions import (
     analysis_range,
-    columns_to_keep_dmr,
-    npdes_from_facilities_list,
+    aggregate_flagged_params,
+    STEP_DIRS,
+    save_fig,
+    plot_barh,
+    plot_map,
+    load_data,
+    AGG_STRINGS,
 )
-import pickle
-from wwna_variables_2024.plotting_functions import (
-    plot_facilities_map,
-    plot_facilities_summary,
-)
 
-from multiprocessing import Pool, cpu_count
+# Grouping columns (DMR dataframe column names)
+GROUP_COLS = [
+    "EXTERNAL_PERMIT_NMBR",
+    "PARAMETER_CODE",
+    "STANDARD_UNIT_DESC",
+    "MONITORING_LOCATION_CODE",
+]
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# Create output directories if they don't exist
-os.makedirs("processed_data/step3", exist_ok=True)
-os.makedirs("processed_data/step3/figures_py", exist_ok=True)
+# Output columns
+OUTPUT_COLS = GROUP_COLS + ["LIMIT_SET_SCHEDULE_ID", "LIMIT_VALUE_TYPE_CODE"]
 
 
-def get_slope_near_exceedance_facilities(
-    facility_param_dict, slope_threshold, limit_threshold, print_counts=False
-):
+def get_flagged_facilities(facility_records, slope_threshold=0.05, limit_threshold=0.1):
     """Calculate facilities with significant slope and near exceedance."""
-    facilities_with_slope = []
-    facilities_with_near_exceedance = []
+    flagged_slope = []
+    flagged_near_exceedance = []
 
-    for NPDES_code in facility_param_dict.keys():
-        for parameter_code in facility_param_dict[NPDES_code].keys():
-            for (
-                STANDARD_UNIT_DESC,
-                MONITORING_LOCATION_CODE,
-            ), limit_data in facility_param_dict[NPDES_code][
-                parameter_code
-            ].items():
-                slope = limit_data["slope"]
-                latest_limit = limit_data["latest_limit"]
-                qualifiers = limit_data["qualifiers"]
-                Q1 = limit_data["Q1"]
-                Q3 = limit_data["Q3"]
-                limit_value_type_codes = limit_data["limit_value_type_codes"]
-                limit_set_schedule_ids = limit_data["limit_set_schedule_ids"]
+    for rec in facility_records:
+        # Skip if no valid limit
+        if np.isnan(rec["latest_limit"]):
+            continue
 
-                # Skip if no valid limit
-                if np.isnan(latest_limit):
-                    continue
+        # Check for facilities with significant slope
+        if rec["qualifier"] in ["<=", "<"] and rec["slope"] > slope_threshold:
+            near_exceedance = rec["Q3"] > (1 - limit_threshold) * rec["latest_limit"]
+            has_slope = rec["slope"] > slope_threshold
+        elif rec["qualifier"] in [">=", ">"] and rec["slope"] < -slope_threshold:
+            near_exceedance = rec["Q1"] < (1 + limit_threshold) * rec["latest_limit"]
+            has_slope = rec["slope"] < -slope_threshold
+        else:
+            has_slope, near_exceedance = False, False
 
-                # Check for facilities with significant slope
-                if qualifiers[0] in ["<=", "<"] and slope > slope_threshold:
-                    near_exceedance = Q3 > (1 - limit_threshold) * latest_limit
-                    has_slope = slope > slope_threshold
-                elif qualifiers[0] in [">=", ">"] and slope < -slope_threshold:
-                    near_exceedance = Q1 < (1 + limit_threshold) * latest_limit
-                    has_slope = slope < -slope_threshold
-                else:
-                    has_slope, near_exceedance = False, False
+        if has_slope:
+            flagged_slope.append(rec)
+        if near_exceedance:
+            flagged_near_exceedance.append(rec)
 
-                if has_slope:
-                    facilities_with_slope.append(
-                        (
-                            NPDES_code,
-                            parameter_code,
-                            STANDARD_UNIT_DESC,
-                            limit_set_schedule_ids[0],
-                            limit_value_type_codes[0],
-                            MONITORING_LOCATION_CODE,
-                        )
-                    )
-                if near_exceedance:
-                    facilities_with_near_exceedance.append(
-                        (
-                            NPDES_code,
-                            parameter_code,
-                            STANDARD_UNIT_DESC,
-                            limit_set_schedule_ids[0],
-                            limit_value_type_codes[0],
-                            MONITORING_LOCATION_CODE,
-                        )
-                    )
+    # Find records in both lists
+    slope_tuples = {
+        tuple(rec[col] for col in OUTPUT_COLS): rec for rec in flagged_slope
+    }
+    exceedance_tuples = {
+        tuple(rec[col] for col in OUTPUT_COLS): rec for rec in flagged_near_exceedance
+    }
+    flagged_keys = set(slope_tuples.keys()) & set(exceedance_tuples.keys())
+    flagged_all = [slope_tuples[k] for k in flagged_keys]
 
-    facilities_slope_near_exceedence = list(
-        set(facilities_with_slope) & set(facilities_with_near_exceedance)
+    print(f"{len(flagged_slope)} w/ slope>slope_threshold")
+    print(f"{len(flagged_near_exceedance)} pairs with Q1/Q3 > {limit_threshold}")
+    print(f"{len(flagged_all)} pairs with both")
+    print(f"{len(set(rec['EXTERNAL_PERMIT_NMBR'] for rec in flagged_all))} facilities")
+
+    return flagged_all
+
+
+def _step3_facility_param_plot(
+    npdes_code, param_desc, data, legend_elements, histogram_legend_elements
+):
+    """Create individual plot for a facility-parameter combination."""
+
+    # Extract data
+    dates = data["MONITORING_PERIOD_END_DATE_NUMERIC"]
+    values = data["DMR_VALUE_STANDARD_UNITS"]
+    limits = data["LIMIT_VALUE_NMBR"]
+
+    # Calculate statistics
+    q1 = np.percentile(values, 25)
+    q3 = np.percentile(values, 75)
+    limit_value = limits.iloc[0] if len(limits) > 0 else np.nan
+
+    # Create figure with subplots
+    plt.figure(figsize=(15, 6))
+    gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
+
+    # Time series plot
+    ax1 = plt.subplot(gs[0])
+    ax1.scatter(dates, values, alpha=0.7, s=30, color="blue", label="Data")
+
+    # Add trend line
+    if len(dates) > 1:
+        z = np.polyfit(dates, values, 1)
+        p = np.poly1d(z)
+        ax1.plot(dates, p(dates), "k--", alpha=0.8, linewidth=2, label="Trend")
+
+    # Add compliance zones
+    if not np.isnan(limit_value):
+        y_lim = ax1.get_ylim()[1]
+        for y1, y2, color, label in [
+            (0, limit_value, "lightgreen", "In Compliance"),
+            (limit_value, y_lim, "lightcoral", "Out of Compliance"),
+        ]:
+            ax1.axhspan(y1, y2, alpha=0.3, color=color, label=label)
+        ax1.axhline(
+            y=limit_value,
+            color="gray",
+            linestyle="-",
+            linewidth=2,
+            alpha=0.8,
+            label="Limit",
+        )
+
+    # Mark outliers (values > Q3 + 1.5*IQR)
+    iqr = q3 - q1
+    outlier_threshold = q3 + 1.5 * iqr
+    outliers = values > outlier_threshold
+    ax1.scatter(
+        dates[outliers],
+        values[outliers],
+        marker="*",
+        s=100,
+        color="red",
+        label="Outliers",
     )
 
-    if print_counts:
-        print(
-            f"{len(facilities_with_slope)} w/ slope>{slope_threshold * 100}%"
-        )
-        print(
-            f"{len(facilities_with_near_exceedance)} pairs with Q1/Q3 > "
-            f"{limit_threshold * 100}% of limit"
-        )
-        print(f"{len(facilities_slope_near_exceedence)} pairs with both")
-        print(
-            f"{len(set(f[0] for f in facilities_slope_near_exceedence))} "
-            f"facilities affected"
-        )
+    ax1.set_xlabel("Time")
+    ax1.set_ylabel("Concentration (mg/L)")
+    ax1.set_title(f"{param_desc}\nFacility: {npdes_code}")
+    ax1.legend(handles=legend_elements, loc="upper right", fontsize=8)
+    ax1.grid(True, alpha=0.3)
 
-    return facilities_slope_near_exceedence
+    # Histogram plot
+    ax2 = plt.subplot(gs[1])
+    ax2.hist(values, bins=20, alpha=0.7, color="blue", edgecolor="black")
+
+    # Add statistical markers
+    for val, color, style, label in [
+        (q1, "red", "--", "Q1"),
+        (q3, "orange", "--", "Q3"),
+        (
+            (limit_value, "gray", "-", "Limit")
+            if not np.isnan(limit_value)
+            else (None, None, None, None)
+        ),
+    ]:
+        if val is not None:
+            ax2.axvline(val, color=color, linestyle=style, linewidth=2, label=label)
+
+    ax2.set_xlabel("Concentration (mg/L)")
+    ax2.set_ylabel("Frequency")
+    ax2.set_title("Distribution")
+    ax2.legend(handles=histogram_legend_elements, fontsize=8)
+    ax2.grid(True, alpha=0.3)
+
+    # Save the plot
+    filename = (
+        f"{npdes_code}_"
+        f"{param_desc.replace(' ', '_').replace(',', '').replace('[', '').replace(']', '')}"  # noqa: E501
+        f".png"
+    )
+    save_fig(f"figures_py/{filename}", 3)
 
 
-def generate_visualizations(
-    facilities_slope_near_exceedence_df,
-    facility_param_dict,
-    ref_parameter,
-    ref_frequency,
-    generate_plots=True,
-):
+def step3_plotting(flagged_data, flagged_param_counts):
     """Generate exceedance analysis visualizations."""
 
-    # facilities_grouped = facilities_slope_near_exceedence_df.groupby(
-    #     "NPDES_CODE"
-    # )
-
-    # # Create legend elements
-    # legend_elements = [
-    #     plt.Line2D(
-    #         [0],
-    #         [0],
-    #         marker="o",
-    #         color="b",
-    #         label="Data",
-    #         markersize=8,
-    #         linestyle="None",
-    #     ),
-    #     plt.Line2D([0], [0], color="k", linestyle="--", label="Trend"),
-    #     plt.Line2D(
-    #         [0],
-    #         [0],
-    #         marker="*",
-    #         color="red",
-    #         label="Outliers",
-    #         markersize=10,
-    #         linestyle="None",
-    #     ),
-    #     plt.Rectangle(
-    #         (0, 0), 1, 1, fc="lightgreen", alpha=0.3, label="In Compliance"
-    #     ),
-    #     plt.Rectangle(
-    #         (0, 0), 1, 1,
-    #           fc="lightcoral",
-    #           alpha=0.3,
-    #           label="Out of Compliance"
-    #     ),
-    # ]
-
-    # histogram_legend_elements = [
-    #     plt.Line2D([0], [0], color="red", linestyle="--", label="Q1"),
-    #     plt.Line2D([0], [0], color="orange", linestyle="--", label="Q3"),
-    #     plt.Line2D([0], [0], color="grey", linestyle="-", label="Limit"),
-    # ]
-
-    # # Generate facility plots
-    # for NPDES_CODE, group in facilities_grouped:
-    #     pass
-
-
-def analyze_thresholds(facility_param_dict):
-    """Analyze different threshold combinations."""
-    slope_threshold_ranges = [0.005, 0.01, 0.015, 0.02, 0.025, 0.03]
-    limit_threshold_ranges = [0.05, 0.1, 0.15, 0.2, 0.25]
-
-    results = [
-        {
-            "count": len(
-                set(
-                    facility[0]
-                    for facility in get_slope_near_exceedance_facilities(
-                        facility_param_dict, slope_threshold, limit_threshold
-                    )
-                )
-            ),
-            "slope_threshold": slope_threshold,
-            "limit_threshold": limit_threshold,
-        }
-        for slope_threshold in slope_threshold_ranges
-        for limit_threshold in limit_threshold_ranges
+    noline = {"linestyle": "None"}
+    # Create legend elements
+    legend_elements = [
+        plt.Line2D([0], [0], marker="o", color="b", label="Data", **noline),
+        plt.Line2D([0], [0], color="k", linestyle="--", label="Trend"),
+        plt.Line2D([0], [0], marker="*", color="r", label="Outliers", **noline),
+        plt.Rectangle((0, 0), 1, 1, fc="lightgreen", alpha=0.3, label="In Compliance"),
+        plt.Rectangle(
+            (0, 0), 1, 1, fc="lightcoral", alpha=0.3, label="Out of Compliance"
+        ),
     ]
-    return pd.DataFrame(results)
+    histogram_legend_elements = [
+        plt.Line2D([0], [0], color=c, linestyle=l, label=lbl)
+        for c, l, lbl in [
+            ("red", "--", "Q1"),
+            ("orange", "--", "Q3"),
+            ("grey", "-", "Limit"),
+        ]
+    ]
+
+    # Generate plots for facilities with slope and near exceedance
+    facilities_grouped = flagged_data.groupby("EXTERNAL_PERMIT_NMBR")
+
+    print(f"Generating plots for {len(facilities_grouped)} facilities")
+
+    for npdes_code, facility_data in facilities_grouped:
+        # Group by parameter description
+        param_groups = facility_data.groupby("PARAMETER_DESC")
+
+        for param_desc, param_data in param_groups:
+            _step3_facility_param_plot(
+                npdes_code,
+                param_desc,
+                param_data,
+                legend_elements,
+                histogram_legend_elements,
+            )
+
+    df = pd.DataFrame(
+        list(flagged_param_counts.items()),
+        columns=["Facility", "Parameters"],
+    ).sort_values("Parameters", ascending=True)
+
+    plot_barh(
+        df,
+        x_col="Parameters",
+        y_col="Facility",
+        xlabel="Number of Parameters with Slope and Near-Exceedance",
+        title="Facilities with Exceedances",
+        path="figures_py/facilities_summary.png",
+        step=3,
+    )
 
 
 def process_facility_group(args):
     """Process a single facility-parameter group in parallel."""
-    (
-        NPDES_code,
-        parameter_code,
-        STANDARD_UNIT_DESC,
-        MONITORING_LOCATION_CODE,
-    ), group = args
+    key_tuple, group = args
 
     # Convert data types and handle missing values
-    dates = pd.to_numeric(
-        group["MONITORING_PERIOD_END_DATE_NUMERIC"], errors="coerce"
-    )
+    dates = pd.to_numeric(group["MONITORING_PERIOD_END_DATE_NUMERIC"], errors="coerce")
     values = pd.to_numeric(group["DMR_VALUE_STANDARD_UNITS"], errors="coerce")
 
     # Remove NaN values and ensure unique x values
@@ -207,289 +239,114 @@ def process_facility_group(args):
 
     # Get unique x values and their corresponding y means
     unique_dates = np.unique(dates)
-    if len(unique_dates) < 3:  # Need at least 3 unique points for trend
+    if len(unique_dates) < 3:  # At least 3 unique points for trend
         return None
 
-    unique_values = [np.mean(values[dates == d]) for d in unique_dates]
+    unique_vals = [np.mean(values[dates == d]) for d in unique_dates]
 
-    # Calculate outliers using robust statistics
-    Q1, Q3 = np.percentile(values, [25, 75])
-    IQR = Q3 - Q1
-    lower_fence = Q1 - 1.5 * IQR
-    upper_fence = Q3 + 1.5 * IQR
-    outlier_mask = (values < lower_fence) | (values > upper_fence)
-    value_mask = ~outlier_mask
+    # Calculate quartiles
+    Q1_percentile, Q3_percentile = np.percentile(values, [25, 75])
 
-    # Center and scale the data
-    dates_norm = (unique_dates - np.mean(unique_dates)) / np.std(unique_dates)
-    std_val = np.std(unique_values)
-    values_norm = (
-        (unique_values - np.mean(unique_values)) / std_val
-        if std_val != 0
-        else unique_values
-    )
+    # Center and scale the data, then get linear regression
+    dates_norm = (unique_dates - unique_dates.mean()) / unique_dates.std()
+    vals_mean, vals_std = np.mean(unique_vals), np.std(unique_vals)
+    values_norm = (unique_vals - vals_mean) / vals_std if vals_std != 0 else unique_vals
+    slope, _, r_value, p_value, _ = stats.linregress(dates_norm, values_norm)
 
-    slope, intercept, r_value, p_value, std_err = stats.linregress(
-        dates_norm, values_norm
-    )
+    # Convert slope back to original scale and reset if poor fit
+    if r_value**2 < 0.1 or p_value > 0.05:
+        slope = 0
 
-    # Convert slope back to original scale
-    std_dates = np.std(unique_dates)
-    slope = slope * (std_val / std_dates) if std_dates != 0 else 0
-
-    # If the fit is poor or not significant, set slope to 0
-    slope, intercept = (
-        (0, 0) if r_value**2 < 0.1 or p_value > 0.05 else (slope, intercept)
-    )
-
-    # Get the most recent limit value safely
-    limits = pd.to_numeric(
-        group["LIMIT_VALUE_STANDARD_UNITS"], errors="coerce"
-    )
+    # Get the most recent limit value
+    limits = pd.to_numeric(group["LIMIT_VALUE_STANDARD_UNITS"], errors="coerce")
     latest_limit = limits.iloc[-1] if not limits.empty else np.nan
 
-    # Create result dictionary
-    key = (STANDARD_UNIT_DESC, MONITORING_LOCATION_CODE)
-    result_dict = {
-        "slope": slope,
-        "intercept": intercept,
-        "limits": limits.values,
-        "qualifiers": group["LIMIT_VALUE_QUALIFIER_CODE"].values,
-        "dates": dates,
-        "values": values,
-        "datetimes": pd.to_datetime(
-            group["MONITORING_PERIOD_END_DATE"]
-        ).values,
-        "frequency_code": group["LIMIT_FREQ_OF_ANALYSIS_CODE"].values,
-        "outlier_mask": outlier_mask,
-        "value_mask": value_mask,
-        "mean": values[value_mask].mean() if any(value_mask) else np.nan,
-        "Q1": Q1,
-        "Q3": Q3,
-        "limit_value_type_codes": group["LIMIT_VALUE_TYPE_CODE"].values,
-        "limit_set_schedule_ids": group["LIMIT_SET_SCHEDULE_ID"].values,
+    return {
+        "slope": slope * (vals_std / unique_dates.std()),
         "latest_limit": latest_limit,
-        "r_squared": r_value**2 if "r_value" in locals() else 0,
-        "p_value": p_value if "p_value" in locals() else 1,
+        "qualifier": group["LIMIT_VALUE_QUALIFIER_CODE"].values[0],
+        "Q1": Q1_percentile,
+        "Q3": Q3_percentile,
+        "LIMIT_VALUE_TYPE_CODE": group["LIMIT_VALUE_TYPE_CODE"].values[0],
+        "LIMIT_SET_SCHEDULE_ID": group["LIMIT_SET_SCHEDULE_ID"].values[0],
+        **{col: val for col, val in zip(GROUP_COLS, key_tuple)},
     }
 
-    return (NPDES_code, parameter_code, key, result_dict)
 
+def main(save=False, drop_toxicity=False):
+    # Load unique parameter codes from step1 output
+    unique_param_codes = pd.read_csv(f"{STEP_DIRS[1]}/dmr_esmr_mapping_py.csv")[
+        "PARAMETER_CODE"
+    ].unique()
 
-def read_all_dmrs(save=False, drop_toxicity=False):
-    """Optimized data loading."""
-    # Specify dtypes for faster loading
-    dtypes = {
-        "EXTERNAL_PERMIT_NMBR": str,
-        "PARAMETER_CODE": str,
-        "STANDARD_UNIT_DESC": str,
-        "MONITORING_LOCATION_CODE": str,
-        "DMR_VALUE_STANDARD_UNITS": float,
-        "LIMIT_VALUE_STANDARD_UNITS": float,
-        "LIMIT_VALUE_QUALIFIER_CODE": str,
-        "LIMIT_VALUE_TYPE_CODE": str,
-        "LIMIT_SET_SCHEDULE_ID": str,
-        "LIMIT_FREQ_OF_ANALYSIS_CODE": str,
-    }
+    # Load and filter DMR data
+    data_dict = {}
+
+    for year in analysis_range:
+        data = load_data("DMR", year=year, drop_toxicity=drop_toxicity)
+        data_dict[year] = data
 
     if save:
-        data_dict = {}
-        for year in analysis_range:
-            # Only read needed columns
-            file = (
-                f"data/dmrs/CA_FY{year}_NPDES_DMRS_LIMITS/"
-                f"CA_FY{year}_NPDES_DMRS.csv"
-            )
-            data = pd.read_csv(
-                file,
-                usecols=columns_to_keep_dmr,
-                dtype=dtypes,
-                parse_dates=["MONITORING_PERIOD_END_DATE"],
-            )
+        # Concatenate all years and save as CSV
+        all_data = pd.concat(data_dict.values(), ignore_index=True)
+        filename = f"processed_data/step3/{"DMR".lower()}_all_years_py.csv"
+        all_data.to_csv(filename, index=False)
+        print(f"Saved {len(all_data)} records from {len(data_dict)} years")
 
-            # Add numeric date column for trend analysis
-            data["MONITORING_PERIOD_END_DATE_NUMERIC"] = (
-                data["MONITORING_PERIOD_END_DATE"].dt.year
-                + data["MONITORING_PERIOD_END_DATE"].dt.month / 12
-                + data["MONITORING_PERIOD_END_DATE"].dt.day / 365
-            )
-
-            # Filter data
-            data = data[
-                data["MONITORING_LOCATION_CODE"].isin(
-                    ["1", "2", "EG", "Y", "K"]
-                )
-            ]
-            data = data[
-                data["EXTERNAL_PERMIT_NMBR"].isin(npdes_from_facilities_list)
-            ]
-
-            if drop_toxicity:
-                data = data[
-                    ~data["PARAMETER_DESC"].str.contains("Toxicity", na=False)
-                ]
-
-            data_dict[year] = data
-            logger.info(
-                f"{year}: {len(data)} records, "
-                f"{data['EXTERNAL_PERMIT_NMBR'].nunique()} facilities"
-            )
-
-        # Save to pickle
-        with open("processed_data/step3/data_dict.pkl", "wb") as f:
-            pickle.dump(data_dict, f)
-    else:
-        # Load from pickle
-        with open("processed_data/step3/data_dict.pkl", "rb") as f:
-            data_dict = pickle.load(f)
-        logger.info(
-            f"Loaded data for {min(data_dict.keys())}-{max(data_dict.keys())}"
-        )
-
-    return data_dict
-
-
-def main(generate_plots=True):
-    # Load reference data
-    logger.info("Loading reference data...")
-    ref_frequency = pd.read_csv("data/dmrs/REF_FREQUENCY_OF_ANALYSIS.csv")
-    ref_parameter = pd.read_csv("data/dmrs/REF_PARAMETER.csv")
-
-    # Load unique parameter codes from step1 output
-    logger.info("Loading unique parameter codes...")
-    unique_parameter_codes = pd.read_csv(
-        "processed_data/step1/dmr_esmr_mapping.csv"
-    )["PARAMETER_CODE"].unique()
-
-    # Load data - first time with save=True
-    logger.info("Loading and processing DMR data...")
-    try:
-        data_dict = read_all_dmrs(save=False)
-    except FileNotFoundError:
-        logger.info("No saved data found. Processing raw data files...")
-        data_dict = read_all_dmrs(save=True)
-
-    # current_year = max(data_dict.keys())
-
-    # Load or generate facility_param_dict
-    regenerate = True  # Set to False to load from pickle
-
-    if regenerate:
-        logger.info("Generating facility parameter dictionary...")
-        facility_param_dict = {}
-
-        # Pre-filter and group data once
-        filtered_data = pd.concat(
-            [
-                data_dict[year][
-                    data_dict[year]["PARAMETER_CODE"].isin(
-                        unique_parameter_codes
-                    )
-                ]
-                for year in analysis_range
-            ]
-        )
-
-        # Group by facility and parameter
-        grouped_data = filtered_data.groupby(
-            [
-                "EXTERNAL_PERMIT_NMBR",
-                "PARAMETER_CODE",
-                "STANDARD_UNIT_DESC",
-                "MONITORING_LOCATION_CODE",
-            ]
-        )
-
-        # Parallel processing
-        with Pool(processes=cpu_count() - 1) as pool:
-            results = pool.map(process_facility_group, grouped_data)
-
-        # Reconstruct facility_param_dict from results
-        facility_param_dict = {}
-        for result in results:
-            if result is not None:
-                NPDES_code, parameter_code, key, result_dict = result
-                if NPDES_code not in facility_param_dict:
-                    facility_param_dict[NPDES_code] = {}
-                if parameter_code not in facility_param_dict[NPDES_code]:
-                    facility_param_dict[NPDES_code][parameter_code] = {}
-                facility_param_dict[NPDES_code][parameter_code][
-                    key
-                ] = result_dict
-
-        # Save facility_param_dict
-        with open("processed_data/step3/facility_param_dict.pkl", "wb") as f:
-            pickle.dump(facility_param_dict, f)
-    else:
-        # Load existing facility_param_dict
-        logger.info("Loading facility parameter dictionary from pickle...")
-        with open("processed_data/step3/facility_param_dict.pkl", "rb") as f:
-            facility_param_dict = pickle.load(f)
-
-    # Continue with the rest of the analysis...
-    slope_threshold = 0.05
-    limit_threshold = 0.1
-    facilities_slope_near_exceedence = get_slope_near_exceedance_facilities(
-        facility_param_dict,
-        slope_threshold,
-        limit_threshold,
-        print_counts=True,
+    filtered_data = pd.concat(
+        data_dict[y][data_dict[y]["PARAMETER_CODE"].isin(unique_param_codes)]
+        for y in analysis_range
     )
+    grouped_data = filtered_data.groupby(GROUP_COLS)
 
-    # Create DataFrame of results
-    facilities_slope_near_exceedence_df = pd.DataFrame(
-        facilities_slope_near_exceedence,
-        columns=[
-            "NPDES_CODE",
-            "PARAMETER_CODE",
-            "STANDARD_UNIT_DESC",
-            "LIMIT_SET_SCHEDULE_ID",
-            "LIMIT_VALUE_TYPE_CODE",
-            "MONITORING_LOCATION_CODE",
-        ],
-    )
+    # Parallel processing
+    with Pool(processes=cpu_count() - 1) as pool:
+        results = pool.map(process_facility_group, grouped_data)
+
+    # Create DataFrame of results (filter out None results)
+    facility_records = [r for r in results if r is not None]
+    flagged_facilities = get_flagged_facilities(facility_records)
+    flagged_facilities_df = pd.DataFrame(flagged_facilities)
 
     # Count parameters per facility
-    num_parameters_per_facility = {}
-    for (
-        facility,
-        parameter_code,
-        *_,
-    ) in facilities_slope_near_exceedence:
-        num_parameters_per_facility.setdefault(facility, set()).add(
-            parameter_code
-        )
-    num_parameters_per_facility = {
-        f: len(p) for f, p in num_parameters_per_facility.items()
-    }
+    param_counts = {}
+    for rec in flagged_facilities:
+        facility = rec["EXTERNAL_PERMIT_NMBR"]
+        param = rec["PARAMETER_CODE"]
+        param_counts.setdefault(facility, set()).add(param)
+    flagged_param_counts = {f: len(s) for f, s in param_counts.items()}
+
+    # Merge flagged facilities with actual data for plotting
+    flagged_data = filtered_data.merge(
+        flagged_facilities_df, on=GROUP_COLS, how="inner"
+    )
 
     # Create facilities visualization
-    if generate_plots:
-        plot_facilities_map(
-            num_parameters_per_facility,
-            "Number of Parameters\nwith Slope and\nNear-Exceedance",
-            4,
-        )
-        plot_facilities_summary(num_parameters_per_facility)
+    plot_map(flagged_param_counts, 4)
+    step3_plotting(flagged_data, flagged_param_counts)
 
-    # Generate other visualizations
-    generate_visualizations(
-        facilities_slope_near_exceedence_df,
-        facility_param_dict,
-        ref_parameter,
-        ref_frequency,
-        generate_plots,
+    # Save detailed results (only selected columns)
+    flagged_facilities_df[
+        [
+            "EXTERNAL_PERMIT_NMBR",
+            "PARAMETER_CODE",
+            "slope",
+            "latest_limit",
+            "qualifier",
+            "Q1",
+            "Q3",
+        ]
+    ].to_csv(f"{STEP_DIRS[3]}/flagged_facilities_py.csv", index=False)
+
+    # Save aggregated results
+    aggregated_df = aggregate_flagged_params(
+        flagged_facilities_df,
+        "EXTERNAL_PERMIT_NMBR",
+        "PARAMETER_CODE",
+        AGG_STRINGS["3"],
     )
-
-    # Analyze different thresholds
-    # threshold_results = analyze_thresholds(facility_param_dict)
-
-    # Save results
-    facilities_slope_near_exceedence_df.to_csv(
-        "processed_data/step3/facilities_slope_near_exceedence.csv",
-        index=False,
-    )
+    aggregated_df.to_csv(f"{STEP_DIRS[3]}/flagged_facilities_step3_py.csv", index=False)
 
 
 if __name__ == "__main__":
-    main(generate_plots=True)
+    main()
