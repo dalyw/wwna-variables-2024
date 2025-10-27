@@ -15,7 +15,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install .[test]
+        pip install .[dev]
     - name: Test with pytest
       run: |
         pytest wwna_variables_2024/tests/
@@ -31,7 +31,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install .[test]
+        pip install .[dev]
     - name: Lint with flake8
       run: |
         flake8 wwna_variables_2024 --count --verbose --show-source --statistics --max-line-length=88

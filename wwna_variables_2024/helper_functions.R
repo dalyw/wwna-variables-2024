@@ -310,7 +310,7 @@ plot_map <- function(num_params_per_facility, label_threshold, step = 3) {
   names(facilities_df) <- "NPDES # CA#"
   
   facilities_df <- facilities_df %>%
-    left_join(WWNA_LIST, by = "NPDES # CA#")
+    left_join(WWNA_LIST, by = "NPDES # CA#", relationship = "many-to-many")
   
   # Filter out facilities with missing coordinates
   facilities_df <- facilities_df %>%
