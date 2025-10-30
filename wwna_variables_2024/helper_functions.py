@@ -3,20 +3,27 @@ import json
 from pathlib import Path
 import matplotlib.pyplot as plt
 import geopandas as gpd
+import multiprocessing
+
+# Load analysis configuration
+with open("wwna_variables_2024/analysis_config.json", "r") as f:
+    ANALYSIS_CONFIG = json.load(f)
 
 # IMPORT DMR AND ESMR DATA
-analysis_range = range(2014, 2024)
+year_range_config = ANALYSIS_CONFIG["year_range"]
+analysis_range = range(year_range_config[0], year_range_config[1] + 1)
 save = False
 load = True
 DEFAULT_CMAP = "viridis"
 
 # WWNA FACILITY LIST
-WWNA_LIST_PATH = "data/wwna_list/NPDES+WDR Facilities List_20240906.csv"
+WWNA_LIST_PATH = ANALYSIS_CONFIG["wwna_list_path"]
 WWNA_LIST = pd.read_csv(WWNA_LIST_PATH)
 NPDES_FROM_WWNA_LIST = (
     WWNA_LIST[WWNA_LIST["NPDES # CA#"].notna()]["NPDES # CA#"].unique().tolist()
 )
-print(f"{len(NPDES_FROM_WWNA_LIST)} of {len(WWNA_LIST)} WWNA facilities have NPDES")
+if multiprocessing.current_process().name == "MainProcess":
+    print(f"{len(NPDES_FROM_WWNA_LIST)} of {len(WWNA_LIST)} WWNA facilities have NPDES")
 
 # Column name constants for aggregated results
 AGG_STRINGS = {
@@ -35,22 +42,6 @@ for step in ["3", "4"]:
         agg_columns.append(AGG_STRINGS[step][key])
 
 
-# Data download configuration
-ESMR_RESOURCE_IDS = {
-    2014: "c0f64b3f-d921-4eb9-aa95-af1827e5033e",
-    2015: "81c399d4-f661-4808-8e6b-8e543281f1c9",
-    2016: "aacfe728-f063-452c-9dca-63482cc994ad",
-    2017: "44d1f39c-f21b-4060-8225-c175eaea129d",
-    2018: "bb3b3d85-44eb-4813-bbf9-ea3a0e623bb7",
-    2019: "2eaa2d55-9024-431e-b902-9676db949174",
-    2020: "4fa56f3f-7dca-4dbd-bec4-fe53d5823905",
-    2021: "28d3a164-7cec-4baf-9b11-7a9322544cd6",
-    2022: "8c6296f7-e226-42b7-9605-235cd33cdee2",
-    2023: "65eb7023-86b6-4960-b714-5f6574d43556",
-    2024: "7adb8aea-62fb-412f-9e67-d13b0729222f",
-    2025: "176a58bf-6f5d-4e3f-9ed9-592a509870eb",
-}
-
 # Path constants for processed data directories
 STEP_DIRS = {}
 for i in range(4):
@@ -67,6 +58,9 @@ SCRIPTS = [
 
 with open("wwna_variables_2024/file_configs.json", "r") as f:
     FILE_CONFIGS = json.load(f)
+
+# Data download configuration
+ESMR_RESOURCE_IDS = {int(k): v for k, v in FILE_CONFIGS["ESMR"]["year_config"].items()}
 
 # Convert dtype strings to Python types
 dtype_map = {"str": str, "float": float, "int": int, "bool": bool}
@@ -234,20 +228,19 @@ def setup_fig(figsize=(10, 6)):
     return fig, ax
 
 
-def save_fig(path, step=None):
+def save_fig(path, step):
     """Save figure and close it."""
-    full_path = f"processed_data/step{step}/{path}" if step else path
+    full_path = f"processed_data/step{step}/figures_py/{path}"
     plt.tight_layout()
     plt.savefig(full_path, bbox_inches="tight")
     plt.close()
 
 
-def plot_barh(data, x_col, y_col, xlabel, title, figsize=(12, 6), path=None, step=None):
+def plot_barh(data, x_col, y_col, xlabel, figsize=(12, 6), path=None, step=None):
     """Create a horizontal bar chart with labels."""
     fig, ax = setup_fig(figsize=figsize)
     bars = ax.barh(data[y_col], data[x_col])
     ax.set_xlabel(xlabel)
-    ax.set_title(title)
 
     # Add labels to bars (inline instead of separate function)
     fmt_kwargs = {"ha": "left", "va": "center", "fontsize": 8}
@@ -270,6 +263,8 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
         label_threshold: Threshold for labeling facilities
         step: Step number for saving the plot
     """
+    source_crs = "EPSG:3857"
+    target_crs = "EPSG:3310"
     ca_counties = gpd.read_file("data/ca_counties/CA_Counties.shp")
 
     # Create DataFrame with facility IDs and merge
@@ -286,10 +281,9 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
         crs="EPSG:4326",
     )
 
-    # Counties are in EPSG:3857 (Web Mercator)
-    ca_counties_3857 = ca_counties.set_crs("EPSG:3857", allow_override=True)
-    target_crs = "EPSG:3310"  # NAD83 California Albers
-    ca_counties_proj = ca_counties_3857.to_crs(target_crs)
+    # Counties are in source CRS, transform to target CRS
+    ca_counties_source = ca_counties.set_crs(source_crs, allow_override=True)
+    ca_counties_proj = ca_counties_source.to_crs(target_crs)
 
     # Convert facilities to projected CRS for plotting
     facilities_gdf_proj = facilities_gdf.to_crs(target_crs)
@@ -297,7 +291,11 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
     # Create plot
     fig, ax = setup_fig(figsize=(8, 5))
     ca_counties_proj.plot(
-        ax=ax, color="lightgray", zorder=1, edgecolor="white", linewidth=0.5
+        ax=ax,
+        color="lightgray",
+        zorder=1,
+        edgecolor="white",
+        linewidth=0.5,
     )
     facilities_gdf_proj["param_count"] = facilities_gdf_proj["NPDES # CA#"].map(
         num_params_per_facility
@@ -315,7 +313,11 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
     cmap = plt.cm.get_cmap(DEFAULT_CMAP)
 
     facilities_gdf_proj.plot(
-        ax=ax, column="param_count", cmap=cmap, norm=norm, markersize=10, zorder=2
+        ax=ax,
+        column="param_count",
+        cmap=cmap,
+        norm=norm,
+        zorder=2,
     )
 
     # Add facility labels
@@ -367,7 +369,6 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
             color="w",
             label=str(int(value)),
             markerfacecolor=cmap(norm(value)),
-            markersize=10,
         )
         for value in unique_params
     ]
@@ -379,4 +380,4 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
     )
 
     ax.set_xlabel(""), ax.set_ylabel(""), ax.set_xticks([]), ax.set_yticks([])
-    save_fig("figures_py/facilities_map.png", step)
+    save_fig("facilities_map.png", step)

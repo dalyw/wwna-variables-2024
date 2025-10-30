@@ -12,11 +12,14 @@ library(sf)
 library(raster)
 library(viridis)
 
-# Analysis configuration
-analysis_range <- 2014:2023
+# Load analysis configuration
+ANALYSIS_CONFIG <- jsonlite::fromJSON('wwna_variables_2024/analysis_config.json', simplifyVector = FALSE)
+year_range_config <- ANALYSIS_CONFIG$year_range
+analysis_range <- seq(as.numeric(year_range_config[[1]]), as.numeric(year_range_config[[2]]))
 
 # Import WWNA facilities list
-WWNA_LIST <- suppressMessages(read_csv('data/wwna_list/NPDES+WDR Facilities List_20240906.csv'))
+WWNA_LIST_PATH <- ANALYSIS_CONFIG$wwna_list_path
+WWNA_LIST <- suppressMessages(read_csv(WWNA_LIST_PATH))
 NPDES_FROM_WWNA_LIST <- WWNA_LIST %>%
   filter(!is.na(`NPDES # CA#`)) %>%
   pull(`NPDES # CA#`) %>%
@@ -46,20 +49,7 @@ STEP_DIRS <- c(
 FILE_CONFIGS <- jsonlite::fromJSON('wwna_variables_2024/file_configs.json', simplifyVector = FALSE)
 
 # ESMR Resource IDs
-ESMR_RESOURCE_IDS <- c(
-  "2014" = "c0f64b3f-d921-4eb9-aa95-af1827e5033e",
-  "2015" = "81c399d4-f661-4808-8e6b-8e543281f1c9",
-  "2016" = "aacfe728-f063-452c-9dca-63482cc994ad",
-  "2017" = "44d1f39c-f21b-4060-8225-c175eaea129d",
-  "2018" = "bb3b3d85-44eb-4813-bbf9-ea3a0e623bb7",
-  "2019" = "2eaa2d55-9024-431e-b902-9676db949174",
-  "2020" = "4fa56f3f-7dca-4dbd-bec4-fe53d5823905",
-  "2021" = "28d3a164-7cec-4baf-9b11-7a9322544cd6",
-  "2022" = "8c6296f7-e226-42b7-9605-235cd33cdee2",
-  "2023" = "65eb7023-86b6-4960-b714-5f6574d43556",
-  "2024" = "7adb8aea-62fb-412f-9e67-d13b0729222f",
-  "2025" = "176a58bf-6f5d-4e3f-9ed9-592a509870eb"
-)
+ESMR_RESOURCE_IDS <- FILE_CONFIGS$ESMR$year_config
 
 get_data_file_path <- function(data_type, year = NULL) {
   config <- FILE_CONFIGS[[data_type]]
@@ -95,6 +85,11 @@ load_data <- function(data_type, year = NULL, drop_toxicity = FALSE) {
   suppressMessages({
     data <- read_csv(file_path, skip = skiprows, show_col_types = FALSE)
   })
+
+  # Convert RNC_RESOLUTION_CODE to character to handle 'B' values
+  if ("RNC_RESOLUTION_CODE" %in% names(data)) {
+    data$RNC_RESOLUTION_CODE <- as.character(data$RNC_RESOLUTION_CODE)
+  }
   
   # Drop NA on specified columns
   if (!is.null(config$dropna)) {
@@ -204,23 +199,22 @@ load_data <- function(data_type, year = NULL, drop_toxicity = FALSE) {
   
   # Apply DMR-specific transformations
   if (data_type == "DMR") {
-    if (drop_toxicity && "PARAMETER_DESC" %in% names(data)) {
+    # PARAMETER_DESC and MONITORING_PERIOD_END_DATE are guaranteed for DMR (from file_configs)
+    if (drop_toxicity) {
       data <- data %>% filter(!str_detect(PARAMETER_DESC, "Toxicity"))
     }
     
-    if ("MONITORING_PERIOD_END_DATE" %in% names(data)) {
-      data <- data %>%
-        mutate(
-          MONITORING_PERIOD_END_DATE = parse_date_time(MONITORING_PERIOD_END_DATE, 
-                                                        orders = c("mdy", "ymd", "dmy"),
-                                                        quiet = TRUE),
-          MONITORING_PERIOD_END_DATE_NUMERIC = ifelse(
-            !is.na(MONITORING_PERIOD_END_DATE),
-            year(MONITORING_PERIOD_END_DATE) + month(MONITORING_PERIOD_END_DATE) / 12 + day(MONITORING_PERIOD_END_DATE) / 365,
-            NA_real_
-          )
+    data <- data %>%
+      mutate(
+        MONITORING_PERIOD_END_DATE = parse_date_time(MONITORING_PERIOD_END_DATE, 
+                                                      orders = c("mdy", "ymd", "dmy"),
+                                                      quiet = TRUE),
+        MONITORING_PERIOD_END_DATE_NUMERIC = ifelse(
+          !is.na(MONITORING_PERIOD_END_DATE),
+          year(MONITORING_PERIOD_END_DATE) + month(MONITORING_PERIOD_END_DATE) / 12 + day(MONITORING_PERIOD_END_DATE) / 365,
+          NA_real_
         )
-    }
+      )
     
     cat(sprintf('%d %s: %d records, %d facilities\n', 
                 year, data_type, nrow(data), n_distinct(data$EXTERNAL_PERMIT_NMBR)))
@@ -267,26 +261,65 @@ setup_fig <- function(figsize = c(10, 6)) {
   list(width = figsize[1], height = figsize[2])
 }
 
-save_fig <- function(path, step = NULL) {
-  full_path <- if (!is.null(step)) {
-    file.path(STEP_DIRS[[as.character(step)]], path)
-  } else {
-    path
+save_fig <- function(path, step, plot_obj = NULL, width = 10, height = 6, res = 150) {
+  full_path <- file.path(STEP_DIRS[[as.character(step)]], "figures_R", path)
+  
+  # Save ggplot objects
+  if (!is.null(plot_obj)) {
+    ggsave(full_path, plot_obj, width = width, height = height, units = "in", dpi = res)
   }
   
-  # Create directory if it doesn't exist
-  dir.create(dirname(full_path), recursive = TRUE, showWarnings = FALSE)
-  
-  ggsave(full_path, width = 10, height = 6, units = "in")
+  return(full_path)
 }
 
-plot_barh <- function(data, x_col, y_col, xlabel, title, figsize = c(12, 6), path = NULL, step = NULL) {
-  # Create bar plot
-  p <- ggplot(data, aes_string(x = x_col, y = y_col)) +
-    geom_barh(stat = "identity") +
-    xlab(xlabel) +
-    ggtitle(title) +
+plot_barh <- function(data, x_col, y_col, xlabel, figsize = c(12, 6), path = NULL, step = NULL, ylabel = NULL) {
+  # Ensure data is a clean data frame
+  if (!is.data.frame(data)) {
+    data <- as.data.frame(data, stringsAsFactors = FALSE)
+  }
+  
+  # Verify columns exist
+  if (!x_col %in% names(data) || !y_col %in% names(data)) {
+    return(NULL)
+  }
+  
+  # Ensure x_col is numeric (the values/width of bars)
+  if (!is.numeric(data[[x_col]])) {
+    data[[x_col]] <- as.numeric(as.character(data[[x_col]]))
+  }
+  
+  # Ensure y_col (Facility) is treated as factor for proper ordering
+  # For horizontal bars, y_col should be discrete (factor)
+  if (!is.factor(data[[y_col]])) {
+    # Preserve order by converting to factor with current order
+    data[[y_col]] <- factor(data[[y_col]], levels = rev(unique(data[[y_col]])))
+  }
+  
+  # Create horizontal bar chart
+  # discrete categories on y-axis, numeric values on x-axis  
+  data_clean <- data.frame(
+    y_axis = factor(data[[y_col]], levels = unique(data[[y_col]])),  # Discrete categories
+    x_axis = as.numeric(as.character(data[[x_col]])),  # Numeric values
+    stringsAsFactors = FALSE
+  )
+  
+  p <- ggplot(data_clean, aes(x = y_axis, y = x_axis)) +
+    geom_col() +
+    coord_flip() +
+    xlab(ifelse(is.null(ylabel), "", ylabel)) +
+    ylab(xlabel) +
     theme_minimal()
+  
+  # Add labels to bars - after coord_flip, categories are on horizontal axis
+  for (i in 1:nrow(data_clean)) {
+    bar_height <- data_clean$x_axis[i]  # The numeric value (bar width/height)
+    category_level <- data_clean$y_axis[i]  # The category/factor level
+    p <- p + annotate("text", 
+                     x = category_level,  # The category (on horizontal axis after flip)
+                     y = bar_height,      # At the end of the bar
+                     label = as.character(bar_height), 
+                     hjust = -0.1, vjust = 0.5, size = 2.5)
+  }
   
   if (!is.null(path)) {
     save_fig(path, step)
@@ -296,15 +329,20 @@ plot_barh <- function(data, x_col, y_col, xlabel, title, figsize = c(12, 6), pat
 }
 
 plot_map <- function(num_params_per_facility, label_threshold, step = 3) {
-  ca_counties <- st_read('data/ca_counties/CA_Counties.shp')
+  source_crs <- "EPSG:3857"
+  target_crs <- st_crs(3310)  # EPSG:3310 (NAD83 California Albers)
+  ca_counties <- st_read("data/ca_counties/CA_Counties.shp")
   
-  # Set CRS
+  # Counties are in source CRS - set if not already set
+  source_crs_num <- 3857
   if (is.na(st_crs(ca_counties))) {
-    st_crs(ca_counties) <- st_crs(4326)
+    st_crs(ca_counties) <- st_crs(source_crs_num)
   }
   
+  # Transform counties to target CRS
+  ca_counties_proj <- st_transform(ca_counties, target_crs)
+  
   # Create DataFrame with facility IDs and merge
-  # Create column with proper name
   facility_ids <- names(num_params_per_facility)
   facilities_df <- data.frame(facility_ids, stringsAsFactors = FALSE)
   names(facilities_df) <- "NPDES # CA#"
@@ -316,18 +354,18 @@ plot_map <- function(num_params_per_facility, label_threshold, step = 3) {
   facilities_df <- facilities_df %>%
     filter(!is.na(`LONGITUDE DECIMAL DEGREES`) & !is.na(`LATITUDE DECIMAL DEGREES`))
   
+  # Create facilities GDF from lat/lon (EPSG:4326)
   facilities_gdf <- st_as_sf(
     facilities_df,
     coords = c("LONGITUDE DECIMAL DEGREES", "LATITUDE DECIMAL DEGREES"),
     crs = 4326
   )
   
-  # Reproject if needed
-  ca_counties <- st_transform(ca_counties, st_crs(4326))
-  facilities_gdf <- st_transform(facilities_gdf, st_crs(4326))
+  # Transform facilities to target CRS for plotting
+  facilities_gdf_proj <- st_transform(facilities_gdf, target_crs)
   
   # Map param counts
-  facilities_gdf$param_count <- sapply(facilities_gdf$`NPDES # CA#`, 
+  facilities_gdf_proj$param_count <- sapply(facilities_gdf_proj$`NPDES # CA#`, 
     function(x) {
       x_char <- as.character(x)
       if (x_char %in% names(num_params_per_facility)) {
@@ -338,14 +376,28 @@ plot_map <- function(num_params_per_facility, label_threshold, step = 3) {
     }
   )
   
-  ggplot() +
-    geom_sf(data = ca_counties, fill = "lightgray", color = "white") +
-    geom_sf(data = facilities_gdf, aes(color = param_count, size = param_count)) +
-    scale_color_viridis_c() +
-    theme_minimal() +
-    labs(title = "Facilities with Parameters Having Slope and Near Exceedance",
-         color = "Number of Parameters",
-         size = "Number of Parameters")
+  # Get bounds for axis limits
+  county_bounds <- st_bbox(ca_counties_proj)
   
-  save_fig("figures_R/facilities_map.png", step)
+  # Create plot
+  p <- ggplot() +
+    geom_sf(data = ca_counties_proj, fill = "lightgray", 
+            color = "white", linewidth = 0.5) +
+    geom_sf(data = facilities_gdf_proj, aes(color = param_count, size = param_count), 
+            inherit.aes = FALSE) +
+    scale_color_viridis_c(name = "# Parameters Flagged") +
+    scale_size_continuous(name = "# Parameters Flagged", guide = "none") +
+    coord_sf(xlim = c(county_bounds[["xmin"]], county_bounds[["xmax"]]),
+             ylim = c(county_bounds[["ymin"]], county_bounds[["ymax"]]),
+             expand = FALSE) +
+    theme_minimal() +
+    theme(axis.title = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          panel.grid = element_blank()) +
+    labs(title = "# Parameters Flagged")
+  
+  # Save plot
+  save_fig("facilities_map.png", step = step, plot_obj = p, 
+         width = 8, height = 5)
 }

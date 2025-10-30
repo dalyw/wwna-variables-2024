@@ -23,7 +23,7 @@ main()
 cat("\n Step 2 complete\n\n")
 
 # Step 3: Near Exceedance Analysis
-source('wwna_variables_2024/step3_near_exceedence.R')
+source('wwna_variables_2024/step3_near_exceedance.R')
 main()
 cat("\n Step 3 complete\n\n")
 
@@ -43,11 +43,6 @@ cat(sprintf("Original WWNA_LIST length: %d\n", nrow(WWNA_LIST_FINAL)))
 population <- suppressMessages(read_csv(file.path(STEP_DIRS[["2"]], "merged_population_data_R.csv")))
 exceedance <- suppressMessages(read_csv(file.path(STEP_DIRS[["3"]], "flagged_facilities_step3_R.csv")))
 future_limits <- suppressMessages(read_csv(file.path(STEP_DIRS[["4"]], "flagged_facilities_step4_R.csv")))
-
-# Deduplicate population data before merging (some facilities have multiple CWNS records)
-population <- population %>% 
-  distinct(PERMIT_NUMBER, .keep_all = TRUE)
-cat(sprintf("After deduplication: %d rows\n", nrow(population)))
 
 # Merge population data
 WWNA_LIST_FINAL <- WWNA_LIST_FINAL %>%
@@ -98,5 +93,5 @@ if (initial_count > nrow(WWNA_LIST_FINAL)) {
 }
 
 # Save the final merged list
-write_csv(WWNA_LIST_FINAL, "processed_data/WWNA_LIST_FINAL_updated_R.csv")
+write_csv(WWNA_LIST_FINAL, "processed_data/WWNA_LIST_updated_R.csv")
 cat("Saved updated facilities list\n")

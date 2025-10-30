@@ -214,6 +214,7 @@ Chlordane (sediment),Toxic Organics,Toxic Organics
 Propanil (DCPA mono- and di-acid degrad),Toxic Organics,Toxic Organics
 Aldicarb,Toxic Organics,Toxic Organics
 "Tritium, total",Other,Radiation
+"Manganese, total recoverable",Metals,Manganese
 "Radium 226 + radium 228, total",Other,Radiation
 Methyl tert-butyl ether [MTBE],Toxic Organics,Toxic Organics
 Polynuclear Aromatic Hydrocarbons [PAHs],Toxic Organics,Toxic Organics
@@ -234,14 +235,17 @@ Oil and grease,Other,Fuel
 "2-Methyl-4,6-dinitrophenol",Toxic Organics,Toxic Organics
 Tributyltin,Metals,Tin
 Polychlorinated biphenyls [PCBs],Inorganics,Disinfectants
+Hexachlorobenzene,Toxic Organics,Toxic Organics
 Di[2-ethylhexyl] phthalate [DEHP],Toxic Organics,Toxic Organics
 Di-n-butyl phthalate,Toxic Organics,Toxic Organics
 Phthalate esters,Toxic Organics,Toxic Organics
-"4,4'-DDT",Toxic Organics,Toxic Organics
-"4,4'-DDD",Toxic Organics,Toxic Organics
-"4,4'-DDE",Toxic Organics,Toxic Organics
+Benzidine,Toxic Organics,Toxic Organics
+Vinyl chloride,Toxic Organics,Toxic Organics
+Trichloroethylene,Toxic Organics,Toxic Organics
+Aldrin,Toxic Organics,Toxic Organics
 Chlordane [tech mix. and metabolites],Toxic Organics,Toxic Organics
 "DDT/DDD/DDE, sum of p,p' & o,p' isomers",Toxic Organics,Toxic Organics
+"Endosulfan, total",Toxic Organics,Toxic Organics
 Heptachlor,Toxic Organics,Toxic Organics
 Isophorone,Toxic Organics,Toxic Organics
 Methylene chloride,Toxic Organics,Toxic Organics
@@ -251,7 +255,6 @@ N-Nitrosodimethylamine [NDMA],Toxic Organics,Toxic Organics
 TU Static 72Hr Chronic Strongyl. purpuratus,Aquatic Toxicity,Aquatic Toxicity
 "Solids, total dissolved",Solids,Suspended Solids
 E. coli,Pathogens,Pathogens
-Flow [dry weather],Flow,Flow
 "2,3,7,8-Tetrachlorodibenzo-p-dioxin",Toxic Organics,Toxic Organics
 Surfactants [MBAS],Toxic Organics,Toxic Organics
 Acrolein,Toxic Organics,Toxic Organics
@@ -266,13 +269,13 @@ Diethyl phthalate,Toxic Organics,Toxic Organics
 Dimethyl phthalate,Toxic Organics,Toxic Organics
 "1,2-Diphenylhydrazine",Toxic Organics,Toxic Organics
 Ethylbenzene,Toxic Organics,Toxic Organics
-Fluoranthene,Toxic Organics,Toxic Organics
 Hexachlorocyclopentadiene,Toxic Organics,Toxic Organics
 Hexachlorobutadiene,Toxic Organics,Toxic Organics
 Hexachloroethane,Toxic Organics,Toxic Organics
 "Flow, in conduit or thru treatment plant",Flow,Flow
 "Chlorine, total residual",Inorganics,Disinfectants
 "Chlorine, free available",Inorganics,Disinfectants
+Sulfate,Solids,Dissolved Solids
 Nitrobenzene,Toxic Organics,Toxic Organics
 Tetrachloroethylene,Toxic Organics,Toxic Organics
 "1,1-Dichloroethylene",Toxic Organics,Toxic Organics
@@ -303,9 +306,7 @@ Effluent dilution ratio,Flow,Flow
 "BOD, carb-5 day, 20 deg C, percent removal",Organics,COD
 "BOD, 5-day, percent removal",Organics,COD
 "Solids, suspended percent removal",Solids,Suspended Solids
-"Phenols, chlorinated",Inorganics,Disinfectants
 Specific conductance,Solids,Dissolved Solids
-"Nitrogen, ammonia, percent removal",Nutrients,Nitrogen
 "Chlorine, total residual, duration of violation",Inorganics,Disinfectants
 "Oxygen, dissolved [DO]",Nutrients,Dissolved Oxygen
 "BOD, 5-day, 20 deg. C",Organics,COD
@@ -318,8 +319,13 @@ TCDD equivalents,Toxic Organics,Toxic Organics
 "Sodium, total recoverable",Solids,Dissolved Solids
 "Beryllium, total recoverable [as Be]",Metals,Beryllium
 "Boron, total recoverable",Inorganics,Toxic Inorganics
+"Barium, total [as Ba]",Metals,Barium
+"Nitrogen, Total",Nutrients,Nitrogen
+"Nitrogen, Ammonia  Total",Nutrients,Nitrogen
+"Phosphorus, Total",Nutrients,Phosphorus
 "Phosphorus, total [as P]",Nutrients,Phosphorus
 "Molybdenum, total [as Mo]",Metals,Molybdenum
+"Nickel, total [as Ni]",Metals,Nickel
 "Nickel, total recoverable",Metals,Nickel
 Silver total recoverable,Metals,Silver
 "Zinc, total recoverable",Metals,Zinc
@@ -328,6 +334,7 @@ Silver total recoverable,Metals,Silver
 "Lead, total recoverable",Metals,Lead
 "Chromium, total recoverable",Metals,Chromium
 "Copper, total recoverable",Metals,Copper
+"Selenium, total [as Se]",Metals,Selenium
 "Antimony, total recoverable",Metals,Antimony
 "Chromium, hexavalent [as Cr]",Metals,Chromium
 "Chromium, trivalent [as Cr]",Metals,Chromium
@@ -361,9 +368,10 @@ Beta/photon emitters,Other,Other
 Diazinon + Chlorpyrifos,Toxic Organics,Toxic Organics
 Color [PT-CO units],Uncommon,Uncommon
 Odor [Threshold Number],Uncommon,Uncommon
-Septage discharged to treatment fac.,Uncommon,Uncommon
+Conductivity,Uncommon,Uncommon
 Radioactivity,Uncommon,Uncommon
-"Oxygen, dissolved percent saturation",Uncommon,Uncommon
+Septage discharged to treatment fac.,Uncommon,Uncommon
+"Nitrogen, ammonia, percent removal",Uncommon,Uncommon
 Ozone - residual,Uncommon,Uncommon
 "Alkalinity, total [as CaCO3]",Uncommon,Uncommon
 Bicarbonate ion- [as HCO3],Uncommon,Uncommon
@@ -378,7 +386,6 @@ Carbonate ion- [as CO3],Uncommon,Uncommon
 "Carbon, dissolved organic [as C]",Uncommon,Uncommon
 Sulfite [as SO3],Uncommon,Uncommon
 "Sulfide, total [as S]",Uncommon,Uncommon
-"Sulfide, dissolved, [as S]",Uncommon,Uncommon
 "Hardness, total [as CaCO3]",Uncommon,Uncommon
 "Calcium, total [as Ca]",Uncommon,Uncommon
 "Calcium, total recoverable",Uncommon,Uncommon
@@ -396,17 +403,20 @@ Asbestos,Uncommon,Uncommon
 "Cobalt, total recoverable",Uncommon,Uncommon
 "Tin, total recoverable",Uncommon,Uncommon
 "Titanium, total recoverable",Uncommon,Uncommon
-"Barium, total [as Ba]",Uncommon,Uncommon
 "Barium, total recoverable",Uncommon,Uncommon
 "Beryllium, total [as Be]",Uncommon,Uncommon
 "Boron, total [as B]",Uncommon,Uncommon
 "Chromium, total [as Cr]",Uncommon,Uncommon
 "Copper, dissolved [as Cu]",Uncommon,Uncommon
+"Copper, total [as Cu]",Uncommon,Uncommon
 "Iron, total [as Fe]",Uncommon,Uncommon
 "Iron, dissolved [as Fe]",Uncommon,Uncommon
+"Lead, total [as Pb]",Uncommon,Uncommon
 "Manganese, dissolved [as Mn]",Uncommon,Uncommon
 "Strontium, total recoverable, ug/L",Uncommon,Uncommon
 "Zinc, dissolved [as Zn]",Uncommon,Uncommon
+"Zinc, total [as Zn]",Uncommon,Uncommon
+"Antimony, total [as Sb]",Uncommon,Uncommon
 "Aluminum, total [as Al]",Uncommon,Uncommon
 "Aluminum, dissolved [as Al]",Uncommon,Uncommon
 "Vanadium, total recoverable",Uncommon,Uncommon
@@ -420,7 +430,7 @@ Dichloromethane,Uncommon,Uncommon
 "Phosphate, ortho [as P]",Uncommon,Uncommon
 "Chromium, trivalent total recoverable",Uncommon,Uncommon
 Diquat,Uncommon,Uncommon
-"Manganese, total recoverable",Uncommon,Uncommon
+Polybrominated Diphenyl Ethers,Uncommon,Uncommon
 "Uranium 238, total",Uncommon,Uncommon
 "Cerium, total",Uncommon,Uncommon
 Dinoseb,Uncommon,Uncommon
@@ -449,6 +459,7 @@ Endosulfan sulfate,Uncommon,Uncommon
 .beta.-Endosulfan,Uncommon,Uncommon
 .alpha.-Endosulfan,Uncommon,Uncommon
 Endrin aldehyde,Uncommon,Uncommon
+Fluoranthene,Uncommon,Uncommon
 Fluorene,Uncommon,Uncommon
 Methyl bromide [Bromomethane],Uncommon,Uncommon
 Methyl chloride [Chloromethane],Uncommon,Uncommon
@@ -490,23 +501,20 @@ Neburon,Uncommon,Uncommon
 Propoxur,Uncommon,Uncommon
 Siduron,Uncommon,Uncommon
 SWEP,Uncommon,Uncommon
-Chloromethane,Uncommon,Uncommon
 "2,3,7,8-Tetrachlorodibenzofuran",Uncommon,Uncommon
 "Bentazon, total",Uncommon,Uncommon
 Fluometuron,Uncommon,Uncommon
 Oxamyl,Uncommon,Uncommon
 Pentachlorophenol,Uncommon,Uncommon
 Atrazine,Uncommon,Uncommon
-Benzidine,Uncommon,Uncommon
 Alachlor,Uncommon,Uncommon
-Vinyl chloride,Uncommon,Uncommon
-Trichloroethylene,Uncommon,Uncommon
-Aldrin,Uncommon,Uncommon
+"4,4'-DDT",Uncommon,Uncommon
+"4,4'-DDD",Uncommon,Uncommon
+"4,4'-DDE",Uncommon,Uncommon
 .alpha.-BHC,Uncommon,Uncommon
 .beta.-BHC,Uncommon,Uncommon
 .gamma.-BHC,Uncommon,Uncommon
 DDT,Uncommon,Uncommon
-"Endosulfan, total",Uncommon,Uncommon
 Ethion,Uncommon,Uncommon
 Methoxychlor,Uncommon,Uncommon
 PCB-1221,Uncommon,Uncommon
@@ -520,7 +528,6 @@ Parathion,Uncommon,Uncommon
 Demeton,Uncommon,Uncommon
 Guthion,Uncommon,Uncommon
 Methyl parathion,Uncommon,Uncommon
-Hexachlorobenzene,Uncommon,Uncommon
 Picloram,Uncommon,Uncommon
 "2,4-Dichlorophenoxyacetic acid",Uncommon,Uncommon
 Sevin,Uncommon,Uncommon
@@ -620,9 +627,13 @@ Urea,Uncommon,Uncommon
 "Nitrogen, ammonia total [as NH4]",Uncommon,Uncommon
 "Nitrogen, nitrate total [as NO3]",Uncommon,Uncommon
 "Nitrogen, nitrite total [as NO2]",Uncommon,Uncommon
+"Mercury, total [as Hg]",Uncommon,Uncommon
 Reservoir storage,Uncommon,Uncommon
 "Xylenes [total], dry weight",Uncommon,Uncommon
+"Phenols, chlorinated",Uncommon,Uncommon
+"Coliform, total colony forming units",Uncommon,Uncommon
 "Stream flow, estimated",Uncommon,Uncommon
+Flow,Uncommon,Uncommon
 "cis-1,2-Dichloroethylene",Uncommon,Uncommon
 "1,3-Dichloropropene",Uncommon,Uncommon
 "1,2,3-Trichloropropane",Uncommon,Uncommon
@@ -633,11 +644,11 @@ Monochloroacetic acid [MCAA],Uncommon,Uncommon
 "Chromium, hexavalent tot recoverable",Uncommon,Uncommon
 "2,4,5-TP",Uncommon,Uncommon
 "Glyphosate, total",Uncommon,Uncommon
+Alpha gross radioactivity,Uncommon,Uncommon
 "Dechlorination reagent, gen",Uncommon,Uncommon
 Dilution factor,Uncommon,Uncommon
 Methylmercury,Uncommon,Uncommon
 Chemical Oxygen Demand [COD],Uncommon,Uncommon
-Sulfate,Uncommon,Uncommon
 Chlorpropham,Uncommon,Uncommon
 Duration of discharge,Uncommon,Uncommon
 Chlorine usage,Uncommon,Uncommon
@@ -648,7 +659,6 @@ Dioxane,Uncommon,Uncommon
 Styrene,Uncommon,Uncommon
 "Sulfur dioxide, total",Uncommon,Uncommon
 "Boron, total",Uncommon,Uncommon
-"Radioactivity, gross",Uncommon,Uncommon
 "Hydrocarbons, petroleum",Uncommon,Uncommon
 Ammonia & ammonium- total,Uncommon,Uncommon
 Azinphos-methyl,Uncommon,Uncommon
@@ -658,6 +668,7 @@ Dibromoacetic acid [DBAA],Uncommon,Uncommon
 Trichloroacetic acid [TCAA],Uncommon,Uncommon
 Chloroethane,Uncommon,Uncommon
 "Aluminum, acid soluble",Uncommon,Uncommon
+PFAS Sum,Uncommon,Uncommon
 IC25 Low Flow Pass/Fail Sub-Lethal Static Renewal 7 Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
 IC25 Low Flow Pass/Fail Sub-Lethal Static Renewal 7 Day Chronic Pimephales promelas,Uncommon,Uncommon
 % Effect Static 96HR Acute Americamysis bahia,Uncommon,Uncommon
@@ -685,6 +696,7 @@ Pass/Fail Static Renewal 96Hr Acute Ceriodaphnia dubia,Uncommon,Uncommon
 Pass/Fail Static Renewal 96Hr Acute Pimephales Promelas,Uncommon,Uncommon
 Pass/Fail Static Renewal 96Hr Acute Oncorhynchus mykiss,Uncommon,Uncommon
 Pass/Fail Static Renewal 7 Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
+Pass/Fail Static Renewal 7 Day Chronic Americamysis bahia (formerly Mysidopsis bahia),Uncommon,Uncommon
 Pass/Fail Static Renewal 7Day Chronic Pimephales promelas,Uncommon,Uncommon
 Pass/Fail Static Renewal 7 Day Chronic Atherinops affinis,Uncommon,Uncommon
 Pass/Fail Static 96Hr Chronic Selen. Capricornutum,Uncommon,Uncommon
@@ -723,7 +735,6 @@ TU Static 48Hr Chronic Macrocystis pyrifera,Uncommon,Uncommon
 TU Static 48Hr Chronic Crassostrea gigas,Uncommon,Uncommon
 TU Static 48Hr Chronic Haliotis rufescens,Uncommon,Uncommon
 Static 48Hr Chronic Mytilis Species,Uncommon,Uncommon
-TU Static Renewal Chronic Cyprinodeon variegatus,Uncommon,Uncommon
 TU Static Renewal 7-Day Chronic Ceriodaphnia dubia,Uncommon,Uncommon
 TU Static Renewal 7-Day Chronic Americamysis bahia (formerly Mysidopsis bahia),Uncommon,Uncommon
 TU Static Renewal 7-Day Chronic Holmesimysis costata,Uncommon,Uncommon

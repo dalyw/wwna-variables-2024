@@ -28,7 +28,7 @@ PARAMETER_CODE,PARAMETER_DESC,POLLUTANT_CODE,STATUS_FLAG,UNIT_GROUP_CODE,PERCENT
 7020,"Tritium, total net increase H-3 units",12448,A,9,NA,Y,NA,NA,NA,7020
 9501,"Radium 226, total",10430,A,112,NA,Y,NA,NA,NA,9501
 9503,"Radium 226, dissolved",10430,A,112,NA,Y,2,NA,NA,9503
-11123,"Manganese, total recoverable",2423,A,59,NA,Y,1,Uncommon,Uncommon,11123
+11123,"Manganese, total recoverable",2423,A,59,NA,Y,1,Metals,Manganese,11123
 11500,"Radium 226 & 228, dissolved",12175,A,9,NA,Y,NA,NA,NA,11500
 11501,"Radium 228, total",10431,A,112,NA,Y,2,NA,NA,11501
 11503,"Radium 226 + radium 228, total",12175,A,112,NA,Y,2,Other,Radiation,11503
@@ -431,7 +431,7 @@ PARAMETER_CODE,PARAMETER_DESC,POLLUTANT_CODE,STATUS_FLAG,UNIT_GROUP_CODE,PERCENT
 39632,"Atrazine, dissolved",10015,A,59,NA,Y,2,NA,NA,39632
 39640,Captan,10704,A,59,NA,Y,2,NA,NA,39640
 39650,Diuron,12463,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39650
-39700,Hexachlorobenzene,10159,A,59,NA,Y,2,Uncommon,Uncommon,39700
+39700,Hexachlorobenzene,10159,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39700
 39701,"Hexachlorobenzene, dry weight",10159,A,59,NA,Y,2,NA,NA,39701
 39702,Hexachlorobutadiene,10017,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39702
 39705,"Hexachlorobutadiene, dry weight",10017,A,59,NA,Y,2,NA,NA,39705
@@ -540,20 +540,20 @@ PARAMETER_CODE,PARAMETER_DESC,POLLUTANT_CODE,STATUS_FLAG,UNIT_GROUP_CODE,PERCENT
 39110,Di-n-butyl phthalate,10007,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39110
 39112,"Di-n-butyl phthalate, dry weight",10007,A,59,NA,Y,2,NA,NA,39112
 39117,Phthalate esters,10630,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39117
-39120,Benzidine,10508,A,59,NA,Y,2,Uncommon,Uncommon,39120
+39120,Benzidine,10508,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39120
 39121,"Benzidine, dry weight",10508,A,59,NA,Y,2,NA,NA,39121
 39122,Dimethoxybenzidine,10607,A,59,NA,Y,2,NA,NA,39122
 39129,Chlorendic acid,10972,A,59,NA,Y,2,NA,NA,39129
 39131,Didecyl dimethyl ammonium chloride,10678,A,59,NA,Y,2,NA,NA,39131
 39150,Dichlone,10671,A,59,NA,Y,2,NA,NA,39150
 39161,Alachlor,10775,A,59,NA,Y,2,Uncommon,Uncommon,39161
-39175,Vinyl chloride,10282,A,59,NA,Y,2,Uncommon,Uncommon,39175
-39180,Trichloroethylene,10285,A,59,NA,Y,2,Uncommon,Uncommon,39180
-39300,"4,4'-DDT",10125,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39300
+39175,Vinyl chloride,10282,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39175
+39180,Trichloroethylene,10285,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39180
+39300,"4,4'-DDT",10125,A,59,NA,Y,2,Uncommon,Uncommon,39300
 39305,"o,p'-DDT",10143,A,59,NA,Y,2,NA,NA,39305
-39310,"4,4'-DDD",10126,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39310
-39320,"4,4'-DDE",10127,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39320
-39330,Aldrin,10024,A,59,NA,Y,2,Uncommon,Uncommon,39330
+39310,"4,4'-DDD",10126,A,59,NA,Y,2,Uncommon,Uncommon,39310
+39320,"4,4'-DDE",10127,A,59,NA,Y,2,Uncommon,Uncommon,39320
+39330,Aldrin,10024,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39330
 39333,"Aldrin, dry weight",10024,A,59,NA,Y,2,NA,NA,39333
 39336,.alpha.-BHC,11126,A,59,NA,Y,2,Uncommon,Uncommon,39336
 39337,.alpha.-BHC,11126,I,59,NA,Y,2,Uncommon,Uncommon,39337
@@ -572,7 +572,7 @@ PARAMETER_CODE,PARAMETER_DESC,POLLUTANT_CODE,STATUS_FLAG,UNIT_GROUP_CODE,PERCENT
 39379,"DDT/DDD/DDE, sum of p,p' & o,p' isomers",11135,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39379
 39380,Dieldrin,10039,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39380
 39383,"Dieldrin, dry weight",10039,A,59,NA,Y,2,NA,NA,39383
-39388,"Endosulfan, total",10757,A,59,NA,Y,2,Uncommon,Uncommon,39388
+39388,"Endosulfan, total",10757,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39388
 39389,"Endosulfan, bottom deposits, dry solids",10757,A,59,NA,Y,NA,NA,NA,39389
 39390,Endrin,10040,A,59,NA,Y,2,Toxic Organics,Toxic Organics,39390
 39398,Ethion,12073,A,59,NA,Y,2,Uncommon,Uncommon,39398
@@ -787,7 +787,7 @@ TFE6E,Half Low Flow Pass/Fail Static 1Hr Chronic Lepomis macrochirus,4677,A,16,N
 51058,Chromium III,10215,A,59,NA,Y,NA,NA,NA,51058
 51059,TMOA,11253,A,59,NA,Y,NA,NA,NA,51059
 51060,Rhodamine WT dye,12514,A,77,NA,Y,NA,NA,NA,51060
-51061,Flow [dry weather],11313,A,65,NA,Y,NA,Flow,Flow,51061
+51061,Flow [dry weather],11313,A,65,NA,Y,NA,NA,NA,51061
 51062,3-Phenoxylbenzyl,10931,A,59,NA,Y,NA,NA,NA,51062
 51063,Methallyloxyphenol,12017,A,59,NA,Y,NA,NA,NA,51063
 51064,Formalin,10288,A,59,NA,Y,NA,NA,NA,51064
@@ -893,7 +893,7 @@ TFE6E,Half Low Flow Pass/Fail Static 1Hr Chronic Lepomis macrochirus,4677,A,16,N
 38675,"1,1-Dichloro-1,2,2,2-tetrafluoroethane",11255,A,59,NA,Y,2,NA,NA,38675
 38676,"1,2-Dichloroethene",10279,A,59,NA,Y,NA,NA,NA,38676
 38677,Bromomethane,10337,A,59,NA,Y,2,NA,NA,38677
-38678,Chloromethane,10338,A,59,NA,Y,2,Uncommon,Uncommon,38678
+38678,Chloromethane,10338,A,59,NA,Y,2,NA,NA,38678
 38679,Dibromomethane [Methylene Bromide],11663,A,59,NA,Y,2,NA,NA,38679
 38681,2-Chlorotoluene,10914,A,59,NA,Y,NA,NA,NA,38681
 38682,"2,3,7,8-Chlorodibenzofuran",11181,A,99,NA,Y,2,NA,NA,38682
@@ -990,7 +990,7 @@ TFE6E,Half Low Flow Pass/Fail Static 1Hr Chronic Lepomis macrochirus,4677,A,16,N
 34366,Endrin aldehyde,10627,A,59,NA,Y,2,Uncommon,Uncommon,34366
 34371,Ethylbenzene,10157,A,59,NA,Y,2,Toxic Organics,Toxic Organics,34371
 34374,"Ethylbenzene, dry weight",10157,A,59,NA,Y,2,NA,NA,34374
-34376,Fluoranthene,7822,A,59,NA,Y,2,Toxic Organics,Toxic Organics,34376
+34376,Fluoranthene,7822,A,59,NA,Y,2,Uncommon,Uncommon,34376
 34379,"Fluoranthene, dry weight",7822,A,59,NA,Y,2,NA,NA,34379
 34381,Fluorene,10072,A,59,NA,Y,2,Uncommon,Uncommon,34381
 34384,"Fluorene, dry weight",10072,A,59,NA,Y,2,NA,NA,34384
@@ -1150,7 +1150,7 @@ TKE1A,TU 1Hr Chronic Selen. Capr.,4677,A,16,NA,Y,NA,NA,NA,TKE1A
 TKE1B,TU 1Hr Chronic L. Minor,4677,A,16,NA,Y,NA,NA,NA,TKE1B
 TKF1A,"TU 48Hr Chr, 5-7 Day Rec. Selen. Capr.",4677,A,16,NA,Y,NA,NA,NA,TKF1A
 TKF1B,"TU 48 Hr Chr, 5-7 Day Rec. L. Minor",4677,A,16,NA,Y,NA,NA,NA,TKF1B
-81020,Sulfate,6101,A,59,NA,Y,1,Uncommon,Uncommon,81020
+81020,Sulfate,6101,A,59,NA,Y,1,Solids,Dissolved Solids,81020
 81021,"Residue, total volatile",12255,A,59,NA,Y,1,NA,NA,81021
 81207,Seawater gel mud,12204,A,65,NA,Y,1,NA,NA,81207
 81208,"Cyanide, free not amenable to chlorin.",5123,A,59,NA,Y,2,NA,NA,81208
@@ -1782,14 +1782,14 @@ TCO3C,%Effect Statre 4Day Chronic D. Magna,4677,A,16,NA,Y,NA,NA,NA,TCO3C
 74055,"Coliform, fecal general",10287,A,96,NA,Y,NA,Toxic Organics,Toxic Organics,74055
 74056,"Coliform, total general",4146,A,22,NA,Y,NA,Toxic Organics,Toxic Organics,74056
 74057,"Coliform, fecal, colony forming units",10287,A,22,NA,Y,NA,NA,NA,74057
-74058,"Coliform, total colony forming units",11103,A,22,NA,Y,NA,NA,NA,74058
+74058,"Coliform, total colony forming units",11103,A,22,NA,Y,NA,Uncommon,Uncommon,74058
 74060,Flow rate,6599,A,65,NA,Y,NA,NA,NA,74060
 74061,Overflows [days per month],11914,A,134,NA,Y,NA,NA,NA,74061
 74062,Overflows,11915,A,141,NA,Y,NA,NA,NA,74062
 74063,"Overflow volume [SS0 volume, CSO volume]",11916,A,123,NA,Y,NA,NA,NA,74063
 74069,"Stream flow, estimated",12279,I,66,NA,Y,NA,Uncommon,Uncommon,74069
-74071,Flow,5350,A,140,NA,Y,NA,NA,NA,74071
-74076,Flow,5350,A,66,NA,Y,NA,NA,NA,74076
+74071,Flow,5350,A,140,NA,Y,NA,Uncommon,Uncommon,74071
+74076,Flow,5350,A,66,NA,Y,NA,Uncommon,Uncommon,74076
 75044,"Heptachlor, dry weight",10748,A,59,NA,Y,2,NA,NA,75044
 75062,"Isopropyl alcohol [C3H8O], sed.",10047,A,59,NA,Y,2,NA,NA,75062
 75166,2-Hexanone,10723,A,59,NA,Y,2,NA,NA,75166
@@ -2148,7 +2148,7 @@ TBD1C,Noel Static 7Day Chronic Champia,4677,A,16,NA,Y,NA,NA,NA,TBD1C
 79861,Diethylhydroxylamine,11245,A,59,N,Y,2,NA,NA,79861
 79862,n-Heptane,2040,A,59,NA,Y,NA,NA,NA,79862
 80000,Alpha activity,10804,A,36,NA,Y,2,NA,NA,80000
-80029,Alpha gross radioactivity,10804,A,9,NA,Y,NA,NA,NA,80029
+80029,Alpha gross radioactivity,10804,A,9,NA,Y,NA,Uncommon,Uncommon,80029
 80030,Radiation-gross alpha tot dissolved,10804,A,9,NA,Y,NA,NA,NA,80030
 80040,Radiation-gross alpha tot suspended,10804,A,9,NA,Y,NA,NA,NA,80040
 80045,"Alpha, gross particle activity",10804,A,112,NA,Y,NA,Other,Other,80045
@@ -2263,7 +2263,7 @@ TTE3L,Static 1Hr Chronic Strongyl. Purpuratus,4677,A,49,NA,Y,NA,NA,NA,TTE3L
 74012,Condenser cooling water temp. increase,11114,A,8,NA,Y,NA,NA,NA,74012
 74013,Calculated limit,12385,A,149,NA,Y,NA,NA,NA,74013
 74014,Applicable temperature limitation,10820,A,8,NA,Y,NA,NA,NA,74014
-74015,"Phenols, chlorinated",10390,A,59,NA,Y,2,Inorganics,Disinfectants,74015
+74015,"Phenols, chlorinated",10390,A,59,NA,Y,2,Uncommon,Uncommon,74015
 74020,"Flow, pump out",11320,A,66,NA,Y,NA,NA,NA,74020
 77936,"Bromochloroethane, in water",10263,A,59,NA,Y,NA,NA,NA,77936
 77957,"Chlorobenzoic acid, in water",10963,A,59,NA,Y,NA,NA,NA,77957
@@ -2351,7 +2351,7 @@ TAX3A,LC50 Flth 96Hr Acute Arbacia,4677,A,16,NA,Y,NA,NA,NA,TAX3A
 90,Redox [oxidation reduction potential],11920,A,43,NA,Y,NA,NA,NA,90
 91,"Flow, minimum flow range",11318,A,66,NA,Y,NA,NA,NA,91
 92,"Flow, maximum flow range",11317,A,65,NA,Y,1,NA,NA,92
-94,Conductivity,1130,A,6,NA,Y,NA,NA,NA,94
+94,Conductivity,1130,A,6,NA,Y,NA,Uncommon,Uncommon,94
 95,Specific conductance,12263,A,89,NA,Y,NA,Solids,Dissolved Solids,95
 111,Ratio fecal coliform & streptococci,11294,A,22,NA,Y,NA,NA,NA,111
 132,Dry days preceding precipitation event,11229,A,126,NA,Y,NA,NA,NA,132
@@ -2391,7 +2391,7 @@ TAX3A,LC50 Flth 96Hr Acute Arbacia,4677,A,16,NA,Y,NA,NA,NA,TAX3A
 171,Septage discharged to treatment fac.,12207,A,121,NA,Y,NA,Uncommon,Uncommon,171
 172,"Digester solids content, percent",11192,A,16,NA,Y,1,NA,NA,172
 173,"Sludge, rate of wasting",12225,A,57,NA,Y,1,NA,NA,173
-175,"Nitrogen, ammonia, percent removal",375,A,16,Y,Y,1,Nutrients,Nitrogen,175
+175,"Nitrogen, ammonia, percent removal",375,A,16,Y,Y,1,Uncommon,Uncommon,175
 176,"Oxygen demand, ult., percent removal",11927,A,16,Y,Y,1,NA,NA,176
 177,"Oxygen demand, dissolved",11923,A,59,NA,Y,1,NA,NA,177
 178,Nicotine sulfate,10427,A,59,NA,Y,2,NA,NA,178
@@ -2413,7 +2413,7 @@ TAX3A,LC50 Flth 96Hr Acute Arbacia,4677,A,16,NA,Y,NA,NA,NA,TAX3A
 195,Plume surface area,12101,A,144,NA,Y,NA,NA,NA,195
 208,"Chlorine, total residual [dsg. time]",928,A,138,NA,Y,2,NA,NA,208
 300,"Oxygen, dissolved [DO]",3051,A,59,NA,Y,NA,Nutrients,Dissolved Oxygen,300
-301,"Oxygen, dissolved percent saturation",11205,A,168,NA,Y,NA,Uncommon,Uncommon,301
+301,"Oxygen, dissolved percent saturation",11205,A,168,NA,Y,NA,NA,NA,301
 310,"BOD, 5-day, 20 deg. C",10178,A,59,NA,Y,1,Organics,COD,310
 311,"BOD, 5-day, dissolved",10854,A,59,NA,Y,1,NA,NA,311
 314,"BOD, nitrogen inhib 5-day [20 deg. C]",10856,A,59,NA,Y,1,NA,NA,314
@@ -2546,7 +2546,7 @@ TBP3C,Noel Statre 7Day Chronic D. Magna,4677,A,16,NA,Y,NA,NA,NA,TBP3C
 82290,"Calcium hypochlorite, weight/application grams",11037,A,59,NA,Y,NA,NA,NA,82290
 82291,"Calcium hypochlorite, number of applications",11036,A,59,NA,Y,NA,NA,NA,82291
 82293,4-Nitro-m-cresol,12027,A,59,NA,Y,2,NA,NA,82293
-82066,"Radioactivity, gross",3565,A,9,NA,Y,NA,Uncommon,Uncommon,82066
+82066,"Radioactivity, gross",3565,A,9,NA,Y,NA,NA,NA,82066
 82294,"Nitrogen, ammonia, sludge, tot dry wgt",375,A,59,NA,Y,1,NA,NA,82294
 82295,"Chloride, dissolved [as Cl]",5033,A,59,NA,Y,1,NA,NA,82295
 82303,"Radon, total in water",3572,A,9,NA,Y,NA,NA,NA,82303
@@ -2679,7 +2679,7 @@ TBP3C,Noel Statre 7Day Chronic D. Magna,4677,A,16,NA,Y,NA,NA,NA,TBP3C
 71880,Formaldehyde,10288,A,59,NA,Y,2,NA,NA,71880
 71888,"Phosphorus, total soluble [as PO4]",5878,A,59,NA,Y,1,NA,NA,71888
 71890,"Mercury, dissolved [as Hg]",2448,A,59,NA,Y,2,NA,NA,71890
-71900,"Mercury, total [as Hg]",2448,A,59,NA,Y,2,NA,NA,71900
+71900,"Mercury, total [as Hg]",2448,A,59,NA,Y,2,Uncommon,Uncommon,71900
 71901,"Mercury, total recoverable",2448,A,59,NA,Y,2,Metals,Mercury,71901
 71910,"Gold, total [as Au]",1942,A,59,NA,Y,2,NA,NA,71910
 71911,"Rare earth metals, total",12178,A,59,NA,Y,2,NA,NA,71911
@@ -2884,7 +2884,7 @@ TAB3B,LC50 Static 96Hr Acute Ceriodaphnia,4677,A,16,NA,Y,NA,NA,NA,TAB3B
 1002,"Arsenic, total [as As]",467,A,59,NA,Y,2,NA,NA,1002
 1003,"Arsenic, dry weight",467,A,101,NA,Y,2,NA,NA,1003
 1005,"Barium, dissolved [as Ba]",572,A,59,NA,Y,2,NA,NA,1005
-1007,"Barium, total [as Ba]",572,A,59,NA,Y,2,Uncommon,Uncommon,1007
+1007,"Barium, total [as Ba]",572,A,59,NA,Y,2,Metals,Barium,1007
 1008,Barium in bottom deposits [dry wgt],572,A,59,NA,Y,2,NA,NA,1008
 1009,"Barium, total recoverable",572,A,59,NA,Y,2,Uncommon,Uncommon,1009
 1010,"Beryllium, dissolved [as Be]",4915,A,59,NA,Y,2,NA,NA,1010
@@ -2941,13 +2941,13 @@ TJA6C,% Mortality Static 48Hr Acute Pimephales promelas,4677,A,90,N,Y,NA,NA,NA,T
 TTF6A,"Static 48Hr Chronic, 5-7 Day Rec. Cyprinodeon variegas",4677,A,49,NA,Y,NA,NA,NA,TTF6A
 TTK3S,Static 48Hr Chronic Mytilis Species,4677,A,49,NA,Y,NA,Uncommon,Uncommon,TTK3S
 TTO3C,Static Renewal 4Day Chronic Daphnia Magna,4677,A,49,NA,Y,NA,NA,NA,TTO3C
-51445,"Nitrogen, Total",2817,A,118,NA,Y,1,NA,NA,51445
-51446,"Nitrogen, Ammonia  Total",375,A,118,NA,Y,1,NA,NA,51446
+51445,"Nitrogen, Total",2817,A,118,NA,Y,1,Nutrients,Nitrogen,51445
+51446,"Nitrogen, Ammonia  Total",375,A,118,NA,Y,1,Nutrients,Nitrogen,51446
 51447,"Nitrogen, Nitrite  Total",2806,A,118,NA,Y,1,Uncommon,Uncommon,51447
 51448,"Nitrogen, Nitrate  Total",5713,A,118,NA,Y,1,Uncommon,Uncommon,51448
 51449,"Nitrogen, Kjeldahl  Total",2817,A,118,NA,Y,1,Uncommon,Uncommon,51449
 51450,Nitrite Plus Nitrate Total,10354,A,118,NA,Y,1,NA,NA,51450
-51451,"Phosphorus, Total",5889,A,118,NA,Y,1,NA,NA,51451
+51451,"Phosphorus, Total",5889,A,118,NA,Y,1,Nutrients,Phosphorus,51451
 51483,"Pulp, Purchased",12161,A,57,NA,Y,NA,NA,NA,51483
 51484,Number of Events,11240,A,128,NA,Y,NA,NA,NA,51484
 51488,Offensive Conditions,12595,A,148,NA,N,NA,NA,NA,51488
@@ -2956,7 +2956,7 @@ TTO3C,Static Renewal 4Day Chronic Daphnia Magna,4677,A,49,NA,Y,NA,NA,NA,TTO3C
 664,Dock discharge of phosphorus,5889,A,59,NA,Y,NA,NA,NA,664
 665,"Phosphorus, total [as P]",5889,A,59,NA,Y,1,Nutrients,Phosphorus,665
 666,"Phosphorus, dissolved",5889,A,59,NA,Y,1,NA,NA,666
-1051,"Lead, total [as Pb]",6562,A,59,NA,Y,2,NA,NA,1051
+1051,"Lead, total [as Pb]",6562,A,59,NA,Y,2,Uncommon,Uncommon,1051
 1052,"Lead, total dry weight [as Pb]",6562,A,59,NA,Y,2,NA,NA,1052
 1053,Manganese in bottom deposits [dry wgt],2423,A,59,NA,Y,1,NA,NA,1053
 1054,"Manganese, suspended",2423,A,59,NA,Y,1,NA,NA,1054
@@ -2969,7 +2969,7 @@ TTO3C,Static Renewal 4Day Chronic Daphnia Magna,4677,A,49,NA,Y,NA,NA,NA,TTO3C
 1064,"Tellurium, total",12370,A,59,NA,Y,2,NA,NA,1064
 1065,"Nickel, dissolved [as Ni]",2741,A,59,NA,Y,2,NA,NA,1065
 1066,"Nickel, suspended [as Ni]",2741,A,59,NA,Y,2,NA,NA,1066
-1067,"Nickel, total [as Ni]",2741,A,59,NA,Y,2,NA,NA,1067
+1067,"Nickel, total [as Ni]",2741,A,59,NA,Y,2,Metals,Nickel,1067
 1068,"Nickel, tot in bottom deposits [dry wgt]",2741,A,59,NA,Y,2,NA,NA,1068
 1074,"Nickel, total recoverable",2741,A,59,NA,Y,2,Metals,Nickel,1074
 1075,"Silver, dissolved [as Ag]",3714,A,59,NA,Y,2,NA,NA,1075
@@ -2984,11 +2984,11 @@ TTO3C,Static Renewal 4Day Chronic Daphnia Magna,4677,A,49,NA,Y,NA,NA,NA,TTO3C
 1087,"Vanadium, total [as V]",4448,A,59,NA,Y,1,NA,NA,1087
 1088,"Vanadium, total dry weight [as V]",4448,A,59,NA,Y,1,NA,NA,1088
 1089,Copper as suspended black oxide,11116,A,59,NA,Y,2,NA,NA,1089
-1092,"Zinc, total [as Zn]",6352,A,59,NA,Y,2,NA,NA,1092
+1092,"Zinc, total [as Zn]",6352,A,59,NA,Y,2,Uncommon,Uncommon,1092
 1093,Zinc in bottom deposits [dry wgt],6352,A,59,NA,Y,2,NA,NA,1093
 1094,"Zinc, total recoverable",6352,A,59,NA,Y,2,Metals,Zinc,1094
 1095,"Antimony, dissolved [as Sb]",4871,A,59,NA,Y,2,NA,NA,1095
-1097,"Antimony, total [as Sb]",4871,A,59,NA,Y,2,NA,NA,1097
+1097,"Antimony, total [as Sb]",4871,A,59,NA,Y,2,Uncommon,Uncommon,1097
 1098,"Antimony, in bottom deposits [dry wgt]",4871,A,59,NA,Y,2,NA,NA,1098
 1100,"Tin, dissolved [as Sn]",6151,A,59,NA,Y,2,NA,NA,1100
 1102,"Tin, total [as Sn]",6151,A,59,NA,Y,2,NA,NA,1102
@@ -3012,7 +3012,7 @@ TTO3C,Static Renewal 4Day Chronic Daphnia Magna,4677,A,49,NA,Y,NA,NA,NA,TTO3C
 1139,"Columbium, total",2760,A,59,NA,Y,2,NA,NA,1139
 1142,"Silicon, total",12211,A,59,NA,Y,1,NA,NA,1142
 1145,"Selenium, dissolved [as Se]",3666,A,59,NA,Y,2,NA,NA,1145
-1147,"Selenium, total [as Se]",3666,A,59,NA,Y,2,NA,NA,1147
+1147,"Selenium, total [as Se]",3666,A,59,NA,Y,2,Metals,Selenium,1147
 1148,"Selenium, dry weight",3666,A,101,NA,Y,2,NA,NA,1148
 1150,"Titanium, dissolved [as Ti]",4088,A,59,NA,Y,2,NA,NA,1150
 1152,"Titanium, total [as Ti]",4088,A,59,NA,Y,2,NA,NA,1152
@@ -3071,7 +3071,7 @@ TJM3C,Daphnia Magna % Mortality 48 Hr Acute,4677,A,16,NA,Y,NA,NA,NA,TJM3C
 1037,"Cobalt, total [as Co]",1090,A,59,NA,Y,1,NA,NA,1037
 1040,"Copper, dissolved [as Cu]",1165,A,59,NA,Y,2,Uncommon,Uncommon,1040
 1041,"Copper, suspended [as Cu]",1165,A,59,NA,Y,2,NA,NA,1041
-1042,"Copper, total [as Cu]",1165,A,59,NA,Y,2,NA,NA,1042
+1042,"Copper, total [as Cu]",1165,A,59,NA,Y,2,Uncommon,Uncommon,1042
 1043,Copper in bottom deposits [dry wgt],1165,A,59,NA,Y,2,NA,NA,1043
 1044,"Iron, suspended",2215,A,59,NA,Y,1,NA,NA,1044
 1045,"Iron, total [as Fe]",2215,A,59,NA,Y,1,Uncommon,Uncommon,1045
@@ -3522,7 +3522,7 @@ TGX6C,Pass/Fail Flow Through 96Hr Acute Pimephales promelas,4677,A,151,N,Y,NA,NA
 740,Sulfite [as SO3],12287,A,59,NA,Y,1,Uncommon,Uncommon,740
 741,Sulfite [as S],12287,A,59,NA,Y,1,NA,NA,741
 745,"Sulfide, total [as S]",6106,A,59,NA,Y,1,Uncommon,Uncommon,745
-746,"Sulfide, dissolved, [as S]",6106,A,59,NA,Y,1,Uncommon,Uncommon,746
+746,"Sulfide, dissolved, [as S]",6106,A,59,NA,Y,1,NA,NA,746
 760,"Sulfite waste liquor, Pearl Benson index",12287,A,59,NA,Y,1,NA,NA,760
 900,"Hardness, total [as CaCO3]",12425,A,59,NA,Y,1,Uncommon,Uncommon,900
 51568,Nonylphenol,10395,A,59,N,Y,2,Uncommon,Uncommon,51568
@@ -3548,7 +3548,7 @@ TGA3Y,Pass/Fail Static 48Hr Acute Hyalella azteca,4677,A,55,N,N,NA,NA,NA,TGA3Y
 4617,Triclosan,6215,A,59,N,Y,2,NA,NA,4617
 4619,Nonylphenol Polyethoxylates,99999,A,59,N,Y,2,NA,NA,4619
 4621,Octylphenol Polyethoxylates,99999,A,59,N,Y,2,NA,NA,4621
-4622,Polybrominated Diphenyl Ethers,10902,A,59,N,Y,2,NA,NA,4622
+4622,Polybrominated Diphenyl Ethers,10902,A,59,N,Y,2,Uncommon,Uncommon,4622
 4623,Estrone,12640,A,59,N,Y,2,NA,NA,4623
 22401,Rotenolone,99999,A,59,N,Y,2,NA,NA,22401
 50312,4-Chloroaniline,10885,A,59,N,Y,2,NA,NA,50312

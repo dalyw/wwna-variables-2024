@@ -10,49 +10,65 @@ library(sf)
 source('wwna_variables_2024/helper_functions.R')
 
 # Load data
-limits_2023 <- load_data("LIMITS", 2023)
+limits_2024 <- load_data("LIMITS", 2024)
 parameter_reference <- suppressMessages(read_csv(file.path(STEP_DIRS[["1"]], "ref_parameter_merged_R.csv")))
 
 # Merge parameter categories into NPDES limits
-limits_2023 <- limits_2023 %>%
+limits_2024 <- limits_2024 %>%
   mutate(PARAMETER_CODE_CLEAN = sub("^0+", "", PARAMETER_CODE)) %>%
   left_join(
     parameter_reference %>% dplyr::select(PARAMETER_CODE_CLEAN, PARENT_CATEGORY, SUB_CATEGORY),
     by = "PARAMETER_CODE_CLEAN"
   )
 
-sub_categories <- unique(parameter_reference$SUB_CATEGORY[!is.na(parameter_reference$SUB_CATEGORY)])
+# Filter to only limits with valid numerical LIMIT_VALUE_STANDARD_UNITS (exclude monitoring-only)
+limits_with_values <- limits_2024 %>%
+  filter(!is.na(LIMIT_VALUE_STANDARD_UNITS) & LIMIT_VALUE_STANDARD_UNITS != "")
 
-# Load categories to exclude from future limits analysis
-if (file.exists("data/manual_updates/categories_to_exclude_from_future_limits.csv")) {
-  exclude_df <- suppressMessages(read_csv("data/manual_updates/categories_to_exclude_from_future_limits.csv"))
-  exclude_categories <- unique(exclude_df$SUB_CATEGORY)
-  sub_categories <- sub_categories[!sub_categories %in% exclude_categories]
-  
-  if (length(exclude_categories) > 0) {
-    cat(sprintf("Excluding %d categories: %s\n", length(exclude_categories), 
-                paste(sort(exclude_categories), collapse = ", ")))
-  }
+# Extract sub-categories that appear in CA LIMITS data with valid limits
+# Only analyze IR data for categories that have actual numerical limits (not monitoring-only)
+sub_categories <- unique(limits_with_values$SUB_CATEGORY[!is.na(limits_with_values$SUB_CATEGORY)])
+cat(sprintf("%d categories in CA NPDES (with numerical limits): %s\n", 
+            length(sub_categories), paste(sort(sub_categories), collapse = ", ")))
+
+# Log unmapped parameters for categories that appear in LIMITS (with valid limits)
+limits_with_categories <- limits_with_values %>% filter(!is.na(SUB_CATEGORY))
+unmapped_params <- limits_with_categories %>%
+  filter(is.na(PARENT_CATEGORY)) %>%
+  pull(PARAMETER_DESC) %>%
+  unique()
+if (length(unmapped_params) > 0) {
+  cat(sprintf("Unmapped parameters in LIMITS (with numerical limits): %s\n", 
+              paste(unmapped_params, collapse = ", ")))
 }
-
-# Filter out excluded categories before checking unmapped parameters
-limits_filtered <- limits_2023 %>% 
-  filter(!SUB_CATEGORY %in% exclude_categories)
 
 
 # Load IR data (Integrated Report 303(d) lists)
-# Compares 2018 vs 2024 to identify newly impaired water bodies
+# Compares years from config to identify newly impaired water bodies
 ir_parameter_df <- suppressMessages(read_csv(file.path(STEP_DIRS[["1"]], "ir_parameter_df_R.csv")))
 ir_303d <- list()
+ir_keys <- sort(as.integer(names(FILE_CONFIGS$IR$year_config)))
+ir_years <- c(ir_keys[1], ir_keys[length(ir_keys)])
 
-for (year in c(2018, 2024)) {
+for (year in ir_years) {
   df_year <- load_data("IR", year = year)
   
   df_year <- df_year %>%
     left_join(
       ir_parameter_df %>% dplyr::select(IR_PARAMETER_DESC, PARENT_CATEGORY, SUB_CATEGORY),
       by = c("Pollutant" = "IR_PARAMETER_DESC")
-    )
+    ) %>%
+    # Only keep pollutants in regulated categories (those that appear in LIMITS)
+    filter(SUB_CATEGORY %in% sub_categories)
+  
+  unmapped <- df_year %>%
+    filter(is.na(PARENT_CATEGORY)) %>%
+    pull(Pollutant) %>%
+    unique()
+  if (length(unmapped) > 0) {
+    cat(sprintf("Unmapped pollutants in %d data (in regulated categories): %s\n", 
+                year, paste(unmapped, collapse = ", ")))
+  }
   
   ir_303d[[as.character(year)]] <- df_year
 }
@@ -65,46 +81,52 @@ newly_impaired_bodies <- list()
 impaired_water_bodies <- list()
 
 for (category in sub_categories) {
-  # Get water bodies from 2018 and 2024
-  impaired_set_2018 <- ir_303d[["2018"]] %>%
+  # Get water bodies from comparison years
+  first_year <- ir_years[1]
+  last_year <- ir_years[length(ir_years)]
+  
+  impaired_set_first <- ir_303d[[as.character(first_year)]] %>%
     filter(SUB_CATEGORY == category) %>%
     pull("Water Body CALWNUMS") %>%
     unique()
   
-  impaired_set_2024 <- ir_303d[["2024"]] %>%
+  impaired_set_last <- ir_303d[[as.character(last_year)]] %>%
     filter(SUB_CATEGORY == category) %>%
     pull("Water Body CALWNUMS") %>%
     unique()
   
-  newly_impaired_bodies[[category]] <- setdiff(impaired_set_2024, impaired_set_2018)
-  impaired_water_bodies[[category]] <- impaired_set_2024
+  newly_impaired_bodies[[category]] <- setdiff(impaired_set_last, impaired_set_first)
+  impaired_water_bodies[[category]] <- impaired_set_last
 }
 
-# Helper function to check if watershed contains impaired water body
+# Helper function to check if watershed contains impaired water body and return matching IDs
 check_impaired <- function(x, water_bodies) {
-  if (is.na(x)) return(FALSE)
-  any(sapply(water_bodies, function(wb) str_detect(as.character(x), fixed(wb))))
+  if (is.na(x)) return(list(matches = FALSE, ids = character(0)))
+  x_str <- as.character(x)
+  matching_ids <- sapply(water_bodies, function(wb) {
+    if (str_detect(x_str, fixed(wb))) wb else NA_character_
+  })
+  matching_ids <- matching_ids[!is.na(matching_ids)]
+  list(matches = length(matching_ids) > 0, ids = matching_ids)
 }
 
 # Find facilities discharging into newly impaired waters that are not yet limited
 FLAGGED_STEP4_LIST <- list()
 
 for (category in sub_categories) {
-  # Filter to facilities discharging into newly impaired waterbodies for this category
-  newly_impaired_mask <- sapply(facilities$`CAL WATERSHED NAME`, 
-                                 check_impaired, 
-                                 water_bodies = newly_impaired_bodies[[category]])
-  
-  # Check each affected facility
-  affected_facilities <- facilities[newly_impaired_mask, ]
-  
-  for (idx in 1:nrow(affected_facilities)) {
-    npdes <- affected_facilities$`NPDES # CA#`[idx]
+  # Check each facility for newly impaired waterbodies in this category
+  for (idx in 1:nrow(facilities)) {
+    watershed_name <- facilities$`CAL WATERSHED NAME`[idx]
+    result <- check_impaired(watershed_name, newly_impaired_bodies[[category]])
+    
+    if (!result$matches) next
+    
+    npdes <- facilities$`NPDES # CA#`[idx]
     
     # Skip if npdes is NA or empty
     if (is.na(npdes) || length(npdes) == 0 || npdes == "") next
     
-    sub_limits <- limits_2023 %>% filter(EXTERNAL_PERMIT_NMBR == npdes)
+    sub_limits <- limits_2024 %>% filter(EXTERNAL_PERMIT_NMBR == npdes)
     
     # Check if facility monitors parameters in this category
     has_params_in_category <- any(sub_limits$SUB_CATEGORY == category, na.rm = TRUE)
@@ -112,8 +134,8 @@ for (category in sub_categories) {
     # Check if they have limits for those parameters
     has_limit <- any(
       (sub_limits$SUB_CATEGORY == category) & 
-      !is.na(sub_limits$LIMIT_VALUE_NMBR) & 
-      (sub_limits$LIMIT_VALUE_NMBR != ""),
+      !is.na(sub_limits$LIMIT_VALUE_STANDARD_UNITS) & 
+      (sub_limits$LIMIT_VALUE_STANDARD_UNITS != ""),
       na.rm = TRUE
     )
     
@@ -121,7 +143,8 @@ for (category in sub_categories) {
     if (has_params_in_category && !has_limit) {
       FLAGGED_STEP4_LIST[[length(FLAGGED_STEP4_LIST) + 1]] <- list(
         "NPDES # CA#" = npdes,
-        SUB_CATEGORY = category
+        SUB_CATEGORY = category,
+        "Water Body ID" = paste(sort(unique(result$ids)), collapse = ", ")
       )
     }
   }
@@ -131,12 +154,28 @@ for (category in sub_categories) {
 if (length(FLAGGED_STEP4_LIST) > 0) {
   flagged_df <- bind_rows(FLAGGED_STEP4_LIST)
   
+  # Aggregate categories per facility
   aggregated <- aggregate_flagged_params(
     flagged_df,
     "NPDES # CA#",
     "SUB_CATEGORY",
     AGG_STRINGS[["4"]]
   )
+  
+  # Aggregate water body IDs per facility
+  water_body_agg <- flagged_df %>%
+    group_by(`NPDES # CA#`) %>%
+    summarise(
+      water_body_list = paste(sort(unique(unlist(strsplit(`Water Body ID`, ", ")))), collapse = ", "),
+      .groups = "drop"
+    ) %>%
+    mutate(water_body_list = ifelse(water_body_list == "", "", water_body_list))
+  
+  # Merge water body IDs into aggregated results
+  aggregated <- aggregated %>%
+    left_join(water_body_agg, by = "NPDES # CA#") %>%
+    mutate(`Water Body ID` = ifelse(is.na(water_body_list), "", water_body_list)) %>%
+    dplyr::select(-water_body_list)
   
   # Save aggregated results for RUN_ALL merge
   write_csv(aggregated, file.path(STEP_DIRS[["4"]], "flagged_facilities_step4_R.csv"))
@@ -157,22 +196,18 @@ if (length(FLAGGED_STEP4_LIST) > 0) {
   
   category_counts <- table(trimws(all_categories)) %>%
     as.data.frame() %>%
-    rename(Category = Var1, count = Freq)
+    rename(Category = Var1, count = Freq) %>%
+    arrange(count) %>%
+    mutate(Category = factor(Category, levels = Category))
   
-  # Create bar plot
-  p <- ggplot(category_counts, aes(x = reorder(Category, count), y = count)) +
-    geom_bar(stat = "identity") +
-    coord_flip() +
-    xlab("Category") +
-    ylab("Number of Facilities") +
-    ggtitle("Facilities Needing Limits by Category") +
-    theme_minimal()
-  
-  figures_dir <- file.path(STEP_DIRS[["4"]], "figures_R")
-  dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
-  
-  ggsave(file.path(STEP_DIRS[["4"]], "figures_R", "category_summary.png"), p, 
-         width = 10, height = 6, units = "in")
+  plot_barh(
+    category_counts,
+    x_col = "count",
+    y_col = "Category",
+    xlabel = "Number of Facilities",
+    path = "figures_R/category_summary.png",
+    step = 4
+  )
   
   # Map of facilities with parameter counts
   param_counts <- setNames(

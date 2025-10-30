@@ -1,5 +1,6 @@
 PARAMETER_CODE,DMR_PARAMETER_DESC,POLLUTANT_CODE,PARENT_CATEGORY,SUB_CATEGORY,TOXICS_PARAMETER_DESC_MATCHED,ESMR_PARAMETER_DESC
 7000,"Tritium, total",12446.0,Other,Radiation,,
+11123,"Manganese, total recoverable",2423.0,Metals,Manganese,,"Manganese, Total Recoverable"
 11503,"Radium 226 + radium 228, total",12175.0,Other,Radiation,,
 22417,Methyl tert-butyl ether [MTBE],10418.0,Toxic Organics,Toxic Organics,,Methyl Tert-butyl Ether (MTBE)
 22456,Polynuclear Aromatic Hydrocarbons [PAHs],10100.0,Toxic Organics,Toxic Organics,,Polynuclear Aromatic Hydrocarbons (PAHs)
@@ -20,19 +21,23 @@ PARAMETER_CODE,DMR_PARAMETER_DESC,POLLUTANT_CODE,PARENT_CATEGORY,SUB_CATEGORY,TO
 3615,"2-Methyl-4,6-dinitrophenol",10384.0,Toxic Organics,Toxic Organics,"2-Methyl-4,6-Dinitrophenol",
 3824,Tributyltin,12269.0,Metals,Tin,,
 39516,Polychlorinated biphenyls [PCBs],10001.0,Inorganics,Disinfectants,,
-39570,Diazinon,10408.0,Toxic Organics,Toxic Organics,,Diazinon
+39700,Hexachlorobenzene,10159.0,Toxic Organics,Toxic Organics,Hexachlorobenzene,Hexachlorobenzene
 46225,Chloride,5033.0,Solids,Dissolved Solids,,Chloride
 39100,Di[2-ethylhexyl] phthalate [DEHP],10005.0,Toxic Organics,Toxic Organics,,
 39110,Di-n-butyl phthalate,10007.0,Toxic Organics,Toxic Organics,Di-n-Butyl Phthalate,Di-n-butyl Phthalate
 39117,Phthalate esters,10630.0,Toxic Organics,Toxic Organics,,Phthalate Esters
-39300,"4,4'-DDT",10125.0,Toxic Organics,Toxic Organics,,"4,4-DDT"
-39310,"4,4'-DDD",10126.0,Toxic Organics,Toxic Organics,,"4,4-DDD"
-39320,"4,4'-DDE",10127.0,Toxic Organics,Toxic Organics,,"4,4-DDE"
+39120,Benzidine,10508.0,Toxic Organics,Toxic Organics,Benzidine,Benzidine
+39175,Vinyl chloride,10282.0,Toxic Organics,Toxic Organics,Vinyl Chloride,Vinyl Chloride
+39180,Trichloroethylene,10285.0,Toxic Organics,Toxic Organics,Trichloroethylene,
+39330,Aldrin,10024.0,Toxic Organics,Toxic Organics,Aldrin,Aldrin
 39350,Chlordane [tech mix. and metabolites],11080.0,Toxic Organics,Toxic Organics,,
 39379,"DDT/DDD/DDE, sum of p,p' & o,p' isomers",11135.0,Toxic Organics,Toxic Organics,,"DDT/DDD/DDE, Sum of P,P & O,P Isomers"
 39380,Dieldrin,10039.0,Toxic Organics,Toxic Organics,Dieldrin,Dieldrin
+39388,"Endosulfan, total",10757.0,Toxic Organics,Toxic Organics,,
+39390,Endrin,10040.0,Toxic Organics,Toxic Organics,Endrin,Endrin
 39400,Toxaphene,4234.0,Toxic Organics,Toxic Organics,Toxaphene,Toxaphene
 39410,Heptachlor,10748.0,Toxic Organics,Toxic Organics,Heptachlor,Heptachlor
+39420,Heptachlor epoxide,10716.0,Toxic Organics,Toxic Organics,Heptachlor Epoxide,Heptachlor Epoxide
 34408,Isophorone,10042.0,Toxic Organics,Toxic Organics,Isophorone,Isophorone
 34423,Methylene chloride,10340.0,Toxic Organics,Toxic Organics,Methylene Chloride,Methylene Chloride
 34428,N-Nitrosodi-N-propylamine,10689.0,Toxic Organics,Toxic Organics,N-Nitrosodi-n-Propylamine,N-Nitrosodi-n-Propylamine
@@ -48,7 +53,6 @@ TTP6L,Toxic Units Static Renewal 7-Day Chronic Atherinops affinis ,4677.0,Toxic 
 TTS3L,TU Static 20Min Chronic Strongyl. purpuratus,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 70295,"Solids, total dissolved",4151.0,Solids,Suspended Solids,,
 51040,E. coli,10251.0,Pathogens,Pathogens,,E.coli
-51061,Flow [dry weather],11313.0,Flow,Flow,,
 34675,"2,3,7,8-Tetrachlorodibenzo-p-dioxin",10239.0,Toxic Organics,Toxic Organics,,
 38260,Surfactants [MBAS],10475.0,Toxic Organics,Toxic Organics,,
 34210,Acrolein,10054.0,Toxic Organics,Toxic Organics,Acrolein,Acrolein
@@ -63,14 +67,13 @@ TTS3L,TU Static 20Min Chronic Strongyl. purpuratus,4677.0,Aquatic Toxicity,Aquat
 34341,Dimethyl phthalate,10631.0,Toxic Organics,Toxic Organics,Dimethyl Phthalate,Dimethyl Phthalate
 34346,"1,2-Diphenylhydrazine",11399.0,Toxic Organics,Toxic Organics,"1,2-Diphenylhydrazine","1,2-Diphenylhydrazine"
 34371,Ethylbenzene,10157.0,Toxic Organics,Toxic Organics,Ethylbenzene,Ethylbenzene
-34376,Fluoranthene,7822.0,Toxic Organics,Toxic Organics,Fluoranthene,Fluoranthene
 34386,Hexachlorocyclopentadiene,10662.0,Toxic Organics,Toxic Organics,Hexachlorocyclopentadiene,Hexachlorocyclopentadiene
 34391,Hexachlorobutadiene,10017.0,Toxic Organics,Toxic Organics,Hexachlorobutadiene,Hexachlorobutadiene
 34396,Hexachloroethane,10266.0,Toxic Organics,Toxic Organics,Hexachloroethane,Hexachloroethane
-34403,"Indeno[1,2,3-cd]pyrene",10313.0,Toxic Organics,Toxic Organics,"Indeno(1,2,3-cd) Pyrene","Indeno (1,2,3-cd) Pyrene"
 50050,"Flow, in conduit or thru treatment plant",11315.0,Flow,Flow,,
 50060,"Chlorine, total residual",928.0,Inorganics,Disinfectants,,"Chlorine, Total Residual"
 50064,"Chlorine, free available",928.0,Inorganics,Disinfectants,,"Chlorine, Free Available"
+81020,Sulfate,6101.0,Solids,Dissolved Solids,,
 34447,Nitrobenzene,10164.0,Toxic Organics,Toxic Organics,Nitrobenzene,Nitrobenzene
 34475,Tetrachloroethylene,10284.0,Toxic Organics,Toxic Organics,Tetrachloroethylene,
 34501,"1,1-Dichloroethylene",10278.0,Toxic Organics,Toxic Organics,"1,1-Dichloroethylene","1,1-Dichloroethylene"
@@ -85,9 +88,10 @@ TTS3L,TU Static 20Min Chronic Strongyl. purpuratus,4677.0,Aquatic Toxicity,Aquat
 61211,Enterococci,11237.0,Pathogens,Pathogens,,Enterococci
 61736,"Turbidity, time above limit",12454.0,Color and Turbidity,Turbidity,,
 TGB3B,Pass/Fail Static 96Hr Acute Ceriodaphnia Dubia,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
+TGB6C,Pass/Fail Static 96 Hr Acute Pimephales Promelas,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 TGP3B,Pass/Fail Static Renewal 7 Day Chronic Ceriodaphnia dubia,4677.0,Toxic Organics,Toxic Organics,,
+TGP3E,Pass/Fail Static Renewal 7 Day Chronic Americamysis bahia (formerly Mysidopsis bahia),4677.0,Toxic Organics,Toxic Organics,,
 TGP6C,Pass/Fail Static Renewal 7Day Chronic Pimephales promelas,4677.0,Toxic Organics,Toxic Organics,,
-TRB3B,%Surv Static Renewal 96Hr Acute Ceriodaphnia dubia,4677.0,Toxic Organics,Toxic Organics,,
 TRB6C,%Surv Static 96Hr Acute Pimphales Promelas,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 TRB6I,%Surv Static 96Hr Acute Oncorhynchus Mykiss,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 TRM3B,%Srv Static Renewal 48Hr Acute Ceriodaphnia dubia,4677.0,Toxic Organics,Toxic Organics,,
@@ -104,7 +108,6 @@ TSB6J,TU Static 96Hr Acute Medinia beryllina,4677.0,Aquatic Toxicity,Aquatic Tox
 74055,"Coliform, fecal general",10287.0,Toxic Organics,Toxic Organics,,
 74056,"Coliform, total general",4146.0,Toxic Organics,Toxic Organics,,
 81383,"Carbonaceous oxygen demand, % removal",10853.0,Organics,COD,,
-81403,Chlorpyrifos,12079.0,Toxic Organics,Toxic Organics,,Chlorpyrifos
 81524,Dichlorobenzene,10152.0,Toxic Organics,Toxic Organics,,
 78248,"Cyanide, total recoverable",5123.0,Inorganics,Toxic Inorganics,,
 78456,Halomethanes,11379.0,Toxic Organics,Toxic Organics,,
@@ -118,10 +121,7 @@ TSB6J,TU Static 96Hr Acute Medinia beryllina,4677.0,Aquatic Toxicity,Aquatic Tox
 TSN6J,TU Static Renewal 96Hr Acute Menidia beryllina,4677.0,Toxic Organics,Toxic Organics,,
 TTC1E,TU Static 4 Day Chronic Raphidocelis subcapitata (formerly Selenastrum capricornutum),4677.0,Toxic Organics,Toxic Organics,,
 TTD3B,TU Static 7Day Chronic Ceriodaphnia dubia,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
-TTD6C,Static 7Day Chronic Pimephales Promelas,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
-74015,"Phenols, chlorinated",10390.0,Inorganics,Disinfectants,,"Phenols, Chlorinated"
 95,Specific conductance,12263.0,Solids,Dissolved Solids,,Specific Conductance
-175,"Nitrogen, ammonia, percent removal",375.0,Nutrients,Nitrogen,,
 183,"Chlorine, total residual, duration of violation",11094.0,Inorganics,Disinfectants,,
 300,"Oxygen, dissolved [DO]",3051.0,Nutrients,Dissolved Oxygen,,
 310,"BOD, 5-day, 20 deg. C",10178.0,Organics,COD,,
@@ -135,9 +135,14 @@ TTD6C,Static 7Day Chronic Pimephales Promelas,4677.0,Aquatic Toxicity,Aquatic To
 923,"Sodium, total recoverable",6802.0,Solids,Dissolved Solids,,"Sodium, Total Recoverable"
 998,"Beryllium, total recoverable [as Be]",4915.0,Metals,Beryllium,,
 999,"Boron, total recoverable",10987.0,Inorganics,Toxic Inorganics,,"Boron, Total Recoverable"
+1007,"Barium, total [as Ba]",572.0,Metals,Barium,,
 TTK3S,Static 48Hr Chronic Mytilis Species,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
+51445,"Nitrogen, Total",2817.0,Nutrients,Nitrogen,,
+51446,"Nitrogen, Ammonia  Total",375.0,Nutrients,Nitrogen,,
+51451,"Phosphorus, Total",5889.0,Nutrients,Phosphorus,,
 665,"Phosphorus, total [as P]",5889.0,Nutrients,Phosphorus,,"Phosphorus, Total (as P)"
 1062,"Molybdenum, total [as Mo]",6658.0,Metals,Molybdenum,,
+1067,"Nickel, total [as Ni]",2741.0,Metals,Nickel,,
 1074,"Nickel, total recoverable",2741.0,Metals,Nickel,,"Nickel, Total Recoverable"
 1079,Silver total recoverable,3714.0,Metals,Silver,,"Silver, Total Recoverable"
 1094,"Zinc, total recoverable",6352.0,Metals,Zinc,,"Zinc, Total Recoverable"
@@ -146,12 +151,12 @@ TTK3S,Static 48Hr Chronic Mytilis Species,4677.0,Aquatic Toxicity,Aquatic Toxici
 1114,"Lead, total recoverable",6562.0,Metals,Lead,,"Lead, Total Recoverable"
 1118,"Chromium, total recoverable",1012.0,Metals,Chromium,,"Chromium, Total Recoverable"
 1119,"Copper, total recoverable",1165.0,Metals,Copper,,"Copper, Total Recoverable"
+1147,"Selenium, total [as Se]",3666.0,Metals,Selenium,,
 1268,"Antimony, total recoverable",4871.0,Metals,Antimony,,"Antimony, Total Recoverable"
 1032,"Chromium, hexavalent [as Cr]",10214.0,Metals,Chromium,,
 1033,"Chromium, trivalent [as Cr]",10215.0,Metals,Chromium,,
 3530,"Radiation,Gross Beta Particle Activity",99999.0,Other,Other,,
 51409,Specific Conductance,99999.0,Solids,Dissolved Solids,,Specific Conductance
-TTM6A,TU Static Renewal Chronic Cyprinodeon variegatus,4677.0,Toxic Organics,Toxic Organics,,
 10,"Temperature, water deg. centigrade",6128.0,Temperature,Temperature,,
 11,"Temperature, water deg. fahrenheit",12389.0,Temperature,Temperature,,
 18,Temp. diff. between samp. & upstrm deg. F,12373.0,Temperature,Temperature,,
@@ -179,17 +184,18 @@ TCP6C,%Effect Static Renewal 7Day Chronic Pimephales promelas,4677.0,Toxic Organ
 51600,"pH Range Excursion, Maximum Duration",99999.0,pH,pH,,
 51535,Haloacetic acids [HAA5],200000181.0,Toxic Organics,Toxic Organics,,
 TCC1E,%Effect Static 4 Day Chronic Raphidocelis subcapitata,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
-TGK1D,Pass/Fail Static 48Hr Chronic Macrocystis pyrifera,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 TGC1E,Pass/Fail Static 4 Day Chronic Raphidocelis subcapitata,4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 51867,"Polychlorinated biphenyls [PCBs], sum of Aroclors",10001.0,Inorganics,Disinfectants,,
 13501,"Strontium 90, total",12285.0,Other,Radiation,,
 51874,Beta/photon emitters,320002261.0,Other,Other,,
 WC13B,"Chronic Mthd Sublethal Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, StatR8dmax C dubia",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 WCP6C,"Chronic Mthd Sublethal Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, StatR7d P promelas",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
+WCP6L,"Chronic Mthd Sublethal Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, StatR7d A affinis",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 WDN6J,"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr M beryllina",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 WDN6L,"Acute Mthd Survival Endpt, %Effect, Median TSTaHo R/nR Pass/Fail, StatR96hr A affinis",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 WEP3E,"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d A bahia",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 WEP6C,"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d P promelas",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
+WEP6J,"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d M beryllina",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 WEP6L,"Chronic Mthd, Survival Endpt %Effect, Growth Endpt Median TSTcHo R/nR Pass/Fail, StatR7d A affinis",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 WF13B,"Chronic Mthd, Survival Endpt %Effect, Reprod Endpt Median TSTcHo R/nR Pass/Fail, StatR8dmax C dubia",4677.0,Aquatic Toxicity,Aquatic Toxicity,,
 WGR1E,"Chronic Mthd Growth Endpt, %Effect, Median TSTcHo R/nR Pass/Fail, Static96hr R subcapitata",4677.0,Aquatic Toxicity,Aquatic Toxicity,,

@@ -68,10 +68,9 @@ plot_pie_counts <- function(df, title, step = 1) {
                        paste0(round(100 * category_counts / sum(category_counts), 1), "%"),
                        "")
   
-  figures_dir <- file.path(STEP_DIRS[["1"]], "figures_R")
-  dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
-  png(file.path(STEP_DIRS[["1"]], "figures_R", paste0(tolower(gsub(" ", "_", title)), ".png")), 
-      width = 800, height = 800)
+  filename <- paste0(tolower(gsub(" ", "_", title)), ".png")
+  fig_path <- save_fig(filename, step = 1, width = 8, height = 8)
+  png(fig_path, width = 8, height = 8, units = "in", res = 150)
   pie(category_counts, 
       labels = pct_labels,
       main = title,
@@ -90,7 +89,7 @@ main <- function() {
   
   for (key in c("DMR", "ESMR", "IR", "TOXICS")) {
     if (key == "DMR") {
-      data <- load_data("DMR", 2023)
+      data <- load_data("DMR", 2024)
       
       # Add POLLUTANT_CODE from ref_parameter for step1 processing
       data <- data %>%
@@ -102,7 +101,7 @@ main <- function() {
         dplyr::select(PARAMETER_CODE, PARAMETER_DESC, POLLUTANT_CODE) %>%
         distinct(PARAMETER_CODE, .keep_all = TRUE)
       
-      cat(sprintf("%d unique parameters in DMR 2023 data\n", nrow(processed)))
+      cat(sprintf("%d unique parameters in DMR 2024 data\n", nrow(processed)))
       dataframes[[key]] <- processed
       next
     }
@@ -112,7 +111,8 @@ main <- function() {
     
     # Load CSV data
     if (key == "ESMR") {
-      data <- load_data("ESMR", 2023)
+      final_year <- ANALYSIS_CONFIG$year_range[[2]]
+      data <- load_data("ESMR", final_year)
     } else {
       data <- load_data(key, config$year)
     }
@@ -189,7 +189,7 @@ main <- function() {
   }
   
   # Add LIMITS parameters that aren't in DMR or IR
-  limits_data <- load_data("LIMITS", 2023)
+  limits_data <- load_data("LIMITS", 2024)
   limits_params <- data.frame(IR_PARAMETER_DESC = unique(limits_data$PARAMETER_DESC))
   
   # Apply keyword-based mapping
@@ -274,7 +274,7 @@ main <- function() {
       dplyr::select(-ESMR_PARAMETER_DESC_MATCHED)
   }
   
-  # Final cleanup and save
+  # Save
   dataframes[["DMR"]] <- dataframes[["DMR"]] %>%
     rename(DMR_PARAMETER_DESC = PARAMETER_DESC)
   

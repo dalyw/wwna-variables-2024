@@ -12,42 +12,20 @@ def main():
 
     # Load manual matches to prioritize PERMIT_NUMBERs that match
     manual_matches = pd.read_csv("data/manual_updates/cwns_facilities_match_manual.csv")
+
+    # Get permit numbers for prioritization
     manual_permit_numbers = set(manual_matches["PERMIT_NUMBER"].dropna().unique())
     manual_permit_no_clean = set(manual_matches["PERMIT_NO_clean"].dropna().unique())
     all_manual_permits = manual_permit_numbers | manual_permit_no_clean
 
-    # Debug: Check for CWNS_IDs with multiple PERMIT_NUMBERs
-    cwns_id_counts = cwns_df.groupby("CWNS_ID")["PERMIT_NUMBER"].nunique()
-    multi_permit = cwns_id_counts[cwns_id_counts > 1]
-    print(f"\nFound {len(multi_permit)} CWNS_IDs with multiple PERMIT_NUMBERs:")
-
-    # Prefer PERMIT_NUMBERs that appear in manual matches
-    for cwns_id in multi_permit.index[:5]:  # Show first 5 examples
-        row = cwns_df[cwns_df["CWNS_ID"] == cwns_id][
-            ["CWNS_ID", "PERMIT_NUMBER", "FACILITY_NAME", "population_cwns"]
-        ].copy()
-        # Check which permits have manual matches
-        row["has_manual_match"] = row["PERMIT_NUMBER"].isin(all_manual_permits)
-
-        matched_permits = row[row["has_manual_match"]]
-        print(f"  CWNS_ID {cwns_id}:")
-        print(
-            row[
-                [
-                    "CWNS_ID",
-                    "PERMIT_NUMBER",
-                    "FACILITY_NAME",
-                    "population_cwns",
-                    "has_manual_match",
-                ]
-            ].to_string(index=False)
-        )
-
-        if len(matched_permits) > 1:
-            print(
-                f"    Multiple permits for {matched_permits.iloc[0]['PERMIT_NUMBER']}"
-            )
-        print()
+    # Create mapping dictionary from PERMIT_NUMBER to PERMIT_NO_clean
+    manual_map = (
+        manual_matches[["PERMIT_NUMBER", "PERMIT_NO_clean"]]
+        .dropna(subset=["PERMIT_NO_clean"])
+        .drop_duplicates()
+        .set_index("PERMIT_NUMBER")["PERMIT_NO_clean"]
+        .to_dict()
+    )
 
     # Aggregate CWNS data: group by PERMIT_NUMBER, sum population
     cwns_agg = []
@@ -67,19 +45,16 @@ def main():
     print(f"After dropping duplicate CWNS_IDs: {len(cwns_df)} rows")
 
     # Apply manual permit number mappings before merges
-    manual_map = (
-        manual_matches[["PERMIT_NUMBER", "PERMIT_NO_clean"]]
-        .dropna(subset=["PERMIT_NO_clean"])
-        .drop_duplicates()
-        .set_index("PERMIT_NUMBER")["PERMIT_NO_clean"]
-    )
     if len(manual_map) > 0:
-        # Update PERMIT_NUMBER for facilities with manual mappings
-        mask = cwns_df["PERMIT_NUMBER"].isin(manual_map.index)
-        cwns_df.loc[mask, "PERMIT_NUMBER"] = cwns_df.loc[mask, "PERMIT_NUMBER"].map(
-            manual_map
-        )
-        print(f"Applied {len(manual_map)} manual permit number mappings")
+        # Apply mapping where PERMIT_NUMBER != mapped value (permit number is updated)
+        for permit, cleaned in manual_map.items():
+            if permit != cleaned:
+                cwns_df.loc[cwns_df["PERMIT_NUMBER"] == permit, "PERMIT_NUMBER"] = (
+                    cleaned
+                )
+        non_identity_mappings = sum(1 for k, v in manual_map.items() if k != v)
+        if non_identity_mappings > 0:
+            print(f"Applied {non_identity_mappings} manual permit number mappings")
 
     # Merge COVID surveillance then SSO questionnaire population data
     merged_df = cwns_df.copy()
@@ -109,7 +84,7 @@ def main():
     fig, ax = setup_fig(figsize=(10, 8))
     ax.pie(pie_data.values(), labels=pie_data.keys(), autopct="%1.1f%%")
     plt.title("Population Data Sources for Facilities")
-    save_fig("figures_py/population_source_comparison.png", 2)
+    save_fig("population_source_comparison.png", 2)
 
     # Calculate statistics and identify discrepancies
     pop_columns = [col for col in merged_df.columns if "population" in col]
@@ -121,7 +96,14 @@ def main():
     plt.hist(merged_df["Population Served"].dropna(), bins=50)
     plt.xlabel("Population Served")
     plt.ylabel("Number of Facilities")
-    save_fig("figures_py/population_distribution.png", 2)
+    save_fig("population_distribution.png", 2)
+
+    # Deduplicate by PERMIT_NUMBER before saving
+    # (some facilities have multiple CWNS records after merging)
+    initial_rows = len(merged_df)
+    merged_df = merged_df.drop_duplicates(subset=["PERMIT_NUMBER"], keep="first")
+    if initial_rows != len(merged_df):
+        print(f"Deduplicated population data: {initial_rows} -> {len(merged_df)} rows")
 
     # Save merged population data
     merged_df.to_csv(f"{STEP_DIRS[2]}/merged_population_data_py.csv", index=False)

@@ -21,109 +21,56 @@ main <- function() {
   manual_permit_no_clean <- unique(manual_matches$PERMIT_NO_clean[!is.na(manual_matches$PERMIT_NO_clean)])
   all_manual_permits <- c(manual_permit_numbers, manual_permit_no_clean)
   
-  # Debug: Check for CWNS_IDs with multiple PERMIT_NUMBERs
-  # Filter out NA, empty, and invalid CWNS_IDs
-  cwns_df_filtered <- cwns_df %>% 
-    filter(!is.na(CWNS_ID), !is.na(PERMIT_NUMBER)) %>%
-    filter(nchar(as.character(CWNS_ID)) > 0)
+  # Create mapping dictionary from PERMIT_NUMBER to PERMIT_NO_clean
+  manual_map <- manual_matches %>%
+    dplyr::select(PERMIT_NUMBER, PERMIT_NO_clean) %>%
+    filter(!is.na(PERMIT_NO_clean)) %>%
+    distinct(PERMIT_NUMBER, .keep_all = TRUE)
   
-  cwns_id_counts <- cwns_df_filtered %>%
-    group_by(CWNS_ID) %>%
-    summarise(n_permits = n_distinct(PERMIT_NUMBER))
+  # Aggregate CWNS data: group by CWNS_ID, prefer PERMIT_NUMBERs that match manual permits
+  cwns_agg_list <- list()
   
-  multi_permit <- cwns_id_counts %>% 
-    filter(n_permits > 1) %>%
-    filter(!is.na(CWNS_ID))
-  
-  # Prefer PERMIT_NUMBERs that appear in manual matches
-  if (nrow(multi_permit) > 0) {
-    for (i in 1:min(5, nrow(multi_permit))) {
-      cwns_id <- multi_permit$CWNS_ID[i]
-      if (is.na(cwns_id) || length(cwns_id) == 0) next  # Skip NA or empty values
-      
-      row <- cwns_df_filtered %>%
-        filter(CWNS_ID == cwns_id) %>%
-        dplyr::select(CWNS_ID, PERMIT_NUMBER, FACILITY_NAME, population_cwns) %>%
-        mutate(has_manual_match = PERMIT_NUMBER %in% all_manual_permits)
-      
-      cat(sprintf("  CWNS_ID %s:\n", cwns_id))
-      print(row)
-      
-      matched_permits <- row %>% filter(has_manual_match)
-      if (nrow(matched_permits) > 1) {
-        cat(sprintf("    Multiple matched permits, keeping first: %s\n", matched_permits$PERMIT_NUMBER[1]))
-      }
-    }
-  }
-  
-  # Aggregate CWNS data: group by CWNS_ID, sum population
-  cwns_agg <- cwns_df_filtered %>%
-  group_by(CWNS_ID) %>%
-  summarise(
-      population_cwns = sum(population_cwns, na.rm = TRUE),
-      PERMIT_NUMBER = first(PERMIT_NUMBER)
-    ) %>%
-    filter(population_cwns > 0)
-  
-  cat(sprintf("After dropping duplicate CWNS_IDs: %d rows\n", nrow(cwns_agg)))
-  
-  # Handle cases where one CWNS_ID has multiple PERMIT_NUMBERs
-  # For each CWNS_ID, prefer PERMIT_NUMBERs that are in manual matches
-  cwns_agg_processed <- cwns_df_filtered %>%
-    group_by(CWNS_ID) %>%
-    slice_head(n = 1) %>%
-    ungroup() %>%
-    mutate(
-      PERMIT_NUMBER_prio = ifelse(PERMIT_NUMBER %in% all_manual_permits, PERMIT_NUMBER, NA)
-    )
-  
-  # For multi-permit CWNS_IDs, keep the one with manual match if available
-  if (nrow(multi_permit) > 0) {
-    for (cwns_id in multi_permit$CWNS_ID) {
-      if (is.na(cwns_id) || length(cwns_id) == 0) next  # Skip NA or empty values
-      group <- cwns_df_filtered %>% filter(CWNS_ID == cwns_id)
+  for (cwns_id in unique(cwns_df$CWNS_ID)) {
+    group <- cwns_df %>% filter(CWNS_ID == cwns_id)
+    
+    if (nrow(group) > 1) {
+      # Check which PERMIT_NUMBERs have manual matches
       has_match <- group$PERMIT_NUMBER %in% all_manual_permits
-      
       if (any(has_match)) {
-        # Keep first PERMIT_NUMBER with match
-        keep_row <- group[which(has_match)[1], ]
-        cwns_agg_processed <- cwns_agg_processed %>%
-          filter(!(CWNS_ID == cwns_id)) %>%
-          bind_rows(keep_row)
+        # Keep the first one that has a match
+        group <- group %>% filter(PERMIT_NUMBER %in% all_manual_permits) %>% slice_head(n = 1)
+      } else {
+        # Keep first if no matches
+        group <- group %>% slice_head(n = 1)
       }
     }
+    cwns_agg_list[[length(cwns_agg_list) + 1]] <- group
   }
   
-  # Sum population by CWNS_ID
-  cwns_agg <- cwns_agg_processed %>%
-    group_by(CWNS_ID) %>%
-    summarise(
-      population_cwns = sum(population_cwns, na.rm = TRUE),
-      PERMIT_NUMBER = first(PERMIT_NUMBER)
-    ) %>%
-    filter(population_cwns > 0)
-  
-  cat(sprintf("After dropping duplicate CWNS_IDs: %d rows\n", nrow(cwns_agg)))
+  cwns_df <- bind_rows(cwns_agg_list)
+  cat(sprintf("After dropping duplicate CWNS_IDs: %d rows\n", nrow(cwns_df)))
   
   # Apply manual permit number mappings before merges
-  if (file.exists("data/manual_updates/cwns_facilities_match_manual.csv")) {
-    manual_map <- manual_matches %>%
-      dplyr::select(PERMIT_NUMBER, PERMIT_NO_clean) %>%
-      filter(!is.na(PERMIT_NO_clean)) %>%
-      distinct(PERMIT_NUMBER, .keep_all = TRUE)
-    
-    if (nrow(manual_map) > 0) {
-      cwns_agg <- cwns_agg %>%
-        left_join(manual_map, by = "PERMIT_NUMBER") %>%
-        mutate(PERMIT_NUMBER = ifelse(!is.na(PERMIT_NO_clean), PERMIT_NO_clean, PERMIT_NUMBER)) %>%
-        dplyr::select(-PERMIT_NO_clean)
-      
-      cat(sprintf("Applied %d manual permit number mappings\n", nrow(manual_map)))
+  # Only apply non-identity mappings (where PERMIT_NUMBER != PERMIT_NO_clean)
+  if (nrow(manual_map) > 0) {
+    non_identity_count <- 0
+    for (i in 1:nrow(manual_map)) {
+      permit <- manual_map$PERMIT_NUMBER[i]
+      cleaned <- manual_map$PERMIT_NO_clean[i]
+      if (permit != cleaned) {
+        cwns_df <- cwns_df %>%
+          mutate(PERMIT_NUMBER = ifelse(PERMIT_NUMBER == permit, cleaned, PERMIT_NUMBER))
+        non_identity_count <- non_identity_count + 1
+      }
+    }
+    if (non_identity_count > 0) {
+      cat(sprintf("Applied %d manual permit number mappings (from %d total mappings)\n", 
+                  non_identity_count, nrow(manual_map)))
     }
   }
   
   # Merge COVID surveillance then SSO questionnaire population data
-  merged_df <- cwns_agg %>%
+  merged_df <- cwns_df %>%
     left_join(covid_data, by = c("PERMIT_NUMBER" = "epaid")) %>%
     left_join(sso_data, by = c("PERMIT_NUMBER" = "permit_number"))
   
@@ -151,13 +98,9 @@ main <- function() {
   merged_df$source <- sapply(1:nrow(merged_df), get_source)
   pie_data <- table(merged_df$source)
   
-  # Create figures directory if it doesn't exist
-  figures_dir <- file.path(STEP_DIRS[["2"]], "figures_R")
-  dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
-  
   # Create pie chart
-  png(file.path(STEP_DIRS[["2"]], "figures_R", "population_source_comparison.png"), 
-      width = 800, height = 800)
+  fig_path <- save_fig("population_source_comparison.png", step = 2, width = 8, height = 8)
+  png(fig_path, width = 8, height = 8, units = "in", res = 150)
   pie(pie_data, labels = names(pie_data), main = "Population Data Sources for Facilities")
   dev.off()
   
@@ -173,14 +116,23 @@ main <- function() {
   )
   
   # Population Histogram
-  png(file.path(STEP_DIRS[["2"]], "figures_R", "population_distribution.png"), 
-      width = 800, height = 600)
+  fig_path <- save_fig("population_distribution.png", step = 2, width = 10, height = 6)
+  png(fig_path, width = 10, height = 6, units = "in", res = 150)
   hist(merged_df$`Population Served`, breaks = 50, 
        main = "Population Distribution", 
        xlab = "Population Served",
        ylab = "Number of Facilities")
-dev.off()
+  dev.off()
 
+  # Deduplicate by PERMIT_NUMBER before saving
+  # (some facilities have multiple CWNS records after merging)
+  initial_rows <- nrow(merged_df)
+  merged_df <- merged_df %>%
+    distinct(PERMIT_NUMBER, .keep_all = TRUE)
+  if (initial_rows != nrow(merged_df)) {
+    cat(sprintf("Deduplicated population data: %d -> %d rows\n", initial_rows, nrow(merged_df)))
+  }
+  
   # Save merged population data (only selected columns)
   merged_df_save <- merged_df %>%
     dplyr::select(CWNS_ID, PERMIT_NUMBER, population_cwns, population_covid, population_sso, source, `Population Served`)

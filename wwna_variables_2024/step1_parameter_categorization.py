@@ -2,7 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import json
 import re
-from helper_functions import load_data, FILE_CONFIGS, STEP_DIRS, save_fig
+from helper_functions import (
+    load_data,
+    FILE_CONFIGS,
+    STEP_DIRS,
+    save_fig,
+    ANALYSIS_CONFIG,
+)
 
 # CATEGORIZE PARAMETERS
 with open("data/manual_updates/parameter_sorting_dict.json", "r") as f:
@@ -93,7 +99,7 @@ def main():
     dataframes = {}
     for key in ["DMR", "ESMR", "IR", "TOXICS"]:
         if key == "DMR":
-            data = load_data(key, 2023)
+            data = load_data(key, 2024)
             # Add POLLUTANT_CODE from ref_parameter for step1 processing
             data["PARAMETER_CODE_CLEAN"] = data["PARAMETER_CODE"].str.lstrip("0")
             data = data.merge(
@@ -108,7 +114,7 @@ def main():
                 .drop_duplicates(subset=["PARAMETER_CODE"])
                 .reset_index(drop=True)
             )
-            print(f"{len(processed)} unique parameters in DMR 2023 data")
+            print(f"{len(processed)} unique parameters in DMR 2024 data")
             dataframes[key] = processed
             continue
 
@@ -117,7 +123,8 @@ def main():
 
             # Load CSV data
             if key == "ESMR":
-                data = load_data(key, 2023)
+                final_year = ANALYSIS_CONFIG["year_range"][1]
+                data = load_data(key, final_year)
             else:
                 data = load_data(key, cfg.get("year"))
 
@@ -178,16 +185,6 @@ def main():
     new_dmr_params = dmr_params[~dmr_params["IR_PARAMETER_DESC"].isin(existing_dmr)]
     new_dmr_params = new_dmr_params.copy()
 
-    # # Apply keyword-based mapping before Uncommon fallback
-    # # Map toxicity-related parameters
-    # toxicity_keywords = ["static renewal", "static", "toxicity", "tu ", "pass/fail"]
-    # for keyword in toxicity_keywords:
-    #     mask = new_dmr_params["IR_PARAMETER_DESC"].str.contains(
-    #         keyword, case=False, na=False
-    #     )
-    #     new_dmr_params.loc[mask, "PARENT_CATEGORY"] = "Toxicity"
-    #     new_dmr_params.loc[mask, "SUB_CATEGORY"] = "Toxicity"
-
     new_dmr_params["PARENT_CATEGORY"] = new_dmr_params["PARENT_CATEGORY"].fillna(
         "Uncommon"
     )
@@ -199,7 +196,7 @@ def main():
 
     # Add LIMITS parameters that aren't in DMR or IR
     # TODO: see if we can only use DMRs and not LIMITS
-    limits_data = load_data("LIMITS", 2023)
+    limits_data = load_data("LIMITS", 2024)
     limits_params = pd.DataFrame(
         {"IR_PARAMETER_DESC": limits_data["PARAMETER_DESC"].unique()}
     )

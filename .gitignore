@@ -16,15 +16,8 @@ data/dmr/CA_FY2015_NPDES_DMRS_LIMITS/CA_FY2015_NPDES**
 data/dmr/CA_FY2014_NPDES_DMRS_LIMITS/CA_FY2014_NPDES**
 data/ww_surveillance/wastewatersurveillancecalifornia.csv
 
-# Large processed data files
-processed_data/step1/esmr_data.csv
-processed_data/step3/data_dict.pkl
-processed_data/step3/csv/data_dict.pkl
-processed_data/step3/csv/facility_param_dict.pkl
-processed_data/step3/facility_param_dict.pkl
-
-
-DS_Store
+# MacOS
+*DS_Store*
 
 # Python
 __pycache__/
@@ -47,17 +40,3 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-
-# Virtual environments
-.env
-.venv
-env/
-venv/
-ENV/
-
-# IDE specific files
-.idea/
-.vscode/
-*.swp
-*.swo
-.DS_Store

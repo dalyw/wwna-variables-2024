@@ -1,20 +1,27 @@
-NPDES # CA#,Discharges to Impaired and Not Limited: Number of Parameters,Discharges to Impaired and Not Limited: List of Parameters
-CA0037559,1,Selenium
-CA0037681,4,"Toxic Inorganics, Disinfectants, Nitrogen, Zinc"
-CA0037702,1,Selenium
-CA0048143,1,Copper
-CA0048216,2,"Nickel, Copper"
-CA0049964,1,Selenium
-CA0053597,2,"Pathogens, Aluminum"
-CA0053813,1,Copper
-CA0054372,1,Pathogens
-CA0059501,1,Pathogens
-CA0104477,1,Nitrogen
-CA0104493,1,Nitrogen
-CA0107395,2,"Pathogens, Nitrogen"
-CA0107417,1,Pathogens
-CA0107433,1,Pathogens
-CA0107611,8,"Pathogens, Nitrogen, Phosphorus, Selenium"
-CA3000001,1,Copper
-CA8000383,1,Iron
-CAC422026,1,Dissolved Solids
+NPDES # CA#,Discharges to Impaired and Not Limited: Number of Parameters,Discharges to Impaired and Not Limited: List of Parameters,Water Body ID
+CA0037559,2,"Selenium, Mercury",2204.2004
+CA0037681,8,"Disinfectants, Nitrogen, Toxic Inorganics, Silver, Zinc, Lead, Toxic Organics, Mercury",2204.400102
+CA0037702,1,Selenium,2204.2004
+CA0047899,1,Copper,3315.320002
+CA0048143,1,Copper,3315.320002
+CA0048216,4,"Nickel, Lead, Copper, Mercury",3305.100301
+CA0049964,1,Selenium,3305.3002
+CA0053597,2,"Aluminum, Pathogens",4408.12
+CA0053813,1,Copper,4411.02
+CA0054372,1,Pathogens,4406.4
+CA0059501,1,Pathogens,4408.12
+CA0064556,1,Manganese,4403.51
+CA0079154,1,Manganese,6544
+CA0084271,1,Mercury,6544
+CA0085359,1,Manganese,6544
+CA0104477,1,Nitrogen,10719.47
+CA0104493,2,"Nitrogen, Toxic Organics",10719.47
+CA0107395,2,"Nitrogen, Pathogens",4904.51
+CA0107417,1,Pathogens,4901.32
+CA0107433,1,Pathogens,4904.1
+CA0107611,12,"Nitrogen, Phosphorus, Selenium, Lead, Pathogens, Mercury","4801.11, 4901.13"
+CA0110604,4,"Lead, Mercury",4801.11
+CA3000001,1,Copper,3310.18
+CA8000326,2,"Lead, Mercury",4801.11
+CA8000383,1,Iron,4801.25
+CAC422026,1,Dissolved Solids,6535.7

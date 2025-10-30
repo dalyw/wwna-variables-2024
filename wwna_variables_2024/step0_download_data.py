@@ -4,45 +4,14 @@ import pandas as pd
 from pathlib import Path
 from wwna_variables_2024.helper_functions import (
     analysis_range,
-    ESMR_RESOURCE_IDS,
+    FILE_CONFIGS,
     get_data_file_path,
 )
 
-BASE_DIRS = {
-    "DMR": {
-        "url": "https://echo.epa.gov/files/echodownloads/NPDES_by_state_year",
-        "size_threshold": 1_000_000,
-    },
-    "ESMR": {
-        "url": "https://data.ca.gov/dataset/203e5d1f-ec9d-4d07-93aa-d8b74d3fe71f/resource",
-        "size_threshold": 10_000_000,
-    },
-    "IR": {
-        "url": "https://www.waterboards.ca.gov/water_issues/programs/tmdl",
-        "size_threshold": 1_000_000,
-    },
-    "SSO": {
-        "url": "https://www.waterboards.ca.gov/water_issues/programs/sso/docs/data_files/Questionnaire.txt",
-        "size_threshold": 100_000,
-    },
-    "TOXICS": {
-        "url": "https://data.ca.gov/dataset/7b2b5d26-9407-4368-8744-d5b659024dd7/resource/0d417a2b-6559-4725-820f-add7c57a8bc9/download/oehha-toxicity-criteria-database-20250408.csv",
-        "size_threshold": 1_000,
-    },
-    "CWNS": {
-        "url": "https://raw.githubusercontent.com/dalyw/us-sewersheds/refs/heads/main/processed_data/facilities_merged.csv",
-        "size_threshold": 100_000,
-    },
-}
+# Create data directories
 for data_type in ["DMR", "ESMR", "IR", "SSO", "TOXICS", "CWNS"]:
-    BASE_DIRS[data_type]["dir"] = Path(f"data/{data_type.lower()}")
-    BASE_DIRS[data_type]["dir"].mkdir(parents=True, exist_ok=True)
-
-IR_303D_PATHS = {
-    2018: "2018state_ir_reports_final/app_a_2018303d.xlsx",
-    2022: "2020_2022state_ir_reports_revised_final/apx-a-303d-list.xlsx",
-    2024: "2023_2024state_ir_reports/apx-a-2024-303d-list-final.xlsx",
-}
+    data_dir = Path(f"data/{data_type.lower()}")
+    data_dir.mkdir(parents=True, exist_ok=True)
 
 
 def download_file(url, file_path):
@@ -58,61 +27,50 @@ def download_file(url, file_path):
 def download_dmr_year(year):
     """Download and extract one year of DMR data."""
     zipname = f"CA_FY{year}_NPDES_DMRS_LIMITS.zip"
-    url = f"{BASE_DIRS['DMR']['url']}/{zipname}"
-    zip_path = BASE_DIRS["DMR"]["dir"] / zipname
-    print(f"Downloading DMR for {year}")
+    url = f"{FILE_CONFIGS['DMR']['download']['url']}/{zipname}"
+    zip_path = Path("data/dmr") / zipname
     download_file(url, zip_path)
 
+    # Extract the zip file then delete it
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         for file in zip_ref.namelist():
             dest = get_data_file_path("DMR", year) / Path(file).name
             with zip_ref.open(file) as source, open(dest, "wb") as target:
                 target.write(source.read())
-
-    # Delete the zip file
     zip_path.unlink()
 
 
 def download_esmr_year(year):
     """Download one year of eSMR data."""
-    print(f"Downloading eSMR for {year}")
-    resource_id = ESMR_RESOURCE_IDS[year]
+    resource_id = FILE_CONFIGS["ESMR"]["year_config"][str(year)]
     file_path = get_data_file_path("ESMR", year)
-    filename_no_ext = file_path.stem.rstrip("_2025-10-06")
-    url = f"{BASE_DIRS['ESMR']['url']}/{resource_id}/download/{filename_no_ext}_2025-10-06.csv"
+    # Use datastore dump url
+    url = f"https://data.ca.gov/datastore/dump/{resource_id}?bom=True"
     download_file(url, file_path)
 
 
 def download_ir_year(year):
     """Download IR data as xlsx and convert to csv."""
-    print(f"Downloading IR for {year}")
-    xlsx_filename = IR_303D_PATHS[year]
-    url = f"{BASE_DIRS['IR']['url']}/{xlsx_filename}"
-
-    temp_xlsx = BASE_DIRS["IR"]["dir"] / f"temp_{year}-303d.xlsx"
+    xlsx_filename = FILE_CONFIGS["IR"]["year_config"][str(year)]
+    url = f"{FILE_CONFIGS['IR']['download']['url']}/{xlsx_filename}"
+    temp_xlsx = Path("data/ir") / f"temp_{year}-303d.xlsx"
     download_file(url, temp_xlsx)
 
-    # Save as CSV in the correct location
+    # Save as CSV in the correct location then delete xlsx
     df = pd.read_excel(temp_xlsx)
     csv_path = get_data_file_path("IR", year)
     df.to_csv(csv_path, index=False)
-
-    # Delete temporary xlsx
     temp_xlsx.unlink()
 
 
 def download_sso():
     """Download SSO data from txt and convert to csv."""
-    print("Downloading SSO")
-    url = BASE_DIRS["SSO"]["url"]
-    csv_path = BASE_DIRS["SSO"]["dir"] / "Questionnaire.csv"
+    url = FILE_CONFIGS["SSO"]["download"]["url"]
+    csv_path = Path("data/sso") / "Questionnaire.csv"
 
-    # Download txt file
-    txt_path = BASE_DIRS["SSO"]["dir"] / "Questionnaire.txt"
+    # Download txt file and convert to csv
+    txt_path = data_dir / "Questionnaire.txt"
     download_file(url, txt_path)
-
-    # Convert to CSV
-    print("Converting SSO from txt to csv")
     df = pd.read_csv(txt_path, sep="\t", low_memory=False)
 
     # Convert numeric columns that have comma-separated values
@@ -125,20 +83,24 @@ def download_sso():
     df.to_csv(csv_path, index=False)
 
 
-def download_data_by_type(data_type, year_range="Base"):
+def download_data_by_type(data_type, year_range=None):
     """Download data for the given type."""
-    for item in year_range:
-        # Get paths using helper functions
-        path_to_check = get_data_file_path(data_type, item)
+    items = year_range if year_range is not None else [None]
+    for item in items:
 
+        # Get paths to check if file already is downloaded
+        path_to_check = get_data_file_path(data_type, item)
         if path_to_check.exists() and path_to_check.is_file():
-            if path_to_check.stat().st_size > BASE_DIRS[data_type]["size_threshold"]:
+            size_threshold = FILE_CONFIGS[data_type]["download"]["size_threshold"]
+            if path_to_check.stat().st_size > size_threshold:
                 continue
 
-        print(f"{data_type} {item} missing or corrupted")
         if path_to_check.exists() and path_to_check.is_file():
-            path_to_check.unlink()
+            print(f"{data_type} {item} corrupted. Re-downloading")
+            path_to_check.unlink()  # Delete corrupted file
+
         try:
+            print(f"Downloading {data_type}")
             if data_type == "DMR":
                 download_dmr_year(item)
             elif data_type == "ESMR":
@@ -148,14 +110,14 @@ def download_data_by_type(data_type, year_range="Base"):
             elif data_type == "SSO":
                 download_sso()
             else:  # TOXICS or CWNS
-                download_file(BASE_DIRS[data_type]["url"], path_to_check)
+                download_file(FILE_CONFIGS[data_type]["download"]["url"], path_to_check)
         except Exception as e:
             print(f"Error processing {data_type} {item}: {e}")
 
 
 if __name__ == "__main__":
     download_data_by_type("DMR", year_range=analysis_range)
-    download_data_by_type("ESMR", year_range=analysis_range)
+    download_data_by_type("ESMR", year_range=[analysis_range[-1]])
     download_data_by_type("IR", year_range=[2018, 2022, 2024])
     download_data_by_type("SSO")
     download_data_by_type("TOXICS")
