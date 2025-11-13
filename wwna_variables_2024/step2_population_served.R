@@ -16,7 +16,7 @@ main <- function() {
   cat(sprintf("Loaded %d California facilities from CWNS data\n", nrow(cwns_df)))
   
   # Load manual matches to prioritize PERMIT_NUMBERs that match
-  manual_matches <- suppressMessages(read_csv("data/manual_updates/cwns_facilities_match_manual.csv"))
+  manual_matches <- read_csv_tibble("data/manual_updates/cwns_facilities_match_manual.csv")
   manual_permit_numbers <- unique(manual_matches$PERMIT_NUMBER[!is.na(manual_matches$PERMIT_NUMBER)])
   manual_permit_no_clean <- unique(manual_matches$PERMIT_NO_clean[!is.na(manual_matches$PERMIT_NO_clean)])
   all_manual_permits <- c(manual_permit_numbers, manual_permit_no_clean)
@@ -115,6 +115,24 @@ main <- function() {
     function(x) mean(x, na.rm = TRUE)
   )
   
+  # Calculate standard deviation between population sources
+  merged_df$pop_std <- apply(
+    merged_df[, available_cols, drop = FALSE], 
+    1, 
+    function(x) round(sd(x, na.rm = TRUE), 2)
+  )
+  merged_df$pop_std[is.na(merged_df$pop_std)] <- NA
+  
+  # Calculate annualized population growth rate from 2022 to 2042 (20-year period)
+  # Using compound annual growth rate (CAGR): ((end/start)^(1/years) - 1) * 100
+  from_cwns <- grepl("CWNS", merged_df$source)
+  years <- 20  # 2022 to 2042
+  merged_df$population_growth_rate <- NA
+  merged_df$population_growth_rate[from_cwns] <- round(
+    ((merged_df$population_cwns_2042[from_cwns] / merged_df$population_cwns[from_cwns])^(1 / years) - 1) * 100,
+    2
+  )
+  
   # Population Histogram
   fig_path <- save_fig("population_distribution.png", step = 2, width = 10, height = 6)
   png(fig_path, width = 10, height = 6, units = "in", res = 150)
@@ -135,6 +153,6 @@ main <- function() {
   
   # Save merged population data (only selected columns)
   merged_df_save <- merged_df %>%
-    dplyr::select(CWNS_ID, PERMIT_NUMBER, population_cwns, population_covid, population_sso, source, `Population Served`)
+    dplyr::select(CWNS_ID, PERMIT_NUMBER, population_cwns, population_cwns_2042, population_covid, population_sso, source, `Population Served`, pop_std, population_growth_rate)
   write_csv(merged_df_save, file.path(STEP_DIRS[["2"]], "merged_population_data_R.csv"))
 }

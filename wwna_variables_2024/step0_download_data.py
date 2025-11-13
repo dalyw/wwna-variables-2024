@@ -117,7 +117,7 @@ def download_data_by_type(data_type, year_range=None):
 
 if __name__ == "__main__":
     download_data_by_type("DMR", year_range=analysis_range)
-    download_data_by_type("ESMR", year_range=[analysis_range[-1]])
+    download_data_by_type("ESMR", year_range=analysis_range)
     download_data_by_type("IR", year_range=[2018, 2022, 2024])
     download_data_by_type("SSO")
     download_data_by_type("TOXICS")

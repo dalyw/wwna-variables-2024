@@ -1,0 +1,122 @@
+unit_from,unit_to_py,unit_to_r
+%,percent,percent
+% EFFECT,percent,percent
+% EFFLUENT,percent,percent
+% SURVIVAL,percent,percent
+%%,percent,percent
+CFS,foot**3/second,ft^3/s
+CFU/100ML,dimensionless,dimensionless
+COL UNIT,dimensionless,dimensionless
+COL UNIT (PC),dimensionless,dimensionless
+D,day,day
+D/MO,day/month,day/day
+DAYS,day,day
+DEG C,degC,degree_C
+DEG F,degF,degree_F
+FIB,dimensionless,dimensionless
+FIB/L,dimensionless,dimensionless
+FIBERS/L,dimensionless,dimensionless
+FIBERS/LITER,dimensionless,dimensionless
+G/L,gram/liter,g/L
+G/MO,gram/month,g/day
+G/MONTH,gram/month,g/day
+GAL/D/FT2,gallon/day/foot**2,gal/day/ft^2
+GAL/MIN PER LAMP,gallon/minute,gal/minute
+GALLONS/MO,gallon/month,gal/day
+GALLONS/MONTH,gallon/month,gal/day
+GPD,gallon/day,gal/day
+KG/L,kilogram/liter,kg/L
+KG/MO,kilogram/month,kg/day
+KG/MONTH,kilogram/month,kg/day
+KG/YEAR,kilogram/year,kg/year
+LBS,pound,lbm
+LBS/DAY,pound/day,lbm/day
+LBS/MO,pound/month,lbm/day
+LBS/MONTH,pound/month,lbm/day
+LBS/YEAR,pound/year,lbm/year
+MG/L,milligram/liter,mg/L
+MG/M3,milligram/meter**3,mg/m^3
+MGD,megagallon/day,Mgal/day
+MGM,megagram,Mg
+MILLION FIBERS/L,dimensionless,dimensionless
+MILLION FIBERS/LITER,dimensionless,dimensionless
+MILLION GALLON,megagallon,Mgal
+MILLION GALLON PER DAY,megagallon/day,Mgal/day
+MILLION GALLON/DAY,megagallon/day,Mgal/day
+MILLION GALLONS,megagallon,Mgal
+MILLION GALLONS PER DAY,megagallon/day,Mgal/day
+MILLION GALLONS/DAY,megagallon/day,Mgal/day
+MINUTES,minute,minute
+ML/L,dimensionless,dimensionless
+ML/L/HR,dimensionless,dimensionless
+MO,month,day
+MONTH,month,day
+MPN,dimensionless,dimensionless
+MPN/100ML,dimensionless,dimensionless
+NG/L,nanogram/liter,ng/L
+PG/L,picogram/liter,pg/L
+PICOGRAM/LITER,picogram/liter,pg/L
+NONE,dimensionless,dimensionless
+NTU,dimensionless,dimensionless
+OCCUR,dimensionless,dimensionless
+OCCUR/D,dimensionless,dimensionless
+PASS=0;FAIL=1,dimensionless,dimensionless
+PCI/L,picocurie/liter,pCi/L
+PERCENT,percent,percent
+PERCENT EFFECT,percent,percent
+PPTH,permille,permille
+RATIO,dimensionless,dimensionless
+S.U.,dimensionless,dimensionless
+STANDARD UNIT,dimensionless,dimensionless
+STANDARD UNITS,dimensionless,dimensionless
+STD UNIT,dimensionless,dimensionless
+STD UNITS,dimensionless,dimensionless
+SU,dimensionless,dimensionless
+TOXIC,dimensionless,dimensionless
+UG/L,microgram/liter,ug/L
+UMHO/CM,umho/cm,uS/cm
+UMHOS,umho/cm,uS/cm
+UMHOS/CM,umho/cm,uS/cm
+MMHOS/CM,mmhos/cm,mS/cm
+UW-SEC/CM2,microW*sec/cm**2,uW*s/cm^2
+YEARS,year,year
+ADMI COLOR UNIT,dimensionless,dimensionless
+ACRE-FEET,acre*foot,acre_foot
+BANKS,dimensionless,dimensionless
+CFU/100 ML,dimensionless,dimensionless
+DEGREES C,degC,degree_C
+DEGREES F,degF,degree_F
+METRIC TONS,megagram,Mg
+MPN/100 ML,dimensionless,dimensionless
+"PASS/FAIL (PASS = 0, FAIL = 1)",dimensionless,dimensionless
+PASS/FAIL (PASS = 0; FAIL = 1),dimensionless,dimensionless
+TUA,dimensionless,dimensionless
+TUC,dimensionless,dimensionless
+MJ/CM2,millijoule/centimeter**2,mJ/cm^2
+MW/CM2,milliwatt/centimeter**2,mW/cm^2
+MWS/CM2,milliwatt*second/centimeter**2,mW*s/cm^2
+MEQ/L,dimensionless,dimensionless
+MG-MIN/L,milligram*minute/liter,mg*minute/L
+g/day,gram/day,g/day
+g/year,gram/year,g/year
+kg/day,kilogram/day,kg/day
+lb/day,pound/day,lbm/day
+pound,pound,lbm
+degF,degF,degree_F
+degC,degC,degree_C
+umho/cm,umho/cm,uS/cm
+acre*foot,acre*foot,acre_foot
+inches,inches,inch
+gram/month,gram/month,g/day
+pound/month,pound/month,lbm/day
+pound/year,pound/year,lbm/year
+milliwatt*second/centimeter^2,milliwatt*second/centimeter**2,mW*s/cm^2
+milliwatt/centimeter^2,milliwatt/centimeter**2,mW/cm^2
+millijoule/centimeter^2,millijoule/centimeter**2,mJ/cm^2
+microW*sec/cm**2,microW*sec/cm**2,uW*s/cm^2
+second,second,second
+sec,second,second
+gallons/week,gallon/week,gal/week
+lbs/week,pound/week,lbm/week
+gallons/minute,gallon/minute,gal/minute
+mg/day,milligram/day,mg/day

@@ -1,0 +1,215 @@
+{
+  "1D": [
+    "12-month average",
+    "12 month average"
+  ],
+  "1B": [
+    "10%",
+    "10% for 30 days",
+    "10% for 60 days",
+    "10% of samples",
+    "10% for 30-day period",
+    "not to exceed a specific limit in more than 10% of samples within any 30-day period"
+  ],
+  "1I": [
+    "1-hour average",
+    "1-hour average (mean)",
+    "1 hour average"
+  ],
+  "3A": [],
+  "3C": [
+    "30-day average",
+    "30 day average",
+    "30-day avg",
+    "30 day avg"
+  ],
+  "3D": [],
+  "3E": [
+    "30-day maximum",
+    "30 day maximum"
+  ],
+  "3G": [
+    "30-day median",
+    "30 day median"
+  ],
+  "4A": [
+    "4-day average",
+    "4 day average",
+    "4-day average of daily averages",
+    "4-day continuous average"
+  ],
+  "6A": [
+    "six-month median",
+    "six-month median (6mmed)",
+    "6-month median",
+    "6 month median",
+    "3-month median",
+    "3 month median"
+  ],
+  "7C": [
+    "7-day median",
+    "7 day median",
+    "seven sample median"
+  ],
+  "9A": [],
+  "9B": [
+    "90-day mean",
+    "90 day mean",
+    "90-day average",
+    "90 day average"
+  ],
+  "9C": [
+    "90th percentile",
+    "90th%",
+    "90%",
+    "10 sample 90th percentile",
+    "11 sample 90th percentile",
+    "sample 90th percentile"
+  ],
+  "AB": [
+    "annual average",
+    "annual average (mean)",
+    "annual average of daily averages"
+  ],
+  "AD": [
+    "annual total",
+    "annual loading"
+  ],
+  "AF": [
+    "arithmetic mean",
+    "average"
+  ],
+  "AM": [],
+  "BA": [
+    "median minimum",
+    "minimum median"
+  ],
+  "BB": [],
+  "BC": [],
+  "CA": [],
+  "DB": [
+    "daily average",
+    "24-hour average",
+    "24 hour average"
+  ],
+  "DC": [
+    "daily minimum"
+  ],
+  "DD": [
+    "daily maximum",
+    "maximum daily",
+    "daily max"
+  ],
+  "DG": [
+    "daily discharge",
+    "average discharge"
+  ],
+  "DN": [],
+  "ET": [
+    "event discharge",
+    "event total"
+  ],
+  "GA": [
+    "geometric mean",
+    "log mean",
+    "log mean of samples"
+  ],
+  "HB": [
+    "high weekly average"
+  ],
+  "IA": ["note: combined with MB"],
+  "IB": ["note: combined with MD"],
+  "LA": [],
+  "M1": [],
+  "M3": [
+    "monthly median",
+    "30-day median",
+    "30 day median"
+  ],
+  "MB": [
+    "maximum",
+    "instantaneous maximum",
+    "instantaneous maximum (imax)",
+    "imax"
+  ],
+  "MD": [
+    "median",
+    "3-sample median",
+    "5-sample median",
+    "11-sample median",
+    "sample median",
+    "n-sample median"
+  ],
+  "ME": [
+    " minimum",
+    "minimum",
+    "instantaneous minimum",
+    "instantaneous minimum (imin)",
+    "imin"
+  ],
+  "MJ": [
+    "monthly average minimum",
+    "percent reduction",
+    "percent removal"
+  ],
+  "MK": [
+    "monthly average",
+    "average monthly",
+    "monthly avg",
+    "monthly mean",
+    "monthly average (mean)",
+    "average monthly (amel)",
+    "amel"
+  ],
+  "ML": [
+    "monthly geometric mean",
+    "monthly geometric"
+  ],
+  "MM": [],
+  "MN": [
+    "monthly maximum"
+  ],
+  "MO": [
+    "monthly minimum"
+  ],
+  "MP": [
+    "monthly total"
+  ],
+  "MQ": [],
+  "MW": [],
+  "MY": [
+    "monthly loading",
+    "monthly discharge",
+    "weekly discharge"
+  ],
+  "NA": [
+    "other"
+  ],
+  "RA": [],
+  "SA": [
+    "single sample maximum",
+    "not to exceed a specific limit more than once within any 30-day period",
+    "not to exceed a specific limit more than once",
+    "not to exceed more than once"
+  ],
+  "TB": [
+    "total"
+  ],
+  "VA": [],
+  "WA": [
+    "weekly average",
+    "average weekly",
+    "weekly avg",
+    "weekly mean",
+    "weekly average (mean)",
+    "awel"
+  ],
+  "WD": [],
+  "XA": [
+    "delta from background",
+    "> background",
+    ">background",
+    "background"
+  ],
+  "YA": []
+}

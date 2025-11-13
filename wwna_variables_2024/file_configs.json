@@ -8,31 +8,20 @@
       "size_threshold": 1000000
     },
     "dtype": {
-      "EXTERNAL_PERMIT_NMBR": "str",
-      "PARAMETER_CODE": "str",
-      "PARAMETER_DESC": "str",
-      "MONITORING_LOCATION_CODE": "str",
       "LIMIT_VALUE_TYPE_CODE": "str",
-      "LIMIT_VALUE_STANDARD_UNITS": "float",
-      "STANDARD_UNIT_CODE": "str",
-      "STANDARD_UNIT_DESC": "str",
-      "LIMIT_VALUE_QUALIFIER_CODE": "str",
+      "LIMIT_VALUE_ID": "str",
       "LIMIT_SET_SCHEDULE_ID": "str",
+      "MONITORING_LOCATION_CODE": "str",
       "DMR_VALUE_STANDARD_UNITS": "float",
-      "NODI_CODE": "str"
+      "REPORTED_EXCURSION_NMBR": "float",
+      "VIOLATION_CODE": "str",
+      "EXCEEDENCE_PCT": "float"
     },
     "parse_dates": ["MONITORING_PERIOD_END_DATE"],
-    "dropna": ["LIMIT_VALUE_STANDARD_UNITS"],
+    "dropna": ["DMR_VALUE_STANDARD_UNITS"],
     "drop_notna": ["NODI_CODE"],
     "filters": {
-      "MONITORING_LOCATION_CODE": ["1", "2", "EG", "Y", "K"]
-    },
-    "strip_leading_zeros": "PARAMETER_CODE",
-    "mark_toxicity": {
-      "column": "PARAMETER_CODE",
-      "pattern": "startswith",
-      "values": ["T", "W"],
-      "set_value": "Toxicity"
+      "MONITORING_LOCATION_CODE": ["0", "1", "2", "EG", "Y", "K"]
     }
   },
   "LIMITS": {
@@ -40,31 +29,69 @@
     "base_dir_type": "DMR",
     "dtype": {
       "EXTERNAL_PERMIT_NMBR": "str",
+      "PERM_FEATURE_ID": "str",
+      "PERM_FEATURE_NMBR": "str",
       "PARAMETER_CODE": "str",
       "PARAMETER_DESC": "str",
-      "LIMIT_VALUE_STANDARD_UNITS": "float"
+      "MONITORING_LOCATION_CODE": "str",
+      "LIMIT_SET_DESIGNATOR": "str",
+      "LIMIT_SET_NAME": "str",
+      "DMR_COMMENT_TEXT": "str",
+      "LIMIT_VALUE_TYPE_CODE": "str",
+      "LIMIT_VALUE_ID": "str",
+      "LIMIT_VALUE_NMBR": "float",
+      "LIMIT_UNIT_CODE": "str",
+      "LIMIT_UNIT_DESC": "str",
+      "LIMIT_VALUE_STANDARD_UNITS": "float",
+      "STANDARD_UNIT_CODE": "str",
+      "STANDARD_UNIT_DESC": "str",
+      "LIMIT_VALUE_QUALIFIER_CODE": "str",
+      "LIMIT_ID": "str",
+      "LIMIT_SET_SCHEDULE_ID": "str",
+      "LIMIT_SET_ID": "str",
+      "STATISTICAL_BASE_CODE": "str",
+      "STATISTICAL_BASE_TYPE_CODE": "str",
+      "LIMIT_TYPE_CODE": "str",
+      "LIMIT_SAMPLE_TYPE_CODE": "str",
+      "LIMIT_FREQ_OF_ANALYSIS_CODE": "str",
+      "LIMIT_SEASON_ID": "str",
+      "LIMIT_BEGIN_DATE": "str",
+      "LIMIT_END_DATE": "str",
+      "ALL_MONTHS_LIMIT": "str"
     },
-    "parse_dates": [],
+    "parse_dates": ["LIMIT_BEGIN_DATE", "LIMIT_END_DATE"],
     "dropna": [],
     "drop_notna": [],
-    "filters": {},
+    "filters": {
+      "MONITORING_LOCATION_CODE": ["0", "1", "2", "EG", "Y", "K"]
+    },
+    "drop_duplicates": [],
     "file_pattern": "CA_FY{year}_NPDES_LIMITS.csv",
-    "subdir_pattern": "CA_FY{year}_NPDES_DMRS_LIMITS"
+    "subdir_pattern": "CA_FY{year}_NPDES_DMRS_LIMITS",
+    "strip_leading_zeros": "PARAMETER_CODE"
   },
   "ESMR": {
     "data_type": "ESMR",
     "file_pattern": "esmr-analytical-export_year-{year}.csv",
     "dtype": {
+      "facility_name": "str",
+      "facility_place_id": "str",
       "parameter": "str",
-      "sampling_date": "str"
+      "location": "str",
+      "result": "float",
+      "units": "str",
+      "qualifier": "str",
+      "calculated_method": "str"
     },
     "parse_dates": ["sampling_date"],
-    "dropna": [],
+    "dropna": ["calculated_method", "units", "result"],
     "drop_notna": [],
-    "filters": {},
-    "step1": {
-      "column": "parameter",
-      "desc_col": "ESMR_PARAMETER_DESC"
+    "filters": {"location": ["EFF*", "INF*"]},
+    "rename": {
+      "sampling_date": "MONITORING_PERIOD_END_DATE",
+      "result": "DMR_VALUE_STANDARD_UNITS",
+      "units": "STANDARD_UNIT_DESC",
+      "parameter": "PARAMETER_DESC"
     },
     "download": {
       "url": "https://data.ca.gov/dataset/203e5d1f-ec9d-4d07-93aa-d8b74d3fe71f/resource",
@@ -106,11 +133,8 @@
       "2018": 2,
       "2024": 1
     },
-    "step1": {
-      "column": "Pollutant",
-      "desc_col": "IR_PARAMETER_DESC",
-      "year": 2024,
-      "skiprows": 1
+    "rename": {
+      "Pollutant": "PARAMETER_DESC"
     },
     "download": {
       "url": "https://www.waterboards.ca.gov/water_issues/programs/tmdl",
@@ -132,15 +156,8 @@
       "Number compound": "str",
       "CAS No.": "str"
     },
-    "step1": {
-      "column": "Number compound",
-      "desc_col": "TOXICS_PARAMETER_DESC",
-      "post_process": {
-        "strip_prefix": {
-          "pattern": "^\\d+\\.\\s*",
-          "regex": true
-        }
-      }
+    "rename": {
+      "Number compound": "PARAMETER_DESC"
     }
   },
   "CWNS": {
@@ -155,7 +172,8 @@
       "CWNS_ID": "str",
       "PERMIT_NUMBER": "str",
       "FACILITY_NAME": "str",
-      "TOTAL_RES_POPULATION_2022": "float"
+      "TOTAL_RES_POPULATION_2022": "float",
+      "TOTAL_RES_POPULATION_2042": "float"
     },
     "parse_dates": [],
     "dropna": [],
@@ -164,7 +182,8 @@
       "STATE_CODE": ["CA"]
     },
     "rename": {
-      "TOTAL_RES_POPULATION_2022": "population_cwns"
+      "TOTAL_RES_POPULATION_2022": "population_cwns",
+      "TOTAL_RES_POPULATION_2042": "population_cwns_2042"
     },
     "drop_duplicates": ["CWNS_ID"]
   },

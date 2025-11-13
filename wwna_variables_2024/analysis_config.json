@@ -1,16 +1,8 @@
 {
-  "year_range": [2014, 2025],
-  "wwna_list_path": "data/wwna_list/NPDES+WDR Facilities List_20240906.csv",
-  "step3": {
-    "grouping_columns": [
-      "EXTERNAL_PERMIT_NMBR",
-      "PARAMETER_CODE",
-      "STANDARD_UNIT_DESC",
-      "MONITORING_LOCATION_CODE"
-    ],
-    "limit_threshold": 0.10,
-    "time_to_limit_years": 10,
-    "iqr_multiplier": 2.5
-  }
+  "limit_threshold": 0.2,
+  "time_to_limit_years": 10,
+  "recent_violation_years": 5,
+  "iqr_multiplier": 3.0,
+  "current_limit_year": 1
 }
 

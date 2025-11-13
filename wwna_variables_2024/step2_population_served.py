@@ -89,7 +89,23 @@ def main():
     # Calculate statistics and identify discrepancies
     pop_columns = [col for col in merged_df.columns if "population" in col]
     merged_df["Population Served"] = merged_df[pop_columns].mean(axis=1)
-    merged_df["pop_std"] = merged_df[pop_columns].std(axis=1)
+    merged_df["pop_std"] = merged_df[pop_columns].std(axis=1).round(2)
+
+    # Calculate annualized population growth rate from 2022 to 2042 (20-year period)
+    # Using compound annual growth rate (CAGR): ((end/start)^(1/years) - 1) * 100
+    from_cwns = merged_df["source"].str.contains("CWNS", na=False)
+    years = 20  # 2022 to 2042
+    merged_df.loc[from_cwns, "population_growth_rate"] = (
+        (
+            (
+                merged_df.loc[from_cwns, "population_cwns_2042"]
+                / merged_df.loc[from_cwns, "population_cwns"]
+            )
+            ** (1 / years)
+            - 1
+        )
+        * 100
+    ).round(2)
 
     # Population Histogram
     fig, ax = setup_fig()

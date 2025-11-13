@@ -1,301 +1,645 @@
-import pandas as pd
-import numpy as np
-from scipy import stats
-import matplotlib.pyplot as plt
+import argparse
+import gc
+import json
+import random
+import re
+from pathlib import Path
+
 import matplotlib.gridspec as gridspec
-from multiprocessing import Pool, cpu_count
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib.patches import Patch
+from pint import UnitRegistry
 from helper_functions import (
     analysis_range,
-    aggregate_flagged_params,
+    aggregate_flags,
     save_fig,
     plot_barh,
     plot_map,
     load_data,
     STEP_DIRS,
-    AGG_STRINGS,
-    ANALYSIS_CONFIG,
+    STEP3_CONFIG,
+    WWNA_LIST,
 )
 
-# Grouping columns (DMR dataframe column names) and output columns
-GROUP_COLS = ANALYSIS_CONFIG["step3"]["grouping_columns"]
-OUTPUT_COLS = GROUP_COLS + ["LIMIT_SET_SCHEDULE_ID", "LIMIT_VALUE_TYPE_CODE"]
+# Load unit aliases from CSV (for pint parsing)
+ALIASES_DF = pd.read_csv(
+    Path("data/manual_updates/unit_aliases.csv"), keep_default_na=False
+)
+UNIT_ALIASES = dict(zip(ALIASES_DF["unit_from"], ALIASES_DF["unit_to_py"]))
+_ALIAS_LOOKUP = {k.lower(): v for k, v in UNIT_ALIASES.items()}
+_ALIAS_LOOKUP.update({v.lower(): v for v in UNIT_ALIASES.values()})
+
+param_mapping = pd.read_csv(f"{STEP_DIRS[1]}/dmr_esmr_mapping_py.csv")
+
+# Load statistical base code mapping for ESMR
+with open("data/manual_updates/statistical_base_code_mapping.json", "r") as f:
+    stat_base_mapping = json.load(f)
+
+stat_patterns = sorted(
+    [
+        (pattern.lower(), code)
+        for code, patterns in stat_base_mapping.items()
+        for pattern in patterns
+    ],
+    key=lambda x: len(x[0]),
+    reverse=True,
+)
+
+# Base column names (single string constants)
+permit_col = "EXTERNAL_PERMIT_NMBR"
+param_code_col = "PARAMETER_CODE"
+unit_desc_col = "STANDARD_UNIT_DESC"
+location_col = "MONITORING_LOCATION_CODE"
+perm_feature_nmbr_col = "PERM_FEATURE_NMBR"
+monitor_date_col = "MONITORING_PERIOD_END_DATE_NUMERIC"
+limit_begin_col = "LIMIT_BEGIN_DATE_NUMERIC"
+limit_end_col = "LIMIT_END_DATE_NUMERIC"
+qualifier_col = "LIMIT_VALUE_QUALIFIER_CODE"
+limit_val_col = "LIMIT_VALUE_STANDARD_UNITS"
+dmr_val_col = "DMR_VALUE_STANDARD_UNITS"
+stat_base_col = "STATISTICAL_BASE_CODE"
+limit_type_code_col = "LIMIT_VALUE_TYPE_CODE"
+limit_value_id_col = "LIMIT_VALUE_ID"
+limit_set_schedule_col = "LIMIT_SET_SCHEDULE_ID"
+unit_base_col = "STANDARD_UNIT_BASE"
+
+# UNIQUE_LIMIT_COLS uniquely identify a single row in LIMITS, for merging into DMR
+UNIQUE_LIMIT_COLS = [limit_set_schedule_col, limit_value_id_col, limit_type_code_col]
+# LIMIT_GROUP_COLS are the identify similarly-monitored data across different permits
+# (e.g. 7-day average hourly NH4 concentration in mg/L measured at effluent)
+LIMIT_GROUP_COLS = [
+    permit_col,
+    param_code_col,
+    location_col,
+    perm_feature_nmbr_col,
+    stat_base_col,
+    unit_desc_col,
+    limit_type_code_col,
+]
 
 # Thresholds from config
-TIME_TO_LIMIT_YEARS = ANALYSIS_CONFIG["step3"]["time_to_limit_years"]
-LIMIT_THRESHOLD = ANALYSIS_CONFIG["step3"]["limit_threshold"]
+LIMIT_THRESHOLD = STEP3_CONFIG["limit_threshold"]
+RECENT_VIOLATION_YEARS = STEP3_CONFIG["recent_violation_years"]
+IQR_MULTIPLIER = STEP3_CONFIG["iqr_multiplier"]
+TIME_TO_LIMIT_YEARS = STEP3_CONFIG["time_to_limit_years"]
+
+# Initialize pint UnitRegistry for unit conversions
+_ureg = UnitRegistry()
+_ureg.formatter.default_format = "~P"  # Use abbreviated unit names
+_ureg.define("percent = 1e-2 * dimensionless")
+_ureg.define("permille = 1e-3 * dimensionless")
 
 
-def _step3_facility_param_plot(npdes_code, param_desc, data):
-    """Create individual plot for a facility-parameter combination."""
+# Pre-compute reference dimensionalities and create lookup dict
+_CONC_DIM = _ureg.Quantity(1, "kg/m**3").to_base_units().dimensionality
+_FLOW_DIM = _ureg.Quantity(1, "kg/s").to_base_units().dimensionality
+_TEMP_DIM = _ureg.Quantity(1, "K").to_base_units().dimensionality
 
-    dates = data["MONITORING_PERIOD_END_DATE_NUMERIC"]
-    values = data["DMR_VALUE_STANDARD_UNITS"]
-    limits = data["LIMIT_VALUE_STANDARD_UNITS"]
-    is_minimum_limit = bool(data["is_minimum_limit"].iloc[0])
-    unit_desc = data["STANDARD_UNIT_DESC"].iloc[0]
-
-    # Calculate statistics and latest limit
-    q1 = np.percentile(values, 25)
-    q3 = np.percentile(values, 75)
-    # Pick latest non-null limit aligned to latest monitoring date
-    order_idx = np.argsort(dates)
-    limits_sorted = limits.iloc[order_idx]
-    limits_non_null = limits_sorted.dropna()
-    limit_value = limits_non_null.iloc[-1] if len(limits_non_null) > 0 else np.nan
-
-    # Create figure with subplots
-    plt.figure(figsize=(15, 6))
-    gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
-
-    # Time series plot
-    ax1 = plt.subplot(gs[0])
-    ax1.scatter(dates, values, alpha=0.7, s=30, color="blue", label="Data")
-
-    # Trendline
-    m = float(data["trend_slope"].iloc[0])
-    b = float(data["trend_intercept"].iloc[0])
-    ax1.plot(dates, m * dates + b, "k--", linewidth=2, label="Trend", zorder=6)
-
-    # Add compliance zones based on limit type
-    y_min = float(np.min(values))
-    y_max = float(np.max(values))
-    low_buf = 0.95 if is_minimum_limit else 0.90
-    high_buf = 1.05 if is_minimum_limit else 1.10
-    y_min = min(y_min, limit_value * low_buf, y_min * 0.95)
-    y_max = max(y_max, max(y_max * 1.05, limit_value * high_buf))
-    green_zone = (limit_value, y_max) if is_minimum_limit else (y_min, limit_value)
-    red_zone = (y_min, limit_value) if is_minimum_limit else (limit_value, y_max)
-    zones = [
-        (*green_zone, "lightgreen", "In Compliance"),
-        (*red_zone, "lightcoral", "Out of Compliance"),
-    ]
-    ax1.set_ylim(y_min, y_max)
-    for y1, y2, color, label in zones:
-        ax1.axhspan(y1, y2, color=color, alpha=0.3, label=label, zorder=1)
-    ax1.axhline(y=limit_value, color="gray", linestyle="-", label="Limit")
-
-    # Mark outliers (two-sided IQR rule)
-    iqr = q3 - q1
-    iqr_multiplier = ANALYSIS_CONFIG["step3"]["iqr_multiplier"]
-    lower_thr = q1 - iqr_multiplier * iqr
-    upper_thr = q3 + iqr_multiplier * iqr
-    outliers = (values < lower_thr) | (values > upper_thr)
-    ax1.scatter(
-        dates[outliers], values[outliers], marker="*", color="r", label="Outliers"
-    )
-
-    ax1.set_xlabel("Time")
-    ax1.set_ylabel(unit_desc)
-    ax1.set_title(f"{param_desc}\nFacility: {npdes_code}")
-    ax1.legend(loc="upper right", fontsize=8)
-
-    # Histogram plot
-    ax2 = plt.subplot(gs[1])
-    ax2.hist(values, bins=20, alpha=0.7, color="blue", edgecolor="black")
-    ax2.axvline(q1, color="red", label="Q1")
-    ax2.axvline(q3, color="orange", label="Q3")
-    ax2.axvline(limit_value, color="gray", label="Limit")
-    ax2.set_xlabel(unit_desc)
-    ax2.set_ylabel("Frequency")
-    ax2.legend(fontsize=8)
-
-    # Save the plot
-    filename = f"{npdes_code}_{param_desc}.png"
-    for ch in [" ", ",", "[", "]", "%", "/", ":"]:
-        filename = filename.replace(ch, "_")
-    save_fig(f"{filename}", 3)
+_DIM_TO_LIMIT_TYPE = {
+    _ureg.dimensionless: "C",  # Dimensionless concentration (pH, etc.)
+    _CONC_DIM: "C",  # Concentration
+    _FLOW_DIM: "Q",  # Flow/quantity
+    _TEMP_DIM: "Q",  # Temperature (mapped to Q type)
+}
 
 
-def process_facility_group(args):
-    """Process a single facility-parameter group in parallel."""
-    key_tuple, group = args
+def convert_to_base_units(df, convert_cols):
 
-    # Convert data types and handle missing values
-    dates = pd.to_numeric(group["MONITORING_PERIOD_END_DATE_NUMERIC"], errors="coerce")
-    values = pd.to_numeric(group["DMR_VALUE_STANDARD_UNITS"], errors="coerce")
+    def normalize_unit_str(unit):
+        if unit is None or (isinstance(unit, float) and np.isnan(unit)):
+            return "dimensionless"
+        unit_str = str(unit).strip()
+        unit_str = unit_str.replace("μ", "u").replace("µ", "u")
+        unit_str = re.sub(r"\s*/\s*", "/", unit_str)
+        unit_str = re.sub(r"\s+", " ", unit_str).strip()
+        return _ALIAS_LOOKUP.get(unit_str.lower(), unit_str)
 
-    # Remove NaN values and ensure unique x values
-    mask = ~(np.isnan(dates) | np.isnan(values))
-    dates = dates[mask]
-    values = values[mask]
+    # Normalize original units (e.g., "mg/L", "lb/day") but keep them as-is
+    normalized_units = df[unit_desc_col].apply(normalize_unit_str)
+    df[unit_desc_col] = normalized_units
 
-    # Early return if no data
-    if len(values) == 0:
-        return None
-
-    # Quartiles and two-sided outlier filtering with intraquartile range
-    Q1_percentile, Q3_percentile = np.percentile(values, [25, 75])
-    iqr = Q3_percentile - Q1_percentile
-    iqr_mult = ANALYSIS_CONFIG["step3"]["iqr_multiplier"]
-    lower_thr = Q1_percentile - iqr_mult * iqr
-    upper_thr = Q3_percentile + iqr_mult * iqr
-    mask = (values >= lower_thr) & (values <= upper_thr)
-    dates_filtered, values_filtered = dates[mask], values[mask]
-
-    # Unique date means and linear trend
-    unique_dates = np.unique(dates_filtered)
-    if len(unique_dates) < 3:
-        return None
-
-    unique_vals = np.array(
-        [values_filtered[dates_filtered == d].mean() for d in unique_dates]
-    )
-    trend_slope, trend_intercept = np.polyfit(unique_dates, unique_vals, 1)
-    dates_norm = (unique_dates - unique_dates.mean()) / unique_dates.std()
-    vals_mean, vals_std = unique_vals.mean(), unique_vals.std()
-    values_norm = (unique_vals - vals_mean) / vals_std if vals_std != 0 else unique_vals
-    slope, _, r_value, p_value, _ = stats.linregress(dates_norm, values_norm)
-
-    # Pick the most recent non-null limit and its qualifier (simple, explicit)
-    limits = pd.to_numeric(group["LIMIT_VALUE_STANDARD_UNITS"], errors="coerce")
-    quals = group["LIMIT_VALUE_QUALIFIER_CODE"]
-    types = group.get("LIMIT_VALUE_TYPE_CODE", pd.Series([None] * len(group)))
-    dates = pd.to_numeric(group["MONITORING_PERIOD_END_DATE_NUMERIC"], errors="coerce")
-    order_idx = np.argsort(dates.values)
-    limits_sorted = limits.iloc[order_idx]
-    valid_mask = ~limits_sorted.isna()
-    if not valid_mask.any():
-        raise ValueError(f"No valid limits for group {dict(zip(GROUP_COLS, key_tuple))}")
-    last_pos = np.where(valid_mask.to_numpy())[0][-1]
-    chosen_limit = float(limits_sorted.iloc[last_pos])
-    chosen_qual = quals.iloc[order_idx].iloc[last_pos]
-    chosen_type = types.iloc[order_idx].iloc[last_pos]
-
-    return {
-        "slope": slope * (vals_std / unique_dates.std()),
-        "trend_slope": trend_slope,
-        "trend_intercept": trend_intercept,
-        "median": float(np.median(values_filtered)),
-        "limit": chosen_limit,
-        "qualifier": chosen_qual,
-        "Q1": Q1_percentile,
-        "Q3": Q3_percentile,
-        "LIMIT_VALUE_TYPE_CODE": chosen_type,
-        "LIMIT_SET_SCHEDULE_ID": group["LIMIT_SET_SCHEDULE_ID"].values[0],
-        "PARAMETER_DESC": group["PARAMETER_DESC"].values[0],
-        **{col: val for col, val in zip(GROUP_COLS, key_tuple)},
-    }
-
-
-def main(drop_toxicity=False):
-    # Load unique parameter codes from step1 output
-    unique_param_codes = pd.read_csv(f"{STEP_DIRS[1]}/dmr_esmr_mapping_py.csv")[
-        "PARAMETER_CODE"
-    ].unique()
-
-    # Load and filter DMR data
-    data_dict = {}
-    for year in analysis_range:
-        data = load_data("DMR", year=year, drop_toxicity=drop_toxicity)
-        data_dict[year] = data
-
-    filtered_data = pd.concat(
-        data_dict[y][data_dict[y]["PARAMETER_CODE"].isin(unique_param_codes)]
-        for y in analysis_range
-    )
-    grouped_data = filtered_data.groupby(GROUP_COLS)
-
-    # Parallel processing
-    with Pool(processes=cpu_count() - 1) as pool:
-        results = pool.map(process_facility_group, grouped_data)
-
-    # Create DataFrame of results (filter out None results)
-    facility_records = [r for r in results if r is not None]
-    flagged_all = []
-    time_to_limit_count = 0
-    near_count = 0
-
-    for rec in facility_records:
-        # Skip if no valid limit
-        if np.isnan(rec["limit"]):
+    factor_map = {"dimensionless": 1.0}
+    base_unit_map = {"dimensionless": "dimensionless"}
+    for unit in normalized_units.unique():
+        if unit in factor_map:  # e.g. dimensionless already assigned
             continue
+        qty = _ureg.Quantity(1, unit).to_base_units()
+        base_unit_str = str(qty.units)
+        # map dimensionless to "dimensionless" instead of empty string
+        if base_unit_str.strip() == "":
+            base_unit_str = "dimensionless"
+        factor_map[unit] = qty.magnitude
+        base_unit_map[unit] = base_unit_str
 
-        # Check for facilities with significant slope moving TOWARD non-compliance
-        qualifier = rec["qualifier"]
-        is_minimum_limit = qualifier in [">=", ">"]
-        near_cutoff = (
-            (1 - LIMIT_THRESHOLD) * rec["limit"]
-            if qualifier in ["<=", "<"]
-            else (
-                (1 + LIMIT_THRESHOLD) * rec["limit"]
-                if qualifier in [">=", ">"]
-                else np.nan
+    df[unit_base_col] = normalized_units.map(base_unit_map)
+
+    # Convert values to base units
+    for col in convert_cols:
+        base_col = col.replace("STANDARD", "BASE")
+        df[base_col] = df[col] * normalized_units.map(factor_map).astype(float)
+        df[col] = df[base_col]
+    return df
+
+
+def main(drop_toxicity=False, exclude_noncompliant=False):
+    # LOAD PARAMETER MAPPING FOR ESMR AND DMR PARAMETER DESCRIPTIONS
+    param_desc_df = param_mapping[[param_code_col, "DMR_PARAMETER_DESC"]]
+    param_desc_lookup = dict(
+        zip(param_desc_df[param_code_col], param_desc_df["DMR_PARAMETER_DESC"])
+    )
+
+    # LOAD DMR HISTORY
+    # Load DMR and LIMITS data for all years, then concatenate and merge
+    dmr_parts = []
+    limits_parts = []
+    for y in analysis_range:
+        # Load DMR data
+        dmr_year = load_data("DMR", year=y)
+        # Drop MONITORING_LOCATION_CODE from DMR - it will come from LIMITS after merge
+        dmr_year = dmr_year.drop(columns=["MONITORING_LOCATION_CODE"], errors="ignore")
+        dmr_parts.append(dmr_year)
+
+        # Load LIMITS data
+        limits_year = load_data("LIMITS", year=y, drop_toxicity=drop_toxicity)
+        limits_year = limits_year.drop(columns=["PARAMETER_DESC"], errors="ignore")
+
+        # Normalize MONITORING_LOCATION_CODE for concatenation/deduplication
+        location_str = limits_year[location_col].astype(str).str.strip()
+        effluent_codes = {"1", "2", "EG", "Y", "K"}
+        limits_year.loc[location_str.isin(effluent_codes), location_col] = "1"
+
+        limits_parts.append(limits_year)
+
+    # Combine all DMR years into single DataFrame
+    dmr_all = pd.concat(dmr_parts, ignore_index=True)
+    print(f"  Total DMR records: {len(dmr_all):,}")
+
+    # Truncate LIMIT_VALUE_TYPE_CODE to first character (C, Q, etc.) BEFORE merging
+    # both DMR and LIMITS must be truncated before merge
+    dmr_all[limit_type_code_col] = dmr_all[limit_type_code_col].astype(str).str[0]
+
+    # Combine all LIMITS years and deduplicate on UNIQUE_LIMIT_COLS
+    limits_all = pd.concat(limits_parts, ignore_index=True)
+    # Truncate LIMIT_VALUE_TYPE_CODE to first character BEFORE deduplication
+    limits_all[limit_type_code_col] = limits_all[limit_type_code_col].astype(str).str[0]
+    limits_all = limits_all.drop_duplicates(subset=UNIQUE_LIMIT_COLS, keep="first")
+
+    # Merge all DMR data with deduplicated LIMITS
+    # DMR rows will match LIMITS rows if they share the same UNIQUE_LIMIT_COLS
+    dmr_all = dmr_all.merge(limits_all, on=UNIQUE_LIMIT_COLS, how="inner")
+    print(f"  Total merged records: {len(dmr_all):,}")
+
+    # Convert DMR values and limit values to base units for comparison
+    dmr_all = convert_to_base_units(dmr_all, [dmr_val_col, limit_val_col])
+
+    # Combine similar statistical base codes to enable use of historical data
+    stat_base_str = dmr_all[stat_base_col].astype(str).str.strip()
+    dmr_all.loc[stat_base_str == "IA", stat_base_col] = "MB"
+    dmr_all.loc[stat_base_str == "IB", stat_base_col] = "ME"
+
+    # Normalize PERM_FEATURE_NMBR to combine historical and recent naming conventions
+    # '001', '002', etc. -> 'EFF1', 'EFF2', etc.
+    feature_nmbr_str = dmr_all[perm_feature_nmbr_col].astype(str).str.strip()
+    numeric_pattern = feature_nmbr_str.str.match(r"^0*(\d+)$")
+    numeric_features = feature_nmbr_str[numeric_pattern]
+    if len(numeric_features) > 0:
+        # Extract the numeric part and convert to EFF format
+        numeric_values = numeric_features.str.extract(r"^0*(\d+)$")[0]
+        dmr_all.loc[numeric_pattern, perm_feature_nmbr_col] = "EFF" + numeric_values
+    # Normalize 'INF' to 'INF1' for consistency
+    dmr_all.loc[feature_nmbr_str == "INF", perm_feature_nmbr_col] = "INF1"
+
+    # Filter to groups with at least one non-NA limit_value entry after 2024
+    # and at least 3 years of data span
+    recent_year_threshold = float(max(analysis_range)) - 1  # 2025 - 1 = 2024
+    groups_with_recent_limit = set(
+        dmr_all.loc[
+            (dmr_all[monitor_date_col] >= recent_year_threshold)
+            & dmr_all[limit_val_col].notna()
+            & dmr_all[qualifier_col].notna(),
+            LIMIT_GROUP_COLS,
+        ]
+        .drop_duplicates()
+        .apply(lambda row: tuple(row[col] for col in LIMIT_GROUP_COLS), axis=1)
+    )
+
+    def should_include_group(group):
+        group_key = tuple(group[LIMIT_GROUP_COLS].iloc[0].values)
+        return (
+            group_key in groups_with_recent_limit  # noqa: F821
+            and group[monitor_date_col].max() - group[monitor_date_col].min() >= 3.0
+        )
+
+    dmr_filtered = dmr_all.groupby(LIMIT_GROUP_COLS).filter(should_include_group)
+
+    # Get most recent valid (non-NA) limit per LIMIT_GROUP_COLS for lookup
+    # This is only for the lookup dictionary - dmr_filtered still has all rows
+    most_recent_limit_filtered = (
+        dmr_filtered.dropna(subset=[limit_val_col, qualifier_col])
+        .sort_values(by=monitor_date_col, ascending=False, na_position="last")
+        .groupby(LIMIT_GROUP_COLS, as_index=False)
+        .first()  # First row = most recent valid limit
+    )
+
+    # OPTIONALLY DROP RECENT NONCOMPLIANT GROUPS
+    # TO avoid double-counting with violations data for risk assessment
+    if exclude_noncompliant:
+        violation_years = sorted(list(analysis_range))[-RECENT_VIOLATION_YEARS:]
+        # Filter to recent years when we care about violations
+        recent_violation_data = dmr_all[
+            dmr_all[monitor_date_col].apply(lambda x: int(x) in violation_years)
+        ]
+        # Identify exceedances and get noncompliant LIMIT_GROUP_COLS combinations
+        violations = recent_violation_data[
+            (recent_violation_data["REPORTED_EXCURSION_NMBR"] > 0)  # Exceedance
+            | (recent_violation_data["VIOLATION_CODE"] == "E90")  # Effluent Violation
+            | (recent_violation_data["EXCEEDENCE_PCT"] > 0)  # Effluent Violation
+        ]
+        noncompliant = violations[LIMIT_GROUP_COLS].drop_duplicates()
+        print(f" {len(noncompliant)} noncompliant facility+parameter combos")
+        # Remove already-noncompliant groups from dmr_filtered
+        noncompliant_tuples = set(
+            noncompliant.apply(
+                lambda row: tuple(row[col] for col in LIMIT_GROUP_COLS), axis=1
             )
         )
-        near_exceedance = (
-            rec["Q3"] > near_cutoff
-            if qualifier in ["<=", "<"]
-            else rec["Q1"] < near_cutoff if qualifier in [">=", ">"] else False
-        )
+        dmr_filtered = dmr_filtered[
+            ~dmr_filtered.apply(
+                lambda row: tuple(row[col] for col in LIMIT_GROUP_COLS), axis=1
+            ).isin(noncompliant_tuples)
+        ].copy()
 
+    # Sort by monitoring date. Identify unique LIMIT_GROUP_COLS for ESMR matching
+    dmr_filtered = dmr_filtered.sort_values(monitor_date_col)
+    dmr_group_filter = dmr_filtered[LIMIT_GROUP_COLS].drop_duplicates()
+    print(f"  DMR LIMIT_GROUP_COLS combos: {len(dmr_group_filter):,}")
 
-        # Tally individual conditions
-        distance = (
-            rec["limit"] - rec["median"]
-            if qualifier in ["<=", "<"]
-            else rec["median"] - rec["limit"]
-        )
-        if not np.isnan(distance) and rec["slope"] != 0:
-            time_to_limit = abs(distance) / abs(rec["slope"])
-        has_time_to_limit = time_to_limit <= TIME_TO_LIMIT_YEARS
-        if has_time_to_limit:
-            time_to_limit_count += 1
-        if near_exceedance:
-            near_count += 1
+    # Free memory - delete large DataFrames that are no longer needed
+    del (dmr_parts, limits_parts, limits_all, dmr_all, groups_with_recent_limit)
+    if exclude_noncompliant:
+        del noncompliant, noncompliant_tuples, recent_violation_data, violations
+    gc.collect()
 
-        # Time-to-limit (years) using median distance; only meaningful if moving toward limit
-        time_to_limit = np.inf
-
-        # Flag based on near-exceedance AND time-to-limit
-        if near_exceedance and has_time_to_limit:
-            rec["is_minimum_limit"] = is_minimum_limit
-            rec["near_cutoff"] = near_cutoff
-            rec["time_to_limit_years"] = time_to_limit
-            flagged_all.append(rec)
-
-    print(f"{near_count} pairs with Q1/Q3 > {LIMIT_THRESHOLD}")
-    print(f"{len(flagged_all)} pairs with both (and within {TIME_TO_LIMIT_YEARS} yrs)")
-    print(f"{len(set(rec['EXTERNAL_PERMIT_NMBR'] for rec in flagged_all))} facilities")
-
-    flagged_all_df = pd.DataFrame(flagged_all)
-
-    desc_map = (
-        filtered_data[GROUP_COLS + ["PARAMETER_DESC"]]
-        .drop_duplicates(subset=GROUP_COLS)
+    # REFERENCE DATA FOR FACILITY + PARAMETER DESCRIPTIONS
+    wwna_facilities = (
+        WWNA_LIST[["FACILITY ID", "NPDES # CA#"]]
+        .rename(columns={"FACILITY ID": "facility_place_id", "NPDES # CA#": permit_col})
+        .astype({"facility_place_id": str})
+        .dropna(subset=[permit_col])
     )
-    flagged_all_df = flagged_all_df.merge(desc_map, on=GROUP_COLS, how="left")
+    # Create set of matching facility_place_id values for early ESMR filtering
+    wwna_facility_ids = set(wwna_facilities["facility_place_id"])
 
-    # Merge flagged facilities with actual data for plotting
-    flagged_data = filtered_data.merge(flagged_all_df, on=GROUP_COLS, how="inner")
+    # LOAD ESMR DATA WITH NORMALIZATION + METADATA
+    esmr_dataframes = []
 
-    # Count parameters per facility
-    flagged_param_counts = (
-        flagged_all_df.groupby("EXTERNAL_PERMIT_NMBR")["PARAMETER_CODE"]
-        .nunique()
-        .to_dict()
-    )
+    for y in analysis_range:
+        # Load ESMR data for this year and filter to only WWNA facilities
+        esmr_year = load_data("ESMR", year=y)
+        print(f"  Loaded {len(esmr_year):,} records")
+        esmr_year = esmr_year[esmr_year["facility_place_id"].isin(wwna_facility_ids)]
 
-    # Map of counts
-    plot_map(flagged_param_counts, 4)
+        # Convert ESMR values to base units for comparison with DMR limits
+        esmr_year = convert_to_base_units(esmr_year, [dmr_val_col])
+        print(f"  After unit conversion: {len(esmr_year):,} records")
 
-    # Generate plots for facilities with slope and near exceedance
-    facilities_grouped = flagged_data.groupby("EXTERNAL_PERMIT_NMBR")
-    # Use GROUP_COLS minus facility id to avoid mixing within-facility plots,
-    plot_group_cols = [c for c in GROUP_COLS if c != "EXTERNAL_PERMIT_NMBR"]
-    plot_group_cols.append("PARAMETER_DESC")
-    for npdes_code, facility_data in facilities_grouped:
-        for _, param_data in facility_data.groupby(plot_group_cols):
-            param_desc = (
-                param_data["PARAMETER_DESC"].iloc[0]
-                if "PARAMETER_DESC" in param_data.columns
-                else param_data["PARAMETER_CODE"].iloc[0]
+        # Map ESMR calculated_method to DMR STATISTICAL_BASE_CODE
+        calc_normalized = (
+            esmr_year["calculated_method"]
+            .str.lower()
+            .str.strip()
+            .str.replace(r"\s+", " ", regex=True)
+        )
+        esmr_year[stat_base_col] = calc_normalized.apply(
+            lambda calc: next(
+                (code for pattern, code in stat_patterns if pattern in calc), None
             )
-            _step3_facility_param_plot(npdes_code, param_desc, param_data)
+        )
+        esmr_year = esmr_year.dropna(subset=[stat_base_col])
+        print(f"  After stat base mapping: {len(esmr_year):,} records")
 
-    # Bar plot of counts
-    df = pd.DataFrame(
-        list(flagged_param_counts.items()), columns=["Facility", "Parameters"]
-    )
+        # Map unit dimensionality to LIMIT_VALUE_TYPE_CODE prefix (C, Q, etc.)
+        # Use STANDARD_UNIT_DESC (original units) to determine C vs Q type
+        unit_dims = {
+            unit: _ureg.Quantity(1, unit).to_base_units().dimensionality
+            for unit in esmr_year[unit_desc_col].unique()
+        }
+        esmr_year[limit_type_code_col] = (
+            esmr_year[unit_desc_col].map(unit_dims).map(_DIM_TO_LIMIT_TYPE)
+        )
+        esmr_year = esmr_year.dropna(subset=[limit_type_code_col])
+
+        # Add permit number (EXTERNAL_PERMIT_NMBR) needed for merging with DMR data
+        esmr_year = esmr_year.merge(
+            wwna_facilities[[permit_col, "facility_place_id"]],
+            on="facility_place_id",
+            how="inner",
+        )
+        print(f"  After permit join: {len(esmr_year):,} records")
+
+        # Map ESMR parameter names to DMR PARAMETER_CODE
+        esmr_year = esmr_year.merge(
+            param_mapping[[param_code_col, "ESMR_PARAMETER_DESC"]],
+            left_on="PARAMETER_DESC",
+            right_on="ESMR_PARAMETER_DESC",
+            how="inner",
+        )
+        esmr_year = esmr_year.drop(columns=["ESMR_PARAMETER_DESC"])
+        print(f"  After parameter mapping: {len(esmr_year):,} records")
+
+        # Parse location codes:
+        # "EFF-001" -> MONITORING_LOCATION_CODE="1", PERM_FEATURE_NMBR="001"
+        location_upper = esmr_year["location"].str.upper()
+
+        def parse_location(loc):
+            """Parse ESMR location (e.g. 'EFF-001') into loc code and feature number."""
+            loc_code = "0" if loc.startswith("INF") else "1"
+            if " " in loc:
+                loc = loc.split(" ")[0]
+            if "-" in loc:
+                return loc_code, loc.split("-", 1)[1].replace("-", "")
+            return loc_code, ""
+
+        parsed = location_upper.apply(parse_location)
+        esmr_year[location_col] = [p[0] for p in parsed]
+        esmr_year[perm_feature_nmbr_col] = [p[1] for p in parsed]
+
+        # Drop rows where we couldn't parse the location
+        esmr_year = esmr_year.dropna(subset=[location_col, perm_feature_nmbr_col])
+        print(f"  After location parsing: {len(esmr_year):,} records")
+
+        # Filter to only ESMR records that match existing DMR LIMIT_GROUP_COLS combos
+        esmr_year = esmr_year.merge(dmr_group_filter, on=LIMIT_GROUP_COLS, how="inner")
+        print(f"  After DMR group join: {len(esmr_year):,} records")
+
+        esmr_dataframes.append(esmr_year)
+        print(f" {len(esmr_year):,} records after filtering for {y}")
+        del esmr_year, location_upper, parsed  # Free memory after appending
+        gc.collect()
+
+    esmr_data = pd.concat(esmr_dataframes, ignore_index=True)  # Concatenate
+    del esmr_dataframes  # Free memory after concatenation
+    gc.collect()
+
+    # COMBINE DMR + ESMR INTO A SINGLE TABLE W/ SOURCE
+    dmr_filtered["_DATA_SOURCE"] = "DMR"
+    esmr_data["_DATA_SOURCE"] = "ESMR"
+    data = pd.concat([dmr_filtered, esmr_data], ignore_index=True)
+    data = data.sort_values(by=[monitor_date_col], kind="stable").reset_index(drop=True)
+    print(f"Combined {len(dmr_filtered):,} DMR + {len(esmr_data):,} ESMR")
+
+    # Create lookup dictionary indexed by LIMIT_GROUP_COLS tuple for fast access
+    recent_limit_lookup = {
+        tuple(row[col] for col in LIMIT_GROUP_COLS): row
+        for _, row in most_recent_limit_filtered.iterrows()
+    }
+    del most_recent_limit_filtered, esmr_data  # Free memory
+    gc.collect()
+
+    # Process groups sequentially
+    grouped_data = data.groupby(LIMIT_GROUP_COLS)
+    flagged_records = []
+    non_flagged_count = 0  # Track how many non-flagged examples we've plotted
+
+    for key_tuple, group in grouped_data:
+        dates = group[monitor_date_col]
+        values = group[dmr_val_col]
+
+        # Quartiles and two-sided outlier filtering with intraquartile range
+        Q1_pct = np.percentile(values, 25)
+        Q3_pct = np.percentile(values, 75)
+        lower_thr = Q1_pct - IQR_MULTIPLIER * (Q3_pct - Q1_pct)
+        upper_thr = Q3_pct + IQR_MULTIPLIER * (Q3_pct - Q1_pct)
+        outlier_mask = (values >= lower_thr) & (values <= upper_thr)
+        date_array = dates[outlier_mask].to_numpy(dtype=float)
+        value_array = values[outlier_mask].to_numpy(dtype=float)
+
+        if np.unique(date_array).size < 8:  # fewer than 8 unique dates
+            continue  # Don't analyze
+
+        trend_slope, trend_intercept = np.polyfit(date_array, value_array, 1)
+
+        # Get current limit values from recent_limit_lookup for flagging
+        current_limit_row = recent_limit_lookup.get(key_tuple)
+        if current_limit_row is None:
+            continue  # No current limit found, skip
+
+        current_limit_val = current_limit_row[limit_val_col]
+        is_maximum_limit = current_limit_row[qualifier_col] in {"<=", "<"}
+
+        # Flagging logic
+        # Use time_to_limit based on median + slope (no Q3/Q1 check needed)
+        # This captures cases where values are trending toward limits
+        # even if current Q3 isn't near threshold
+        slope_toward = (trend_slope > 0) if is_maximum_limit else (trend_slope < 0)
+        with np.errstate(divide="ignore", invalid="ignore"):
+            distance = abs(np.median(value_array) - current_limit_val)
+            # Set time_to_limit to inf if already at limit or slope is zero/no trend
+            if distance == 0 or not (slope_toward and abs(trend_slope) > 0):
+                time_to_limit = np.inf
+            else:
+                time_to_limit = distance / abs(trend_slope)
+
+        # Check if flagged:  time_to_limit check (removed Q3/Q1 near-exceedance check)
+        is_flagged = time_to_limit <= TIME_TO_LIMIT_YEARS
+
+        # Determine if we should plot this group
+        should_plot = False
+        is_non_flagged_example = False
+
+        if is_flagged:
+            should_plot = True
+        elif (
+            non_flagged_count < 5 and random.random() < 0.1
+        ):  # ~10% chance per non-flagged group
+            should_plot = True
+            is_non_flagged_example = True
+            non_flagged_count += 1
+
+        if not should_plot:
+            continue  # Skip plotting
+
+        # Generate plot (for flagged or selected non-flagged)
+        # Get the corresponding monitoring data from data DataFrame
+        param_data = data[
+            data[LIMIT_GROUP_COLS].apply(lambda row: tuple(row) == key_tuple, axis=1)
+        ].copy()
+
+        # Extract values for plotting
+        first_data_row = param_data.iloc[0]
+        param_code = key_tuple[LIMIT_GROUP_COLS.index(param_code_col)]
+        param_desc = param_desc_lookup.get(param_code, f"Parameter {param_code}")
+        dates = param_data[monitor_date_col]
+        values = param_data[dmr_val_col]
+
+        plt.figure(figsize=(15, 6))
+        gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
+
+        # Time series plot
+        ax1 = plt.subplot(gs[0])
+        outliers = (values < lower_thr) | (values > upper_thr)
+        ax1.scatter(
+            dates[~outliers], values[~outliers], s=30, color="blue", label="Data"
+        )
+        ax1.scatter(
+            dates[outliers], values[outliers], marker="*", color="r", label="Outliers"
+        )
+        ax1.plot(
+            dates, trend_slope * dates + trend_intercept, "k--", label="Trend", zorder=6
+        )
+
+        # Calculate y-axis limits
+        param_data_sorted = param_data.reset_index(drop=True)
+        limits_sorted = param_data_sorted[limit_val_col].dropna()
+        val_min, val_max = values[~outliers].min(), values[~outliers].max()
+        limit_min, limit_max = limits_sorted.min(), limits_sorted.max()
+        low_buf = 0.95 if is_maximum_limit else 0.90
+        high_buf = 1.05 if is_maximum_limit else 1.10
+        y_min = np.nanmin([val_min, limit_min, val_min * 0.95, limit_min * low_buf])
+        y_max = np.nanmax([val_max, limit_max, val_max * 1.05, limit_max * high_buf])
+
+        # Add outlier text annotation
+        if outliers.sum() > 0:
+            outlier_text = "Outliers:\n"
+            for d, v in zip(dates[outliers], values[outliers]):
+                date_str = f"{int(d)}-{int(round((d - int(d)) * 12)) + 1:02d}"
+                outlier_text += f"{date_str}: {v:.4e}\n"
+            ax1.text(
+                0.02,
+                0.98,
+                outlier_text,
+                transform=ax1.transAxes,
+                fontsize=7,
+                verticalalignment="top",
+            )
+
+        # Create compliance zones
+        dmr_data_for_limits = param_data_sorted[
+            param_data_sorted["_DATA_SOURCE"] == "DMR"
+        ].copy()
+
+        # Create segments based on actual monitoring dates where limit values change
+        # Extract monitoring date and limit value, sort by date, collapse consecutive same values
+        limit_segments = (
+            dmr_data_for_limits[[monitor_date_col, limit_val_col]]
+            .dropna(subset=[limit_val_col])
+            .sort_values(by=monitor_date_col, kind="stable")
+            .reset_index(drop=True)
+        )
+
+        if len(limit_segments) > 0:
+            # Identify where limit value changes between consecutive rows
+            limit_segments["limit_changed"] = limit_segments[limit_val_col].ne(
+                limit_segments[limit_val_col].shift()
+            )
+            limit_segments["segment"] = limit_segments["limit_changed"].cumsum()
+
+            # Group by segment and get first row's date and limit value
+            segment_df = (
+                limit_segments.groupby("segment", sort=False)
+                .agg(
+                    start=(monitor_date_col, "first"),
+                    limit=(limit_val_col, "first"),
+                )
+                .astype({col: float for col in ["start", "limit"]})
+            )
+
+            # Set end date: next segment's start date (or end of plot range for last segment)
+            segment_df["end"] = segment_df["start"].shift(-1).fillna(2026.0)
+
+            # Ensure end doesn't exceed plot range
+            segment_df["end"] = segment_df["end"].clip(upper=2026.0)
+        else:
+            # No limit data available
+            segment_df = pd.DataFrame(columns=["start", "end", "limit"])
+
+        zone_colors = {"In Compliance": "#d4f8d4", "Out of Compliance": "#fad8d8"}
+        for _, seg_row in segment_df.iterrows():
+            if is_maximum_limit:
+                compliant_bounds = (y_min, seg_row["limit"])
+                noncompliant_bounds = (seg_row["limit"], y_max)
+            else:
+                compliant_bounds = (seg_row["limit"], y_max)
+                noncompliant_bounds = (y_min, seg_row["limit"])
+            ax1.fill_between(
+                (seg_row["start"], seg_row["end"]),
+                *compliant_bounds,
+                color=zone_colors["In Compliance"],
+                zorder=0,
+            )
+            ax1.fill_between(
+                (seg_row["start"], seg_row["end"]),
+                *noncompliant_bounds,
+                color=zone_colors["Out of Compliance"],
+                zorder=0,
+            )
+        ax1.set_ylim(y_min, y_max)
+        ax1.set_xlim(2015, 2026)
+        ax1.set_xlabel("Time")
+        ax1.set_ylabel(current_limit_row[unit_base_col])
+        ax1.set_title(f"{param_desc}\n{key_tuple[LIMIT_GROUP_COLS.index(permit_col)]}")
+        handles, _ = ax1.get_legend_handles_labels()
+        handles.extend(
+            Patch(facecolor=color, edgecolor=color, label=label)
+            for label, color in zone_colors.items()
+        )
+        ax1.legend(handles, [h.get_label() for h in handles])
+        ax1.set_xticks(range(2015, 2026))
+        ax1.set_xticklabels([str(y) for y in range(2015, 2026)])
+
+        # Histogram plot
+        ax2 = plt.subplot(gs[1])
+        ax2.hist(values[~outliers], bins=20, color="blue", edgecolor="black")
+        ax2.axvline(Q1_pct, color="red", label="Q1")
+        ax2.axvline(Q3_pct, color="orange", label="Q3")
+        ax2.axvline(current_limit_val, color="gray", label="Limit")
+        ax2.set_xlabel(current_limit_row[unit_base_col])
+        ax2.set_ylabel("Frequency")
+        ax2.legend(fontsize=8)
+
+        # Save figure
+        permit_code = key_tuple[LIMIT_GROUP_COLS.index(permit_col)]
+        unit = first_data_row[unit_desc_col]
+        stat_base = first_data_row[stat_base_col]
+        location = first_data_row[location_col]
+        filename = f"{permit_code}_{param_desc}_{unit}_{stat_base}_Loc{location}.png"
+        for ch in [" ", ",", "[", "]", "%", "/", ":"]:
+            filename = filename.replace(ch, "_")
+
+        if is_non_flagged_example:
+            # Save to subfolder for non-flagged examples
+            subfolder_path = Path(f"{STEP_DIRS[3]}/figures_py/not_flagged_examples")
+            subfolder_path.mkdir(parents=True, exist_ok=True)
+            full_path = subfolder_path / filename
+            plt.tight_layout()
+            plt.savefig(full_path, bbox_inches="tight")
+            plt.close()
+        else:
+            # Save normally for flagged groups
+            save_fig(f"{filename}", 3)
+
+            # Save CSV with all columns for this flagged group
+            csv_filename = filename.replace(".png", ".csv")
+            csv_path = Path(f"{STEP_DIRS[3]}/csvs_py") / csv_filename
+            # Save the full group data with all columns
+            group.to_csv(csv_path, index=False)
+
+            # Store the key tuple for flagged groups
+            flagged_records.append(
+                {col: val for col, val in zip(LIMIT_GROUP_COLS, key_tuple)}
+            )
+
+    flagged_df = pd.DataFrame(flagged_records)
+    print(f"{len(flagged_df)} pairs with both near-exceedance and time-to-limit")
+    print(f"{flagged_df[permit_col].nunique()} unique facilities")
+    print("Generated facility-parameter plots")
+
+    # Map and bar plot of flagged parameter counts per facility
+    flagged_counts = flagged_df.groupby(permit_col)[param_code_col].nunique().to_dict()
+    df = pd.DataFrame(flagged_counts.items(), columns=["Facility", "Parameters"])
+    plot_map(flagged_counts, 4)
     plot_barh(
         df.sort_values("Parameters", ascending=True),
         x_col="Parameters",
@@ -306,14 +650,14 @@ def main(drop_toxicity=False):
     )
 
     # Save aggregated results
-    aggregated_df = aggregate_flagged_params(
-        flagged_all_df,
-        "EXTERNAL_PERMIT_NMBR",
-        "PARAMETER_CODE",
-        AGG_STRINGS["3"],
-    )
+    aggregated_df = aggregate_flags(flagged_df, permit_col, param_code_col, 3)
     aggregated_df.to_csv(f"{STEP_DIRS[3]}/flagged_facilities_step3_py.csv", index=False)
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--drop-toxicity", action="store_true")
+    parser.add_argument("--exclude-noncompliant", action="store_true")
+    args = parser.parse_args()
+
+    main(args.drop_toxicity, args.exclude_noncompliant)

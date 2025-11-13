@@ -3,27 +3,20 @@ import json
 from pathlib import Path
 import matplotlib.pyplot as plt
 import geopandas as gpd
-import multiprocessing
+
+YEAR_RANGE = [2015, 2025]
+analysis_range = range(YEAR_RANGE[0], YEAR_RANGE[1] + 1)
 
 # Load analysis configuration
 with open("wwna_variables_2024/analysis_config.json", "r") as f:
-    ANALYSIS_CONFIG = json.load(f)
-
-# IMPORT DMR AND ESMR DATA
-year_range_config = ANALYSIS_CONFIG["year_range"]
-analysis_range = range(year_range_config[0], year_range_config[1] + 1)
-save = False
-load = True
-DEFAULT_CMAP = "viridis"
+    STEP3_CONFIG = json.load(f)
 
 # WWNA FACILITY LIST
-WWNA_LIST_PATH = ANALYSIS_CONFIG["wwna_list_path"]
+WWNA_LIST_PATH = "data/wwna_list/NPDES+WDR Facilities List_20240906.csv"
 WWNA_LIST = pd.read_csv(WWNA_LIST_PATH)
 NPDES_FROM_WWNA_LIST = (
     WWNA_LIST[WWNA_LIST["NPDES # CA#"].notna()]["NPDES # CA#"].unique().tolist()
 )
-if multiprocessing.current_process().name == "MainProcess":
-    print(f"{len(NPDES_FROM_WWNA_LIST)} of {len(WWNA_LIST)} WWNA facilities have NPDES")
 
 # Column name constants for aggregated results
 AGG_STRINGS = {
@@ -36,25 +29,11 @@ AGG_STRINGS = {
         "PARAM": "Discharges to Impaired and Not Limited: List of Parameters",
     },
 }
-agg_columns = []
-for step in ["3", "4"]:
-    for key in ["COUNT", "PARAM"]:
-        agg_columns.append(AGG_STRINGS[step][key])
-
 
 # Path constants for processed data directories
 STEP_DIRS = {}
 for i in range(4):
     STEP_DIRS[i + 1] = f"processed_data/step{i+1}"
-
-SCRIPTS = [
-    "step0_download_data.py",
-    "step1_parameter_categorization.py",
-    "step2_population_served.py",
-    "step3_near_exceedance.py",
-    "step4_future_limits.py",
-]
-
 
 with open("wwna_variables_2024/file_configs.json", "r") as f:
     FILE_CONFIGS = json.load(f)
@@ -72,7 +51,7 @@ for config in FILE_CONFIGS.values():
         }
 
 
-def load_data(data_type, year=None, drop_toxicity=False):
+def load_data(data_type, year=None, drop_toxicity=False, rename=True, dropna=True):
     """
     Generic function to load data based on file_configs.json.
 
@@ -89,46 +68,77 @@ def load_data(data_type, year=None, drop_toxicity=False):
     file_path = str(get_data_file_path(data_type, year))
 
     # Read data with configured columns and dtypes
+    # Exclude date columns from dtype dict since parse_dates will handle them
+    parse_dates_list = config.get("parse_dates", [])
+    drop_notna_list = config.get("drop_notna", [])
+    dtype_dict = config["dtype"].copy() if config["dtype"] else {}
+    for date_col in parse_dates_list:
+        dtype_dict.pop(date_col, None)  # Remove from dtype so parse_dates can work
+
     skiprows = config.get("skiprows", 0)
     if isinstance(skiprows, dict) and year is not None:
         skiprows = skiprows.get(str(year), 0)
+
+    usecols_list = list(config["dtype"].keys()) + parse_dates_list + drop_notna_list
+
     data = pd.read_csv(
         file_path,
-        usecols=list(config["dtype"].keys()) + config.get("parse_dates", []),
-        dtype=config["dtype"] if config["dtype"] else None,
-        parse_dates=config.get("parse_dates", []),
+        usecols=usecols_list,
+        dtype=dtype_dict if dtype_dict else None,
+        parse_dates=parse_dates_list if parse_dates_list else None,
         skiprows=skiprows,
         sep=config.get("separator", ","),
         low_memory=False,
     )
 
-    # dropna: drop rows where column IS NA
-    dropna_cols = [col for col in config.get("dropna", []) if col in data.columns]
-    if dropna_cols:
-        data = data.dropna(subset=dropna_cols)
+    # Coerce numeric columns (float/int) to numeric, with errors set to NaN
+    dtype_config = config.get("dtype") or {}
+    for col, col_type in dtype_config.items():
+        if col in data.columns and col_type in (float, int):
+            data[col] = pd.to_numeric(data[col], errors="coerce")
 
-    # drop_notna: drop rows where column IS NOT NA
-    for col in config.get("drop_notna", []):
+    # dropna: drop rows where column IS NA or empty string
+    dropna_cols = [col for col in config.get("dropna", []) if col in data.columns]
+    if dropna_cols and dropna:
+        data = data.dropna(subset=dropna_cols)  # drop NaN values
+        # Then drop empty strings (after converting to string to handle mixed types)
+        for col in dropna_cols:
+            empty_mask = data[col].astype(str).str.strip() == ""
+            if empty_mask.any():
+                data = data[~empty_mask].copy()
+
+    # drop_notna: drop rows where column IS NOT NA, then drop the column itself
+    for col in drop_notna_list:
         if col in data.columns:
             data = data[data[col].isna()]
+        data = data.drop(
+            columns=[col for col in drop_notna_list if col in data.columns]
+        )
 
     for col, filter_values in config.get("filters", {}).items():
         if col not in data.columns:
             continue
         if isinstance(filter_values, list):
             # Filter by list of values
-            data = data[data[col].isin(filter_values)]
+            mask = pd.Series(False, index=data.index)
+            for fv in filter_values:
+                if fv.endswith("*"):
+                    # Match strings starting with pattern (remove * suffix)
+                    pattern = fv[:-1]
+                    mask |= data[col].astype(str).str.startswith(pattern, na=False)
+                elif fv.startswith("*"):
+                    # Match strings ending with pattern (remove * prefix)
+                    pattern = fv[1:]
+                    mask |= data[col].astype(str).str.endswith(pattern, na=False)
+                else:
+                    # Exact matching
+                    mask |= data[col].astype(str).str.strip() == fv
+            data = data[mask]
 
     # Apply transformations from config
     if config.get("strip_leading_zeros"):
         transform = config["strip_leading_zeros"]
         data[transform] = data[transform].str.lstrip("0")
-
-    elif config.get("mark_toxicity"):
-        transform = config["mark_toxicity"]
-        if transform["pattern"] == "startswith":
-            mask = data[transform["column"]].str.startswith(tuple(transform["values"]))
-            data.loc[mask, transform["column"]] = transform["set_value"]
 
     # Apply post-processing (explode, drop_duplicates)
     for col in config.get("explode", []):
@@ -139,35 +149,40 @@ def load_data(data_type, year=None, drop_toxicity=False):
     if drop_dup_cols:
         data = data.drop_duplicates(subset=drop_dup_cols)
 
-    # Apply renames from config
+    # Apply renames from config to df and parse_dates list
     rename_map = config.get("rename", {})
-    if rename_map:
+    if rename_map and rename:
         data = data.rename(columns=rename_map)
+        parse_dates_list = [rename_map.get(col, col) for col in parse_dates_list]
 
-    if data_type == "DMR":  # Apply DMR-specific transformations
-        if drop_toxicity and "PARAMETER_DESC" in data.columns:
-            data = data[~data["PARAMETER_DESC"].str.contains("Toxicity")]
+    # Apply toxicity filtering if requested
+    if drop_toxicity and data_type == "LIMITS":
+        # Drop toxicity parameters (those starting with "T" or "W")
+        # Since there are a lot of these, and it lengthens the data
+        mask = data["PARAMETER_CODE"].str.startswith(("T", "W"), na=False)
+        data = data[~mask]
 
-        mped = "MONITORING_PERIOD_END_DATE"
-        data[f"{mped}_NUMERIC"] = (
-            data[mped].dt.year + data[mped].dt.month / 12 + data[mped].dt.day / 365
-        )
-
-        unique = data["EXTERNAL_PERMIT_NMBR"].nunique()
-        print(f"{year} {data_type}: {len(data)} records, {unique} facilities")
+    if data_type in ["ESMR", "DMR", "LIMITS"]:  # Create numeric date columns
+        for date_col in parse_dates_list:
+            # Ensure column is datetime before using .dt accessor
+            if not pd.api.types.is_datetime64_any_dtype(data[date_col]):
+                data[date_col] = pd.to_datetime(data[date_col], errors="coerce")
+            data[f"{date_col}_NUMERIC"] = (
+                data[date_col].dt.year
+                + data[date_col].dt.month / 12
+                + data[date_col].dt.day / 365
+            )
 
     # Apply WWNA facilities list filter for DMR and LIMITS
-    if data_type in ["DMR", "LIMITS"]:
-        data = data[data["EXTERNAL_PERMIT_NMBR"].isin(NPDES_FROM_WWNA_LIST)]
-
     if data_type == "LIMITS":
+        data = data[data["EXTERNAL_PERMIT_NMBR"].isin(NPDES_FROM_WWNA_LIST)]
         unique = data["EXTERNAL_PERMIT_NMBR"].nunique()
-        print(f"{year} has {len(data)} limits, {unique} unique permits")
+        print(f"{data_type} {year} has {len(data)} limits, {unique} unique permits")
 
     return data
 
 
-def aggregate_flagged_params(data, group_col, value_col, col_names):
+def aggregate_flags(data, group_col, value_col, step_num):
     """
     Aggregate flagged parameters by facility with count and comma-separated list.
 
@@ -180,10 +195,7 @@ def aggregate_flagged_params(data, group_col, value_col, col_names):
     Returns:
         Aggregated DataFrame
     """
-    # Handle empty dataframe
-    if len(data) == 0:
-        return pd.DataFrame(columns=[group_col, col_names["COUNT"], col_names["PARAM"]])
-
+    col_names = AGG_STRINGS[str(step_num)]
     agg_data = (
         data.groupby(group_col)
         .agg(
@@ -242,7 +254,7 @@ def plot_barh(data, x_col, y_col, xlabel, figsize=(12, 6), path=None, step=None)
     bars = ax.barh(data[y_col], data[x_col])
     ax.set_xlabel(xlabel)
 
-    # Add labels to bars (inline instead of separate function)
+    # Add labels to bars
     fmt_kwargs = {"ha": "left", "va": "center", "fontsize": 8}
     for bar in bars:
         width = bar.get_width()
@@ -291,11 +303,7 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
     # Create plot
     fig, ax = setup_fig(figsize=(8, 5))
     ca_counties_proj.plot(
-        ax=ax,
-        color="lightgray",
-        zorder=1,
-        edgecolor="white",
-        linewidth=0.5,
+        ax=ax, color="lightgray", zorder=1, edgecolor="white", linewidth=0.5
     )
     facilities_gdf_proj["param_count"] = facilities_gdf_proj["NPDES # CA#"].map(
         num_params_per_facility
@@ -310,14 +318,10 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
         vmin=facilities_gdf_proj["param_count"].min(),
         vmax=facilities_gdf_proj["param_count"].max(),
     )
-    cmap = plt.cm.get_cmap(DEFAULT_CMAP)
+    cmap = plt.cm.get_cmap("viridis")
 
     facilities_gdf_proj.plot(
-        ax=ax,
-        column="param_count",
-        cmap=cmap,
-        norm=norm,
-        zorder=2,
+        ax=ax, column="param_count", cmap=cmap, norm=norm, zorder=2
     )
 
     # Add facility labels
@@ -375,8 +379,8 @@ def plot_map(num_params_per_facility, label_threshold, step=3):
     ax.legend(
         handles=legend_elements,
         title="# Parameters Flagged",
-        loc="upper right",
         frameon=False,
+        # loc="upper right"
     )
 
     ax.set_xlabel(""), ax.set_ylabel(""), ax.set_xticks([]), ax.set_yticks([])

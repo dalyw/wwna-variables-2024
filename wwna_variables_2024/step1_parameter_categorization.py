@@ -2,293 +2,237 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import json
 import re
-from helper_functions import (
-    load_data,
-    FILE_CONFIGS,
-    STEP_DIRS,
-    save_fig,
-    ANALYSIS_CONFIG,
+from difflib import SequenceMatcher
+from helper_functions import load_data, STEP_DIRS, save_fig, YEAR_RANGE
+
+
+with open("data/manual_updates/parameter_sorting_dict.json", "r") as f:
+    PARAMETER_SORTING_DICT = json.load(f)
+
+
+def clean_param_code(series):
+    """Normalize parameter codes by converting to string and stripping leading zeros."""
+    return series.astype(str).str.lstrip("0")
+
+
+ref_parameter = pd.read_csv(
+    "data/dmr/REF_Parameter.csv", dtype={"POLLUTANT_CODE": "Int64"}
+).assign(PARAMETER_CODE=lambda df: clean_param_code(df["PARAMETER_CODE"]))
+ref_parameter_no_desc = ref_parameter.copy().drop(
+    columns=["PARAMETER_DESC"], errors="ignore"
 )
 
-# CATEGORIZE PARAMETERS
-with open("data/manual_updates/parameter_sorting_dict.json", "r") as f:
-    parameter_sorting_dict = json.load(f)
 
-ref_parameter = pd.read_csv("data/dmr/REF_PARAMETER.csv")
+def _iter_category_rules(tree, parent=None):
+    """Recursive function to help apply categories and sub-categories"""
+    for key, node in tree.items():
+        if not isinstance(node, dict):
+            continue
+        if "values" in node:
+            yield parent or key, key, node["values"], node.get("case", False)
+        else:
+            yield from _iter_category_rules(node, parent=key)
 
 
-def match_param_desc(row, target_df, target_desc_column):
-    """Match the parameter description in the target df to the current row."""
-    normalized_desc = normalize_param_desc(str(row["PARAMETER_DESC"]))
-    match = target_df[target_df["normalized_desc"] == normalized_desc]
-    return match[target_desc_column].iloc[0] if len(match) > 0 else ""
+MANUAL_MAPPING = (
+    pd.read_csv("data/manual_updates/dmr_esmr_mapping_manual.csv")
+    .assign(PARAMETER_CODE=lambda df: clean_param_code(df["PARAMETER_CODE"]))
+    .set_index("PARAMETER_CODE")["ESMR_PARAMETER_DESC_MANUAL"]
+)
+
+CATEGORY_RULES = [
+    (parent, child, "|".join(map(re.escape, values)), case)
+    for parent, child, values, case in _iter_category_rules(PARAMETER_SORTING_DICT)
+    if values
+]
 
 
 def normalize_param_desc(desc):
-    """
-    Normalize the parameter description by removing commas, brackets,
-    spaces, apostrophes, and dots,
-    converting to lowercase, and removing "sum" and "total"
-    """
-    to_remove = [",", " ", "'", "."]
-    words_to_remove = ["sum", "total", "tot."]
-    for word in words_to_remove:
-        to_remove.extend([f", {word}", f", {word.capitalize()}"])
-
-    # Build replacements dict (items to remove to "") and apply replacements
-    replacements = {old: "" for old in to_remove}
-    replacements.update({"[": "(", "]": ")", "&": "and"})
+    desc = str(desc)
+    replacements = {",": "", " ": "", "'": "", ".": "", "[": "(", "]": ")", "&": "and"}
+    for word in ("sum", "total", "tot."):
+        replacements[f", {word}"] = ""
+        replacements[f", {word.capitalize()}"] = ""
     for old, new in replacements.items():
         desc = desc.replace(old, new)
-
     return desc.lower()
 
 
-def categorize_parameters(df, parameter_sorting_dict, desc_column):
-    """
-    Categorize parameters in a dataframe based on a sorting dictionary.
-
-    Args:
-    df (pd.DataFrame): The dataframe containing parameters to categorize.
-    parameter_sorting_dict (dict): Dictionary containing categories and
-    their associated keywords.
-    desc_column (str): Name of column containing parameter descriptions.
-
-    Returns:
-    pd.DataFrame: The input dataframe with additional
-    'PARENT_CATEGORY' and 'SUB_CATEGORY' columns.
-    """
-    df["PARENT_CATEGORY"] = "Uncategorized"
-    df["SUB_CATEGORY"] = "Uncategorized"
-
-    def apply_categories(d, parent=None):
-        """Recursively apply categories from the sorting dictionary."""
-        for key, value in d.items():
-            if isinstance(value, dict) and "values" in value:
-                # Leaf node: apply category
-                mask = df[desc_column].str.contains(
-                    "|".join(map(re.escape, value["values"])),
-                    case=value.get("case", False),
-                )
-                df.loc[mask, "PARENT_CATEGORY"] = parent or key
-                df.loc[mask, "SUB_CATEGORY"] = key
-            elif isinstance(value, dict):
-                # Branch node: recurse
-                apply_categories(value, parent=key)
-
-    apply_categories(parameter_sorting_dict)
+def load_and_apply_categories(name, year):
+    column = f"{name}_PARAMETER_DESC"
+    if name == "DMR":
+        # For DMR, use all parameter codes from REF_Parameter.csv
+        df = ref_parameter[
+            ["PARAMETER_CODE", "PARAMETER_DESC", "POLLUTANT_CODE"]
+        ].copy()
+        df = df.rename(columns={"PARAMETER_DESC": column})
+    else:
+        df = load_data(name, year)
+    df = df.rename(columns={"PARAMETER_DESC": column})
+    df = df.drop_duplicates(subset=column)
+    if name == "TOXICS":
+        df[column] = df[column].str.replace(r"^\d+\.\s*", "", regex=True)
+    df = df.reset_index(drop=True)
+    df = df.assign(
+        **{
+            column: df[column].fillna(""),
+            "PARENT_CATEGORY": "Uncategorized",
+            "SUB_CATEGORY": "Uncategorized",
+        }
+    )
+    descriptions = df[column].astype(str)
+    for parent, child, pattern, case in CATEGORY_RULES:
+        mask = descriptions.str.contains(pattern, case=case, na=False)
+        if mask.any():
+            df.loc[mask, ["PARENT_CATEGORY", "SUB_CATEGORY"]] = parent, child
     return df
 
 
-def plot_pie_counts(df, title):
-    """Plot pie chart of parameter categories."""
-    category_counts = df["PARENT_CATEGORY"].value_counts()
-    plt.figure(figsize=(5, 5))
-    plt.pie(
-        category_counts,
-        autopct=lambda pct: f"{pct:.1f}%" if pct > 4 else "",
-        startangle=140,
-    )
-    plt.title(title)
-    plt.legend(category_counts.index, loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
-    save_fig(f'{title.lower().replace(" ", "_")}.png', 1)
-
-
 def main():
-    # Load and process each data source
-    dataframes = {}
-    for key in ["DMR", "ESMR", "IR", "TOXICS"]:
-        if key == "DMR":
-            data = load_data(key, 2024)
-            # Add POLLUTANT_CODE from ref_parameter for step1 processing
-            data["PARAMETER_CODE_CLEAN"] = data["PARAMETER_CODE"].str.lstrip("0")
-            data = data.merge(
-                ref_parameter[["PARAMETER_CODE", "POLLUTANT_CODE"]].rename(
-                    columns={"PARAMETER_CODE": "PARAMETER_CODE_CLEAN"}
-                ),
-                on="PARAMETER_CODE_CLEAN",
-                how="left",
-            )
-            processed = (
-                data[["PARAMETER_CODE", "PARAMETER_DESC", "POLLUTANT_CODE"]]
-                .drop_duplicates(subset=["PARAMETER_CODE"])
-                .reset_index(drop=True)
-            )
-            print(f"{len(processed)} unique parameters in DMR 2024 data")
-            dataframes[key] = processed
-            continue
+    recent_year = YEAR_RANGE[-1]
 
-        if key in FILE_CONFIGS and "step1" in FILE_CONFIGS[key]:
-            cfg = FILE_CONFIGS[key]["step1"]
-
-            # Load CSV data
-            if key == "ESMR":
-                final_year = ANALYSIS_CONFIG["year_range"][1]
-                data = load_data(key, final_year)
-            else:
-                data = load_data(key, cfg.get("year"))
-
-            # Extract column and rename
-            processed = data[[cfg["column"]]].drop_duplicates().reset_index(drop=True)
-            processed.rename(
-                columns={processed.columns[0]: cfg["desc_col"]}, inplace=True
-            )
-
-            # Apply post-processing if specified
-            post_proc = cfg.get("post_process", {})
-            if post_proc.get("strip_prefix"):
-                pattern = post_proc["strip_prefix"]["pattern"]
-                processed[cfg["desc_col"]] = processed[cfg["desc_col"]].str.replace(
-                    pattern, "", regex=post_proc["strip_prefix"].get("regex", False)
-                )
-
-            dataframes[key] = processed
-
-    # Categorize parameters
-    category_cols = {
-        "DMR": "PARAMETER_DESC",
-        "IR": "IR_PARAMETER_DESC",
-        "ESMR": "ESMR_PARAMETER_DESC",
-        "TOXICS": "TOXICS_PARAMETER_DESC",
+    # Load and categorize all data sources
+    dataframes = {
+        "DMR": load_and_apply_categories("DMR", recent_year),
+        "ESMR": load_and_apply_categories("ESMR", recent_year),
+        "IR": load_and_apply_categories("IR", 2024),
+        "TOXICS": load_and_apply_categories("TOXICS", recent_year),
     }
-    for key, desc_col in category_cols.items():
-        categorize_parameters(dataframes[key], parameter_sorting_dict, desc_col)
 
-    # Save ir_parameter_df
-    # Merge with manually added parameters if they exist
-    manual_params_path = "data/manual_updates/parameters_manual_additions.csv"
-    dataframes["IR"].to_csv(f"{STEP_DIRS[1]}/ir_parameter_df_py.csv", index=False)
+    dmr = dataframes["DMR"]
+    manual_params = pd.read_csv("data/manual_updates/parameters_manual_additions.csv")
 
-    manual_params = pd.read_csv(manual_params_path)
-    # Append manual parameters that aren't already in the file
-    existing_params = set(dataframes["IR"]["IR_PARAMETER_DESC"].values)
-    new_params = manual_params[
-        ~manual_params["IR_PARAMETER_DESC"].isin(existing_params)
-    ]
-    print(f"Adding {len(new_params)} manually added parameters to ir_parameter_df")
-    combined = pd.concat(
-        [
-            dataframes["IR"],
-            new_params[["IR_PARAMETER_DESC", "PARENT_CATEGORY", "SUB_CATEGORY"]],
-        ],
-        ignore_index=True,
+    # Build IR parameter catalog from multiple sources
+    ir_df = dataframes["IR"].copy()
+    ir_df = (
+        pd.concat(
+            [
+                ir_df,
+                manual_params[["IR_PARAMETER_DESC", "PARENT_CATEGORY", "SUB_CATEGORY"]],
+                dmr[["DMR_PARAMETER_DESC", "PARENT_CATEGORY", "SUB_CATEGORY"]]
+                .rename(columns={"DMR_PARAMETER_DESC": "IR_PARAMETER_DESC"})
+                .assign(
+                    PARENT_CATEGORY=lambda df: df["PARENT_CATEGORY"].fillna("Uncommon"),
+                    SUB_CATEGORY=lambda df: df["SUB_CATEGORY"].fillna("Uncommon"),
+                ),
+                pd.concat(
+                    [
+                        load_data("LIMITS", year)[["PARAMETER_DESC"]]
+                        for year in range(YEAR_RANGE[0], YEAR_RANGE[1])
+                    ],
+                    ignore_index=True,
+                )
+                .drop_duplicates()
+                .dropna()
+                .rename(columns={"PARAMETER_DESC": "IR_PARAMETER_DESC"})
+                .assign(PARENT_CATEGORY="Uncommon", SUB_CATEGORY="Uncommon"),
+            ],
+            ignore_index=True,
+        )
+        .drop_duplicates(subset="IR_PARAMETER_DESC", keep="first")
+        .reset_index(drop=True)
     )
+    ir_df.to_csv(f"{STEP_DIRS[1]}/ir_parameter_df_py.csv", index=False)
+    dataframes["IR"] = ir_df
 
-    # Add unmapped DMR parameters to ir_parameter_df
-    dmr_params = (
-        dataframes["DMR"][["PARAMETER_DESC", "PARENT_CATEGORY", "SUB_CATEGORY"]]
-        .rename(columns={"PARAMETER_DESC": "IR_PARAMETER_DESC"})
-        .dropna(subset=["IR_PARAMETER_DESC"])
-    )
+    # Plot pie charts
+    for key, df in dataframes.items():
+        category_counts = df["PARENT_CATEGORY"].value_counts()
+        plt.figure(figsize=(5, 5))
+        plt.pie(category_counts, autopct=lambda pct: f"{pct:.1f}%" if pct > 4 else "")
+        plt.title(f"{key} Categories")
+        plt.legend(
+            category_counts.index, loc="center left", bbox_to_anchor=(1, 0, 0.5, 1)
+        )
+        save_fig(f'{key.lower().replace(" ", "_")}.png', 1)
 
-    existing_dmr = set(combined["IR_PARAMETER_DESC"].values)
-    new_dmr_params = dmr_params[~dmr_params["IR_PARAMETER_DESC"].isin(existing_dmr)]
-    new_dmr_params = new_dmr_params.copy()
-
-    new_dmr_params["PARENT_CATEGORY"] = new_dmr_params["PARENT_CATEGORY"].fillna(
-        "Uncommon"
-    )
-    new_dmr_params["SUB_CATEGORY"] = new_dmr_params["SUB_CATEGORY"].fillna("Uncommon")
-
-    if len(new_dmr_params) > 0:
-        print(f"Adding {len(new_dmr_params)} DMR parameters to ir_parameter_df")
-        combined = pd.concat([combined, new_dmr_params], ignore_index=True)
-
-    # Add LIMITS parameters that aren't in DMR or IR
-    # TODO: see if we can only use DMRs and not LIMITS
-    limits_data = load_data("LIMITS", 2024)
-    limits_params = pd.DataFrame(
-        {"IR_PARAMETER_DESC": limits_data["PARAMETER_DESC"].unique()}
-    )
-
-    # Apply keyword-based mapping
-    limits_params["PARENT_CATEGORY"] = "Uncommon"
-    limits_params["SUB_CATEGORY"] = "Uncommon"
-
-    # # Map toxicity-related parameters
-    # toxicity_keywords = ["static renewal", "static", "toxicity", "tu ", "pass/fail"]
-    # for keyword in toxicity_keywords:
-    #     mask = limits_params["IR_PARAMETER_DESC"].str.contains(
-    #         keyword, case=False, na=False
-    #     )
-    #     limits_params.loc[mask, "PARENT_CATEGORY"] = "Toxicity"
-    #     limits_params.loc[mask, "SUB_CATEGORY"] = "Toxicity"
-
-    existing_combined = set(combined["IR_PARAMETER_DESC"].values)
-    new_limits_params = limits_params[
-        ~limits_params["IR_PARAMETER_DESC"].isin(existing_combined)
-    ]
-
-    if len(new_limits_params) > 0:
-        print(f"Adding {len(new_limits_params)} LIMITS parameters to ir_parameter_df")
-        combined = pd.concat([combined, new_limits_params], ignore_index=True)
-
-    combined.to_csv(f"{STEP_DIRS[1]}/ir_parameter_df_py.csv", index=False)
-
-    # Create parameter reference by merging ref_parameter with combined categories
-    ref_parameter_merged = ref_parameter.merge(
-        combined[["IR_PARAMETER_DESC", "PARENT_CATEGORY", "SUB_CATEGORY"]],
-        left_on="PARAMETER_DESC",
-        right_on="IR_PARAMETER_DESC",
-        how="left",
-    )
-
-    # Clean PARAMETER_CODE for matching
-    ref_parameter_merged["PARAMETER_CODE_CLEAN"] = ref_parameter_merged[
-        "PARAMETER_CODE"
-    ].str.lstrip("0")
-
-    # Save consolidated reference
-    ref_parameter_merged.to_csv(
-        f"{STEP_DIRS[1]}/ref_parameter_merged_py.csv", index=False
-    )
-    print(f"Saved parameter reference with {len(ref_parameter_merged)} parameters")
-
-    # Plot category distributions
-    for key in category_cols.keys():
-        plot_pie_counts(dataframes[key], f"{key} Categories")
-
-    # Parameter name matching
-    for key in ["ESMR", "TOXICS"]:
-        target_df = dataframes[key]
-
-        # Normalize target descriptions
-        target_df["normalized_desc"] = target_df[f"{key}_PARAMETER_DESC"].apply(
-            normalize_param_desc
+    # Match DMR parameters to ESMR and TOXICS using normalized descriptions
+    for source_name in ("ESMR", "TOXICS"):
+        source_col = f"{source_name}_PARAMETER_DESC"
+        normalized = (
+            dataframes[source_name][source_col].fillna("").map(normalize_param_desc)
+        )
+        lookup = pd.Series(
+            dataframes[source_name][source_col].fillna("").values,
+            index=normalized,
+        )
+        lookup = lookup[lookup.index.str.len() > 0].drop_duplicates(keep="first")
+        normalized_dmr = dmr["DMR_PARAMETER_DESC"].map(normalize_param_desc)
+        matched = normalized_dmr.map(lookup).fillna("")
+        dmr[f"{source_name}_PARAMETER_DESC_MATCHED"] = matched
+        print(
+            f"{matched[matched != ''].nunique()} of {len(dmr)} exact matched to {source_name}"
         )
 
-        # Match DMR to target
-        matched_col = f"{key}_PARAMETER_DESC_MATCHED"
-        dataframes["DMR"][matched_col] = dataframes["DMR"].apply(
-            lambda row: match_param_desc(row, target_df, f"{key}_PARAMETER_DESC"),
-            axis=1,
-        )
-
-        # Print match statistics
-        unique = len(dataframes["DMR"][matched_col].unique()) - 1
-        print(f"{unique} of {len(dataframes['DMR'])} auto matched to {key}")
-
-    # Add manual mappings for ESMR
-    manual_mapping = pd.read_csv(
-        "data/manual_updates/dmr_esmr_mapping_manual.csv"
-    ).set_index("PARAMETER_CODE")["ESMR_PARAMETER_DESC_MANUAL"]
-
-    dataframes["DMR"]["ESMR_PARAMETER_DESC_MANUAL"] = (
-        dataframes["DMR"]["PARAMETER_CODE"].map(manual_mapping).fillna("")
+    # Apply manual mappings first, then exact normalized matches
+    dmr["ESMR_PARAMETER_DESC"] = (
+        dmr["PARAMETER_CODE"]
+        .map(MANUAL_MAPPING)
+        .fillna(dmr["ESMR_PARAMETER_DESC_MATCHED"].replace("", pd.NA))
     )
-    dataframes["DMR"]["ESMR_PARAMETER_DESC"] = (
-        dataframes["DMR"]["ESMR_PARAMETER_DESC_MATCHED"]
-        .fillna(dataframes["DMR"]["ESMR_PARAMETER_DESC_MANUAL"])
-        .fillna("No Match (unconfirmed)")
+    
+    # Apply similarity-based matching for remaining unmatched (>0.9 similarity)
+    # Only for parameters not already matched through exact or manual
+    print("Running similarity-based matching")
+    unmatched_mask = dmr["ESMR_PARAMETER_DESC"].isna()
+    
+    # Get ESMR descriptions already mapped (by manual or exact)
+    already_mapped_esmr = set(
+        dmr[dmr["ESMR_PARAMETER_DESC"].notna()]["ESMR_PARAMETER_DESC"].unique()
+    )
+    if unmatched_mask.any():
+        esmr_descs = dataframes["ESMR"]["ESMR_PARAMETER_DESC"].fillna("").unique()
+        esmr_descs = [d for d in esmr_descs if d and d not in already_mapped_esmr]  # Exclude already mapped
+        
+        similarity_matches = []
+        for idx in dmr[unmatched_mask].index:
+            dmr_desc = dmr.loc[idx, "DMR_PARAMETER_DESC"]
+            dmr_normalized = normalize_param_desc(dmr_desc)
+            
+            # Find best match by similarity
+            best_match = None
+            best_sim = 0.0
+            for esmr_desc in esmr_descs:
+                esmr_normalized = normalize_param_desc(esmr_desc)
+                sim = SequenceMatcher(None, dmr_normalized, esmr_normalized).ratio()
+                if sim > best_sim:
+                    best_sim = sim
+                    best_match = esmr_desc
+            
+            # Only use if similarity >0.9
+            if best_sim > 0.9:
+                similarity_matches.append((idx, best_match, best_sim))
+        
+        # Apply similarity matches
+        if similarity_matches:
+            for idx, esmr_desc, sim in similarity_matches:
+                dmr.loc[idx, "ESMR_PARAMETER_DESC"] = esmr_desc
+            print(f"Applied {len(similarity_matches)} similarity-based matches (>0.9)")
+    
+    dmr = dmr.drop(columns=["ESMR_PARAMETER_DESC_MATCHED"])
+
+    # Remove ambiguous auto-matched mappings (multiple DMR codes -> same ESMR desc)
+    # This catches any remaining conflicts (e.g., multiple similarity matches to same ESMR)
+    is_auto_matched = dmr["ESMR_PARAMETER_DESC"].notna() & ~dmr["PARAMETER_CODE"].isin(
+        MANUAL_MAPPING.index
+    )
+    esmr_counts = dmr.loc[is_auto_matched, "ESMR_PARAMETER_DESC"].value_counts()
+    ambiguous_esmr = esmr_counts[esmr_counts > 1].index
+    if len(ambiguous_esmr) > 0:
+        dmr.loc[
+            is_auto_matched & dmr["ESMR_PARAMETER_DESC"].isin(ambiguous_esmr),
+            "ESMR_PARAMETER_DESC",
+        ] = pd.NA
+        print(f"Removed {len(ambiguous_esmr)} ambiguous auto-matched ESMR mappings")
+
+    # Fill remaining NAs
+    dmr["ESMR_PARAMETER_DESC"] = dmr["ESMR_PARAMETER_DESC"].fillna(
+        "No Match (unconfirmed)"
     )
 
-    # Final cleanup and save
-    dataframes["DMR"] = (
-        dataframes["DMR"]
-        .drop(columns=["ESMR_PARAMETER_DESC_MATCHED", "ESMR_PARAMETER_DESC_MANUAL"])
-        .rename(columns={"PARAMETER_DESC": "DMR_PARAMETER_DESC"})
-    )
-    dataframes["DMR"].to_csv(f"{STEP_DIRS[1]}/dmr_esmr_mapping_py.csv", index=False)
+    # Save
+    dmr.to_csv(f"{STEP_DIRS[1]}/dmr_esmr_mapping_py.csv", index=False)
+    dataframes["DMR"] = dmr
 
 
 if __name__ == "__main__":

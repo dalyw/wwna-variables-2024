@@ -1,0 +1,50 @@
+Code,Description
+0,Intake
+1,Effluent Gross
+2,Effluent Net
+3,Intake Public Water
+4,Pretreatment Process Complete
+5,Upstream Monitoring
+6,Downstream Monitoring
+7,Intake from Stream
+8,Other Treatment Process Complete
+9,Phosphate Removal Process Complete
+A,Disinfection Process Complete
+AP,Alternate Process
+B,Prior to Disinfection
+C,Nitrogen Removal Complete
+D,Tertiary/Advanced Process Complete
+E,Secondary/Biological Process Complete
+EG,Effluent Gross
+F,Primary/Preliminary Process Complete
+G,Raw Sewage Influent
+H,During Manufacturing
+I,Intake from Well
+IN,Allowed Increase
+J,Intermediate Treatment Process Complete
+K,Percent Removal
+L,Digestor
+N,In Aeration Unit
+O,See Comments
+P,See Comments
+Q,See Comments
+R,See Comments
+RS,Beneficial Reuse
+RW,Receiving Water
+S,See Comments
+SC,See Comments
+SL,Sludge
+T,See Comments
+U,See Comments
+V,See Comments
+W,See Comments
+X,End of Chlorine Contact Chamber
+Z,Instream Monitoring
+Y,Effluent Gross (Supplementary)
+GW,Groundwater
+II,Industrial Influent
+IM,Internal Monitoring Point
+PI,Prior to Irrigation
+PR,Prior to Reuse
+LA,Land Application Soil
+
