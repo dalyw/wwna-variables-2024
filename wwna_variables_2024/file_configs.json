@@ -190,6 +190,10 @@
   "WW_SURVEILLANCE": {
     "data_type": "WW_SURVEILLANCE",
     "file_pattern": "wastewatersurveillancecalifornia.csv",
+    "download": {
+      "resource_id": "2742b824-3736-4292-90a9-7fad98e94c06",
+      "size_threshold": 100000
+    },
     "dtype": {
       "epaid": "str",
       "population_served": "float"

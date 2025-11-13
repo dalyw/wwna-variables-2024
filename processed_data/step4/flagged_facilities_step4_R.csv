@@ -1,0 +1,75 @@
+NPDES # CA#,Discharges to Impaired and Not Limited: Number of Parameters,Discharges to Impaired and Not Limited: List of Parameters,Water Body ID
+CA0037559,4,"Disinfectants, Selenium, Toxic Organics, Mercury",2204.2004
+CA0037575,2,"Pathogens, Mercury",2206.500405
+CA0037613,2,"Disinfectants, Mercury",2204.3009
+CA0037664,6,"Disinfectants, Nitrogen, Toxic Inorganics, Toxic Organics, Pathogens, Mercury",2204.400102
+CA0037681,8,"Disinfectants, Nitrogen, Toxic Inorganics, Silver, Zinc, Lead, Toxic Organics, Mercury",2204.400102
+CA0037699,2,"Pathogens, Mercury",2206.500405
+CA0037702,5,"Disinfectants, Selenium, Toxic Organics, Mercury, Aquatic Toxicity",2204.2004
+CA0037711,1,Pathogens,2203.1
+CA0037753,1,Pathogens,2203.1
+CA0037810,2,"Toxic Organics, Pathogens",2206.3004
+CA0037826,1,Aquatic Toxicity,2206.600202
+CA0038008,2,"Disinfectants, Mercury",2204.3009
+CA0038067,1,Pathogens,2203.1
+CA0038121,2,"Pathogens, Mercury",2206.500405
+CA0038547,5,"Nitrogen, pH, Other, Mercury, Aquatic Toxicity",6544
+CA0038768,2,"Pathogens, Mercury",2206.500405
+CA0038881,2,"Disinfectants, Mercury",2204.2004
+CA0047899,1,Copper,3315.320002
+CA0048143,1,Copper,3315.320002
+CA0048151,1,Toxic Organics,3310.260004
+CA0048160,2,"Turbidity, pH",3315.310003
+CA0048216,4,"Nickel, Lead, Copper, Mercury",3305.100301
+CA0049224,1,Nitrogen,3310.240102
+CA0049964,1,Selenium,3305.3002
+CA0053597,12,"Turbidity, Dissolved Solids, Disinfectants, Nitrogen, Suspended Solids, Iron, Aluminum, Other, Toxic Organics, Radiation, Pathogens, Aquatic Toxicity",4408.12
+CA0053716,3,"Zinc, Copper, Mercury",4412.31
+CA0053813,1,Copper,4411.02
+CA0053911,1,Fuel,4405.15
+CA0053953,4,"Temperature, Dissolved Solids, Zinc, Toxic Organics",4412.21
+CA0053961,3,"Temperature, Selenium, Aquatic Toxicity",4402.100001
+CA0054011,1,Fuel,4405.15
+CA0054097,1,Toxic Organics,4410
+CA0054119,1,Fuel,4405.15
+CA0054372,1,Pathogens,4406.4
+CA0055531,4,"Temperature, Dissolved Solids, Zinc, Toxic Organics",4412.21
+CA0056014,1,Pathogens,4404.21
+CA0056227,4,"Temperature, Dissolved Solids, Zinc, Toxic Organics",4412.21
+CA0056294,4,"Dissolved Solids, Disinfectants, Other, Toxic Organics",4408.24
+CA0059501,10,"Turbidity, Dissolved Solids, Disinfectants, Nitrogen, Suspended Solids, Other, Toxic Organics, Radiation, Pathogens, Aquatic Toxicity",4408.12
+CA0064556,1,Manganese,4403.51
+CA0077682,1,Other,5519.11
+CA0077895,1,Mercury,5511.2
+CA0077950,1,Mercury,5511.2
+CA0078093,5,"Temperature, Nitrogen, pH, Mercury, Aquatic Toxicity",6544
+CA0078948,5,"Dissolved Solids, Nitrogen, Other, Toxic Organics, Radiation",6535.5
+CA0079049,1,Mercury,5511.2
+CA0079138,5,"Temperature, Nitrogen, pH, Mercury, Aquatic Toxicity",6544
+CA0079154,7,"Temperature, Nitrogen, pH, Other, Manganese, Mercury, Aquatic Toxicity",6544
+CA0079235,2,"Toxic Organics, Aquatic Toxicity",5515.4
+CA0079260,1,Toxic Organics,5520.3
+CA0082660,5,"Temperature, Nitrogen, pH, Mercury, Aquatic Toxicity",6544
+CA0084271,5,"Temperature, Nitrogen, pH, Mercury, Aquatic Toxicity",6544
+CA0084476,3,"Toxic Organics, Mercury, Aquatic Toxicity",5519.22
+CA0085260,5,"Temperature, Nitrogen, pH, Mercury, Aquatic Toxicity",6544
+CA0085359,7,"Temperature, Nitrogen, pH, Other, Manganese, Mercury, Aquatic Toxicity",6544
+CA0104477,5,"Disinfectants, Nitrogen, Toxic Organics, Pathogens, Aquatic Toxicity",10719.47
+CA0104493,5,"Disinfectants, Nitrogen, Toxic Organics, Pathogens, Aquatic Toxicity",10719.47
+CA0105350,1,Toxic Organics,4801.21
+CA0107395,2,"Nitrogen, Pathogens",4904.51
+CA0107417,1,Pathogens,4901.32
+CA0107433,1,Pathogens,4904.1
+CA0107492,1,Mercury,4907.12
+CA0107611,16,"Nitrogen, Phosphorus, Selenium, Lead, Toxic Organics, Pathogens, Mercury, Aquatic Toxicity","4801.11, 4901.13"
+CA0110604,4,"Lead, Mercury",4801.11
+CA3000001,1,Copper,3310.18
+CA8000316,1,Toxic Organics,4801.21
+CA8000326,2,"Lead, Mercury",4801.11
+CA8000383,3,"Iron, Copper, Toxic Organics",4801.25
+CA8000409,8,"Toxic Organics, Aquatic Toxicity",4801.21
+CAC422026,1,Dissolved Solids,6535.7
+CAC426201,2,"Toxic Organics, Aquatic Toxicity",5519.21
+CAC429451,3,"Toxic Organics, Mercury, Aquatic Toxicity",6531.2
+CAC432817,2,"Toxic Organics, Aquatic Toxicity",5519.22
+CAC444735,1,Toxic Organics,5520.3

@@ -161,29 +161,52 @@ convert_to_base_units <- function(df, convert_cols) {
       factor_map[[unit]] <- 1.0
       base_unit_map[[unit]] <- "dimensionless"
     } else {
-      # Convert unit to base units
-      q <- safe_set_units(1, unit)
-      qb <- convert_to_base(q)
-      base_unit_str <- as.character(units(qb))
-      
-      # map dimensionless to "dimensionless" instead of empty string
-      if (is.null(base_unit_str) || base_unit_str == "" || trimws(base_unit_str) == "") {
-        base_unit_str <- "dimensionless"
-      }
-      
-      factor_map[[unit]] <- as.numeric(drop_units(qb))
-      base_unit_map[[unit]] <- base_unit_str
+      # Convert unit to base units with error handling
+      tryCatch({
+        q <- safe_set_units(1, unit)
+        qb <- convert_to_base(q)
+        base_unit_str <- as.character(units(qb))
+        
+        # map dimensionless to "dimensionless" instead of empty string
+        if (is.null(base_unit_str) || base_unit_str == "" || trimws(base_unit_str) == "") {
+          base_unit_str <- "dimensionless"
+        }
+        
+        factor_map[[unit]] <- as.numeric(drop_units(qb))
+        base_unit_map[[unit]] <- base_unit_str
+      }, error = function(e) {
+        # If conversion fails, treat as dimensionless
+        # This handles units that aren't recognized by the units package
+        warning(sprintf("Unit conversion failed for '%s': %s. Treating as dimensionless.", unit, e$message))
+        factor_map[[unit]] <<- 1.0
+        base_unit_map[[unit]] <<- "dimensionless"
+      })
     }
   }
   
   # Store base units in separate columns (don't overwrite STANDARD_UNIT_DESC)
-  df[[unit_base_col]] <- vapply(normalized_units, function(u) base_unit_map[[u]], character(1))
+  # All units should be in base_unit_map now, but keep fallback for safety
+  df[[unit_base_col]] <- vapply(normalized_units, function(u) {
+    result <- base_unit_map[[u]]
+    if (is.null(result) || length(result) == 0) {
+      warning(sprintf("Unit '%s' not found in base_unit_map. This should not happen.", u))
+      return("dimensionless")
+    }
+    result
+  }, character(1))
   df[["LIMIT_BASE_UNIT_DESC"]] <- df[[unit_base_col]]
   
   # Convert values to base units
   for (col in convert_cols) {
     base_col <- gsub("STANDARD", "BASE", col)
-    factors <- vapply(normalized_units, function(u) factor_map[[u]], numeric(1))
+    factors <- vapply(normalized_units, function(u) {
+      result <- factor_map[[u]]
+      if (is.null(result) || length(result) == 0) {
+        warning(sprintf("Unit '%s' not found in factor_map. This should not happen.", u))
+        return(1.0)  # Default to dimensionless factor
+      }
+      result
+    }, numeric(1))
     df[[base_col]] <- df[[col]] * factors
     df[[col]] <- df[[base_col]]
   }

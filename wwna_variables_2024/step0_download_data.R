@@ -7,7 +7,7 @@ library(readr)
 library(dplyr)
 
 # Set up directories
-for (data_type in c("DMR", "ESMR", "IR", "SSO", "TOXICS", "CWNS")) {
+for (data_type in c("DMR", "ESMR", "IR", "SSO", "TOXICS", "CWNS", "WW_SURVEILLANCE")) {
   dir_path <- file.path("data", tolower(data_type))
   dir.create(dir_path, recursive = TRUE, showWarnings = FALSE)
 }
@@ -91,6 +91,16 @@ download_ir_year <- function(year) {
   return(TRUE)
 }
 
+# Download WW_SURVEILLANCE data
+download_ww_surveillance <- function() {
+  resource_id <- FILE_CONFIGS$WW_SURVEILLANCE$download$resource_id
+  file_path <- get_data_file_path("WW_SURVEILLANCE")
+  # Use CKAN datastore dump endpoint for csv (same as ESMR)
+  url <- sprintf("https://data.chhs.ca.gov/datastore/dump/%s?bom=True", resource_id)
+  
+  return(download_file(url, file_path))
+}
+
 # Download SSO data
 download_sso <- function() {
   
@@ -150,6 +160,8 @@ download_data_by_type <- function(data_type, year_range = NULL) {
       success <- download_ir_year(item)
     } else if (data_type == "SSO") {
       success <- download_sso()
+    } else if (data_type == "WW_SURVEILLANCE") {
+      success <- download_ww_surveillance()
     } else {  # TOXICS or CWNS
       success <- download_file(FILE_CONFIGS[[data_type]]$download$url, path_to_check)
     }
@@ -175,6 +187,7 @@ main <- function() {
   download_data_by_type("IR", year_range = c(2018, 2022, 2024))
   download_data_by_type("SSO")
   download_data_by_type("TOXICS")
-  download_data_by_type("CWNS")  
+  download_data_by_type("CWNS")
+  download_data_by_type("WW_SURVEILLANCE")
 }
 

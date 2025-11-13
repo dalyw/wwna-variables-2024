@@ -29,10 +29,10 @@ source('wwna_variables_2024/step1_parameter_categorization.R')
 main()
 cat("\n Step 1 complete\n\n")
 
-# # Step 2: Population Served
-# source('wwna_variables_2024/step2_population_served.R')
-# main()
-# cat("\n Step 2 complete\n\n")
+# Step 2: Population Served
+source('wwna_variables_2024/step2_population_served.R')
+main()
+cat("\n Step 2 complete\n\n")
 
 # Step 3: Near Exceedance Analysis
 source('wwna_variables_2024/step3_near_exceedance.R')

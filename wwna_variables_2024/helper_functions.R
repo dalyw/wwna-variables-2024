@@ -484,7 +484,7 @@ plot_map <- function(num_params_per_facility, label_threshold, step = 3) {
   facilities_with_coords_merged <- tibble(
     `NPDES # CA#` = facility_names
   ) %>%
-    left_join(WWNA_LIST, by = "NPDES # CA#") %>%
+    left_join(WWNA_LIST, by = "NPDES # CA#", relationship = "many-to-many") %>%
     filter(!is.na(`LONGITUDE DECIMAL DEGREES`), !is.na(`LATITUDE DECIMAL DEGREES`))
   
   # Create facilities GDF from lat/lon (EPSG:4326)
@@ -605,8 +605,7 @@ plot_map <- function(num_params_per_facility, label_threshold, step = 3) {
   # Create legend manually with points
   p <- p + guides(color = guide_legend(
     title = "# Parameters Flagged",
-    override.aes = list(size = 3),
-    frameon = FALSE
+    override.aes = list(size = 3)
   ))
   
   # Save plot

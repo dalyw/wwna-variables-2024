@@ -14,6 +14,14 @@ The analysis consists of five steps that aggregate data sources to inform 3 risk
 Downloads required data files from public sources. Large files are not stored in git and must be downloaded before running the analysis.
 URLs used for downloading data are stored in `file_configs.json`.
 
+- **DMR**: EPA ICIS NPDES DMR and LIMITS files (by year)
+- **ESMR**: Electronic self-monitoring reports from CIWQS (by year, via CKAN datastore)
+- **IR**: California Integrated Report 303(d) lists (2018, 2022, 2024)
+- **SSO**: SSO Annual Report questionnaire data
+- **TOXICS**: OEHHA toxicity criteria database
+- **CWNS**: Clean Watersheds Needs Survey 2022 dataset
+- **WW_SURVEILLANCE**: California wastewater surveillance data (via CKAN datastore, same interface as ESMR)
+
 Downloading ESMR data files is the most time-consuming part of Step 0, as these files are large and multiple years of data are downloaded.
 
 ### Step 1: Parameter Categorization
@@ -196,8 +204,9 @@ The analysis uses two main configuration files to control data loading and analy
 All data loading and download configuration is handled through the centralized `wwna_variables_2024/file_configs.json` configuration file, which defines:
 - Column selection (dtypes) and rows to skip (skiprows)
 - Data filters (dropna, drop_notna, isin) and transformations
-- Download URLs for DMR (+LIMITS), ESMR, IR, SSO, TOXICS, CWNS
+- Download URLs for DMR (+LIMITS), ESMR, IR, SSO, TOXICS, CWNS, WW_SURVEILLANCE
   - Plus `year_config` key for ESMR and IR which have URLs varying by year
+  - ESMR and WW_SURVEILLANCE use CKAN datastore dump endpoints (via `resource_id`)
 - Size thresholds for detecting a valid file of this type 
 
 
