@@ -36,8 +36,23 @@ download_dmr_year <- function(year) {
     return(FALSE)
   }
   
-  # Extract zip file then delete it
-  unzip(zip_path, exdir = dirname(zip_path), overwrite = TRUE)
+  # Extract zip file to the expected subdirectory structure
+  # Get the expected subdirectory path for DMR files
+  subdir <- gsub('\\{year\\}', year, FILE_CONFIGS$DMR$subdir_pattern)
+  extract_dir <- file.path("data", "dmr", subdir)
+  dir.create(extract_dir, recursive = TRUE, showWarnings = FALSE)
+  
+  # Extract files from zip,  placing in correct subdirectory
+  zip_files <- unzip(zip_path, list = TRUE)$Name
+  for (file in zip_files) {
+    # Extract each file to the subdirectory, using just the filename
+    unzip(zip_path, files = file, exdir = extract_dir, overwrite = TRUE)
+    # If move file to correct subdirectory location
+    if (dirname(file) != ".") {
+      file.rename(file.path(extract_dir, file), file.path(extract_dir, basename(file)))
+    }
+  }
+  
   unlink(zip_path)
   
   return(TRUE)

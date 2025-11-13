@@ -1,4 +1,4 @@
-setwd('/Users/dalywettermark/Documents/git/wwna-variables-2024')
+setwd('/home/daly/git/wwna-variables-2024')
 
 # Load required libraries
 library(tidyverse)

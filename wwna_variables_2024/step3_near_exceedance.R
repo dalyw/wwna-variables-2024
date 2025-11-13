@@ -77,6 +77,10 @@ normalize_unit_string <- function(unit) {
 }
 
 prepare_units_package_string <- function(unit_str) {
+  # Handle NULL, NA, or empty values
+  if (is.null(unit_str) || is.na(unit_str) || !nzchar(unit_str)) {
+    return("1")
+  }
   if (tolower(unit_str) %in% c("dimensionless", "1")) return("1")
   
   # Use CSV lookup for unit conversion
@@ -91,12 +95,17 @@ prepare_units_package_string <- function(unit_str) {
 }
 
 safe_set_units <- function(value, unit_str) {
-  if (is.null(unit_str) || !nzchar(unit_str) || tolower(unit_str) == "dimensionless") {
+  # Check for NULL, NA, or empty string first
+  if (is.null(unit_str) || is.na(unit_str) || !nzchar(unit_str)) {
+    return(set_units(value, "1"))
+  }
+  # Check if dimensionless (after ensuring unit_str is not NA)
+  if (tolower(unit_str) == "dimensionless") {
     return(set_units(value, "1"))
   }
   unit_cleaned <- prepare_units_package_string(unit_str)
   # Check if cleaned unit is empty or invalid
-  if (!nzchar(unit_cleaned) || tolower(unit_cleaned) == "dimensionless") {
+  if (is.na(unit_cleaned) || !nzchar(unit_cleaned) || tolower(unit_cleaned) == "dimensionless") {
     return(set_units(value, "1"))
   }
   

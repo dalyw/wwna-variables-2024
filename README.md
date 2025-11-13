@@ -14,6 +14,8 @@ The analysis consists of five steps that aggregate data sources to inform 3 risk
 Downloads required data files from public sources. Large files are not stored in git and must be downloaded before running the analysis.
 URLs used for downloading data are stored in `file_configs.json`.
 
+Downloading ESMR data files is the most time-consuming part of Step 0, as these files are large and multiple years of data are downloaded.
+
 ### Step 1: Parameter Categorization
 **Files:** `step1_parameter_categorization.py` / `step1_parameter_categorization.R`
 
@@ -63,6 +65,8 @@ Identifies facilities that are at risk of exceeding their current permit limit i
 - `data/wwna_list/NPDES+WDR Facilities List_20240906.csv`: WWNA facilities list
 - `data/manual_updates/stat_base_code_mapping.json`: Mapping of ESMR calcultion methods to DMR stat base codes
 - `data/manual_updates/unit_aliases.csv`: Unit normalization aliases
+
+Loading and processing ESMR data is the most time-consuming part of Step 3, as these files are large and contain many years of monitoring records.
 
 **Outputs:**
 - `processed_data/step3/flagged_facilities_step3_py.csv` / `flagged_facilities_step3_R.csv`: Facilities flagged for near exceedance
@@ -171,10 +175,16 @@ pip install -e .
 ```
 
 #### R
-Install the required packages
+Install the required packages:
 ```r
-install.packages(c("tidyverse", "jsonlite", "readxl", "sf", "raster", "viridis", "gridExtra", "scales", "httr", "lubridate", "parallel"))
+install.packages(c("tidyverse", "jsonlite", "readxl", "sf", "ggplot2", "gridExtra", "httr", "raster", "viridis", "scales", "units"))
 ```
+
+`tidyverse` includes many packages (dplyr, readr, tidyr, etc.), but `ggplot2` is also explicitly loaded separately. The `units` package is required for unit conversions in step 3.
+
+The two most time-consuming operations in the pipeline are:
+1. **Step 0:** Downloading ESMR data files (large files, multiple years)
+2. **Step 3:** Loading and processing ESMR data (large datasets with many monitoring records)
 
 
 ### Adjust configurations
