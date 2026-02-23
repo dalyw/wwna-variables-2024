@@ -71,8 +71,17 @@ def main(skip_steps=None, num_processes=4, exclude_noncompliant=True):
 
     # Merge additional data sources
     print(f"Original WWNA_LIST length: {len(WWNA_LIST_FINAL)}")
+
+    # Population: step2 output is already keyed to WWNA facilities (same row order)
+    # Just add the population columns directly
+    pop_cols = [c for c in population.columns if c not in WWNA_LIST_FINAL.columns]
+    for col in pop_cols:
+        WWNA_LIST_FINAL[col] = population[col].values
+    n_pop = WWNA_LIST_FINAL["Population Served"].notna().sum()
+    print(f" After population merge: {n_pop} with population data")
+
+    # Exceedance and future limits: NPDES-only merge
     for df, right_on in [
-        (population, "PERMIT_NUMBER"),
         (exceedance, "EXTERNAL_PERMIT_NMBR"),
         (future_limits[future_limits_merge_cols], "NPDES # CA#"),
     ]:

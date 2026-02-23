@@ -2,6 +2,8 @@
 # Updated to match Python step2_population_served.py methodology
 # with support from Claude 4.0
 
+# Note - NOT UPDATED compared to current .py file version as of Feb 2026
+
 library(tidyverse)
 library(ggplot2)
 

@@ -1,98 +1,97 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from helper_functions import load_data, save_fig, setup_fig, STEP_DIRS
+from helper_functions import load_data, save_fig, setup_fig, STEP_DIRS, WWNA_LIST
 
 
 def main():
-    # Load and process all data sources
+    """Estimate population served per WWNA facility using priority: CWNS > SSO > COVID.
+
+    Starts from the full WWNA facility list and merges three population sources:
+    - CWNS: matched via NPDES # CA# and ORDER # (from manual matching table)
+    - SSO: matched via WDID (SSOQ_TO_WDID_1 = receiving treatment plant)
+    - COVID wastewater surveillance: matched via NPDES # CA# (epaid)
+    """
+
+    # Load population data sources
     cwns_df = load_data("CWNS")
     covid_data = load_data("WW_SURVEILLANCE")
-    sso_data = load_data("SSO")
-    print(f"Loaded {len(cwns_df)} California facilities from CWNS data")
+    sso_raw = load_data("SSO")
+    sso_data = sso_raw.groupby("WDID")["population_sso"].sum().reset_index()
+    print(f"Loaded {len(cwns_df)} CWNS, {len(covid_data)} COVID, {len(sso_data)} SSO records")
 
-    # Load manual matches to prioritize PERMIT_NUMBERs that match
+    # Load manual CWNS-to-WWNA matching table
     manual_matches = pd.read_csv("data/manual_updates/cwns_facilities_match_manual.csv")
+    cwns_to_wwna = manual_matches[
+        ["PERMIT_NUMBER", "NPDES # CA#", "ORDER #"]
+    ].drop_duplicates(subset=["PERMIT_NUMBER"])
+    cwns_df = cwns_df.merge(cwns_to_wwna, on="PERMIT_NUMBER", how="left")
 
-    # Get permit numbers for prioritization
-    manual_permit_numbers = set(manual_matches["PERMIT_NUMBER"].dropna().unique())
-    manual_permit_no_clean = set(manual_matches["PERMIT_NO_clean"].dropna().unique())
-    all_manual_permits = manual_permit_numbers | manual_permit_no_clean
+    # Start from full WWNA facility list
+    merged_df = WWNA_LIST[["NPDES # CA#", "ORDER #", "WDID", "FACILITY NAME"]].copy()
+    print(f"WWNA facilities: {len(merged_df)}")
 
-    # Create mapping dictionary from PERMIT_NUMBER to PERMIT_NO_clean
-    manual_map = (
-        manual_matches[["PERMIT_NUMBER", "PERMIT_NO_clean"]]
-        .dropna(subset=["PERMIT_NO_clean"])
-        .drop_duplicates()
-        .set_index("PERMIT_NUMBER")["PERMIT_NO_clean"]
-        .to_dict()
+    # --- CWNS: two-pass merge (NPDES first, then ORDER for unmatched) ---
+    cwns_cols = ["population_cwns", "population_cwns_2042"]
+    cwns_npdes = cwns_df[cwns_df["NPDES # CA#"].notna()][["NPDES # CA#"] + cwns_cols]
+    cwns_order = cwns_df[cwns_df["ORDER #"].notna()][["ORDER #"] + cwns_cols]
+
+    m_npdes = merged_df.merge(cwns_npdes, on="NPDES # CA#", how="left")
+    m_order = merged_df.merge(cwns_order, on="ORDER #", how="left")
+    for col in cwns_cols:
+        merged_df[col] = m_npdes[col].combine_first(m_order[col])
+
+    # --- SSO: merge via WDID ---
+    merged_df = merged_df.merge(sso_data, on="WDID", how="left")
+
+    # --- COVID: merge via NPDES (epaid) ---
+    # Uppercase epaid to match WWNA NPDES format (COVID data has mixed case)
+    covid_data["epaid"] = covid_data["epaid"].str.upper()
+    covid_data = covid_data.drop_duplicates(subset=["epaid"])
+    merged_df = merged_df.merge(
+        covid_data, left_on="NPDES # CA#", right_on="epaid", how="left"
     )
 
-    # Aggregate CWNS data: group by PERMIT_NUMBER, sum population
-    cwns_agg = []
-    for cwns_id, group in cwns_df.groupby("CWNS_ID"):
-        if len(group) > 1:
-            # Check which PERMIT_NUMBERs have manual matches
-            has_match = group["PERMIT_NUMBER"].isin(all_manual_permits)
-            if has_match.any():
-                # Keep the first one that has a match
-                group = group[has_match].iloc[:1]
-            else:
-                # Keep first if no matches
-                group = group.iloc[:1]
-        cwns_agg.append(group)
+    # Label each facility with which sources provided population data
+    source_flags = {
+        "CWNS": merged_df["population_cwns"].notna(),
+        "SSO": merged_df["population_sso"].notna(),
+        "COVID": merged_df["population_covid"].notna(),
+    }
+    merged_df["source"] = [
+        "+".join(name for name, flag in source_flags.items() if flag.iloc[i])
+        or "No data"
+        for i in range(len(merged_df))
+    ]
 
-    cwns_df = pd.concat(cwns_agg, ignore_index=True)
-    print(f"After dropping duplicate CWNS_IDs: {len(cwns_df)} rows")
+    # Population priority: CWNS > SSO > COVID
+    merged_df["Population Served"] = (
+        merged_df["population_cwns"]
+        .combine_first(merged_df["population_sso"])
+        .combine_first(merged_df["population_covid"])
+    )
 
-    # Apply manual permit number mappings before merges
-    if len(manual_map) > 0:
-        # Apply mapping where PERMIT_NUMBER != mapped value (permit number is updated)
-        for permit, cleaned in manual_map.items():
-            if permit != cleaned:
-                cwns_df.loc[cwns_df["PERMIT_NUMBER"] == permit, "PERMIT_NUMBER"] = (
-                    cleaned
-                )
-        non_identity_mappings = sum(1 for k, v in manual_map.items() if k != v)
-        if non_identity_mappings > 0:
-            print(f"Applied {non_identity_mappings} manual permit number mappings")
+    n_pop = merged_df["Population Served"].notna().sum()
+    print(f"Facilities with population data: {n_pop} of {len(merged_df)}")
+    print(merged_df["source"].value_counts().to_string())
 
-    # Merge COVID surveillance then SSO questionnaire population data
-    merged_df = cwns_df.copy()
-    kwargs = {"left_on": "PERMIT_NUMBER", "how": "left"}
-    merged_df = merged_df.merge(covid_data, right_on="epaid", **kwargs)
-    merged_df = merged_df.merge(sso_data, right_on="permit_number", **kwargs)
+    # Side-by-side pie charts: NPDES facilities vs ALL facilities
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
 
-    # Classify facilities by data source
-    has_cwns = merged_df["population_cwns"].notna()
-    has_covid = merged_df["population_covid"].notna()
-    has_sso = merged_df["population_sso"].notna()
+    npdes_mask = merged_df["NPDES # CA#"].notna()
+    for ax, mask, title in [
+        (ax1, npdes_mask, f"NPDES Facilities (n={npdes_mask.sum()})"),
+        (ax2, pd.Series(True, index=merged_df.index), f"All Facilities (n={len(merged_df)})"),
+    ]:
+        pie_data = merged_df.loc[mask, "source"].value_counts()
+        ax.pie(pie_data.values, labels=pie_data.index, autopct="%1.1f%%")
+        ax.set_title(title)
 
-    def get_source(row_idx):
-        sources = []
-        if has_cwns.iloc[row_idx]:
-            sources.append("CWNS")
-        if has_covid.iloc[row_idx]:
-            sources.append("COVID")
-        if has_sso.iloc[row_idx]:
-            sources.append("SSO")
-        return "+".join(sources) if sources else "Unmatched"
-
-    merged_df["source"] = [get_source(i) for i in range(len(merged_df))]
-    pie_data = merged_df["source"].value_counts().to_dict()
-
-    # Create pie chart
-    fig, ax = setup_fig(figsize=(10, 8))
-    ax.pie(pie_data.values(), labels=pie_data.keys(), autopct="%1.1f%%")
-    plt.title("Population Data Sources for Facilities")
+    plt.suptitle("Population Data Sources for WWNA Facilities")
+    plt.tight_layout()
     save_fig("population_source_comparison.png", 2)
 
-    # Calculate statistics and identify discrepancies
-    pop_columns = [col for col in merged_df.columns if "population" in col]
-    merged_df["Population Served"] = merged_df[pop_columns].mean(axis=1)
-    merged_df["pop_std"] = merged_df[pop_columns].std(axis=1).round(2)
-
-    # Calculate annualized population growth rate from 2022 to 2042 (20-year period)
-    # Using compound annual growth rate (CAGR): ((end/start)^(1/years) - 1) * 100
+    # Compute annualized population growth rate (CAGR)
+    # CWNS provides a 2042 projection and 2022 current values
     from_cwns = merged_df["source"].str.contains("CWNS", na=False)
     years = 20  # 2022 to 2042
     merged_df.loc[from_cwns, "population_growth_rate"] = (
@@ -107,21 +106,15 @@ def main():
         * 100
     ).round(2)
 
-    # Population Histogram
+    # Histogram of population served across all facilities
     fig, ax = setup_fig()
-    plt.hist(merged_df["Population Served"].dropna(), bins=50)
+    plt.hist(merged_df["Population Served"].dropna(), bins=50, log=True)
     plt.xlabel("Population Served")
     plt.ylabel("Number of Facilities")
+    ax.get_xaxis().set_major_formatter(plt.FuncFormatter(lambda x, _: f"{int(x):,}"))
+    ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda y, _: f"{int(y):,}"))
     save_fig("population_distribution.png", 2)
 
-    # Deduplicate by PERMIT_NUMBER before saving
-    # (some facilities have multiple CWNS records after merging)
-    initial_rows = len(merged_df)
-    merged_df = merged_df.drop_duplicates(subset=["PERMIT_NUMBER"], keep="first")
-    if initial_rows != len(merged_df):
-        print(f"Deduplicated population data: {initial_rows} -> {len(merged_df)} rows")
-
-    # Save merged population data
     merged_df.to_csv(f"{STEP_DIRS[2]}/merged_population_data_py.csv", index=False)
 
 

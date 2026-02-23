@@ -198,6 +198,7 @@
       "epaid": "str",
       "population_served": "float"
     },
+    "dropna": ["epaid"],
     "explode": ["epaid"],
     "drop_duplicates": ["epaid"],
     "rename": {
@@ -213,17 +214,18 @@
     },
     "dtype": {
       "Wdid": "str",
+      "SSOQ_TO_WDID_1": "str",
       "SSOq Population Served": "float",
       "Status": "str"
     },
     "rename": {
       "SSOq Population Served": "population_sso",
-      "Wdid": "permit_number"
+      "SSOQ_TO_WDID_1": "WDID"
     },
+    "dropna": ["SSOQ_TO_WDID_1", "SSOq Population Served"],
     "filters": {
       "Status": ["Active"]
-    },
-    "drop_duplicates": ["Wdid"]
+    }
   }
 }
 
